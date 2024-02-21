@@ -4,6 +4,7 @@ import AddGroupModal from './AddGroupModal';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
+
 const Creategroup = () => {
   const currentUser = useSelector((state) => state.user);
   const [subjectList, setSubjectList] = useState([]);
@@ -188,6 +189,7 @@ const Creategroup = () => {
 
     // Check if both currentYear and semester are selected before making the API call
     if (currentUser.currentYear && groupDetails.semester) {
+      fetchStudentName();
       fetchStudentName();
     }
   }, [groupDetails.semester]);
