@@ -1,0 +1,23 @@
+table:hover,
+tr:hover,
+thead:hover {
+  background: #ffffff !important;
+}
+
+.ant-table-tbody > tr.ant-table-row:hover > td {
+  background: #ededed !important;
+}
+.ant-table-cell {
+  text-align: center !important ;
+}
+.ant-pagination-prev {
+  color: white !important;
+  /* cursor: pointer; */
+  font-weight: 100 !important;
+  font-size: 10px !important;
+
+  border: 1px solid black !important;
+}
+.ant-table-wrapper .ant-table-tbody .ant-table-row > .ant-table-cell-row-hover {
+  background: #ebebeb !important;
+}

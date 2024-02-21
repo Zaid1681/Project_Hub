@@ -33,6 +33,15 @@ const Alerts = lazy(() => import('./pages/UiElements/Alerts'));
 const Buttons = lazy(() => import('./pages/UiElements/Buttons'));
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
 const StudentGroups = lazy(() => import('./pages/Details/StudentGroups'));
+const GroupViewPage = lazy(() =>
+  import('./pages/FacultyGroupVPage/GroupViewPage')
+);
+const FacultyGroupspage = lazy(() =>
+  import('./pages/FacultyGroupVPage/FacultyGroupspage')
+);
+const GroupDetailsPage = lazy(() =>
+  import('./pages/FacultyGroupVPage/GroupDetailsPage')
+);
 import { useSelector } from 'react-redux';
 import AdminSignIn from './pages/Authentication/AdminSignIn';
 import FacultyProjectDetail from './pages/Details/FacultyProjectDetail';
@@ -121,11 +130,28 @@ function App() {
                   </Suspense>
                 }
               />
+              {/* Groups Section and its Routes */}
+              <Route
+                path="/:currentYear/groups/groupsList/:subject/:semester/:academic"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <FacultyGroupspage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/group/get/:id"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <GroupDetailsPage />
+                  </Suspense>
+                }
+              />
               <Route
                 path="/:currentYear/group"
                 element={
                   <Suspense fallback={<Loader />}>
-                    <StudentGroups />
+                    <GroupViewPage />
                   </Suspense>
                 }
               />
