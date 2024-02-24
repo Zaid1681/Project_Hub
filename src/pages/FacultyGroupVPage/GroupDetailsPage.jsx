@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import AssignGuide from './component/AssignGuide';
 
 const GroupDetailsPage = () => {
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
-  const path = useLocation().pathname.split('/')[3];
-  console.log(path);
+  const [groupStatus, setGroupStatus] = useState('Inprocess'); // State for group status
+  const [approvedProjId, setApprovedProjId] = useState(null);
+  const groupId = useLocation().pathname.split('/')[3];
+  console.log(groupId);
   const toggleDropdown = (index) => {
     setOpenDropdownIndex(openDropdownIndex === index ? null : index);
   };
@@ -16,7 +19,7 @@ const GroupDetailsPage = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/group/get/${path}`
+          `http://localhost:8080/api/group/get/${groupId}`
         );
         setData(response.data.data);
         // console.log(response.data.data);
@@ -27,7 +30,7 @@ const GroupDetailsPage = () => {
     const fetchProject = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/projectIdea/getProjByGroupId/${path}`
+          `http://localhost:8080/api/projectIdea/getProjByGroupId/${groupId}`
         );
         setProjectDetails(response.data.data);
         // console.log(response.data.data);
@@ -38,18 +41,47 @@ const GroupDetailsPage = () => {
     // console.log('Yatra Packages', packages);
     fetchData();
     fetchProject();
-  }, [path]); // Include path as a dependency to update only when path changes
-  console.log('data', data);
-  // console.log('==>  ', membersName);
-  // console.log('==>  ', projectDetails);
+  }, [groupId]);
 
+  // Include groupId as a dependency to update only when groupId changes
+  // console.log('data', data);
+  const handleStatus = async (projectId, projectStatus) => {
+    const status = !projectStatus;
+    status === true ? setApprovedProjId(projectId) : setApprovedProjId(null);
+    console.log(projectId, status);
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/projectIdea/updateProjectStatus/${projectId}/${status}`
+      );
+      console.log('Status updated Sucessfully');
+      // console.log(response.data.data);
+    } catch (error) {
+      console.log('Error Udpating Status', error);
+    }
+  };
+  const handleSaveChanges = async () => {
+    const status = !projectStatus;
+    console.log(projectId, status);
+
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/group/updateStatus/${groupId}/status?status=${groupStatus}`
+      );
+      console.log('Status updated Sucessfully');
+      // console.log(response.data.data);
+    } catch (error) {
+      console.log('Error Udpating Status', error);
+    }
+  };
+  const handleGroupStatusChange = (event) => {
+    setGroupStatus(event.target.value); // Update the group status state
+  };
+  console.log('===>', groupStatus);
   return (
     <main className="bg-gray-100 min-h-screen">
       <section className="mx-auto p-4 md:p-10">
         <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 text-3xl font-semibold text-[#0C356A]">
-            GROUP FORMATION
-          </h2>
+          <h2 className="mb-7 text-3xl font-semibold text-[#0C356A]">GROUP</h2>
 
           <div className="space-y-6">
             <div className="flex items-center gap-10  text-black ">
@@ -103,7 +135,7 @@ const GroupDetailsPage = () => {
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path
+                  <groupId
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
@@ -175,17 +207,61 @@ const GroupDetailsPage = () => {
                   <h2 className="mt-1 text-lg">{data}</h2>
                 ))}
               </div>
+              <h1> {val.isApproved === true ? 'Approved' : 'Not Approved'}</h1>
               <div className="flex justify-start">
                 <button
                   type="submit"
                   className="rounded bg-black py-2 px-4 font-semibold text-white"
+                  onClick={() => {
+                    handleStatus(val._id, val.isApproved);
+                  }}
                 >
-                  Approve
+                  {val.isApproved ? 'Approved' : 'Not Approved'}
                 </button>
               </div>
             </div>
           </div>
         ))}
+        <div className="container my-10 mx-auto  gap-10 rounded-lg bg-white p-8 shadow-md">
+          <h2 className="mb-7 text-xl font-semibold text-[#0C356A]">
+            Guide Deails
+          </h2>
+          <div className="flex gap-10">
+            {' '}
+            <p className="text-lg font-bold text-black/90">Assigned Guide : </p>
+            <h1 className="text-lg font-bold text-black">{data?.guideName}</h1>
+          </div>
+          {/* <h1>{data.guideId}</h1> */}
+        </div>
+
+        <div className="flex gap-10">
+          <div className="group relative z-0 w-full items-center md:w-1/3">
+            <select
+              id="countries"
+              className=" text-gray-900 text-md focus:ring-blue-500
+              placeholder-gray-400   bg-gray-900 block 
+              w-full w-[90%] items-center  
+              rounded-lg border border-black p-2 font-semibold text-black"
+              onChange={handleGroupStatusChange}
+            >
+              <option value="Inprocess">Inprocess</option>
+              <option value="Approved">Approved</option>
+              <option value="Improvement">Improvement</option>
+              <option value="Rejected">Rejected</option>
+              {/* <option value="IN">India</option> */}
+            </select>
+          </div>
+          <AssignGuide groupId={groupId} guideName={data?.guideName} />
+          <div className="flex justify-start">
+            <button
+              className="no-hover my-auto rounded border bg-black px-10 py-2 
+          text-[1rem] font-medium text-white" // Add "no-hover" class to remove hover effect
+              onClick={handleSaveChanges}
+            >
+              Save Changes
+            </button>
+          </div>
+        </div>
       </section>
     </main>
   );

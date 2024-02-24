@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Tag } from 'antd';
-import Groups from './component/Groups.jsx';
+import ApprovedGroupsPage from './component/ApprovedGroupsPage.jsx';
 import Projects from './component/Projects.jsx';
 import Projects2 from './component/Projects2.jsx';
 
@@ -37,7 +37,7 @@ const FacultyGroupspage = () => {
           </button>
         </div>
         {showTable && <Projects2 />}
-        {showGroups && <Groups />}
+        {showGroups && <ApprovedGroupsPage />}
       </div>
     </section>
   );

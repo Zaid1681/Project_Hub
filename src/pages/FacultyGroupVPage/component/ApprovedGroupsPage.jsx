@@ -1,6 +1,24 @@
 import React, { useState } from 'react';
 
-const Groups = () => {
+const ApprovedGroupsPage = () => {
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         `http://localhost:8080/api/group/groupsList/get/${academic}/${currentYear}/${subject}/${semester}`
+  //       );
+  //       // console.log(res.data);
+  //       setData(res.data.data);
+  //       // alert(res.data.message);
+  //       console.log('==>', res.data.data);
+  //     } catch (error) {
+  //       alert(error.response.data.message);
+  //     }
+  //   };
+  //   // fetchVideo();
+  //   fetchData();
+  // }, []);
+
   const groups = [
     {
       id: 1,
@@ -122,4 +140,4 @@ const Groups = () => {
   );
 };
 
-export default Groups;
+export default ApprovedGroupsPage;

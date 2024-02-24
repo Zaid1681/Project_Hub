@@ -46,6 +46,7 @@ import { useSelector } from 'react-redux';
 import AdminSignIn from './pages/Authentication/AdminSignIn';
 import FacultyProjectDetail from './pages/Details/FacultyProjectDetail';
 import HomePage from './pages/HomePage';
+import ApprovedGroupsPage from './pages/FacultyGroupVPage/component/ApprovedGroupsPage';
 function App() {
   const [loading, setLoading] = useState(false);
 
@@ -139,6 +140,14 @@ function App() {
                   </Suspense>
                 }
               />
+              {/* <Route
+                path="/:currentYear/groups/approved/groupsList/:subject/:semester/:academic"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <ApprovedGroupsPage />
+                  </Suspense>
+                }
+              /> */}
               <Route
                 path="/group/get/:id"
                 element={

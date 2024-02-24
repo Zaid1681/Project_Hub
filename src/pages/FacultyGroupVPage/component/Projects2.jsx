@@ -34,7 +34,7 @@ const Project2 = () => {
         );
         // console.log(res.data);
         setData(res.data.data);
-        alert(res.data.message);
+        // alert(res.data.message);
         console.log('==>', res.data.data);
       } catch (error) {
         alert(error.response.data.message);
