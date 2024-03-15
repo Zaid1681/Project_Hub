@@ -206,7 +206,7 @@ const SignIn = () => {
                       name="currentYear"
                       value={loginData.currentYear}
                       onChange={handleLoginInputChange}
-                      className="border-grey w-full rounded-lg border  bg-transparent py-3 pl-4 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      className="border-grey bg -transparent w-full  rounded-lg border py-3 pl-4 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     >
                       <option selected>Select Current Year</option>
                       <option name="currentYear" value="SE">

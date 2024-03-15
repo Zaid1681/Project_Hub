@@ -1,0 +1,7 @@
+/* AdPurchase.css */
+.no-hover:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+  border-color: white !important;
+  box-shadow: none !important;
+}

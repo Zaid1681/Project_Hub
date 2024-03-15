@@ -1,18 +1,23 @@
 import Breadcrumb from '../components/Breadcrumb';
-import CardFour from '../components/CardFour';
-import CardOne from '../components/CardOne';
-import CardThree from '../components/CardThree';
-import CardTwo from '../components/FacultyProjectCard';
-import CoverOne from '../images/cover/cover-01.png';
-import userSix from '../images/user/user-06.png';
-// import "./contact.css"
+// import CardFour from '../components/CardFour';
+// import CardOne from '../components/CardOne';
+// import CardThree from '../components/CardThree';
+// import CardTwo from '../components/FacultyProjectCard';
+// import CoverOne from '../images/cover/cover-01.png';
+// import userSix from '../images/user/user-06.png';
+// import Carousel from /'../components/Carousel';
+import Carousel from '../components/Carousal';
+import Skills from '../components/Skills';
+import { FaMapLocationDot } from 'react-icons/fa6';
+import { IoIosMail } from 'react-icons/io';
+import { FaCalendarAlt } from 'react-icons/fa';
+// import './contact.css';
 
 const Profile = () => {
   return (
     <>
       <Breadcrumb pageName="View Project" />
-
-      <div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+      {/* <div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="relative z-20 h-35 md:h-65">
           <img
             src={CoverOne}
@@ -92,30 +97,27 @@ const Profile = () => {
           </div>
           <div className="mt-4">
             <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-            Project Hub:Collaborative Platform for Students and Faculty
+              Project Hub:Collaborative Platform for Students and Faculty
             </h3>
             <p className="font-medium"></p>
             <div className="mx-auto mt-4.5 mb-5.5 grid max-w-94 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
               <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
-              <span className="text-sm">Year</span>
+                <span className="text-sm">Year</span>
                 <span className="font-semibold text-black dark:text-white">
                   2nd
                 </span>
-                
               </div>
               <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
-              <span className="text-sm">Semester</span>
+                <span className="text-sm">Semester</span>
                 <span className="font-semibold text-black dark:text-white">
                   III
                 </span>
-                
               </div>
               <div className="flex flex-col items-center justify-center gap-1 px-4 xsm:flex-row">
-              <span className="text-sm">ID:</span>
+                <span className="text-sm">ID:</span>
                 <span className="font-semibold text-black dark:text-white">
                   201944101
                 </span>
-                
               </div>
             </div>
 
@@ -133,41 +135,111 @@ const Profile = () => {
             </div>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardOne />
-        <CardOne />
-        <CardOne />
-        <CardOne />
-      </div>
+              <CardOne />
+              <CardOne />
+              <CardOne />
+              <CardOne />
+            </div>
 
             <div className="mt-6.5">
               <h4 className="mb-3.5 font-medium text-black dark:text-white">
                 Contact me
               </h4>
               <div className="flex items-center justify-center gap-3.5">
-                
-              <a href="#" className="icon-link">
-        <span>Facebook</span>
-      </a>
-      <a href="#" className="icon-link">
-        <span>LinkedIn</span>
-      </a>
-      <a href="#" className="icon-link">
-        <span>GMail</span>
-      </a>
-      <a href="#" className="icon-link">
-        <span>Github</span>
-      </a>
-      <a href="#" className="icon-link">
-        <span>Instagram</span>
-      </a>
-      <a href="#" className="icon-link">
-        <span>CodeChief</span>
-      </a>
+                <a href="#" className="icon-link">
+                  <span>Facebook</span>
+                </a>
+                <a href="#" className="icon-link">
+                  <span>LinkedIn</span>
+                </a>
+                <a href="#" className="icon-link">
+                  <span>GMail</span>
+                </a>
+                <a href="#" className="icon-link">
+                  <span>Github</span>
+                </a>
+                <a href="#" className="icon-link">
+                  <span>Instagram</span>
+                </a>
+                <a href="#" className="icon-link">
+                  <span>CodeChief</span>
+                </a>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
+
+      <section className="container mx-auto my-20 px-5">
+        <div className="my-5 flex items-center gap-4">
+          {/* <img
+            src={avatar}
+            alt=""
+            className="w-[90px] rounded-full md:w-[149px]"
+          /> */}
+          <div>
+            <h1 className="text-2xl font-medium md:text-4xl">Name Surname</h1>
+            <p className="text-lg italic">
+              I am a software Developer based in Mumbai
+            </p>
+          </div>
+        </div>
+        <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-2">
+          <div className="bg-gray-100 rounded-md p-7 shadow-lg ">
+            <h2 className="text-xl font-semibold">About Me</h2>
+            <p className="mt-1 ml-3 justify-start text-base">
+              In publishing and graphic design, Lorem ipsum is a placeholder
+              text commonly used to demonstrate the visual form of a document or
+              a typeface without relying on meaningful content. Lorem ipsum may
+              be used as a placeholder before the final copy is available.
+            </p>
+
+            <h2 className="mt-5 text-xl font-semibold">Address</h2>
+            <div className="ml-3 mt-1 flex items-center gap-2">
+              <FaMapLocationDot size={20} />
+              <p className="justify-start text-base ">
+                Akshya Nagar 1st Block 1st Cross, Rammurthy nagar,
+                Bangalore-560016
+              </p>
+            </div>
+            <h2 className="mt-5 text-xl font-semibold">VCET Email Id</h2>
+            <div className="ml-3 mt-1 flex items-center gap-2">
+              <IoIosMail size={20} />
+              <p className="justify-start text-base">
+                vaishnavi.201924201@vcet.edu.in
+              </p>
+            </div>
+            <h2 className="mt-5 text-xl font-semibold">Student Id</h2>
+            <p className="mt-1 ml-3 justify-start text-base ">201924201</p>
+          </div>
+          <div className="bg-gray-100 rounded-md p-7 shadow-lg">
+            <Skills />
+            <h2 className="mt-5 text-xl font-semibold">About Location</h2>
+            <div className="ml-3 mt-1 flex items-center gap-2">
+              <FaMapLocationDot size={20} />
+              <p className="justify-start text-base">Mumbai, India</p>
+            </div>
+            <h2 className="mt-5 text-xl font-semibold">Joining Year</h2>
+            <div className="ml-3 mt-1 flex items-center gap-2">
+              <FaCalendarAlt size={20} />
+              <p className="justify-start text-base ">20 June, 2020</p>
+            </div>
+            <h2 className="mt-5 text-xl font-semibold">Passing Year</h2>
+            <div className="ml-3 mt-1 flex items-center gap-2">
+              <FaCalendarAlt size={20} />
+              <p className="justify-start text-base ">20 June, 2024</p>
+            </div>
+            <h2 className="mt-5 text-xl font-semibold">Department</h2>
+            <p className="mt-1 ml-3 justify-start text-base">
+              Information Technology
+            </p>
+          </div>
+        </div>
+        <div className="mt-20">
+          <h1 className="mb-5 text-3xl font-semibold">My Projects:</h1>
+          {/* <Carousel /> */}
+        </div>
+      </section>
     </>
   );
 };

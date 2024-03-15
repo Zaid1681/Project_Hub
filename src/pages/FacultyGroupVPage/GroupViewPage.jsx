@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Breadcrumb from '../../components/Breadcrumb';
-import SubjectCard from '../../components/SubjectCard';
+// import GroupSubjectCard from '../../components/SubjectCard';
+import GroupSubjectCard from './GroupSubjectCard';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-const SubjectPage = () => {
+const GroupViewPage = () => {
   const currentYear = useLocation().pathname.split('/')[1];
   const [projectDetails, setProjectDetails] = useState({
     semester: localStorage.getItem('selectedSemester') || '', // Retrieve selected semester from localStorage
@@ -82,7 +83,7 @@ const SubjectPage = () => {
       {/* Subject Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
         {subjectList.map((subject, index) => (
-          <SubjectCard
+          <GroupSubjectCard
             Two
             key={index}
             subject={subject}
@@ -96,4 +97,4 @@ const SubjectPage = () => {
   );
 };
 
-export default SubjectPage;
+export default GroupViewPage;

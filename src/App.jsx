@@ -13,6 +13,7 @@ import GroupComment from './pages/GroupComment';
 import GroupSection from './pages/GroupSection';
 import Profile from './pages/Profile';
 import { BrowserRouter as Router } from 'react-router-dom';
+
 // import ProjectList from './pages/Details/ProjectList';
 const Home = lazy(() => import('./pages/Home'));
 const Chart = lazy(() => import('./pages/Chart'));
@@ -33,10 +34,30 @@ const Alerts = lazy(() => import('./pages/UiElements/Alerts'));
 const Buttons = lazy(() => import('./pages/UiElements/Buttons'));
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
 const StudentGroups = lazy(() => import('./pages/Details/StudentGroups'));
+const GroupViewPage = lazy(() =>
+  import('./pages/FacultyGroupVPage/GroupViewPage')
+);
+const FacultyGroupspage = lazy(() =>
+  import('./pages/FacultyGroupVPage/FacultyGroupspage')
+);
+const IndividualGroupPage = lazy(() =>
+  import('./pages/FacultyGroupVPage/IndividualGroupPage')
+);
+const GroupDetailsPage = lazy(() =>
+  import('./pages/FacultyGroupVPage/GroupDetailsPage')
+);
+const IndividualGroupDetailsPage = lazy(() =>
+  import('./pages/IndividualGroupDetailsPage')
+);
+
+const TaskPage = lazy(() =>
+  import('./pages/TaskPage')
+);
 import { useSelector } from 'react-redux';
 import AdminSignIn from './pages/Authentication/AdminSignIn';
 import FacultyProjectDetail from './pages/Details/FacultyProjectDetail';
 import HomePage from './pages/HomePage';
+import ApprovedGroupsPage from './pages/FacultyGroupVPage/component/ApprovedGroupsPage';
 function App() {
   const [loading, setLoading] = useState(false);
 
@@ -112,7 +133,7 @@ function App() {
                     <FacultyProjectDetail />
                   </Suspense>
                 }
-              />{' '}
+              />
               <Route
                 path="/:currentYear/project/subject/project/projectlist/:subject/:semester/:academic"
                 element={
@@ -121,11 +142,60 @@ function App() {
                   </Suspense>
                 }
               />
+              {/* Groups Section and its Routes */}
+              <Route
+                path="/:currentYear/groups/groupsList/:subject/:semester/:academic"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <FacultyGroupspage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/:currentYear/groups/groupsList/:subject/:semester/:academic/:groupId"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <IndividualGroupPage />
+                  </Suspense>
+                }
+              />
+              {/* <Route
+                path="/:currentYear/groups/approved/groupsList/:subject/:semester/:academic"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <ApprovedGroupsPage />
+                  </Suspense>
+                }
+              /> */}
+              <Route
+                path="/group/get/:id"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <GroupDetailsPage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/groupsection/group/:id"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <IndividualGroupDetailsPage />
+                  </Suspense>
+                }
+              />
               <Route
                 path="/:currentYear/group"
                 element={
                   <Suspense fallback={<Loader />}>
-                    <StudentGroups />
+                    <GroupViewPage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/:currentYear/groups/groupsList/:subject/:semester/:academic/assignTask"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    {/* <AssignTaskFaculty /> */}
                   </Suspense>
                 }
               />
@@ -154,6 +224,14 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <Semproject />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/view-task"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <TaskPage />
                   </Suspense>
                 }
               />
