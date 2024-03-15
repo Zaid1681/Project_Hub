@@ -4,7 +4,6 @@ import Toastify from 'toastify-js';
 import axios from 'axios ';
 const Addproject = () => {
   const currentUser = useSelector((state) => state.user);
-  // console.log('add project', currentUser.academicYear);
 
   const [subjectList, setSubjectList] = useState([]);
   const [loadingSubjects, setLoadingSubjects] = useState(false);
@@ -13,11 +12,6 @@ const Addproject = () => {
     title: '',
     description: '',
     pdfLinks: [''],
-    // socialMediaLinks: [
-    //   { platform: 'Facebook', link: '' },
-    //   { platform: 'GitHub', link: '' },
-    //   { platform: 'LinkedIn', link: '' },
-    // ],
     github: '',
     linkedinLink: '',
     currentYear: '',
@@ -27,78 +21,93 @@ const Addproject = () => {
     keywords: [''],
     sName: '',
     studentId: null,
+    photos: [],
   });
 
   const handleInputChange = (e, key, index) => {
     const { value } = e.target;
 
-    if (key === 'pdfLinks') {
-      const updatedPdfLinks = [...projectDetails.pdfLinks];
-      updatedPdfLinks[index] = value;
-      setProjectDetails({ ...projectDetails, pdfLinks: updatedPdfLinks });
-    } else if (key === 'socialMediaLinks') {
-      const updatedSocialMediaLinks = [...projectDetails.socialMediaLinks];
-      updatedSocialMediaLinks[index].link = value;
-      setProjectDetails({
-        ...projectDetails,
-        socialMediaLinks: updatedSocialMediaLinks,
-      });
-    } else if (key === 'keywords') {
-      const updatedKeywords = [...projectDetails.keywords];
-      updatedKeywords[index] = value;
-      setProjectDetails({ ...projectDetails, keywords: updatedKeywords });
+    if (key === 'pdfLinks' || key === 'keywords') {
+      const updatedArray = [...projectDetails[key]];
+      updatedArray[index] = value;
+      setProjectDetails({ ...projectDetails, [key]: updatedArray });
     } else {
       setProjectDetails({ ...projectDetails, [key]: value });
     }
   };
 
-  const handleAdditionButtonClick = (key) => {
-    setProjectDetails((prevDetails) => {
-      if (key === 'pdfLinks') {
-        const updatedPdfLinks = [...prevDetails.pdfLinks, ''];
-        return { ...prevDetails, pdfLinks: updatedPdfLinks };
-      } else if (key === 'socialMediaLinks') {
-        const updatedSocialMediaLinks = [
-          ...prevDetails.socialMediaLinks,
-          { platform: '', link: '' },
-        ];
-        return { ...prevDetails, socialMediaLinks: updatedSocialMediaLinks };
-      } else if (key === 'keywords') {
-        const updatedKeywords = [...prevDetails.keywords, ''];
-        return { ...prevDetails, keywords: updatedKeywords };
-      } else {
-        return prevDetails;
-      }
-    });
-  };
-  const handleRemovalButtonClick = (key, index) => {
-    setProjectDetails((prevDetails) => {
-      if (key === 'pdfLinks') {
-        const updatedPdfLinks = [...prevDetails.pdfLinks];
-        updatedPdfLinks.splice(index, 1);
-        return { ...prevDetails, pdfLinks: updatedPdfLinks };
-      } else if (key === 'socialMediaLinks') {
-        const updatedSocialMediaLinks = [...prevDetails.socialMediaLinks];
-        updatedSocialMediaLinks.splice(index, 1);
-        return { ...prevDetails, socialMediaLinks: updatedSocialMediaLinks };
-      } else if (key === 'keywords') {
-        const updatedKeywords = [...prevDetails.keywords];
-        updatedKeywords.splice(index, 1);
-        return { ...prevDetails, keywords: updatedKeywords };
-      } else {
-        return prevDetails;
-      }
-    });
-  };
   const handleSemesterChange = (e) => {
-    const selectedSemester = parseInt(e.target.value, 10); // Convert to a number
+    const selectedSemester = parseInt(e.target.value, 10);
     setProjectDetails({ ...projectDetails, semester: selectedSemester });
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your code to submit the projectDetails to your backend or perform other actions
-    console.log('Submitted Project Details:', projectDetails);
+
+  const handleImageChange = (e) => {
+    const files = e.target.files;
+    setProjectDetails({ ...projectDetails, photos: files });
   };
+
+  const handleSubmitProject = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('title', projectDetails.title);
+    formData.append('description', projectDetails.description);
+    formData.append('github', projectDetails.github);
+    formData.append('linkedinLink', projectDetails.linkedinLink);
+    formData.append('semester', projectDetails.semester);
+    formData.append('subject', projectDetails.subject);
+    formData.append('academicYear', currentUser.academicYear);
+    formData.append('currentYear', currentUser.currentYear);
+    formData.append('sName', currentUser.userData.name);
+    formData.append('studentId', currentUser.userData._id);
+
+    // Append PDF links individually
+    projectDetails.pdfLinks.forEach((pdfLink) => {
+      formData.append('pdfLinks', pdfLink);
+    });
+
+    // Append keywords individually
+    projectDetails.keywords.forEach((keyword) => {
+      formData.append('keywords', keyword);
+    });
+
+    for (let i = 0; i < projectDetails.photos.length; i++) {
+      formData.append('photos', projectDetails.photos[i]);
+    }
+
+    try {
+      const res = await axios.post(
+        'http://localhost:8080/api/project/add',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      if (res) {
+        console.log('projectuploaded');
+        Toastify({
+          text: 'Project Submitted Successfully',
+          duration: 1800,
+          gravity: 'top',
+          position: 'right',
+          stopOnFocus: true,
+          style: {
+            background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+            padding: '10px 50px',
+          },
+          onClick: function () {},
+        }).showToast();
+        setTimeout(() => {
+          // Redirect or do any other action after successful submission
+        }, 2000);
+      }
+    } catch (error) {
+      console.error('Error during submission:', error);
+    }
+  };
+
+  // Fetch subjects
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
@@ -107,8 +116,6 @@ const Addproject = () => {
         const res = await axios.get(
           `http://localhost:8080/api/subject/get/sub?currentYear=${currentUser.currentYear}&semester=${projectDetails.semester}`
         );
-        console.log('----->', res.data.data);
-
         setSubjectList(res.data.data);
       } catch (error) {
         console.error('Error fetching subjects:', error);
@@ -117,75 +124,29 @@ const Addproject = () => {
       }
     };
 
-    // Check if both currentYear and semester are selected before making the API call
     if (currentUser.currentYear && projectDetails.semester) {
       fetchSubjects();
     }
-  }, [projectDetails.semester]);
+  }, [currentUser.currentYear, projectDetails.semester]);
 
-  const handlesubmitSubject = async (e) => {
-    e.preventDefault();
-    projectDetails.academicYear = currentUser.academicYear;
-    projectDetails.currentYear = currentUser.currentYear;
-    projectDetails.sName = currentUser.userData.name;
-    projectDetails.studentId = currentUser.userData._id;
-    // console.log(academicYear);
-    try {
-      const res = await axios.post(
-        'http://localhost:8080/api/project/add',
-        projectDetails
-      );
-
-      if (res) {
-        console.log('Project Added success');
-        // const userData = await res.json();
-        console.log('==>', res.data);
-        // const userData = res.data;
-        // const userToken = res.data.token;
-        // const academicYear = loginData.year;
-        // const year = loginData.currentYear;
-        // console.log(year);
-
-        Toastify({
-          text: 'Project Submitted Sucessfully',
-          duration: 1800,
-          gravity: 'top', // `top` or `bottom`
-          position: 'right', // `left`, `center` or `right`
-          stopOnFocus: true, // Prevents dismissing of toast on hover
-          style: {
-            background: 'linear-gradient(to right, #3C50E0, #3C50E0',
-            padding: '10px 50px',
-          },
-          onClick: function () {}, // Callback after click
-        }).showToast();
-        (setProjectDetails.title = ''),
-          (setProjectDetails.description = ''),
-          (setProjectDetails.pdfLinks = ''),
-          (setProjectDetails.github = ''),
-          (setProjectDetails.linkedinLink = ''),
-          (setProjectDetails.keywords = ''),
-          (setProjectDetails.semester = null),
-          setTimeout(() => {
-            navigate('/');
-          }, 2000);
-
-        // toast.success("Registration successful!");
-      } else {
-        console.error('Registration failed');
-        // toast.error("Registration failed. Please try again.");
-      }
-    } catch (error) {
-      console.error('Error during registration:', error);
-      // toast.error("An error occurred. Please try again later.");
-    }
+  const handleAdditionButtonClick = (key) => {
+    setProjectDetails((prevDetails) => ({
+      ...prevDetails,
+      [key]: [...prevDetails[key], ''],
+    }));
   };
-  // handleAddSubject();
-  // console.log('=====>', subjectList);
-  // console.log('=-->', projectDetails);
+
+  const handleRemovalButtonClick = (key, index) => {
+    setProjectDetails((prevDetails) => {
+      const updatedArray = [...prevDetails[key]];
+      updatedArray.splice(index, 1);
+      return { ...prevDetails, [key]: updatedArray };
+    });
+  };
   return (
     <div className="m-8 bg-white p-10 text-black shadow-xl dark:bg-boxdark dark:text-white">
       <h1 className="text-2xl font-bold">Project Details</h1>
-      <form onSubmit={handleSubmit} className="mt-8">
+      <form onSubmit={handleSubmitProject} className="mt-8">
         <div className="mb-4">
           <label className="block font-medium text-black dark:text-white">
             Project Title
@@ -198,7 +159,6 @@ const Addproject = () => {
             className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
           />
         </div>
-
         <div className="mb-4">
           <label className="block font-medium text-black dark:text-white">
             Description
@@ -328,7 +288,6 @@ const Addproject = () => {
             </div>
           ))}
         </div>
-
         {/* <div className="mb-4">
           <label className="block font-medium text-black dark:text-white">
             Social Media Links
@@ -352,8 +311,21 @@ const Addproject = () => {
               </button>
             </div>
           ))}
-        </div> */}
-
+        </div> */}{' '}
+        <div className="mb-4">
+          <label className="block font-medium text-black dark:text-white">
+            Images
+          </label>
+          <input
+            onChange={handleImageChange}
+            className="text-gray-900 border-gray-300 bg-gray-50 dark:text-gray-400 dark:bg-gray-700 
+              dark:border-gray-600 dark:placeholder-gray-400 block w-full cursor-pointer rounded-lg
+              border p-2 text-sm focus:outline-none"
+            id="images"
+            type="file"
+            multiple
+          />
+        </div>
         <div className="mb-4">
           <label className="block font-medium text-black dark:text-white">
             Keywords
@@ -383,13 +355,11 @@ const Addproject = () => {
             </div>
           ))}
         </div>
-
         {/* ... (existing form elements) ... */}
-
         <div className="m-auto flex justify-center">
           <button
             type="submit"
-            onClick={handlesubmitSubject}
+            onClick={handleSubmitProject}
             className="inline-flex items-center justify-center rounded bg-primary py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-15"
           >
             Submit

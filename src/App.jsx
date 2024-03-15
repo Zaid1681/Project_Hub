@@ -13,6 +13,7 @@ import GroupComment from './pages/GroupComment';
 import GroupSection from './pages/GroupSection';
 import Profile from './pages/Profile';
 import { BrowserRouter as Router } from 'react-router-dom';
+
 // import ProjectList from './pages/Details/ProjectList';
 const Home = lazy(() => import('./pages/Home'));
 const Chart = lazy(() => import('./pages/Chart'));
@@ -44,6 +45,13 @@ const IndividualGroupPage = lazy(() =>
 );
 const GroupDetailsPage = lazy(() =>
   import('./pages/FacultyGroupVPage/GroupDetailsPage')
+);
+const IndividualGroupDetailsPage = lazy(() =>
+  import('./pages/IndividualGroupDetailsPage')
+);
+
+const TaskPage = lazy(() =>
+  import('./pages/TaskPage')
 );
 import { useSelector } from 'react-redux';
 import AdminSignIn from './pages/Authentication/AdminSignIn';
@@ -168,6 +176,14 @@ function App() {
                 }
               />
               <Route
+                path="/groupsection/group/:id"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <IndividualGroupDetailsPage />
+                  </Suspense>
+                }
+              />
+              <Route
                 path="/:currentYear/group"
                 element={
                   <Suspense fallback={<Loader />}>
@@ -208,6 +224,14 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <Semproject />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/view-task"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <TaskPage />
                   </Suspense>
                 }
               />
