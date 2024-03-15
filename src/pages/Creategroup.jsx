@@ -4,7 +4,6 @@ import AddGroupModal from './AddGroupModal';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
-
 const Creategroup = () => {
   const currentUser = useSelector((state) => state.user);
   const [subjectList, setSubjectList] = useState([]);
@@ -34,6 +33,8 @@ const Creategroup = () => {
     pdfLinks: '',
   });
 
+  // const groupLeaderId = currentUser
+  const groupLeader = currentUser.userData.studentId;
   const handleStudentIdChange = async (event) => {
     const newStudentId = event.target.value;
 
@@ -318,9 +319,19 @@ const Creategroup = () => {
         groupName: groupDetails.title,
         subject: groupDetails.subject,
         semester: groupDetails.semester,
-        membersId: [studentId, studentId2, studentId3],
-        membersName: [studentName, studentName2, studentName3],
-        groupLeaderId: studentId,
+        membersId: [
+          studentId,
+          studentId2,
+          studentId3,
+          currentUser.userData.studentId,
+        ],
+        membersName: [
+          studentName,
+          studentName2,
+          studentName3,
+          currentUser.userData.name,
+        ],
+        groupLeaderId: currentUser.userData.studentId,
         groupLeaderName: currentUser.userData.name,
         academicYear: currentUser.academicYear,
         currentYear: currentUser.currentYear,

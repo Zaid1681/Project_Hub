@@ -7,7 +7,7 @@ const PersistProvider = ({ children }) => {
 };
 
 PersistProvider.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,as
 };
 
 export default PersistProvider;

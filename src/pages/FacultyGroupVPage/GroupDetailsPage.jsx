@@ -2,42 +2,45 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import AssignGuide from './component/AssignGuide';
+import 'react-toastify/dist/ReactToastify.css';
+import Toastify from 'toastify-js';
 
 const GroupDetailsPage = () => {
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
   const [groupStatus, setGroupStatus] = useState('Inprocess'); // State for group status
   const [approvedProjId, setApprovedProjId] = useState(null);
+
   const groupId = useLocation().pathname.split('/')[3];
-  console.log(groupId);
+  // console.log('====>', approvedProjId);
   const toggleDropdown = (index) => {
     setOpenDropdownIndex(openDropdownIndex === index ? null : index);
   };
   const [data, setData] = useState([]);
   const [projectDetails, setProjectDetails] = useState([]);
   const membersName = data.membersName;
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/group/groupDetail/get/${groupId}`
+      );
+      setData(response.data.data);
+      console.log(response.data);
+    } catch (error) {
+      console.log('Error fetching Project', error);
+    }
+  };
+  const fetchProject = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/projectIdea/getProjByGroupId/${groupId}`
+      );
+      setProjectDetails(response.data.data);
+      // console.log(response.data.data);
+    } catch (error) {
+      console.log('Error fetching Project', error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/api/group/get/${groupId}`
-        );
-        setData(response.data.data);
-        // console.log(response.data.data);
-      } catch (error) {
-        console.log('Error fetching Project', error);
-      }
-    };
-    const fetchProject = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/api/projectIdea/getProjByGroupId/${groupId}`
-        );
-        setProjectDetails(response.data.data);
-        // console.log(response.data.data);
-      } catch (error) {
-        console.log('Error fetching Project', error);
-      }
-    };
     // console.log('Yatra Packages', packages);
     fetchData();
     fetchProject();
@@ -51,24 +54,45 @@ const GroupDetailsPage = () => {
     console.log(projectId, status);
     try {
       const response = await axios.put(
+        // `http://localhost:8080/api/projectIdea/updateProjectStatus/${projectId}/${status}`
         `http://localhost:8080/api/projectIdea/updateProjectStatus/${projectId}/${status}`
       );
       console.log('Status updated Sucessfully');
+      fetchProject();
+      Toastify({
+        text: 'Project Status Updated ',
+        duration: 1800,
+        gravity: 'top', // `top` or `bottom`
+        position: 'right', // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+          padding: '10px 50px',
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
       // console.log(response.data.data);
     } catch (error) {
       console.log('Error Udpating Status', error);
     }
   };
   const handleSaveChanges = async () => {
-    const status = !projectStatus;
-    console.log(projectId, status);
+    // const status = !projectStatus;
+    // console.log(projectId, status);
 
     try {
+      // if (groupStatus === 'Approved'&&) {
+      console.log(groupId);
+      console.log(groupStatus);
+      console.log(approvedProjId);
+
+      // } else {
       const response = await axios.put(
-        `http://localhost:8080/api/group/updateStatus/${groupId}/status?status=${groupStatus}`
+        `http://localhost:8080/api/group/updateStatus/${groupId}/${approvedProjId}/status?status=${groupStatus}`
       );
       console.log('Status updated Sucessfully');
       // console.log(response.data.data);
+      // }
     } catch (error) {
       console.log('Error Udpating Status', error);
     }
@@ -76,7 +100,7 @@ const GroupDetailsPage = () => {
   const handleGroupStatusChange = (event) => {
     setGroupStatus(event.target.value); // Update the group status state
   };
-  console.log('===>', groupStatus);
+  // console.log('===>', groupStatus);
   return (
     <main className="bg-gray-100 min-h-screen">
       <section className="mx-auto p-4 md:p-10">

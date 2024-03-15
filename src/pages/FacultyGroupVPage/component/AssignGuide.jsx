@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Space } from 'antd';
 import axios from 'axios';
+import 'react-toastify/dist/ReactToastify.css';
+import Toastify from 'toastify-js';
 
 const AssignGuide = ({ groupId, guideName }) => {
   // console.log(guideName);
@@ -36,7 +38,24 @@ const AssignGuide = ({ groupId, guideName }) => {
         `http://localhost:8080/api/group/update/guide/${groupId}/${faculty?._id}/name?name=${faculty.name}`
       );
       // alert(response);
+      Toastify({
+        text: 'Guide Assigned Sucessfully',
+        duration: 1800,
+        gravity: 'top', // `top` or `bottom`
+        position: 'right', // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+          padding: '10px 50px',
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
       console.log(response);
+      setTimeout(() => {
+        // navigate('/home');
+        window.location.reload();
+      }, 1000);
+
       // setData(response.data.data);
 
       // console.log(response.data.data);

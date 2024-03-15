@@ -39,6 +39,9 @@ const GroupViewPage = lazy(() =>
 const FacultyGroupspage = lazy(() =>
   import('./pages/FacultyGroupVPage/FacultyGroupspage')
 );
+const IndividualGroupPage = lazy(() =>
+  import('./pages/FacultyGroupVPage/IndividualGroupPage')
+);
 const GroupDetailsPage = lazy(() =>
   import('./pages/FacultyGroupVPage/GroupDetailsPage')
 );
@@ -122,7 +125,7 @@ function App() {
                     <FacultyProjectDetail />
                   </Suspense>
                 }
-              />{' '}
+              />
               <Route
                 path="/:currentYear/project/subject/project/projectlist/:subject/:semester/:academic"
                 element={
@@ -137,6 +140,14 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <FacultyGroupspage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/:currentYear/groups/groupsList/:subject/:semester/:academic/:groupId"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <IndividualGroupPage />
                   </Suspense>
                 }
               />
@@ -161,6 +172,14 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <GroupViewPage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/:currentYear/groups/groupsList/:subject/:semester/:academic/assignTask"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    {/* <AssignTaskFaculty /> */}
                   </Suspense>
                 }
               />
