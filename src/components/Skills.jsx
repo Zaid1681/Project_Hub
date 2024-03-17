@@ -25,7 +25,8 @@ const SkillInput = ({ onAddSkill }) => {
       />
       <button
         onClick={handleAddSkill}
-        className="border-blue-500 bg-blue-500 hover:bg-blue-600 rounded-r-full border px-5 py-2 font-semibold text-white focus:outline-none"
+        className="border-blue-500 bg-blue-500 hover:bg-blue-600 rounded-r-full border px-5 py-2
+         font-semibold  text-black focus:outline-none"
       >
         Add
       </button>

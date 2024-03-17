@@ -12,7 +12,7 @@ const ApprovedGroupsPage = () => {
   const currentUser = useSelector((state) => state.user);
   // console.log(currentUser);
   const { subject, currentYear, semester, academic } = useParams();
-  // console.log(subject, currentYear, semester, academic);
+  // console.log('==>', subject, currentYear, semester, academic);
 
   // console.log('-----------', currentUser.userData._id);
 
@@ -101,7 +101,7 @@ const ApprovedGroupsPage = () => {
     <div className="">
       <div className="my-5 flex justify-center">
         <a
-          href="/task"
+          href={`/${currentYear}/groups/${subject}/${semester}/${academic}/assignTask`}
           // onClick={handleShowGroups}
           className={`rounded bg-[#0C356A] px-[4rem] py-2 text-white `}
         >

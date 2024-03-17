@@ -1,6 +1,5 @@
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { Route, Routes, Navigate, useNavigate, Link } from 'react-router-dom';
-
 import ECommerce from './pages/Dashboard/ECommerce';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
@@ -29,6 +28,12 @@ const SeStudent = lazy(() => import('./pages/SE/SeStudent'));
 const TeStudent = lazy(() => import('./pages/TE/TeStudent'));
 const BeStudent = lazy(() => import('./pages/BE/BeStudent'));
 const Semproject = lazy(() => import('./pages/Semproject'));
+const AssignTaskFaculty = lazy(() =>
+  import('./pages/TaskAssignPage/AssignTaskFaculty')
+);
+const TaskSubmissions = lazy(() =>
+  import('./pages/TaskAssignPage/TaskSubmissions')
+);
 const Creategroup = lazy(() => import('./pages/Creategroup'));
 const Addproject = lazy(() => import('./pages/Addproject'));
 const Alerts = lazy(() => import('./pages/UiElements/Alerts'));
@@ -51,9 +56,7 @@ const IndividualGroupDetailsPage = lazy(() =>
   import('./pages/IndividualGroupDetailsPage')
 );
 
-const TaskPage = lazy(() =>
-  import('./pages/TaskPage')
-);
+const TaskPage = lazy(() => import('./pages/TaskPage'));
 import { useSelector } from 'react-redux';
 import AdminSignIn from './pages/Authentication/AdminSignIn';
 import FacultyProjectDetail from './pages/Details/FacultyProjectDetail';
@@ -194,14 +197,6 @@ function App() {
                   </Suspense>
                 }
               />
-              <Route
-                path="/:currentYear/groups/groupsList/:subject/:semester/:academic/assignTask"
-                element={
-                  <Suspense fallback={<Loader />}>
-                    {/* <AssignTaskFaculty /> */}
-                  </Suspense>
-                }
-              />
               {/* <Route
                 path="/:category/project/:subject"
                 component={SubjectPage}
@@ -227,14 +222,6 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <Semproject />
-                  </Suspense>
-                }
-              />
-              <Route
-                path="/view-task"
-                element={
-                  <Suspense fallback={<Loader />}>
-                    <TaskPage />
                   </Suspense>
                 }
               />
@@ -355,6 +342,31 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <GroupSection />
+                  </Suspense>
+                }
+              />
+              {/* tasks Routes */}
+              <Route
+                path="/view-task"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <TaskPage />
+                  </Suspense>
+                }
+              />{' '}
+              <Route
+                path="/:currentYear/groups/:subject/:semester/:academic/assignTask"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <AssignTaskFaculty />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/:currentYear/groups/:subject/:semester/:academic/assignTask/submission/:taskId"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <TaskSubmissions />
                   </Suspense>
                 }
               />
