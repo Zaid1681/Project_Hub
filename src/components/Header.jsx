@@ -61,14 +61,14 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
 
         <div className="hidden sm:block">
           <form action="https://formbold.com/s/unique_form_id" method="POST">
-            <div className="border flex items-center px-4 py-2.5 rounded-full bg-gray">
+            <div className="border flex items-center px-4 rounded-full bg-gray">
               <button className="">
                 <IoSearch />
               </button>
               <input
                 type="text"
                 placeholder="Type to search..."
-                className="w-full bg-transparent px-4 focus:outline-none"
+                className="w-full bg-transparent py-2 px-3 focus:outline-none"
               />
             </div>
           </form>
