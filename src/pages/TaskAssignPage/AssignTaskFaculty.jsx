@@ -8,6 +8,7 @@ import {
   Input,
   DatePicker,
   Popconfirm,
+  Select,
 } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import '../../Table.css';
@@ -17,10 +18,24 @@ import axios from 'axios';
 const { RangePicker } = DatePicker;
 
 const AssignTaskFaculty = () => {
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    taskType: '',
+    groupId: [''],
+    assignedDate: null,
+    taskStatus: 'Pending',
+    completionDate: null,
+  });
+  console.log('------>', formData);
+  const [membersList, setMembersList] = useState([]);
+  const [loadingMembers, setLoadingMembers] = useState(false);
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [data, setData] = useState([]);
   const [loadingTasks, setLoadingTasks] = useState(false);
-
+  const [selectedGroups, setSelectedGroups] = useState([]);
+  console.log(selectedGroups);
   const { subject, currentYear, semester, academic } = useParams();
   const currentUser = useSelector((state) => state.user);
   const facultyId = currentUser.userData._id;
@@ -144,6 +159,25 @@ const AssignTaskFaculty = () => {
     }
   }, [currentYear, semester, academic, subject]);
 
+  // fetch groupMembers-Name
+  useEffect(() => {
+    const fetchMembers = async () => {
+      try {
+        setLoadingMembers(true);
+        const res = await axios.get(
+          `http://localhost:8080/api/group/groupsList/get/2023-2024/BE/CC/8/groupMembers/65b751821ecafa8130f3853b`
+        );
+        setMembersList(res.data.data);
+      } catch (error) {
+        console.error('Error fetching group members:', error);
+      } finally {
+        setLoadingMembers(false);
+      }
+    };
+
+    fetchMembers();
+  }, []);
+
   // Generate serial numbers and modify the data
   const dataWithSrNo = data?.map((item, index) => ({
     ...item,
@@ -193,7 +227,27 @@ const AssignTaskFaculty = () => {
   //     status: 'In Progress',
   //   },
   // ];
-
+  const handleChange = (fieldName, value) => {
+    if (fieldName === 'groupId') {
+      // Extract the selected groupId from the event value
+      const selectedGroupId = value.target.value;
+      console.log(selectedGroupId);
+      // Update the selectedGroups state with the selected groupId
+      setSelectedGroups((prevGroups) => [...prevGroups, selectedGroupId]);
+    } else if (fieldName === 'taskType') {
+      const taskType = value.target.value;
+      setFormData({ ...formData, [fieldName]: taskType });
+    } else {
+      setFormData({ ...formData, [fieldName]: value });
+    }
+  };
+  const handleRemoveGroup = (index) => {
+    setSelectedGroups((prevGroups) => {
+      const updatedGroups = [...prevGroups];
+      updatedGroups.splice(index, 1);
+      return updatedGroups;
+    });
+  };
   return (
     <div>
       <div className="flex justify-end">
@@ -225,7 +279,10 @@ const AssignTaskFaculty = () => {
             name="taskTitle"
             rules={[{ required: true, message: 'Please input task title!' }]}
           >
-            <Input />
+            <Input
+              className="border-2"
+              onChange={(e) => handleChange('title', e.target.value)}
+            />
           </Form.Item>
 
           <Form.Item
@@ -235,9 +292,70 @@ const AssignTaskFaculty = () => {
               { required: true, message: 'Please input task description!' },
             ]}
           >
-            <Input.TextArea />
+            <Input.TextArea
+              onChange={(e) => handleChange('description', e.target.value)}
+            />
           </Form.Item>
 
+          <Form.Item
+            label="Task Type"
+            name="taskType"
+            rules={[{ required: true, message: 'Please select task type!' }]}
+          >
+            <select
+              onChange={(value) => handleChange('taskType', value)}
+              name="semester"
+              className="focus:border-blue-500 w-full rounded border px-3 py-2 font-bold text-black focus:outline-none"
+            >
+              <option value="">Select Task Type</option>
+
+              <>
+                <option value="All">All</option>
+                <option value="Individual">Individual</option>
+              </>
+            </select>
+          </Form.Item>
+
+          {formData.taskType === 'Individual' && (
+            <div>
+              <Form.Item
+                label="Select Group"
+                name="groupId"
+                rules={[{ required: true, message: 'Please select group!' }]}
+              >
+                <select
+                  onChange={(value) => handleChange('groupId', value)}
+                  name="groupId"
+                  className="focus:border-blue-500 w-full rounded border px-3 py-2 font-bold text-black
+                   focus:outline-none"
+                  inputMode="multiple"
+                >
+                  <option value="">Select Group</option>
+                  {loadingMembers ? (
+                    <option disabled>loading...</option>
+                  ) : (
+                    membersList?.map((group) => (
+                      <option key={group.groupId} value={group.groupId}>
+                        {group.groupMembersName.join(', ')}
+                      </option>
+                    ))
+                  )}
+                </select>
+              </Form.Item>
+              <div className="flex flex-col">
+                {selectedGroups?.map((group, index) => (
+                  <div
+                    key={index}
+                    className="text-md gap-2 px-3 py-2"
+                    style={{ display: 'flex', alignItems: 'center' }}
+                  >
+                    <p>{group}</p>
+                    <Button onClick={() => handleRemoveGroup(index)}>- </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           <Form.Item
             label="Assigned Date"
             name="assignedDate"
@@ -245,9 +363,10 @@ const AssignTaskFaculty = () => {
               { required: true, message: 'Please select assigned date!' },
             ]}
           >
-            <DatePicker />
+            <DatePicker
+              onChange={(date) => handleChange('assignedDate', date)}
+            />
           </Form.Item>
-
           <Form.Item
             label="Completion Date"
             name="completionDate"
@@ -255,7 +374,9 @@ const AssignTaskFaculty = () => {
               { required: true, message: 'Please select completion date!' },
             ]}
           >
-            <DatePicker />
+            <DatePicker
+              onChange={(date) => handleChange('completionDate', date)}
+            />
           </Form.Item>
 
           <Form.Item>
