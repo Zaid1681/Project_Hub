@@ -61,20 +61,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-9999 flex h-screen w-62.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}
+      className={`absolute left-0 top-0 z-9999 flex h-screen w-62.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
-      <div className="py flex items-center justify-between gap-2 px-6 lg:py-6.5">
-        <div className="mx-auto mt-2">
+      <div className="flex items-center justify-between gap-2 px-6 my-8 lg:py-6.5">
+        <div className="mx-auto">
           <NavLink to="/">
             <img
               src="/phlogo.jpg"
               className="mx-auto w-15 rounded-full"
               alt="Logo"
             />
-            <h1 className="text-xl font-bold">Project Hub</h1>
+            <h1 className="text-2xl text-white font-bold mt-5">Project Hub</h1>
           </NavLink>
         </div>
         {/*open only for small device else hided  */}
@@ -120,10 +119,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <li>
                   <NavLink
                     to="/home"
-                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                      pathname.includes('Faculty Project List') &&
+                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('Faculty Project List') &&
                       'bg-graydark dark:bg-meta-4'
-                    }`}
+                      }`}
                   >
                     <svg
                       className="fill-current"
@@ -157,11 +155,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                       <React.Fragment>
                         <NavLink
                           to="#"
-                          className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                            (pathname === '/se' ||
-                              pathname.includes('secondyear')) &&
+                          className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === '/se' ||
+                            pathname.includes('secondyear')) &&
                             'bg-graydark dark:bg-meta-4'
-                          }`}
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             sidebarExpanded
@@ -200,9 +197,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                           </svg>
                           Second Year
                           <svg
-                            className={`absolute right-8 top-1/2 -translate-y-1/2 fill-current ${
-                              open && 'rotate-180'
-                            }`}
+                            className={`absolute right-8 top-1/2 -translate-y-1/2 fill-current ${open && 'rotate-180'
+                              }`}
                             width="20"
                             height="20"
                             viewBox="0 0 20 20"
@@ -219,9 +215,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         </NavLink>
                         {/* <!-- Dropdown Menu Start --> */}
                         <div
-                          className={`translate transform overflow-hidden ${
-                            !open && 'hidden'
-                          }`}
+                          className={`translate transform overflow-hidden ${!open && 'hidden'
+                            }`}
                         >
                           <ul className="mb-5.5 flex flex-col gap-2.5 pl-6">
                             <li>
@@ -274,10 +269,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                       <React.Fragment>
                         <NavLink
                           to="#"
-                          className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                            (pathname === '/te' || pathname.includes('te')) &&
+                          className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === '/te' || pathname.includes('te')) &&
                             'bg-graydark dark:bg-meta-4'
-                          }`}
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             sidebarExpanded
@@ -316,9 +310,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                           </svg>
                           Third Year
                           <svg
-                            className={`absolute right-8 top-1/2 -translate-y-1/2 fill-current ${
-                              open && 'rotate-180'
-                            }`}
+                            className={`absolute right-8 top-1/2 -translate-y-1/2 fill-current ${open && 'rotate-180'
+                              }`}
                             width="20"
                             height="20"
                             viewBox="0 0 20 20"
@@ -335,9 +328,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         </NavLink>
                         {/* <!-- Dropdown Menu Start --> */}
                         <div
-                          className={`translate transform overflow-hidden ${
-                            !open && 'hidden'
-                          }`}
+                          className={`translate transform overflow-hidden ${!open && 'hidden'
+                            }`}
                         >
                           <ul className=" mb-5.5 flex flex-col gap-2.5 pl-6">
                             <li>
@@ -391,10 +383,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                       <React.Fragment>
                         <NavLink
                           to="#"
-                          className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                            (pathname === '/fe' || pathname.includes('fe')) &&
+                          className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === '/fe' || pathname.includes('fe')) &&
                             'bg-graydark dark:bg-meta-4'
-                          }`}
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             sidebarExpanded
@@ -433,9 +424,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                           </svg>
                           Fourth Year
                           <svg
-                            className={`absolute right-8 top-1/2 -translate-y-1/2 fill-current ${
-                              open && 'rotate-180'
-                            }`}
+                            className={`absolute right-8 top-1/2 -translate-y-1/2 fill-current ${open && 'rotate-180'
+                              }`}
                             width="20"
                             height="20"
                             viewBox="0 0 20 20"
@@ -452,9 +442,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         </NavLink>
                         {/* <!-- Dropdown Menu Start --> */}
                         <div
-                          className={`translate transform overflow-hidden ${
-                            !open && 'hidden'
-                          }`}
+                          className={`translate transform overflow-hidden ${!open && 'hidden'
+                            }`}
                         >
                           <ul className=" mb-5.5 flex flex-col gap-2.5 pl-6">
                             <li>
@@ -510,7 +499,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       ) : (
         <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
           {/* <!-- Sidebar Menu --> */}
-          <nav className=" py-4 px-4 lg:mt-9 lg:px-6">
+          <nav className=" py-4 px-4 lg:mt-5 lg:px-6">
             {/* <!-- Menu Group --> */}
             <div>
               <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
@@ -525,10 +514,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <li>
                   <NavLink
                     to="/home"
-                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                      pathname.includes('projectlist') &&
+                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('projectlist') &&
                       'bg-graydark dark:bg-meta-4'
-                    }`}
+                      }`}
                   >
                     <svg
                       className="fill-current"
@@ -552,10 +540,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <li>
                   <NavLink
                     to="/semproject"
-                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                      pathname.includes('semproject') &&
+                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('semproject') &&
                       'bg-graydark dark:bg-meta-4'
-                    }`}
+                      }`}
                   >
                     <svg
                       className="fill-current"
@@ -586,10 +573,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <li>
                   <NavLink
                     to="/addproject"
-                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                      pathname.includes('addproject') &&
+                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('addproject') &&
                       'bg-graydark dark:bg-meta-4'
-                    }`}
+                      }`}
                   >
                     <svg
                       className="fill-current"
@@ -625,10 +611,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <li>
                   <NavLink
                     to="/creategroup"
-                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                      pathname.includes('creategroup') &&
+                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('creategroup') &&
                       'bg-graydark dark:bg-meta-4'
-                    }`}
+                      }`}
                   >
                     <svg
                       className="fill-current"
@@ -665,10 +650,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <li>
                   <NavLink
                     to="/groupsection"
-                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                      pathname.includes('creategroup') &&
+                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('creategroup') &&
                       'bg-graydark dark:bg-meta-4'
-                    }`}
+                      }`}
                   >
                     <svg
                       className="fill-current"
@@ -717,9 +701,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <li>
                   <NavLink
                     to="/chart"
-                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                      pathname.includes('chart') && 'bg-graydark dark:bg-meta-4'
-                    }`}
+                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('chart') && 'bg-graydark dark:bg-meta-4'
+                      }`}
                   >
                     <svg
                       className="fill-current"
@@ -769,11 +752,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                       <React.Fragment>
                         <NavLink
                           to="#"
-                          className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                            (pathname === '/auth' ||
-                              pathname.includes('auth')) &&
+                          className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === '/auth' ||
+                            pathname.includes('auth')) &&
                             'bg-graydark dark:bg-meta-4'
-                          }`}
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             sidebarExpanded
@@ -812,9 +794,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                           </svg>
                           Authentication
                           <svg
-                            className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${
-                              open && 'rotate-180'
-                            }`}
+                            className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && 'rotate-180'
+                              }`}
                             width="20"
                             height="20"
                             viewBox="0 0 20 20"
@@ -831,9 +812,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         </NavLink>
                         {/* <!-- Dropdown Menu Start --> */}
                         <div
-                          className={`translate transform overflow-hidden ${
-                            !open && 'hidden'
-                          }`}
+                          className={`translate transform overflow-hidden ${!open && 'hidden'
+                            }`}
                         >
                           <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                             <li>

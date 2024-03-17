@@ -5,8 +5,8 @@ const GroupCardSection = ({ group }) => {
   console.log(group.isProjectApproved)
   return (
     <NavLink to={`group/${group._id}`}>
-      <div className="max-w-sm rounded overflow-hidden shadow-lg border border-gray-200 p-4">
-        <div className="font-semibold text-lg mb-2">{group.groupName}</div>
+      <div className="max-w-sm rounded-md overflow-hidden shadow-md p-6 mx-auto text-black dark:text-white dark:bg-boxdark bg-white">
+        <div className="font-semibold text-2xl mb-7">{group.groupName}</div>
         <div className="mb-2">
           <strong>Members:</strong> {group.membersName.join(', ')}
         </div>

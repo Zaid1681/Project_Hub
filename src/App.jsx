@@ -6,6 +6,7 @@ import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
 import Loader from './common/Loader';
 import ViewProject from './pages/ViewProject';
+// import ProjectDetails from './pages/ProjectDetails';
 import ProjectPage from './pages/Details/ProjectPage';
 import College from './pages/College';
 import CommentPage from './pages/CommentPage';
@@ -58,6 +59,7 @@ import AdminSignIn from './pages/Authentication/AdminSignIn';
 import FacultyProjectDetail from './pages/Details/FacultyProjectDetail';
 import HomePage from './pages/HomePage';
 import ApprovedGroupsPage from './pages/FacultyGroupVPage/component/ApprovedGroupsPage';
+import ViewProject2 from './pages/ViewProject2';
 function App() {
   const [loading, setLoading] = useState(false);
 
@@ -114,6 +116,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <ViewProject />
+                    {/* <ViewProject2 /> */}
                   </Suspense>
                 }
               />

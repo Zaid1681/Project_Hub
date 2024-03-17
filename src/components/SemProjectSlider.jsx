@@ -3,6 +3,8 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ProjectCard from '../components/ProjectCard';
+import Breadcrumb from '../components/Breadcrumb';
+
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import SemProjectCard from './SemProjectCard';
@@ -111,18 +113,18 @@ const SemProjectSlider = ({ sem }) => {
   }, [projectDetails.semester]); // Trigger the effect when semester changes
 
   return (
-    <div className="mx-5 mt-4">
+    <div className="">
       <div className="w-1/4">
-        <div className="text-bold mb-4 text-black">
+        <div className="text-bold text-black">
           <label className="block font-medium text-black dark:text-white">
-            Semester
+            <Breadcrumb pageName="Semester" />
           </label>
           <select
             name="semester"
             defaultValue=""
             value={projectDetails.semester}
             onChange={handleSemesterChange}
-            className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
+            className="focus:border-blue-500 w-50 rounded-md border px-5 py-2 focus:outline-none"
           >
             <option value="" disabled>
               Select Semester
@@ -136,7 +138,7 @@ const SemProjectSlider = ({ sem }) => {
           </select>
         </div>
       </div>
-      <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-12 grid gap-7 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {' '}
         {/* Use grid to create a 2-column grid */}
         {loading ? (

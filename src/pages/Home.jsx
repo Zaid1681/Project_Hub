@@ -24,9 +24,9 @@ const Home = () => {
 
   return (
     <>
-      <Breadcrumb pageName="Project list" />
+      <Breadcrumb pageName="Project List" />
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
         {project?.map((projectItem, index) => (
           <ProjectCard key={index} project={projectItem} />
         ))}

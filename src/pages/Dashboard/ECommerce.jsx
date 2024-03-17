@@ -17,25 +17,28 @@ import Breadcrumb from '../../components/Breadcrumb.jsx';
 const ECommerce = () => {
   return (
     <>
-      <div className="p-4">
+      <div className="">
         <Breadcrumb pageName="Departments" />
-        <div className="grid grid-cols-1 gap-4 py-2 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5 "></div>
-        <div className="grid grid-cols-1 justify-between  py-3  md:grid-cols-2 md:gap-6 xl:grid-cols-3   2xl:gap-7.5 ">
+        {/* <div className="grid grid-cols-1 gap-4 py-2 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5 "></div> */}
+        <div className="grid grid-cols-1 py-3 gap-6 md:grid-cols-2 md:gap-5 xl:grid-cols-3   2xl:gap-7.5 ">
           <CardIT title={'Information Technology'} />
           <CardIT title={'Computer Science'} />
           <CardIT title={'Artificial Intelligence'} />
+          <CardIT title={'CSE Data Science'} />
+          <CardIT title={'Mechanical Engineering'} />
+          <CardIT title={'Civil Engineering'} />
           {/* <CardCs /> */}
           {/* <CardAi /> */}
         </div>
-        <div className="   flex justify-between gap-10">
+        {/* <div className="flex-col gap-10">
           <CardIT title={'CSE Data Science'} />
           <CardIT title={'Mechanical Engineering'} />
           <CardIT title={'Information Technology'} />
-          {/* <CardAi /> */}
-          {/* <CardMech /> */}
-          {/* <CardCivil /> */}
-        </div>
-      </div>
+          {/* <CardAi /> 
+        {/* <CardMech /> 
+        {/* <CardCivil /> 
+      </div>  */}
+      </div >
       {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
         <CardOne />
         <CardTwo />
@@ -43,9 +46,9 @@ const ECommerce = () => {
         <CardFour />
       </div> */}
 
-      <div className="px-auto mx-auto mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
+      <div div div className="px-auto mx-auto mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5" >
         {/* <ChartTwo /> */}
-        <ChartOne />
+        < ChartOne />
         <ChartTwo />
         <ChartTwoProject />
         {/* <ChartTwo /> */}
@@ -54,9 +57,9 @@ const ECommerce = () => {
         <PieAchievement />
         {/* <Pie /> */}
         {/* <MapOne /> */}
-        <div className="col-span-12 xl:col-span-8">{/* <TableOne /> */}</div>
-        {/* <ChatCard /> */}
       </div>
+      <div className="col-span-12 xl:col-span-8">{/* <TableOne /> */}</div>
+      {/* <ChatCard /> */}
     </>
   );
 };
