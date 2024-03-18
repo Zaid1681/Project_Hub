@@ -25,38 +25,131 @@ const AssignTaskFaculty = () => {
     groupId: [''],
     assignedDate: null,
     taskStatus: 'Pending',
-    completionDate: null,
+    deadline: null,
   });
-  console.log('------>', formData);
+
+  const [editFormData, setEditFormData] = useState({
+    title: '',
+    description: '',
+    assignedDate: null,
+    deadline: null,
+    groupId: '',
+  });
+
+  // console.log('------>', formData);
   const [membersList, setMembersList] = useState([]);
   const [loadingMembers, setLoadingMembers] = useState(false);
+  const [editingTaskId, setEditingTaskId] = useState(null);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible2, setIsModalVisible2] = useState(false);
   const [data, setData] = useState([]);
+  const [data2, setData2] = useState([]);
   const [loadingTasks, setLoadingTasks] = useState(false);
   const [selectedGroups, setSelectedGroups] = useState([]);
-  console.log(selectedGroups);
   const { subject, currentYear, semester, academic } = useParams();
   const currentUser = useSelector((state) => state.user);
   const facultyId = currentUser.userData._id;
-  console.log(subject, currentYear, semester, academic, facultyId);
+  const titleValue = data2.title;
+  console.log('titleValue', titleValue);
+  // console.log("title",data2.title);
+  const handleTypeChange = (e) => {
+    const selectedType = e.target.value;
+    setFormData({ ...formData, taskType: selectedType });
+  };
+
   const showModal = () => {
     setIsModalVisible(true);
   };
 
+  const showModal2 = (taskId) => {
+    console.log('task ID', taskId);
+    setEditingTaskId(taskId); // Set the editing task ID when the modal is shown
+    setIsModalVisible2(true);
+  };
   const handleOk = () => {
     setIsModalVisible(false);
+  };
+
+  const handleOk2 = () => {
+    setIsModalVisible2(false);
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
   };
 
-  const onFinish = (values) => {
-    console.log('Received values:', values);
-    // You can handle form submission logic here
-    setIsModalVisible(false); // Close the modal after form submission
+  const handleCancel2 = () => {
+    setIsModalVisible2(false);
   };
+  const handleSubmitTask = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        'http://localhost:8080/api/task/add',
+        {
+          title: formData.title,
+          description: formData.description,
+          taskType: formData.taskType,
+          groupId: selectedGroups, // Convert array to string
+          assignedDate: formData.assignedDate,
+          taskStatus: formData.taskStatus,
+          deadline: formData.deadline,
+          semester,
+          facultyId:currentUser.userData._id,
+          subject,
+          academicYear: academic,
+          currentYear,
+          // Use formData instead of currentUser
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json', // Change to JSON content type
+          },
+        }
+      );
+      if (res) {
+        console.log('task uploaded');
+        // Show success message or perform any other action
+      }
+    } catch (error) {
+      console.error('Error during submission:', error);
+    }
+  };
+
+  const handleEditTask = async () => {
+    try {
+      console.log('---> hello', editingTaskId);
+      const res = await axios.put(
+        `http://localhost:8080/api/task/update/${editingTaskId}`, // Use editingTaskId here
+        {
+          title: editFormData.title,
+          description: editFormData.description,
+          taskType: editFormData.taskType,
+          groupId: selectedGroups,
+          assignedDate: editFormData.assignedDate,
+          taskStatus: editFormData.taskStatus,
+          deadline: editFormData.deadline,
+          semester,
+          subject,
+          academicYear: academic,
+          currentYear,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (res) {
+        console.log('task updated');
+        // Show success message or perform any other action
+      }
+    } catch (error) {
+      console.error('Error during update:', error);
+    }
+  };
+
   const columns = [
     {
       title: 'Sr no',
@@ -101,11 +194,11 @@ const AssignTaskFaculty = () => {
     {
       title: 'Action',
       key: 'action',
-      render: () => (
+      render: (_, record) => (
         <Space size="middle">
           <Button
             icon={<EditOutlined />}
-            onClick={() => handleEdit()}
+            onClick={() => showModal2(record._id)} // Pass the task ID here
             className={`rounded bg-[#0C356A] px-[4rem] py-2 text-white hover:bg-[#0c356A]`}
           ></Button>
           <Popconfirm
@@ -146,7 +239,7 @@ const AssignTaskFaculty = () => {
         const res = await axios.get(
           `http://localhost:8080/api/task/getTaskByCriteriaAll/${academic}/${currentYear}/${semester}/${subject}/${facultyId}`
         );
-        console.log('===>', res.data);
+        // console.log('===>', res.data);
         setData(res.data.data);
       } catch (error) {
         console.error('Error fetching subjects:', error);
@@ -154,10 +247,30 @@ const AssignTaskFaculty = () => {
         setLoadingTasks(false);
       }
     };
+
+    const fetchSpecificTask = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8080/api/task/getTaskById/${editingTaskId}`, // Use editingTaskId here
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        setData2(res.data.data);
+        console.log('=====>--', res.data.data);
+      } catch (error) {
+        console.error('Error during update:', error);
+      }
+    };
     if (currentYear && semester && academic && subject && facultyId) {
       fetchSubjects();
     }
-  }, [currentYear, semester, academic, subject]);
+    if (editingTaskId) {
+      fetchSpecificTask();
+    }
+  }, [currentYear, semester, academic, subject, editingTaskId]);
 
   // fetch groupMembers-Name
   useEffect(() => {
@@ -231,7 +344,7 @@ const AssignTaskFaculty = () => {
     if (fieldName === 'groupId') {
       // Extract the selected groupId from the event value
       const selectedGroupId = value.target.value;
-      console.log(selectedGroupId);
+      // console.log(selectedGroupId);
       // Update the selectedGroups state with the selected groupId
       setSelectedGroups((prevGroups) => [...prevGroups, selectedGroupId]);
     } else if (fieldName === 'taskType') {
@@ -241,6 +354,22 @@ const AssignTaskFaculty = () => {
       setFormData({ ...formData, [fieldName]: value });
     }
   };
+
+  const handleChange2 = (fieldName, value) => {
+    if (fieldName === 'groupId') {
+      // Extract the selected groupId from the event value
+      const selectedGroupId = value.target.value;
+      // console.log(selectedGroupId);
+      // Update the selectedGroups state with the selected groupId
+      setSelectedGroups((prevGroups) => [...prevGroups, selectedGroupId]);
+    } else if (fieldName === 'taskType') {
+      const taskType = value.target.value;
+      setEditFormData({ ...editFormData, [fieldName]: taskType });
+    } else {
+      setEditFormData({ ...editFormData, [fieldName]: value });
+    }
+  };
+
   const handleRemoveGroup = (index) => {
     setSelectedGroups((prevGroups) => {
       const updatedGroups = [...prevGroups];
@@ -248,6 +377,7 @@ const AssignTaskFaculty = () => {
       return updatedGroups;
     });
   };
+
   return (
     <div>
       <div className="flex justify-end">
@@ -272,12 +402,13 @@ const AssignTaskFaculty = () => {
         <Form
           name="addTaskForm"
           initialValues={{ remember: true }}
-          onFinish={onFinish}
+          onSubmit={handleSubmitTask}
         >
           <Form.Item
             label="Task Title"
             name="taskTitle"
             rules={[{ required: true, message: 'Please input task title!' }]}
+            value={formData.title}
           >
             <Input
               className="border-2"
@@ -291,6 +422,7 @@ const AssignTaskFaculty = () => {
             rules={[
               { required: true, message: 'Please input task description!' },
             ]}
+            value={formData.description}
           >
             <Input.TextArea
               onChange={(e) => handleChange('description', e.target.value)}
@@ -301,10 +433,12 @@ const AssignTaskFaculty = () => {
             label="Task Type"
             name="taskType"
             rules={[{ required: true, message: 'Please select task type!' }]}
+            onChange={handleTypeChange}
+            value={formData.taskType}
           >
             <select
               onChange={(value) => handleChange('taskType', value)}
-              name="semester"
+              name="taskType"
               className="focus:border-blue-500 w-full rounded border px-3 py-2 font-bold text-black focus:outline-none"
             >
               <option value="">Select Task Type</option>
@@ -324,6 +458,7 @@ const AssignTaskFaculty = () => {
                 rules={[{ required: true, message: 'Please select group!' }]}
               >
                 <select
+                  value={formData.groupId}
                   onChange={(value) => handleChange('groupId', value)}
                   name="groupId"
                   className="focus:border-blue-500 w-full rounded border px-3 py-2 font-bold text-black
@@ -362,6 +497,7 @@ const AssignTaskFaculty = () => {
             rules={[
               { required: true, message: 'Please select assigned date!' },
             ]}
+            value={formData.assignedDate}
           >
             <DatePicker
               onChange={(date) => handleChange('assignedDate', date)}
@@ -369,25 +505,77 @@ const AssignTaskFaculty = () => {
           </Form.Item>
           <Form.Item
             label="Completion Date"
-            name="completionDate"
+            name="deadline"
             rules={[
               { required: true, message: 'Please select completion date!' },
             ]}
+            value={formData.deadline}
           >
-            <DatePicker
-              onChange={(date) => handleChange('completionDate', date)}
-            />
+            <DatePicker onChange={(date) => handleChange('deadline', date)} />
           </Form.Item>
 
           <Form.Item>
             <Button
               htmlType="submit"
               className={`rounded bg-[#0C356A] px-10 text-white `}
+              onClick={handleSubmitTask}
             >
               Save
             </Button>
           </Form.Item>
         </Form>
+      </Modal>
+
+      <Modal
+        title="edit Task"
+        visible={isModalVisible2}
+        onOk={handleOk2}
+        onCancel={handleCancel2}
+        footer={null}
+      >
+        <form onSubmit={handleEditTask}>
+          <label htmlFor="taskTitle">Task Title:</label>
+          <input
+            type="text"
+            id="taskTitle"
+            name="taskTitle"
+            value={titleValue}
+            defaultValue={data2.title}
+            onChange={(e) => handleChange2('title', e.target.value)}
+            required
+          />
+
+          <label htmlFor="taskDescription">Task Description:</label>
+          <textarea
+            id="taskDescription"
+            name="taskDescription"
+            value={data2?.description}
+            onChange={(e) => handleChange2('description', e.target.value)}
+            required
+          ></textarea>
+
+          <label htmlFor="assignedDate">Assigned Date:</label>
+          <input
+            type="date"
+            id="assignedDate"
+            name="assignedDate"
+            value={editFormData.assignedDate}
+            onChange={(e) => handleChange2('assignedDate', e.target.value)}
+            required
+          />
+
+          <label htmlFor="deadline">Completion Date:</label>
+          <input
+            type="date"
+            id="deadline"
+            name="deadline"
+            value={editFormData.deadline}
+            onChange={(e) => handleChange('deadline', e.target.value)}
+            required
+          />
+
+          <button type="submit">Save</button>
+        </form>
       </Modal>
     </div>
   );

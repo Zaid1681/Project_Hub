@@ -7,6 +7,86 @@ const { RangePicker } = DatePicker;
 const TaskPage = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
+    const [typeList, setTypeList] = useState([]);
+    const [loadingGroups, setLoadingGroups] = useState(false);
+
+    const [taskDetails, setTaskDetails] = useState({
+        title: '',
+        description: '',
+        groupId: [''],
+        assignDate: '',
+        completionDate: '',
+        type: null,
+        group: ''
+      });
+    
+      const handleInputChange = (e, key, index) => {
+        const { value } = e.target;
+      };
+    
+      const handleTypeChange = (e) => {
+        const selectedType = parseInt(e.target.value, 10);
+        setTaskDetails({ ...taskDetails, type: selectedType });
+      };
+
+      const handleSubmitTask = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('title', taskDetails.title);
+        formData.append('description', taskDetails.description);
+        formData.append('groupId', taskDetails.groupId);
+        formData.append('assignDate', taskDetails.assignDate);
+        formData.append('completionDate', taskDetails.completionDate);
+        formData.append('type', taskDetails.type);
+        formData.append('group', taskDetails.group);
+    
+        // Append PDF links individually
+        projectDetails.pdfLinks.forEach((pdfLink) => {
+          formData.append('pdfLinks', pdfLink);
+        });
+    
+        // Append keywords individually
+        projectDetails.keywords.forEach((keyword) => {
+          formData.append('keywords', keyword);
+        });
+    
+        for (let i = 0; i < projectDetails.photos.length; i++) {
+          formData.append('photos', projectDetails.photos[i]);
+        }
+    
+        try {
+          const res = await axios.post(
+            'http://localhost:8080/api/project/add',
+            formData,
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            }
+          );
+          if (res) {
+            console.log('projectuploaded');
+            Toastify({
+              text: 'Project Submitted Successfully',
+              duration: 1800,
+              gravity: 'top',
+              position: 'right',
+              stopOnFocus: true,
+              style: {
+                background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+                padding: '10px 50px',
+              },
+              onClick: function () {},
+            }).showToast();
+            setTimeout(() => {
+              // Redirect or do any other action after successful submission
+            }, 2000);
+          }
+        } catch (error) {
+          console.error('Error during submission:', error);
+        }
+      };
+
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -129,7 +209,7 @@ const TaskPage = () => {
                 >
                     <Form.Item
                         label="Task Description"
-                        name="taskDescription"
+                        name="title"
                         rules={[{ required: true, message: 'Please input task description!' }]}
                     >
                         <Input.TextArea />

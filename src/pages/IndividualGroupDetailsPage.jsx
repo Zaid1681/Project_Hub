@@ -106,6 +106,16 @@ const IndividualGroupDetailsPage = () => {
   // console.log('===>', groupStatus);
   return (
     <main className="bg-gray-100 min-h-screen">
+      {/* <h1>hello world</h1> */}
+      <div className='flex justify-end mx-10'> <a
+          // href={`/${currentYear}/groups/${subject}/${semester}/${academic}/assignTask`}
+          href=''
+          // onClick={handleShowGroups}
+          className={`rounded bg-[#0C356A] px-[3rem] py-2 text-white `}
+        >
+          Assign Task
+        </a> 
+      </div>
       <section className="mx-auto p-4 md:p-10">
         <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
           <h2 className="mb-7 text-3xl font-semibold text-[#0C356A]">GROUP</h2>
