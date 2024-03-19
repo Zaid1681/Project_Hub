@@ -347,13 +347,13 @@ function App() {
               />
               {/* tasks Routes */}
               <Route
-                path="/view-task"
+                path="/groupsection/group/:groupId/:currentYear/:academicYear/:semester/:subject/:facultyId"
                 element={
                   <Suspense fallback={<Loader />}>
                     <TaskPage />
                   </Suspense>
                 }
-              />{' '}
+              />
               <Route
                 path="/:currentYear/groups/:subject/:semester/:academic/assignTask"
                 element={

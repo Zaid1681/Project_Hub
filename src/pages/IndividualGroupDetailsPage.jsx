@@ -16,7 +16,13 @@ const IndividualGroupDetailsPage = () => {
   const toggleDropdown = (index) => {
     setOpenDropdownIndex(openDropdownIndex === index ? null : index);
   };
+  // const { groupId } = useParams();
+  const [currentYear, setCurrentYear] = useState('');
   const [data, setData] = useState([]);
+  const [academicYear, setAcademicYear] = useState([]);
+  const [semester, setSemester] = useState([]);
+  const [subject, setSubject] = useState([]);
+  const [facultyId, setFacultyId] = useState([]);
   const [projectDetails, setProjectDetails] = useState([]);
   const membersName = data.membersName;
   const fetchData = async () => {
@@ -25,7 +31,21 @@ const IndividualGroupDetailsPage = () => {
         `http://localhost:8080/api/group/groupDetail/get/${groupId}`
       );
       setData(response.data.data);
-      console.log(response.data);
+      const currentYear=response.data.data.currentYear;
+      const academicYear=response.data.data.academicYear;
+      const semester=response.data.data.semester;
+      const subject=response.data.data.subject;
+      const facultyId=response.data.data.facultyId;
+      console.log(currentYear)
+      console.log(academicYear)
+      console.log(semester)
+      console.log(subject)
+      console.log(facultyId)
+      setCurrentYear(currentYear);
+      setAcademicYear(academicYear);
+      setSemester(semester);
+      setSubject(subject);
+      setFacultyId(facultyId);
     } catch (error) {
       console.log('Error fetching Project', error);
     }
@@ -78,6 +98,18 @@ const IndividualGroupDetailsPage = () => {
     } catch (error) {
       console.log('Error Udpating Status', error);
     }
+  };
+
+  const handleViewTask = () => {
+    console.log(groupId);
+    console.log(currentYear);
+    console.log(academicYear);
+    console.log(semester);
+    console.log(subject);
+    console.log(facultyId)
+     // Assuming facultyId is available in the data object
+    const url = `http://localhost:8080/groupsection/group/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`;
+    window.location.href = url;
   };
   const handleSaveChanges = async () => {
     // const status = !projectStatus;
@@ -247,12 +279,10 @@ const IndividualGroupDetailsPage = () => {
               <h1> {val.isApproved === true ? 'Approved' : 'Not Approved'}</h1>
               <div className="flex justify-start">
               <div className="flex justify-center mt-4">
-            <Link to="/view-task">
-              <button className="text-black font-bold py-2 px-4 rounded">
-                View Task
-              </button>
-            </Link>
-          </div>
+        <a href={`/groupsection/group/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`} className="text-black font-bold py-2 px-4 rounded" onClick={handleViewTask}>
+          View Task
+        </a>
+      </div>
               </div>
             </div>
           </div>
