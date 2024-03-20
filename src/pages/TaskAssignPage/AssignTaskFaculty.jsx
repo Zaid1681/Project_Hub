@@ -149,7 +149,19 @@ const AssignTaskFaculty = () => {
       console.error('Error during update:', error);
     }
   };
-
+  const handleDelete = async (taskId) => {
+    try {
+      const res = await axios.delete(`http://localhost:8080/api/task/del/${taskId}`);
+      if (res) {
+        window.location.reload();
+        console.log('Task deleted successfully');a
+        // Optionally, you can perform any action here after successful deletion
+      }
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
+  };
+  
   const columns = [
     {
       title: 'Sr no',
@@ -198,12 +210,12 @@ const AssignTaskFaculty = () => {
         <Space size="middle">
           <Button
             icon={<EditOutlined />}
-            onClick={() => showModal2(record._id)} // Pass the task ID here
+            onClick={() => showModal2(record._id)} // Pass the task ID here for editing
             className={`rounded bg-[#0C356A] px-[4rem] py-2 text-white hover:bg-[#0c356A]`}
           ></Button>
           <Popconfirm
             title="Are you sure to delete this task?"
-            onConfirm={() => handleDelete()}
+            onConfirm={() => handleDelete(record._id)} // Pass the task ID here for deletion
             okText="Yes"
             cancelText="No"
             className="text-black "
