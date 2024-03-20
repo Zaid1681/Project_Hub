@@ -5,6 +5,8 @@ import AssignGuide from './FacultyGroupVPage/component/AssignGuide';
 import 'react-toastify/dist/ReactToastify.css';
 import Toastify from 'toastify-js';
 import { Link } from 'react-router-dom';
+import { BASEURL } from '../Api';
+
 
 const IndividualGroupDetailsPage = () => {
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
@@ -28,7 +30,7 @@ const IndividualGroupDetailsPage = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/group/groupDetail/get/${groupId}`
+        `${BASEURL}/group/groupDetail/get/${groupId}`
       );
       setData(response.data.data);
       const currentYear=response.data.data.currentYear;
@@ -54,7 +56,7 @@ const IndividualGroupDetailsPage = () => {
   const fetchProject = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/projectIdea/getProjByGroupId/${groupId}`
+        `${BASEURL}/projectIdea/getProjByGroupId/${groupId}`
       );
       setProjectDetails(response.data.data);
       console.log(response.data)
@@ -77,8 +79,8 @@ const IndividualGroupDetailsPage = () => {
     console.log(projectId, status);
     try {
       const response = await axios.put(
-        // `http://localhost:8080/api/projectIdea/updateProjectStatus/${projectId}/${status}`
-        `http://localhost:8080/api/projectIdea/updateProjectStatus/${projectId}/${status}`
+        // `${BASEURL}/projectIdea/updateProjectStatus/${projectId}/${status}`
+        `${BASEURL}/projectIdea/updateProjectStatus/${projectId}/${status}`
       );
       console.log('Status updated Sucessfully');
       fetchProject();
@@ -123,7 +125,7 @@ const IndividualGroupDetailsPage = () => {
 
       // } else {
       const response = await axios.put(
-        `http://localhost:8080/api/group/updateStatus/${groupId}/${approvedProjId}/status?status=${groupStatus}`
+        `${BASEURL}/group/updateStatus/${groupId}/${approvedProjId}/status?status=${groupStatus}`
       );
       console.log('Status updated Sucessfully');
       // console.log(response.data.data);

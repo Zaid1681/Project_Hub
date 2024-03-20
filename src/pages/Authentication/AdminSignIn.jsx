@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { setUserData } from '../../Redux/slices/user-slice'; // Update the path
 
 import axios from 'axios';
+import { BASEURL } from '../../Api';
 
 // import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -35,7 +36,7 @@ const AdminSignIn = () => {
       //   body: JSON.stringify(userDataWithDefaults),
       // });
       const res = await axios.post(
-        'http://localhost:8080/api/admin/auth/signin',
+        `${BASEURL}/admin/auth/signin`,
         loginData
       );
 

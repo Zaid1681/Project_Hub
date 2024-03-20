@@ -9,6 +9,8 @@ import Toastify from 'toastify-js';
 import { useSelector } from 'react-redux';
 
 import { useLocation } from 'react-router-dom';
+import { BASEURL } from '../Api';
+
 import axios from 'axios';
 const ViewProject = () => {
   const currentUser = useSelector((state) => state.user);
@@ -31,7 +33,7 @@ const ViewProject = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/project/get/${path}`
+          `${BASEURL}/project/get/${path}`
         );
         setData(response.data);
       } catch (error) {
@@ -58,7 +60,7 @@ const ViewProject = () => {
     console.log('status', status);
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/project/upd/status/${path}/status?status=${status}&fId=${facultyId}`
+        `${BASEURL}/project/upd/status/${path}/status?status=${status}&fId=${facultyId}`
       );
       setData(response.data);
       Toastify({

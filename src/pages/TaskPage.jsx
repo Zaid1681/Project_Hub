@@ -4,6 +4,8 @@ import { PlusOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { BASEURL } from '../Api';
+
 
 
 
@@ -37,7 +39,7 @@ const TaskPage = () => {
         const fetchTasks = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:8080/api/task/getTaskByCriteria/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`
+                    `${BASEURL}/task/getTaskByCriteria/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`
                 );
                 console.log('Tasks fetched:', response.data);
                 const fetchedTasks = response.data.data;
@@ -58,7 +60,7 @@ const TaskPage = () => {
     e.preventDefault();
         try {
             const res = await axios.post(
-                'http://localhost:8080/api/submission/add',
+                '${BASEURL}/submission/add',
                 {
                     description: formData.description,
                     pdfLink: formData.pdfLink,

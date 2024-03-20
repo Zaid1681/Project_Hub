@@ -15,7 +15,10 @@ import '../../Table.css';
 import { useParams, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { BASEURL } from '../../Api';
+
 const { RangePicker } = DatePicker;
+
 
 const AssignTaskFaculty = () => {
   const [formData, setFormData] = useState({
@@ -86,7 +89,7 @@ const AssignTaskFaculty = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        'http://localhost:8080/api/task/add',
+        `${BASEURL}/task/add`,
         {
           title: formData.title,
           description: formData.description,
@@ -121,7 +124,7 @@ const AssignTaskFaculty = () => {
     try {
       console.log('---> hello', editingTaskId);
       const res = await axios.put(
-        `http://localhost:8080/api/task/update/${editingTaskId}`, // Use editingTaskId here
+        `${BASEURL}/task/update/${editingTaskId}`, // Use editingTaskId here
         {
           title: editFormData.title,
           description: editFormData.description,
@@ -151,7 +154,7 @@ const AssignTaskFaculty = () => {
   };
   const handleDelete = async (taskId) => {
     try {
-      const res = await axios.delete(`http://localhost:8080/api/task/del/${taskId}`);
+      const res = await axios.delete(`${BASEURL}/task/del/${taskId}`);
       if (res) {
         window.location.reload();
         console.log('Task deleted successfully');a
@@ -249,7 +252,7 @@ const AssignTaskFaculty = () => {
         setLoadingTasks(true);
 
         const res = await axios.get(
-          `http://localhost:8080/api/task/getTaskByCriteriaAll/${academic}/${currentYear}/${semester}/${subject}/${facultyId}`
+          `${BASEURL}/task/getTaskByCriteriaAll/${academic}/${currentYear}/${semester}/${subject}/${facultyId}`
         );
         // console.log('===>', res.data);
         setData(res.data.data);
@@ -263,7 +266,7 @@ const AssignTaskFaculty = () => {
     const fetchSpecificTask = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8080/api/task/getTaskById/${editingTaskId}`, // Use editingTaskId here
+          `${BASEURL}/task/getTaskById/${editingTaskId}`, // Use editingTaskId here
           {
             headers: {
               'Content-Type': 'application/json',
@@ -290,7 +293,7 @@ const AssignTaskFaculty = () => {
       try {
         setLoadingMembers(true);
         const res = await axios.get(
-          `http://localhost:8080/api/group/groupsList/get/2023-2024/BE/CC/8/groupMembers/65b751821ecafa8130f3853b`
+          `${BASEURL}/group/groupsList/get/2023-2024/BE/CC/8/groupMembers/65b751821ecafa8130f3853b`
         );
         setMembersList(res.data.data);
       } catch (error) {

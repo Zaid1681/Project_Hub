@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useLocation, useParams, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import ApprovedGroupCard from './ApprovedGroupCard';
+import { BASEURL } from '../../../Api';
 // import { } from 'react-router-dom';
 // import { useParams } from 'react-router-dom';
 
@@ -20,7 +21,7 @@ const ApprovedGroupsPage = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8080/api/group/groupsList/get/approved/${academic}/${currentYear}/${subject}/${semester}/${currentUser.userData._id}`
+          `${BASEURL}/group/groupsList/get/approved/${academic}/${currentYear}/${subject}/${semester}/${currentUser.userData._id}`
         );
         // console.log(res.data);
         setData(res.data.data);

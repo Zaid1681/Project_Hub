@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation, useParams, NavLink } from 'react-router-dom';
+import { BASEURL } from '../../../Api';
 
 const ApprovedGroupCard = ({
   guideName,
@@ -33,7 +34,7 @@ const ApprovedGroupCard = ({
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8080/api/projectIdea/get/${approvedProjId}`
+          `${BASEURL}/projectIdea/get/${approvedProjId}`
         );
         // console.log(res.data);
         setData(res.data.data);

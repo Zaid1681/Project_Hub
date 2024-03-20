@@ -8,6 +8,8 @@ import Breadcrumb from '../components/Breadcrumb';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import SemProjectCard from './SemProjectCard';
+import { BASEURL } from '../Api';
+
 const urlImage =
   'https://www.sitelink.com/images/internet-of-everything-smart-connected-1.jpg';
 
@@ -98,7 +100,7 @@ const SemProjectSlider = ({ sem }) => {
       try {
         setLoading(true); // Set loading to true when fetching starts
         const projects = await axios.get(
-          `http://localhost:8080/api/project/get/project/sem?semester=${projectDetails.semester}&studentId=${userId}`
+          `${BASEURL}/project/get/project/sem?semester=${projectDetails.semester}&studentId=${userId}`
         );
         console.log('all ', projects.data);
         setProject(projects.data);

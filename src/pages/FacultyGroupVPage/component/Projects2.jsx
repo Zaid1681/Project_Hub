@@ -4,6 +4,7 @@ import './Project2.css';
 import { useParams, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { SearchOutlined } from '@ant-design/icons';
+import { BASEURL } from '../../../Api';
 // import axios from 'axios';
 // import BrandOne from '../images/brand/brand-01.svg'; // Import other brand images as needed
 // import './ApplicantTable.css';
@@ -30,7 +31,7 @@ const Project2 = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8080/api/group/groupsList/get/${academic}/${currentYear}/${subject}/${semester}`
+          `${BASEURL}/group/groupsList/get/${academic}/${currentYear}/${subject}/${semester}`
         );
         // console.log(res.data);
         setData(res.data.data);

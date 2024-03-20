@@ -1,5 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { BASEURL } from '../Api';
+
 
 const urlImage =
   'https://community.nasscom.in/wp-content/uploads/2020/11/2-Copy-1024x539.png';

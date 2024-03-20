@@ -1,7 +1,9 @@
 import Breadcrumb from '../components/Breadcrumb';
 import ProjectCard from '../components/ProjectCard';
 import { React, useEffect, useState } from 'react';
-import axios from 'axios'; // Make sure to import axios
+import axios from 'axios';
+import { BASEURL } from '../Api';
+ // Make sure to import axios
 
 const Home = () => {
   const [project, setProject] = useState([]);
@@ -10,7 +12,7 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const allProject = await axios.get(
-          'http://localhost:8080/api/project/getApproved'
+          `${BASEURL}/project/getApproved`
         );
         console.log('all ', allProject.data);
         setProject(allProject.data); // Set the fetched data to the state

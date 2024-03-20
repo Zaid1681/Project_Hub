@@ -6,6 +6,7 @@ import Card from '../components/Cards';
 import Breadcrumb from '../components/Breadcrumb';
 import { Typography } from '@material-tailwind/react';
 
+
 export default function HomePage() {
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 12;

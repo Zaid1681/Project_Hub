@@ -3,6 +3,7 @@ import { Button, Modal, Space } from 'antd';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import Toastify from 'toastify-js';
+import { BASEURL } from '../../../Api';
 
 const AssignGuide = ({ groupId, guideName }) => {
   // console.log(guideName);
@@ -35,7 +36,7 @@ const AssignGuide = ({ groupId, guideName }) => {
     try {
       console.log(faculty._id, faculty.name);
       const response = await axios.put(
-        `http://localhost:8080/api/group/update/guide/${groupId}/${faculty?._id}/name?name=${faculty.name}`
+        `${BASEURL}/group/update/guide/${groupId}/${faculty?._id}/name?name=${faculty.name}`
       );
       // alert(response);
       Toastify({
@@ -68,7 +69,7 @@ const AssignGuide = ({ groupId, guideName }) => {
     const fetchFacultiesName = async () => {
       try {
         const response = await axios.get(
-          'http://localhost:8080/api/admin/auth/getfaculty/getNamelist'
+          '${BASEURL}/admin/auth/getfaculty/getNamelist'
         );
         setFacultiesList(response.data.data);
       } catch (error) {

@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Breadcrumb from '../components/Breadcrumb';
 import GroupCardSection from '../components/GroupCardSection';
-import { useSelector } from 'react-redux'; // Import useSelector from react-redux
+import { useSelector } from 'react-redux';
+import { BASEURL } from '../Api';
+ // Import useSelector from react-redux
 
 const GroupSection = () => {
   const [myGroups, setMyGroups] = useState([]);
@@ -12,7 +14,7 @@ const GroupSection = () => {
     const fetchGroups = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/group/getWithMemberId/get/${currentUser.userData.studentId}`
+          `${BASEURL}/group/getWithMemberId/get/${currentUser.userData.studentId}`
         );
         setMyGroups(response.data.data);
       } catch (error) {

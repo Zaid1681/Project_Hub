@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Toastify from 'toastify-js';
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../../Redux/slices/user-slice'; // Update the path
-
+import { BASEURL } from '../../Api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -33,7 +33,7 @@ const SignIn = () => {
       //   body: JSON.stringify(userDataWithDefaults),
       // });
       const res = await axios.post(
-        'http://localhost:8080/api/auth/signup',
+        `${BASEURL}/auth/signup`,
         registerData
       );
 

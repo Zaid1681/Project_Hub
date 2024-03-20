@@ -3,6 +3,8 @@ import './CreateGroup.css';
 import AddGroupModal from './AddGroupModal';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { BASEURL } from '../Api';
+
 
 const Creategroup = () => {
   const currentUser = useSelector((state) => state.user);
@@ -44,7 +46,7 @@ const Creategroup = () => {
     try {
       // Make a GET request to the backend API endpoint with the student ID
       const response = await axios.get(
-        `http://localhost:8080/api/auth/getStudentByID?studentId=${newStudentId}`
+        `${BASEURL}/auth/getStudentByID?studentId=${newStudentId}`
       );
 
       // Update the student name state with the received student name
@@ -64,7 +66,7 @@ const Creategroup = () => {
     try {
       // Make a GET request to the backend API endpoint with the student ID
       const response = await axios.get(
-        `http://localhost:8080/api/auth/getStudentByID?studentId=${newStudentId2}`
+        `${BASEURL}/auth/getStudentByID?studentId=${newStudentId2}`
       );
 
       // Update the student name state with the received student name
@@ -84,7 +86,7 @@ const Creategroup = () => {
     try {
       // Make a GET request to the backend API endpoint with the student ID
       const response = await axios.get(
-        `http://localhost:8080/api/auth/getStudentByID?studentId=${newStudentId3}`
+        `${BASEURL}/auth/getStudentByID?studentId=${newStudentId3}`
       );
 
       // Update the student name state with the received student name
@@ -153,7 +155,7 @@ const Creategroup = () => {
         setSubjectList([]);
         setLoadingSubjects(true);
         const res = await axios.get(
-          `http://localhost:8080/api/subject/get/sub?currentYear=${currentUser.currentYear}&semester=${groupDetails.semester}`
+          `${BASEURL}/subject/get/sub?currentYear=${currentUser.currentYear}&semester=${groupDetails.semester}`
         );
         console.log('----->', res.data.data);
 
@@ -340,7 +342,7 @@ const Creategroup = () => {
 
       // Call the group creation API
       const groupResponse = await axios.post(
-        'http://localhost:8080/api/group/add',
+        '${BASEURL}/group/add',
         groupData
       );
 
@@ -374,7 +376,7 @@ const Creategroup = () => {
 
       // // Call the project creation API
       // const projectResponse = await axios.post(
-      //   'http://localhost:8080/api/projectIdea/add',
+      //   '${BASEURL}/projectIdea/add',
       //   projectData
       // );
       setProjectIdea1({
@@ -432,7 +434,7 @@ const Creategroup = () => {
 
       // Call the project creation API
       const projectResponse = await axios.post(
-        'http://localhost:8080/api/projectIdea/add',
+        '${BASEURL}/projectIdea/add',
         projectData
       );
 

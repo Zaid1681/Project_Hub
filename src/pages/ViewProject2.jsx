@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux';
 
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { BASEURL } from '../Api';
+
 // import project_placeholder from "../assets/project_placeholder.png"
 // import Carousel from "../components/Carousel";
 // import ImageSlider from "../components/ImageSlider";
@@ -33,7 +35,7 @@ const ViewProject2 = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:8080/api/project/get/${path}`
+                    `${BASEURL}/project/get/${path}`
                 );
                 setData(response.data);
             } catch (error) {
@@ -60,7 +62,7 @@ const ViewProject2 = () => {
         console.log('status', status);
         try {
             const response = await axios.put(
-                `http://localhost:8080/api/project/upd/status/${path}/status?status=${status}&fId=${facultyId}`
+                `${BASEURL}/project/upd/status/${path}/status?status=${status}&fId=${facultyId}`
             );
             setData(response.data);
             Toastify({

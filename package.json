@@ -2,7 +2,7 @@
   "name": "tailadmin-react-free",
   "private": true,
   "version": "1.0.5",
-  "proxy": "hhttp://localhost:8080/api",
+  "proxy": "h${BASEURL}",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -12,7 +12,7 @@ import { Table, Tag, Input, Space } from 'antd';
 import FacultyProjectCard from '../../components/FacultyProjectCard';
 
 import axios from 'axios';
-
+import { BASEURL } from '../../Api';
 const ProjectProject = () => {
   const { subject, currentYear, semester, academic } = useParams();
   console.log(subject, currentYear, semester, academic);
@@ -27,7 +27,7 @@ const ProjectProject = () => {
       try {
         setLoadingProjects(true);
         const res = await axios.get(
-          `http://localhost:8080/api/project/get/project/unapproved?currentYear=${currentYear}&semester=${semester}&academic=${academic}&sub=${subject}`
+          `${BASEURL}/project/get/project/unapproved?currentYear=${currentYear}&semester=${semester}&academic=${academic}&sub=${subject}`
         );
         console.log(res.data);
         setData(res.data);

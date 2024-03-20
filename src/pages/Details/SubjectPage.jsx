@@ -26,7 +26,7 @@ const SubjectPage = () => {
       try {
         setLoadingSubjects(true);
         const res = await axios.get(
-          `http://localhost:8080/api/subject/get/sub?currentYear=${currentYear}&semester=${projectDetails.semester}`
+          `${BASEURL}/subject/get/sub?currentYear=${currentYear}&semester=${projectDetails.semester}`
         );
         setSubjectList(res.data.data);
       } catch (error) {

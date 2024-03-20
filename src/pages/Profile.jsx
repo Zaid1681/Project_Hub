@@ -7,6 +7,7 @@ import Skills from '../components/Skills';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 // Import other necessary components or modules
+import { BASEURL } from '../Api';
 
 const Profile = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -17,12 +18,13 @@ const Profile = () => {
 
   const userId = currentUser.userData._id;
   console.log(userId);
+  console.log(BASEURL)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const userDetail = await axios.get(
-          `http://localhost:8080/api/student/getStudentById/${userId}`
+          `${BASEURL}/student/getStudentById/${userId}`
         );
         // console.log('all ', userDetail.data);
         setUser(userDetail.data.data);

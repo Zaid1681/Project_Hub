@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { BASEURL } from '../../Api';
 const FacultyProjectDetail = () => {
   const { projectId } = useParams();
   const [data, setData] = useState([]);
@@ -9,7 +10,7 @@ const FacultyProjectDetail = () => {
     const fetchData = async () => {
       try {
         const project = await axios.get(
-          `http://localhost:8080/api/project/get/${projectId}`
+          `${BASEURL}/project/get/${projectId}`
         );
         console.log('all ', project.data);
         setData(project.data); // Set the fetched data to the state

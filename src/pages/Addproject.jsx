@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Toastify from 'toastify-js';
 import axios from 'axios ';
+import { BASEURL } from '../Api';
+
 const Addproject = () => {
   const currentUser = useSelector((state) => state.user);
 
@@ -76,7 +78,7 @@ const Addproject = () => {
 
     try {
       const res = await axios.post(
-        'http://localhost:8080/api/project/add',
+        `${BASEURL}/project/add`,
         formData,
         {
           headers: {
@@ -113,8 +115,9 @@ const Addproject = () => {
       try {
         setSubjectList([]);
         setLoadingSubjects(true);
+        console.log(`${BASEURL}/subject/get/sub?currentYear=${currentUser.currentYear}&semester=${projectDetails.semester}`);
         const res = await axios.get(
-          `http://localhost:8080/api/subject/get/sub?currentYear=${currentUser.currentYear}&semester=${projectDetails.semester}`
+          `${BASEURL}/subject/get/sub?currentYear=${currentUser.currentYear}&semester=${projectDetails.semester}`
         );
         setSubjectList(res.data.data);
       } catch (error) {

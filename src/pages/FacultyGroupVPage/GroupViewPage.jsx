@@ -5,6 +5,7 @@ import Breadcrumb from '../../components/Breadcrumb';
 import GroupSubjectCard from './GroupSubjectCard';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { BASEURL } from '../../Api';
 
 const GroupViewPage = () => {
   const currentYear = useLocation().pathname.split('/')[1];
@@ -27,7 +28,7 @@ const GroupViewPage = () => {
       try {
         setLoadingSubjects(true);
         const res = await axios.get(
-          `http://localhost:8080/api/subject/get/sub?currentYear=${currentYear}&semester=${projectDetails.semester}`
+          `${BASEURL}/subject/get/sub?currentYear=${currentYear}&semester=${projectDetails.semester}`
         );
         setSubjectList(res.data.data);
       } catch (error) {
