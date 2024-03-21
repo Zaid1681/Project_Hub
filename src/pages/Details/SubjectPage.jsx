@@ -4,6 +4,7 @@ import Breadcrumb from '../../components/Breadcrumb';
 import SubjectCard from '../../components/SubjectCard';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { BASEURL } from '../../Api';
 
 const SubjectPage = () => {
   const currentYear = useLocation().pathname.split('/')[1];
