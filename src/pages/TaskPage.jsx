@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { BASEURL } from '../Api';
+import { EditOutlined} from '@ant-design/icons';
+
 
 
 
@@ -13,6 +15,7 @@ const { RangePicker } = DatePicker;
 
 const TaskPage = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isModalVisible2, setIsModalVisible2] = useState(false);
     const [task, setTasks] = useState([]);
     const [taskId, setTaskId] = useState([]);
 
@@ -28,6 +31,8 @@ const TaskPage = () => {
         pdfLink: '',
         githubLink:'',
       });
+
+      const [submissionData, setSubmissionData] = useState([]);
     // console.log(groupId)
     // console.log(currentYear)
     // console.log(academicYear)
@@ -41,7 +46,7 @@ const TaskPage = () => {
                 const response = await axios.get(
                     `${BASEURL}/task/getTaskByCriteria/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`
                 );
-                console.log('Tasks fetched:', response.data);
+                // console.log('Tasks fetched:', response.data);
                 const fetchedTasks = response.data.data;
                 const taskId = fetchedTasks.map(task => task._id); // Extract task IDs
                 setTasks(fetchedTasks);
@@ -53,6 +58,30 @@ const TaskPage = () => {
     
         fetchTasks();
     }, [groupId, currentYear, academicYear, semester, subject, facultyId]);
+
+    useEffect(() => {
+        const fetchSubmission = async () => {
+            try {
+                const response = await axios.get(
+                    `${BASEURL}/submission/get/taskId/${taskId}`
+                );
+                console.log('Submissions fetched:', response.data);
+                setSubmissionData(response.data.data); // Assuming the data array is stored in response.data.data
+            } catch (error) {
+                console.error('Error fetching submission:', error);
+            }
+        };
+    
+        if (taskId.length > 0) {
+            fetchSubmission();
+        }
+    }, [taskId]);
+    
+    
+    const showModal2 = (taskId) => {
+        setIsModalVisible2(true);
+    };
+    
     
 
     const handleTaskSubmission = async (e) => {
@@ -60,7 +89,7 @@ const TaskPage = () => {
     e.preventDefault();
         try {
             const res = await axios.post(
-                '${BASEURL}/submission/add',
+                `${BASEURL}/submission/add`,
                 {
                     description: formData.description,
                     pdfLink: formData.pdfLink,
@@ -93,12 +122,21 @@ const TaskPage = () => {
         setIsModalVisible(true);
     };
 
+    
     const handleOk = () => {
         setIsModalVisible(false);
     };
 
+    const handleOk2 = () => {
+        setIsModalVisible2(false);
+    };
+
     const handleCancel = () => {
         setIsModalVisible(false);
+    };
+
+    const handleCancel2 = () => {
+        setIsModalVisible2(false);
     };
 
     const onFinish = (values) => {
@@ -145,6 +183,17 @@ const TaskPage = () => {
             key: 'taskStatus',
         },
         {
+            title: 'View',
+            key: 'action',
+            render: (_, record) => (
+                <Button
+                icon={<EditOutlined />}
+                onClick={() => showModal2(record.taskId)}  // Pass the task ID here for editing
+                className={`rounded bg-[#0C356A] px-[4rem] py-2 text-white hover:bg-[#0c356A]`}
+              ></Button>
+            ),
+          },
+        {
             title: 'Action',
             key: 'action',
             render: () => (
@@ -158,11 +207,6 @@ const TaskPage = () => {
 
     return (
         <section>
-            <div className='flex justify-end'>
-                <Button type="primary" icon={<PlusOutlined />} onClick={showModal} className='bg-blue-500 mb-10'>
-                    Submit Task
-                </Button>
-            </div>
             <Table columns={columns} dataSource={dataWithSrNo} scroll={{ x: true }} />
 
             <Modal
@@ -216,6 +260,55 @@ const TaskPage = () => {
                     </Form.Item>
                 </Form>
             </Modal>
+
+            <Modal
+    title="Edit Profile"
+    visible={isModalVisible2}
+    onCancel={handleCancel2}
+    footer={null}
+>
+    <Form
+        name="VIew"
+        initialValues={submissionData[0]} // Assuming there's only one submission data object
+    >
+        <Form.Item
+            label="Task description"
+            name="description"
+            rules={[{ required: true, message: 'Please input your description!' }]}
+        >
+            <Input />
+        </Form.Item>
+
+        <Form.Item
+            label="PDF Link"
+            name="pdfLink"
+            rules={[{ required: true, message: 'Please input PDF link!' }]}
+        >
+            <Input />
+        </Form.Item>
+
+        <Form.Item
+            label="GitHub Link"
+            name="githubLink"
+            rules={[{ required: true, message: 'Please input GitHub link!' }]}
+        >
+            <Input />
+        </Form.Item>
+
+        <Form.Item>
+            <Button
+                type="primary"
+                htmlType="submit"
+                className="bg-blue-500 text-white"
+                onClick={handleCancel2}
+            >
+                Ok
+            </Button>
+        </Form.Item>
+    </Form>
+</Modal>
+
+
         </section >
     );
 };

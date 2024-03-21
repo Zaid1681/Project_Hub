@@ -12,13 +12,16 @@ import { BASEURL } from '../Api';
 const Profile = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [user, setUser] = useState([]);
+  const [updateUserForm, setUpdateUserForm] = useState({
+    aboutMe: '',
+    startingYear:'',
+    passingYear:'',
+    branch:'',
+    skills: []
+  });
 
   const currentUser = useSelector((state) => state.user);
-  console.log(currentUser);
-
   const userId = currentUser.userData._id;
-  console.log(userId);
-  console.log(BASEURL)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,45 +29,48 @@ const Profile = () => {
         const userDetail = await axios.get(
           `${BASEURL}/student/getStudentById/${userId}`
         );
-        // console.log('all ', userDetail.data);
         setUser(userDetail.data.data);
       } catch (error) {
-        console.log(' Error fetching user Data ', error);
+        console.log('Error fetching user data: ', error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [userId]);
 
-  console.log('======>', user);
+  const handleUserSubmit = async () => {
+    try {
+      const res = await axios.put(
+        `${BASEURL}/student/updateStudent/${userId}`,
+        updateUserForm,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (res) {
+        console.log('User data updated:', res.data);
+        setIsModalVisible(false); // Close the modal after successful submission
+      }
+    } catch (error) {
+      console.error('Error during submission:', error);
+    }
+  };
 
   const showModal = () => {
     setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
   };
 
-  const onFinish = (values) => {
-    console.log('Received values:', values);
-    // You can handle form submission logic here
-    setIsModalVisible(false); // Close the modal after form submission
-  };
-
   return (
     <>
-      {/* Profile content */}
       <div className="my-5 flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-medium md:text-4xl">Name Surname</h1>
-          <p className="text-lg italic">
-            I am a software Developer based in Mumbai
-          </p>
+          <h1 className="text-2xl font-medium md:text-4xl">{user?.name}</h1>
         </div>
         <button
           className="rounded-md px-4 py-2 text-black shadow-md"
@@ -74,60 +80,63 @@ const Profile = () => {
         </button>
       </div>
 
-      {/* Modal for editing profile */}
       <Modal
         title="Edit Profile"
         visible={isModalVisible}
-        onOk={handleOk}
         onCancel={handleCancel}
         footer={null}
       >
         <Form
           name="editProfileForm"
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
+          initialValues={user}
+          onFinish={handleUserSubmit}
         >
           <Form.Item
             label="About Me"
-            name="email"
-            rules={[
-              { required: true, message: 'Please input your description!' },
-            ]}
+            name="aboutMe"
+            rules={[{ required: true, message: 'Please input your description!' }]}
+            value={updateUserForm.aboutMe}
+              onChange={(e) => setUpdateUserForm({ ...updateUserForm, aboutMe: e.target.value })}
           >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            name="email"
-            rules={[{ required: true, message: 'Please input your email!' }]}
-          >
-            <Skills />
-          </Form.Item>
-
-          <Form.Item
-            label="Department"
-            name="department"
-            rules={[
-              { required: true, message: 'Please input your department!' },
-            ]}
-          >
-            <Input />
+            <Input 
+            />
           </Form.Item>
 
           <Form.Item
             label="Starting Year"
-            name="year"
+            name="startingYear"
             rules={[{ required: true, message: 'Please input your year!' }]}
+            value={updateUserForm.startingYear} 
+              onChange={(e) => setUpdateUserForm({ ...updateUserForm, startingYear: e.target.value })}
           >
-            <Input />
+            <Input 
+          
+            />
           </Form.Item>
+
 
           <Form.Item
             label="Passing Year"
-            name="year"
+            name="passingYear"
             rules={[{ required: true, message: 'Please input your year!' }]}
+            value={updateUserForm.passingYear}
+              onChange={(e) => setUpdateUserForm({ ...updateUserForm, passingYear: e.target.value })}
           >
-            <Input />
+            <Input 
+              
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Department"
+            name="branch"
+            rules={[{ required: true, message: 'Please input your department!' }]}
+            value={updateUserForm.branch}
+            onChange={(e) => setUpdateUserForm({ ...updateUserForm, branch: e.target.value })}
+          >
+            <Input 
+             
+            />
           </Form.Item>
 
           <Form.Item>
@@ -135,19 +144,19 @@ const Profile = () => {
               type="primary"
               htmlType="submit"
               className="bg-blue-500 text-white"
+              onClick={handleUserSubmit}
             >
               Save
             </Button>
           </Form.Item>
         </Form>
       </Modal>
-
-      {/* Additional content */}
+        {/* Additional content */}
       <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-2">
         {/* Content section 1 */}
         <div className="bg-gray-100 rounded-md p-7 shadow-lg ">
           <h2 className="text-xl font-semibold">About Me</h2>
-          <p className="mt-1 ml-3 justify-start text-base">{user?.aboutme}</p>
+          <p className="mt-1 ml-3 justify-start text-base">{user?.aboutMe}</p>
           {/* More details */}
           <h2 className="mt-5 text-xl font-semibold">VCET Email Id</h2>
           <div className="ml-3 mt-1 flex items-center gap-2">
