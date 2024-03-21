@@ -1,4 +1,5 @@
-// import express from "express";
+require('dotenv').config(); // Load environment variables from .env file
+
 const express = require("express");
 const connect = require("./db");
 const cors = require("cors");
@@ -18,22 +19,18 @@ app.use(
     useTempFiles: true,
   })
 );
-//middelewar
+// Middleware
 app.use(cors());
 app.use(cookieParser());
-app.use(express.json()); //this will allow our app to take any json file from outside
-// app.use("/api/user", userRoutes);
+app.use(express.json()); // This will allow our app to take any JSON file from outside
 app.get("/", (req, res) => {
   res.send("Hello world");
 });
 app.use("/api", routes);
 
-// app.use("/api", authRoutes);
-// app.use("/api/videos", authVideos);
-// app.use("/api/comments", authComments);
 app.use((err, req, res, next) => {
   const status = err.status || 500;
-  const message = err.message || "something went wrong project hub main";
+  const message = err.message || "Something went wrong";
   return res.status(status).json({
     success: false,
     status,
@@ -41,7 +38,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(8080, () => {
+const PORT = process.env.PORT || 8080; // Use the port from the environment variable or default to 8080
+
+app.listen(PORT, () => {
   connect();
-  console.log("server running!!");
+  console.log("Server running on port " + PORT);
 });
