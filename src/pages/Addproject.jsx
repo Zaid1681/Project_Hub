@@ -77,15 +77,11 @@ const Addproject = () => {
     }
 
     try {
-      const res = await axios.post(
-        `${BASEURL}/project/add`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
+      const res = await axios.post(`${BASEURL}/project/add`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       if (res) {
         console.log('projectuploaded');
         Toastify({
@@ -115,7 +111,9 @@ const Addproject = () => {
       try {
         setSubjectList([]);
         setLoadingSubjects(true);
-        console.log(`${BASEURL}/subject/get/sub?currentYear=${currentUser.currentYear}&semester=${projectDetails.semester}`);
+        console.log(
+          `${BASEURL}/subject/get/sub?currentYear=${currentUser.currentYear}&semester=${projectDetails.semester}`
+        );
         const res = await axios.get(
           `${BASEURL}/subject/get/sub?currentYear=${currentUser.currentYear}&semester=${projectDetails.semester}`
         );

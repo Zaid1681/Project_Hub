@@ -1,10 +1,11 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Button } from 'antd';
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import GroupCard from './GroupCard.jsx';
 const TaskSubmissions = () => {
   const [tableData, setTableData] = useState([]);
-
+  const [data, setData] = useState([]);
   const handleButtonClick = (buttonData) => {
     setTableData(buttonData);
   };
@@ -40,8 +41,8 @@ const TaskSubmissions = () => {
       dataIndex: 'status',
     },
   ];
-  const { subject, currentYear, semester, academic, groupId ,taskId } = useParams();
-  console.log(subject, currentYear, semester, academic, groupId ,taskId);
+  const { subject, currentYear, semester, academic, taskId } = useParams();
+  console.log(subject, currentYear, semester, academic, taskId);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,7 +52,7 @@ const TaskSubmissions = () => {
           `http://localhost:8080/api/submission/get/taskId/${taskId}`
         );
         console.log('all ', submissionsList.data.data);
-        // setProject(projects.data);
+        setData(submissionsList.data.data);
       } catch (error) {
         console.log('All Project fetching Error ', error);
       } finally {
@@ -62,44 +63,16 @@ const TaskSubmissions = () => {
     fetchData();
   }, []); // Trigger the effect when semester changes
 
-
   return (
     <div className="flex justify-between p-4">
-      <div className="w-60 flex flex-col justify-center items-center bg-white rounded-2xl gap-1 py-10 px-5">
-        <div className="mb-4">
-          <Button className="text-lg flex justify-center items-center w-40 h-11 shadow-md" onClick={() => handleButtonClick([
-            {
-              key: '1',
-              srNo: '1',
-              taskName: 'Task 1',
-              taskType: 'Type A',
-              subject: 'Subject A',
-              assigned: 'John Doe',
-              deadline: '2024-03-20',
-              status: 'Pending',
-            }
-          ])}>Group 1</Button>
-        </div>
-        <div className="mb-4">
-          <Button className="text-lg flex justify-center items-center w-40 h-11 shadow-md" onClick={() => handleButtonClick([
-            {
-              key: '2',
-              srNo: '2',
-              taskName: 'Task 2',
-              taskType: 'Type B',
-              subject: 'Subject B',
-              assigned: 'Jane Smith',
-              deadline: '2024-03-22',
-              status: 'Completed',
-            }
-          ])}>Group 2</Button>
-        </div>
-        <div>
-          <Button className="text-lg flex justify-center items-center w-40 h-11 shadow-md" 
-          onClick={() => handleButtonClick([])}>Group 3</Button>
+      <div className="flex w-[40%] flex-col items-center justify-center gap-1 rounded-2xl bg-white py-10 px-5">
+        <div className="mb-4 w-full">
+          {data.map((subData, index) => (
+            <GroupCard data={subData} index={index} />
+          ))}
         </div>
       </div>
-      <div className="w-full ml-4 rounded-3xl rounded-b-3xl overflow-hidden">
+      <div className="ml-4 w-full overflow-hidden rounded-3xl rounded-b-3xl">
         <Table dataSource={tableData} columns={columns} />
       </div>
     </div>

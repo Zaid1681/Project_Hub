@@ -14,10 +14,10 @@ const Profile = () => {
   const [user, setUser] = useState([]);
   const [updateUserForm, setUpdateUserForm] = useState({
     aboutMe: '',
-    startingYear:'',
-    passingYear:'',
-    branch:'',
-    skills: []
+    startingYear: '',
+    passingYear: '',
+    branch: '',
+    skills: [],
   });
 
   const currentUser = useSelector((state) => state.user);
@@ -94,49 +94,59 @@ const Profile = () => {
           <Form.Item
             label="About Me"
             name="aboutMe"
-            rules={[{ required: true, message: 'Please input your description!' }]}
-            value={updateUserForm.aboutMe}
-              onChange={(e) => setUpdateUserForm({ ...updateUserForm, aboutMe: e.target.value })}
+            rules={[
+              { required: true, message: 'Please input your description!' },
+            ]}
+            value={user?.aboutMe}
+            onChange={(e) =>
+              setUpdateUserForm({ ...updateUserForm, aboutMe: e.target.value })
+            }
           >
-            <Input 
-            />
+            <Input />
           </Form.Item>
 
           <Form.Item
             label="Starting Year"
             name="startingYear"
             rules={[{ required: true, message: 'Please input your year!' }]}
-            value={updateUserForm.startingYear} 
-              onChange={(e) => setUpdateUserForm({ ...updateUserForm, startingYear: e.target.value })}
+            value={user?.startingYear}
+            onChange={(e) =>
+              setUpdateUserForm({
+                ...updateUserForm,
+                startingYear: e.target.value,
+              })
+            }
           >
-            <Input 
-          
-            />
+            <Input />
           </Form.Item>
-
 
           <Form.Item
             label="Passing Year"
             name="passingYear"
             rules={[{ required: true, message: 'Please input your year!' }]}
-            value={updateUserForm.passingYear}
-              onChange={(e) => setUpdateUserForm({ ...updateUserForm, passingYear: e.target.value })}
+            value={user?.passingYear}
+            onChange={(e) =>
+              setUpdateUserForm({
+                ...updateUserForm,
+                passingYear: e.target.value,
+              })
+            }
           >
-            <Input 
-              
-            />
+            <Input />
           </Form.Item>
 
           <Form.Item
             label="Department"
             name="branch"
-            rules={[{ required: true, message: 'Please input your department!' }]}
-            value={updateUserForm.branch}
-            onChange={(e) => setUpdateUserForm({ ...updateUserForm, branch: e.target.value })}
+            rules={[
+              { required: true, message: 'Please input your department!' },
+            ]}
+            value={user?.branch}
+            onChange={(e) =>
+              setUpdateUserForm({ ...updateUserForm, branch: e.target.value })
+            }
           >
-            <Input 
-             
-            />
+            <Input />
           </Form.Item>
 
           <Form.Item>
@@ -151,7 +161,7 @@ const Profile = () => {
           </Form.Item>
         </Form>
       </Modal>
-        {/* Additional content */}
+      {/* Additional content */}
       <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-2">
         {/* Content section 1 */}
         <div className="bg-gray-100 rounded-md p-7 shadow-lg ">
