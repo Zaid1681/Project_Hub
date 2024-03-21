@@ -324,8 +324,9 @@ const Project2 = () => {
     {
       title: 'Details',
       dataIndex: 'viewMore',
-      render: (_, record) => <a href={`/group/get/${record._id}`}>View More</a>,
-      className: ' text-black cursor-pointer p-2.5 text-center',
+      render: (_, record) => <a href={`/group/get/${record._id}`}><button type="button" className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-2 text-white `}
+      >View More</button></a>,
+      className: 'text-black cursor-pointer p-2.5 text-center',
     },
   ];
 
@@ -347,11 +348,11 @@ const Project2 = () => {
 
   return (
     <div
-      className="pbtext-black pt   my-5 rounded-sm 
+      className="text-black my-10 rounded-sm 
     border  border-stroke  shadow-default dark:text-black xl:pb-1"
     >
       <Table
-        className="text-black dark:text-black"
+        className=" text-black dark:text-black"
         columns={columns}
         // dataSource={data}
         dataSource={dataWithSrNo} // Use modified data here

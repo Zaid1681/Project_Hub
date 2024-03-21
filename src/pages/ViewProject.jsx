@@ -73,7 +73,7 @@ const ViewProject = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () {}, // Callback after click
+        onClick: function () { }, // Callback after click
       }).showToast();
     } catch (error) {
       console.log('Error fetching Project', error);

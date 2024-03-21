@@ -98,7 +98,7 @@ const Addproject = () => {
             background: 'linear-gradient(to right, #3C50E0, #3C50E0',
             padding: '10px 50px',
           },
-          onClick: function () {},
+          onClick: function () { },
         }).showToast();
         setTimeout(() => {
           // Redirect or do any other action after successful submission
@@ -147,7 +147,7 @@ const Addproject = () => {
     });
   };
   return (
-    <div className="m-8 bg-white p-10 text-black shadow-xl dark:bg-boxdark dark:text-white">
+    <div className="   bg-white p-10 text-black shadow-xl dark:bg-boxdark dark:text-white">
       <h1 className="text-2xl font-bold">Project Details</h1>
       <form onSubmit={handleSubmitProject} className="mt-8">
         <div className="mb-4">

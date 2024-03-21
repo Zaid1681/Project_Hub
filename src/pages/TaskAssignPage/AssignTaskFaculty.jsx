@@ -99,7 +99,7 @@ const AssignTaskFaculty = () => {
           taskStatus: formData.taskStatus,
           deadline: formData.deadline,
           semester,
-          facultyId:currentUser.userData._id,
+          facultyId: currentUser.userData._id,
           subject,
           academicYear: academic,
           currentYear,
@@ -157,14 +157,14 @@ const AssignTaskFaculty = () => {
       const res = await axios.delete(`${BASEURL}/task/del/${taskId}`);
       if (res) {
         window.location.reload();
-        console.log('Task deleted successfully');a
+        console.log('Task deleted successfully'); a
         // Optionally, you can perform any action here after successful deletion
       }
     } catch (error) {
       console.error('Error deleting task:', error);
     }
   };
-  
+
   const columns = [
     {
       title: 'Sr no',
@@ -400,7 +400,7 @@ const AssignTaskFaculty = () => {
           type="primary"
           icon={<PlusOutlined />}
           onClick={showModal}
-          className={`mb-2 rounded bg-[#0C356A] px-[4rem] py-2 text-white `}
+          className={`mb-10 rounded bg-[#0C356A] px-[4rem] py-2 text-white `}
         >
           Add Task
         </button>

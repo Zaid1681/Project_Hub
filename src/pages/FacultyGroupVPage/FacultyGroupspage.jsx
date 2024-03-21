@@ -20,20 +20,20 @@ const FacultyGroupspage = () => {
   };
 
   return (
-    <section className="container mx-auto my-12 flex flex-col items-center px-5 md:px-10 ">
+    <section className="container mx-auto my-12 flex flex-col items-center">
       <div className=" font-medium">
         <div className="mx-auto text-center">
-          <div className="mx-auto flex flex-row items-center justify-center px-20">
+          <div className="mx-auto flex flex-row gap-3 md:gap-7 items-center justify-center px-20">
             <button
               onClick={handleShowTable}
-              className={`mr-10 rounded bg-[#0C356A] px-[7rem] py-2 text-white md:mr-24`}
+              className={`rounded bg-[#0C356A] w-30 md:w-50 p-2  text-white`}
             >
               Project Ideas
             </button>
 
             <button
               onClick={handleShowGroups}
-              className={`rounded bg-[#0C356A] px-[7rem] py-2 text-white`}
+              className={`rounded bg-[#0C356A] w-30 md:w-50 p-2 text-white`}
             >
               Groups
             </button>

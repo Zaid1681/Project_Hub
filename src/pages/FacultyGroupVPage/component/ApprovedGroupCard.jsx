@@ -54,23 +54,21 @@ const ApprovedGroupCard = ({
     <a
       href={`/${currentYear}/groups/groupsList/${subject}/${semester}/${academic}/${groupId}`}
     >
-      <div className=" h-[25rem] w-[20rem] transform cursor-pointer overflow-hidden rounded-2xl bg-white text-left shadow-lg transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl">
-        <div className="p-6">
-          <h3 className="mb-2 text-center text-2xl font-bold">{`Group 1`}</h3>
-          <div className="mb-3 flex flex-col gap-1 ">
-            <p className="text-gray-900 text-md font-bold">Project Title:</p>
-            <p className="text-gray-700 text-md ">{data?.title}</p>
+      <div className="transform cursor-pointer mx-6 md:mx-0 overflow-hidden rounded-2xl bg-white text-left shadow-lg transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl">
+        <div className="px-5 py-7">
+          <h3 className="mb-8 text-center text-3xl font-bold">{`Group 1`}</h3>
+          <div className="mb-2 flex gap-2 ">
+            <p className="text-gray-900 text-lg font-bold">Project Title:</p>
+            <p className="text-gray-700 text-lg ">{data?.title}</p>
           </div>
 
-          <div className="mb-4 flex flex-col ">
-            <p className="text-gray-900 text-lg">Project Description:</p>
-
-            <p className="text-gray-700 mb-2 text-sm">
+          <div className="flex my-2 jusitfy-center items-center gap-2">
+            <p className="text-gray-900 text-lg font-bold">Project Description:</p>
+            <p className="text-gray-700 text-lg">
               {showFullAbstract[data?._id]
                 ? data?.description
-                : `${data?.description.slice(0, 140)}${
-                    data?.description.length > 140 ? '...' : ''
-                  }`}
+                : `${data?.description.slice(0, 140)}${data?.description.length > 140 ? '...' : ''
+                }`}
               {data?.description.length > 140 && (
                 <button
                   onClick={() => toggleAbstract(group.id)}
@@ -81,27 +79,27 @@ const ApprovedGroupCard = ({
               )}
             </p>
           </div>
-          <div className="flex gap-5">
-            <p className="text-gray-900 mb-2 text-lg">Assigned Guide :</p>
-            <p className="text-gray-700 mb-2 text-lg font-bold">{guideName}</p>
+          <div className="flex my-2 jusitfy-center items-center gap-2">
+            <p className="text-gray-900 text-lg font-bold">Assigned Guide :</p>
+            <p className="text-gray-700 text-lg">{guideName}</p>
           </div>
-          <div className="flex  items-center">
-            <p className="text-gray-900  text-lg">Members:</p>
-            <span className=" ml-2 items-center font-bold">{LeaderName}</span>
+          <div className="flex my-2 items-center gap-2 flex-wrap">
+            <p className="text-gray-900 text-lg font-bold">Members:</p>
+            <span className="items-center">{LeaderName}</span>
             {members.map((data, index) => (
-              <span key={index} className="mx-1 items-center font-bold">
+              <span key={index} className="mx-1 items-center text-lg">
                 {data}
               </span>
             ))}
           </div>
-          <div className="flex gap-10">
+          <div className="flex-col gap-5">
             <div className="my-2 flex gap-2 ">
-              <p className="text-gray-900 text-md mb-2">subjectName :</p>
-              <p className="font-bold">{subjectName}</p>
+              <p className="text-gray-900 text-lg mb-2 font-bold">Subject :</p>
+              <p className="text-lg">{subjectName}</p>
             </div>
-            <div className="my-2 flex gap-2 ">
-              <p className="text-gray-900 text-md mb-2">Semester :</p>
-              <p className="font-bold">{semster}</p>
+            <div className="my-2 flex gap-2 items-center">
+              <p className="text-gray-900 text-lg font-bold">Semester :</p>
+              <p className=" text-lg">{semster}</p>
             </div>
           </div>
           {/* <ul className="mb-2 text-sm">

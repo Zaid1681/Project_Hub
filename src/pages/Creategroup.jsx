@@ -539,9 +539,9 @@ const Creategroup = () => {
                 Member Names
               </label>
               <div className="">
-                {/* <h1 className="text-md w-full font-medium text-black">
+                <h1 className="text-md w-full font-medium text-black">
                   Member 1
-                </h1> */}
+                </h1>
                 <div className="flex flex-col gap-2 lg:flex-row">
                   <input
                     type="text"
@@ -570,9 +570,9 @@ const Creategroup = () => {
                 Member Names
               </label> */}
               <div className="">
-                {/* <h1 className="text-md w-full font-medium text-black">
+                <h1 className="text-md w-full font-medium text-black">
                   Member 2
-                </h1> */}
+                </h1>
                 <div className="flex flex-col gap-2 lg:flex-row">
                   <input
                     type="text"
@@ -600,9 +600,9 @@ const Creategroup = () => {
                   Member Names
                 </label> */}
                 <div className="">
-                  {/* <h1 className="text-md w-full font-medium text-black">
+                  <h1 className="text-md w-full font-medium text-black">
                     Member 3
-                  </h1> */}
+                  </h1>
                   <div className="flex flex-col gap-2 lg:flex-row">
                     <input
                       type="text"

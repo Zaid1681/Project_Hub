@@ -233,7 +233,7 @@ const FormLayout = () => {
 
                 <div className="mb-5.5">
                   <label className="mb-2.5 block text-black dark:text-white">
-                    Re-type Password
+                    Password
                   </label>
                   <input
                     type="password"

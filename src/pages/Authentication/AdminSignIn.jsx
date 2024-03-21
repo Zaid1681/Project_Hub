@@ -68,7 +68,7 @@ const AdminSignIn = () => {
             background: 'linear-gradient(to right, #3C50E0, #3C50E0',
             padding: '10px 50px',
           },
-          onClick: function () {}, // Callback after click
+          onClick: function () { }, // Callback after click
         }).showToast();
         setTimeout(() => {
           navigate('/');
@@ -166,7 +166,7 @@ const AdminSignIn = () => {
 
                 <div className="mb-6">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Re-type Password
+                    Password
                   </label>
                   <div className="relative">
                     <input
