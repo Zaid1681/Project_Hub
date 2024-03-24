@@ -12,11 +12,13 @@ import {
 } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import '../../Table.css';
+import moment from 'moment'; // Import moment.js library
+
 import { useParams, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { BASEURL } from '../../Api';
-
+import DatePickerOne from './DatePicker';
 const { RangePicker } = DatePicker;
 import ReactDatePicker from 'react-datepicker'; // Rename DatePicker import from react-datepicker
 import 'react-datepicker/dist/react-datepicker.css';
@@ -24,10 +26,8 @@ const AssignTaskFaculty = () => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    taskType: '',
     groupId: [''],
     assignedDate: null,
-    taskStatus: '',
     deadline: null,
   });
 
@@ -44,6 +44,7 @@ const AssignTaskFaculty = () => {
   const [data2, setData2] = useState([]);
   const [loadingTasks, setLoadingTasks] = useState(false);
   const [selectedGroups, setSelectedGroups] = useState([]);
+
   const { subject, currentYear, semester, academic } = useParams();
   const currentUser = useSelector((state) => state.user);
   const facultyId = currentUser.userData._id;
@@ -87,10 +88,8 @@ const AssignTaskFaculty = () => {
         {
           title: formData.title,
           description: formData.description,
-          taskType: formData.taskType,
           groupId: selectedGroups, // Convert array to string
           assignedDate: formData.assignedDate,
-          taskStatus: formData.taskStatus,
           deadline: formData.deadline,
           semester,
           facultyId: currentUser.userData._id,
@@ -109,9 +108,9 @@ const AssignTaskFaculty = () => {
         console.log('task uploaded');
         // fetchSpecificTask();
         handleCancel();
-        setTimeout(() => {
-          location.reload();
-        }, 100);
+        // setTimeout(() => {
+        //   location.reload();
+        // }, 100);
 
         // Show success message or perform any other action
       }
@@ -121,37 +120,6 @@ const AssignTaskFaculty = () => {
   };
   console.log('---> hello', editingTaskId);
 
-  const handleEditTask = async () => {
-    try {
-      const res = await axios.put(
-        `${BASEURL}/task/update/${editingTaskId}`, // Use editingTaskId here
-        {
-          title: editFormData.title,
-          description: editFormData.description,
-          taskType: editFormData.taskType,
-          groupId: selectedGroups,
-          assignedDate: editFormData.assignedDate,
-          taskStatus: editFormData.taskStatus,
-          deadline: editFormData.deadline,
-          semester,
-          subject,
-          academicYear: academic,
-          currentYear,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      if (res) {
-        console.log('task updated');
-        // Show success message or perform any other action
-      }
-    } catch (error) {
-      console.error('Error during update:', error);
-    }
-  };
   const handleDelete = async (taskId) => {
     try {
       const res = await axios.delete(`${BASEURL}/task/del/${taskId}`);
@@ -196,11 +164,17 @@ const AssignTaskFaculty = () => {
       title: 'Assigned',
       dataIndex: 'assignedDate',
       key: 'assignedDate',
+      render: (assignedDate) => (
+        <span>{moment(assignedDate).format('DD-MM-YYYY, HH:mm')}</span>
+      ),
     },
     {
       title: 'Deadline',
       dataIndex: 'deadline',
       key: 'deadline',
+      render: (deadline) => (
+        <span>{moment(deadline).format('DD-MM-YYYY, HH:mm')}</span>
+      ),
     },
     {
       title: 'Status',
@@ -247,27 +221,25 @@ const AssignTaskFaculty = () => {
       // className: 'bg-black text-white bg-boxdark p-2.5 text-center',
     },
   ];
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        setLoadingTasks(true);
+  const fetchTasks = async () => {
+    try {
+      setLoadingTasks(true);
 
-        const res = await axios.get(
-          `${BASEURL}/task/getTaskByCriteriaAll/${academic}/${currentYear}/${semester}/${subject}/${facultyId}`
-        );
-        // console.log('===>', res.data);
-        setData(res.data.data);
-      } catch (error) {
-        console.error('Error fetching subjects:', error);
-      } finally {
-        setLoadingTasks(false);
-      }
-    };
-
-    if (currentYear && semester && academic && subject && facultyId) {
-      fetchTasks();
+      const res = await axios.get(
+        `${BASEURL}/task/getTaskByCriteriaAll/${academic}/${currentYear}/${semester}/${subject}/${facultyId}`
+      );
+      // console.log('===>', res.data);
+      setData(res.data.data);
+    } catch (error) {
+      console.error('Error fetching subjects:', error);
+    } finally {
+      setLoadingTasks(false);
     }
-  }, [currentYear, semester, academic, subject]);
+  };
+
+  useEffect(() => {
+    fetchTasks();
+  }, [currentYear && semester && academic && subject && facultyId]);
 
   // useEffect(() => {
   const fetchSpecificTask = async () => {
@@ -286,9 +258,18 @@ const AssignTaskFaculty = () => {
       console.error('Error during update:', error);
     }
   };
-  if (editingTaskId) {
+  useEffect(() => {
     fetchSpecificTask();
-  }
+  }, [editingTaskId]);
+  const [editFormData, setEditFormData] = useState({
+    title: '',
+    description: '',
+    assignedDate: null, // Convert to compatible format if not null
+    deadline: null, // Convert to compatible format if not null
+    selectedGroups: [],
+    taskType: '',
+    taskStatus: '',
+  });
   // }, [editingTaskId]);
   // fetch groupMembers-Name
   useEffect(() => {
@@ -308,14 +289,51 @@ const AssignTaskFaculty = () => {
 
     fetchMembers();
   }, []);
-
+  const formattedAssignedDate = data2?.assignedDate
+    ? data2.assignedDate.slice(0, 16)
+    : '';
+  const formattedDeadlineDate = data2?.deadline
+    ? data2.deadline.slice(0, 16)
+    : '';
   // Generate serial numbers and modify the data
   const dataWithSrNo = data?.map((item, index) => ({
     ...item,
     key: (index + 1).toString(), // Assigning unique key for Ant Design Table
     sr: index + 1, // Adding the serial number
   }));
+  const handleEditTask = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
 
+    try {
+      const res = await axios.put(
+        `${BASEURL}/task/update/${editingTaskId}`, // Use editingTaskId here
+        {
+          title: editFormData.title || data2.title,
+          description: editFormData.description || data2.description,
+          taskType: editFormData.taskType || data2.taskType,
+          groupId: selectedGroups || data2.selectedGroups,
+          assignedDate: editFormData.assignedDate || data2.assignedDate,
+          taskStatus: editFormData.taskStatus || data2.taskStatus,
+          deadline: editFormData.deadline || data2.deadline,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (res) {
+        console.log('task updated');
+        fetchTasks();
+        handleCancel2();
+
+        // Show success message or perform any other action
+      }
+    } catch (error) {
+      console.error('Error during update:', error);
+    }
+  };
+  console.log('====--->', editFormData);
   // const data = [
   //   {
   //     key: '1',
@@ -368,23 +386,45 @@ const AssignTaskFaculty = () => {
     } else if (fieldName === 'taskType') {
       const taskType = value.target.value;
       setFormData({ ...formData, [fieldName]: taskType });
+    } else if (fieldName === 'assignedDate' || fieldName === 'deadline') {
+      // const reversedDate = value.target.value.split('-').reverse().join('-');
+      const formattedDate = moment(
+        value.target.value,
+        'DD-MM-YYYYTHH:mm'
+      ).toDate(); // Parse date string to Date object
+
+      console.log(formattedDate);
+      setFormData({ ...formData, [fieldName]: formattedDate });
     } else {
       setFormData({ ...formData, [fieldName]: value });
     }
   };
+  // const handleChange2 = (fieldName, value) => {
+  //   if (fieldName === 'groupId') {
+  //     const selectedGroupId = value.target.value;
+  //     setSelectedGroups((prevGroups) => [...prevGroups, selectedGroupId]);
+  //   } else if (fieldName === 'taskType') {
+  //     const taskType = value.target.value;
+  //     setEditFormData({ ...formData, [fieldName]: taskType });
+  //   } else if (fieldName === 'assignedDate' || fieldName === 'deadline') {
+  //     // const reversedDate = value.target.value.split('-').reverse().join('-');
+  //     const formattedDate = moment(
+  //       value.target.value,
+  //       'DD-MM-YYYYTHH:mm'
+  //     ).toDate(); // Parse date string to Date object
 
+  //     console.log(formattedDate);
+  //     setEditFormData({ ...formData, [fieldName]: formattedDate });
+  //   } else {
+  //     setEditFormData({ ...formData, [fieldName]: value });
+  //   }
+  // };
   const handleChange2 = (fieldName, value) => {
-    if (fieldName === 'groupId') {
-      // Extract the selected groupId from the event value
-      const selectedGroupId = value.target.value;
-      // console.log(selectedGroupId);
-      // Update the selectedGroups state with the selected groupId
-      setSelectedGroups((prevGroups) => [...prevGroups, selectedGroupId]);
-    } else if (fieldName === 'taskType') {
-      const taskType = value.target.value;
-      setEditFormData({ ...editFormData, [fieldName]: taskType });
+    if (fieldName === 'assignedDate' || fieldName === 'deadline') {
+      const formattedDate = moment(value.target.value).toDate(); // Parse date string to Date object
+      setEditFormData({ ...editFormData, [fieldName]: formattedDate });
     } else {
-      setEditFormData({ ...editFormData, [fieldName]: value });
+      setEditFormData({ ...editFormData, [fieldName]: value.target.value });
     }
   };
 
@@ -395,16 +435,7 @@ const AssignTaskFaculty = () => {
       return updatedGroups;
     });
   };
-  const [editFormData, setEditFormData] = useState({
-    title: '',
-    description: '',
-    assignedDate: '',
-    deadline: '',
-    groupId: '',
-    taskType: '',
-    taskStatus: '',
-  });
-  const typpe = data2?.taskType;
+
   // console.log('===>', data2?.taskType);
   return (
     <div>
@@ -527,9 +558,21 @@ const AssignTaskFaculty = () => {
             ]}
             value={formData.assignedDate}
           >
-            <DatePicker
+            {/* <DatePicker
               onChange={(date) => handleChange('assignedDate', date)}
-            />
+            /> */}
+            <div>
+              {' '}
+              <input
+                type="datetime-local"
+                className="custom-input-date custom-input-date-1 w-full rounded border-[1.5px]
+  border-stroke bg-transparent py-3 px-5 font-medium outline-none transition
+  focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input
+  dark:focus:border-primary"
+                placeholder="mm/dd/yyyy hh:mm"
+                onChange={(date) => handleChange('assignedDate', date)}
+              />
+            </div>
           </Form.Item>
           <Form.Item
             label="Completion Date"
@@ -539,7 +582,19 @@ const AssignTaskFaculty = () => {
             ]}
             value={formData.deadline}
           >
-            <DatePicker onChange={(date) => handleChange('deadline', date)} />
+            {/* <DatePicker onChange={(date) => handleChange('deadline', date)} /> */}
+            <div>
+              {' '}
+              <input
+                type="datetime-local"
+                className="custom-input-date custom-input-date-1 w-full rounded border-[1.5px]
+border-stroke bg-transparent py-3 px-5 font-medium outline-none transition
+focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input
+dark:focus:border-primary"
+                placeholder="mm/dd/yyyy hh:mm"
+                onChange={(date) => handleChange('deadline', date)}
+              />
+            </div>
           </Form.Item>
 
           <Form.Item>
@@ -557,62 +612,18 @@ const AssignTaskFaculty = () => {
       <Modal
         title="edit Task"
         visible={isModalVisible2}
-        onOk={handleOk2}
-        onCancel={handleCancel2}
+        // onOk={handleOk2}
+        // onCancel={handleCancel2}
         footer={null}
       >
-        {/* <form onSubmit={handleEditTask}>
-          <label htmlFor="taskTitle">Task Title:</label>
-          <input
-            type="text"
-            id="taskTitle"
-            name="taskTitle"
-            value={titleValue}
-            defaultValue={data2.title}
-            onChange={(e) => handleChange2('title', e.target.value)}
-            required
-          />
-
-          <label htmlFor="taskDescription">Task Description:</label>
-          <textarea
-            id="taskDescription"
-            name="taskDescription"
-            value={data2?.description}
-            onChange={(e) => handleChange2('description', e.target.value)}
-            required
-          ></textarea>
-
-          <label htmlFor="assignedDate">Assigned Date:</label>
-          <input
-            type="date"
-            id="assignedDate"
-            name="assignedDate"
-            value={editFormData.assignedDate}
-            onChange={(e) => handleChange2('assignedDate', e.target.value)}
-            required
-          />
-
-          <label htmlFor="deadline">Completion Date:</label>
-          <input
-            type="date"
-            id="deadline"
-            name="deadline"
-            value={editFormData.deadline}
-            onChange={(e) => handleChange('deadline', e.target.value)}
-            required
-          />
-
-          <button type="submit">Save</button>
-        </form> */}
         <form className="mx-auto max-w-md">
           <div className="group relative z-0 mb-5 w-full">
             <input
               type="text"
-              name="tilte"
+              name="title"
               // value={editFormData.title}
               defaultValue={data2.title}
-              onChange={(e) => {}}
-              // id="floating_email"
+              onChange={(value) => handleChange2('title', value)}
               className="text-gray-900 border-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-600 peer block w-full appearance-none border-0 border-b-2 bg-transparent py-2.5 px-0 text-sm focus:outline-none focus:ring-0 dark:text-white"
               placeholder=" "
               required
@@ -633,12 +644,12 @@ const AssignTaskFaculty = () => {
             <input
               type="text"
               name="description"
-              defaultValue={data2.description}
               // value={editFormData.description}
-              id=""
+              defaultValue={data2.description}
               className="text-gray-900 border-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-600 peer block w-full appearance-none border-0 border-b-2 bg-transparent py-2.5 px-0 text-sm focus:outline-none focus:ring-0 dark:text-white"
               placeholder=" "
               required
+              onChange={(value) => handleChange2('description', value)}
             />
             <label
               for="floating_email"
@@ -653,100 +664,59 @@ const AssignTaskFaculty = () => {
           </div>
 
           <div className="flex items-center">
-            {/* <ReactDatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              selectsStart
-              startDate={startDate}
-              endDate={endDate}
-              placeholderText="Select start date"
-              className="bg-gray-50 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 ps-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full rounded-lg border p-2.5 text-sm dark:text-white"
-            /> */}
-            <DatePicker
-              // defaultValue={data2.deadline} // Use selected prop to set the selected date
-              // onChange={(date) => handleStartDateChange(date)} // Handle date change
-              dateFormat="yyyy-MM-dd" // Specify the date format if needed
-            />
-            <span className="text-gray-500 mx-4">to</span>
-            <DatePicker onChange={(date) => handleChange('deadline', date)} />
+            <div>
+              <input
+                type="datetime-local"
+                defaultValue={formattedAssignedDate}
+                className="custom-input-date custom-input-date-1 w-full rounded border-[1.5px]
+      border-stroke bg-transparent py-3 px-5 font-medium outline-none transition
+      focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input
+      dark:focus:border-primary"
+                placeholder="mm/dd/yyyy hh:mm"
+                onChange={(date) => handleChange2('assignedDate', date)}
 
-            {/* <ReactDatePicker
-              selected={endDate}
-              onChange={(date) => setEndDate(date)}
-              selectsEnd
-              startDate={startDate}
-              endDate={endDate}
-              minDate={startDate}
-              placeholderText="Select end date"
-              className="bg-gray-50 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 ps-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full rounded-lg border p-2.5 text-sm dark:text-white"
-            /> */}
+                // defaultValue={date}
+                // onChange={handleDateChange}
+              />
+            </div>{' '}
+            <span className="text-gray-500 mx-4">to</span>
+            {/* <DatePickerOne /> */}
+            <div>
+              {' '}
+              <input
+                type="datetime-local"
+                defaultValue={formattedDeadlineDate}
+                className="custom-input-date custom-input-date-1 w-full rounded border-[1.5px]
+border-stroke bg-transparent py-3 px-5 font-medium outline-none transition
+focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input
+dark:focus:border-primary"
+                placeholder="mm/dd/yyyy hh:mm"
+                onChange={(date) => handleChange2('deadline', date)}
+              />
+            </div>
           </div>
           <div className="my-5">
             {' '}
             <div className="grid md:grid-cols-2 md:gap-6">
               <select
                 // value={editFormData.taskType}
-                // defaultValue={data2.taskType} // Set the value to the value of data2.taskType
-                // onChange={(e) => handleChange('taskType', e.target.value)} // Handle change event
-                name="taskType"
+                defaultValue={data2?.taskStatus?.toString()}
+                name="taskStatus"
+                onChange={(value) => handleChange2('taskStatus', value)}
                 className="focus:border-blue-500 w-full rounded border px-3 py-2 font-bold text-black focus:outline-none"
               >
-                <option value="" disabled>
-                  Select Status
-                </option>
-                <option value="All">Pending</option>
-                <option value="Individual">Closed</option>
+                <option value="">Select Status</option>
+                <option value="Pending">Pending</option>
+                <option value="Closed">Closed</option>
               </select>
             </div>
           </div>
-          {/* <div className="grid md:grid-cols-2 md:gap-6">
-            <div className="group relative z-0 mb-5 w-full">
-              <input
-                type="text"
-                name="floating_first_name"
-                id="floating_first_name"
-                className="text-gray-900 border-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-600 peer block w-full appearance-none border-0 border-b-2 bg-transparent py-2.5 px-0 text-sm focus:outline-none focus:ring-0 dark:text-white"
-                placeholder=" "
-                required
-              />
-              <label
-                for="floating_first_name"
-                className="text-gray-500 dark:text-gray-400 peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium rtl:peer-focus:translate-x-1/4"
-              >
-                First name
-              </label>
-            </div>
-            <div className="group relative z-0 mb-5 w-full">
-              <input
-                type="text"
-                name="floating_last_name"
-                id="floating_last_name"
-                className="text-gray-900 border-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-600 peer block w-full appearance-none border-0 border-b-2 bg-transparent py-2.5 px-0 text-sm focus:outline-none focus:ring-0 dark:text-white"
-                placeholder=" "
-                required
-              />
-              <label
-                for="floating_last_name"
-                className="text-gray-500 dark:text-gray-400 peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium rtl:peer-focus:translate-x-1/4"
-              >
-                Last name
-              </label>
-            </div>
-          </div> */}
-          {/* <button
-            type="submit"
-            className="bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 
-            dark:focus:ring-blue-800 w-full rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white
-             focus:outline-none 
-            focus:ring-4 sm:w-auto"
-          >
-            Submit
-          </button> */}
+
           <div className="flex justify-end">
             <button
               type="primary"
-              onClick={handleCancel2}
               icon={<PlusOutlined />}
+              onClick={handleEditTask}
               // handleCancel2
               // onClick={showModal}
               className={`mb-2 rounded bg-[#0C356A] px-[4rem] py-2 text-white `}
