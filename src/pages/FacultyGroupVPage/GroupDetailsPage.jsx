@@ -294,7 +294,6 @@ const GroupDetailsPage = () => {
           {/* <h1>{data.guideId}</h1> */}
         </div>
 
-<<<<<<< Updated upstream
   <div className="flex flex-col gap-10">
     <div className="flex items-center gap-10">
       <p className="text-xl font-bold text-black/90">Changes Status</p>
@@ -329,34 +328,6 @@ const GroupDetailsPage = () => {
           Save Changes
         </button>
       </div>
-=======
-        <div className="grid grid-cols-1 xl:grid-cols-3 ">
-        <div className="flex justify-center items-center">
-          <select
-            id="countries"
-            className=" text-gray-900 text-md focus:ring-blue-500
-              placeholder-gray-400 w-50  bg-gray-900 block my-2 rounded-lg border border-black p-2 font-semibold text-black"
-            onChange={handleGroupStatusChange}
-          >
-            <option value="Inprocess">Inprocess</option>
-            <option value="Approved">Approved</option>
-            <option value="Improvement">Improvement</option>
-            <option value="Rejected">Rejected</option>
-            {/* <option value="IN">India</option> */}
-          </select>
-        </div>
-        <div className='my-2 flex justify-center items-center'>
-          <AssignGuide groupId={groupId} guideName={data?.guideName} />
-        </div>
-        <div className="flex justify-center items-center my-2">
-          <button
-            className="no-hover my-auto rounded border bg-black px-10 py-2 
-          text-[1rem] font-medium text-white" // Add "no-hover" class to remove hover effect
-            onClick={handleSaveChanges}
-          >
-            Save Changes
-          </button>
->>>>>>> Stashed changes
         </div>
       </div>
     </section>

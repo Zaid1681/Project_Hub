@@ -36,21 +36,12 @@ const IndividualGroupDetailsPage = () => {
       const academicYear = response.data.data.academicYear;
       const semester = response.data.data.semester;
       const subject = response.data.data.subject;
-<<<<<<< Updated upstream
       const facultyId = response.data.data.guideId;
       console.log(currentYear);
       console.log(academicYear);
       console.log(semester);
       console.log(subject);
       console.log(facultyId);
-=======
-      const facultyId = response.data.data.facultyId;
-      console.log(currentYear)
-      console.log(academicYear)
-      console.log(semester)
-      console.log(subject)
-      console.log(facultyId)
->>>>>>> Stashed changes
       setCurrentYear(currentYear);
       setAcademicYear(academicYear);
       setSemester(semester);
@@ -102,7 +93,7 @@ const IndividualGroupDetailsPage = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () { }, // Callback after click
+        onClick: function () {}, // Callback after click
       }).showToast();
       // console.log(response.data.data);
     } catch (error) {
@@ -116,11 +107,7 @@ const IndividualGroupDetailsPage = () => {
     console.log(academicYear);
     console.log(semester);
     console.log(subject);
-<<<<<<< Updated upstream
     console.log(facultyId);
-=======
-    console.log(facultyId)
->>>>>>> Stashed changes
     // Assuming facultyId is available in the data object
     const url = `http://localhost:8080/groupsection/group/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`;
     window.location.href = url;
@@ -153,60 +140,49 @@ const IndividualGroupDetailsPage = () => {
   return (
     <main className="bg-gray-100 min-h-screen">
       {/* <h1>hello world</h1> */}
-<<<<<<< Updated upstream
-  <div className="mx-10 flex justify-end">
-    {' '}
-    <a
-      // href={`/${currentYear}/groups/${subject}/${semester}/${academic}/assignTask`}
-      href={`/groupsection/group/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`}
-      // onClick={handleShowGroups}
-      className={`rounded bg-[#0C356A] px-[3rem] py-2 text-white `}
-    >
-      View Tasks
-    </a>
-=======
-      <div className='flex mt-10 justify-start md:justify-end'> <a
-      // href={`/${currentYear}/groups/${subject}/${semester}/${academic}/assignTask`}
-      href=''
-      // onClick={handleShowGroups}
-      className={`rounded bg-[#0C356A] px-[3rem] py-2 text-white `}
-    >
-      Assign Task
-    </a>
->>>>>>> Stashed changes
-    </div>
-    <section className="mx-auto mt-10  md:p-10">
-      <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
-        <h2 className="mb-7 text-3xl font-semibold text-[#0C356A]">GROUP</h2>
+      <div className="mx-10 flex justify-end">
+        {' '}
+        <a
+          // href={`/${currentYear}/groups/${subject}/${semester}/${academic}/assignTask`}
+          href={`/groupsection/group/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`}
+          // onClick={handleShowGroups}
+          className={`rounded bg-[#0C356A] px-[3rem] py-2 text-white `}
+        >
+          View Tasks
+        </a>
+      </div>
+      <section className="mx-auto mt-10  md:p-10">
+        <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
+          <h2 className="mb-7 text-3xl font-semibold text-[#0C356A]">GROUP</h2>
 
-        <div className="space-y-6">
-          <div className="flex items-center gap-10  text-black ">
-            {/* <h1 className="text-xl font-medium">Group No - 1</h1> */}
-            <h1 className="text-xl font-medium">Members Name : </h1>
-            <div className="flex gap-5">
-              {membersName?.map((data, index) => (
-                <h1 className=" text-xl font-medium">{data},</h1>
-              ))}
+          <div className="space-y-6">
+            <div className="flex items-center gap-10  text-black ">
+              {/* <h1 className="text-xl font-medium">Group No - 1</h1> */}
+              <h1 className="text-xl font-medium">Members Name : </h1>
+              <div className="flex gap-5">
+                {membersName?.map((data, index) => (
+                  <h1 className=" text-xl font-medium">{data},</h1>
+                ))}
+              </div>
+            </div>
+            <div className="flex gap-10 text-black">
+              {' '}
+              <h1 className="text-xl font-medium">
+                <span>Year : </span>
+                {data.currentYear}
+              </h1>
+              <h1 className="text-xl font-medium">
+                <span>Semester : </span>
+                {data.semester}
+              </h1>
+              <h1 className="text-xl font-medium">
+                <span>Subject : </span>
+                {data.subject}
+              </h1>
             </div>
           </div>
-          <div className="flex gap-10 text-black">
-            {' '}
-            <h1 className="text-xl font-medium">
-              <span>Year : </span>
-              {data.currentYear}
-            </h1>
-            <h1 className="text-xl font-medium">
-              <span>Semester : </span>
-              {data.semester}
-            </h1>
-            <h1 className="text-xl font-medium">
-              <span>Subject : </span>
-              {data.subject}
-            </h1>
-          </div>
         </div>
-      </div>
-      {/* <div
+        {/* <div
           className="container mx-auto mt-10 grid grid-cols-1
           gap-6 p-4 md:grid-cols-1 md:p-10"
         >
@@ -282,44 +258,36 @@ const IndividualGroupDetailsPage = () => {
             </div>
           ))}
         </div> */}
-      {projectDetails?.map((val, index) => (
-        <div
-          key={index}
-          className="container mx-auto my-10 rounded-lg bg-white p-8 shadow-md"
-        >
-          {' '}
-          <div className="space-y-4 text-black">
-            <div className="mt-6">
-              <h1 className="text-xl font-medium">Title</h1>
-              <h2 className="mt-2 text-lg">{val.title}</h2>
-            </div>
-            <div className="mt-5">
-              <h1 className="text-xl font-medium">Abstract</h1>
-              <p className="mt-2 text-lg">{val.description}</p>
-            </div>
-            <div className="mt-6">
-              <h1 className="text-xl font-medium">Attachment</h1>
-              {val?.pdfLinks?.map((data, index) => (
-                <h2 className="mt-1 text-lg break-words"><a href={data}> {data}</a></h2>
-              ))}
-            </div>
-<<<<<<< Updated upstream
-  <div className="flex items-center gap-3 text-center">
-    <h1 className="text-xl font-medium">Status: </h1>{' '}
-    <h1 className="flex items-center text-center">
-      {val.isApproved === true ? 'Approved' : 'Not Approved'}
-    </h1>
-=======
-              <h1 className='text-xl font-bold '> {val.isApproved === true ? 'Approved' : 'Not Approved'}</h1>
-    <div className="flex justify-start items-center">
-      <div className="flex">
-        <a href={`/groupsection/group/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`} className="text-white font-bold py-2 px-4 border rounded bg-[#0C356A]" onClick={handleViewTask}>
-          View Task
-        </a>
-      </div>
->>>>>>> Stashed changes
-    </div>
-    {/* <div className="flex justify-start">
+        {projectDetails?.map((val, index) => (
+          <div
+            key={index}
+            className="container mx-auto my-10 rounded-lg bg-white p-8 shadow-md"
+          >
+            {' '}
+            <div className="space-y-4 text-black">
+              <div className="mt-6">
+                <h1 className="text-xl font-medium">Title</h1>
+                <h2 className="mt-2 text-lg">{val.title}</h2>
+              </div>
+              <div className="mt-5">
+                <h1 className="text-xl font-medium">Abstract</h1>
+                <p className="mt-2 text-lg">{val.description}</p>
+              </div>
+              <div className="mt-6">
+                <h1 className="text-xl font-medium">Attachment</h1>
+                {val?.pdfLinks?.map((data, index) => (
+                  <h2 className="mt-1 break-words text-lg">
+                    <a href={data}> {data}</a>
+                  </h2>
+                ))}
+              </div>
+              <div className="flex items-center gap-3 text-center">
+                <h1 className="text-xl font-medium">Status: </h1>{' '}
+                <h1 className="flex items-center text-center">
+                  {val.isApproved === true ? 'Approved' : 'Not Approved'}
+                </h1>
+              </div>
+              {/* <div className="flex justify-start">
                 <div className="mt-4 flex justify-center">
                   <a
                     href={`/groupsection/group/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`}
@@ -330,27 +298,22 @@ const IndividualGroupDetailsPage = () => {
                   </a>
                 </div>
               </div> */}
-  </div>
-          </div >
+            </div>
+          </div>
         ))}
-<div className="container my-10 mx-auto  gap-10 rounded-lg bg-white p-8 shadow-md">
-  <h2 className="mb-7 text-xl font-semibold text-[#0C356A]">
-    Guide Deails
-  </h2>
-  <div className="flex gap-10">
-    {' '}
-    <p className="text-lg font-bold text-black/90">Assigned Guide : </p>
-    <h1 className="text-lg font-bold text-black">{data?.guideName}</h1>
-  </div>
-  {/* <h1>{data.guideId}</h1> */}
-</div>
-<<<<<<< Updated upstream
-=======
-
-
->>>>>>> Stashed changes
-      </section >
-    </main >
+        <div className="container my-10 mx-auto  gap-10 rounded-lg bg-white p-8 shadow-md">
+          <h2 className="mb-7 text-xl font-semibold text-[#0C356A]">
+            Guide Deails
+          </h2>
+          <div className="flex gap-10">
+            {' '}
+            <p className="text-lg font-bold text-black/90">Assigned Guide : </p>
+            <h1 className="text-lg font-bold text-black">{data?.guideName}</h1>
+          </div>
+          {/* <h1>{data.guideId}</h1> */}
+        </div>
+      </section>
+    </main>
   );
 };
 

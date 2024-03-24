@@ -104,7 +104,7 @@ const ApprovedGroupsPage = () => {
         <a
           href={`/${currentYear}/groups/${subject}/${semester}/${academic}/assignTask`}
           // onClick={handleShowGroups}
-          className={`rounded bg-[#0C356A] w-30 md:w-80  p-2 text-center text-white `}
+          className={`w-30 rounded bg-[#0C356A] p-2  text-center text-white md:w-80 `}
         >
           Assign Task
         </a>
@@ -120,6 +120,7 @@ const ApprovedGroupsPage = () => {
             guideId={group.guideId}
             projectAppStatus={group.isProjectApproved}
             approvedProjId={group.approvedProjectId}
+            subjectName={group.subject}
             LeaderName={group.groupLeaderName}
             groupId={group._id}
           />

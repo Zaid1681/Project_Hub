@@ -26,6 +26,7 @@ const AssignTaskFaculty = () => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
+    taskType: '',
     groupId: [''],
     assignedDate: null,
     deadline: null,
@@ -80,8 +81,15 @@ const AssignTaskFaculty = () => {
   const handleCancel2 = () => {
     setIsModalVisible2(false);
   };
+  console.log('---data', formData);
   const handleSubmitTask = async (e) => {
     e.preventDefault();
+    if (formData.taskType === 'All') {
+      // setSelectedGroups([]);
+      setSelectedGroups((prevGroups) => []);
+
+      // console.log('=======hfhfhfhf', selectedGroups);
+    }
     try {
       const res = await axios.post(
         `${BASEURL}/task/add`,
@@ -96,6 +104,7 @@ const AssignTaskFaculty = () => {
           subject,
           academicYear: academic,
           currentYear,
+          taskType: formData.taskType,
           // Use formData instead of currentUser
         },
         {
@@ -107,6 +116,16 @@ const AssignTaskFaculty = () => {
       if (res) {
         console.log('task uploaded');
         // fetchSpecificTask();
+        setFormData({
+          title: '',
+          description: '',
+          taskType: '',
+          groupId: [''],
+          assignedDate: null,
+          deadline: null,
+        });
+        setSelectedGroups([]);
+        fetchTasks();
         handleCancel();
         // setTimeout(() => {
         //   location.reload();
@@ -118,13 +137,14 @@ const AssignTaskFaculty = () => {
       console.error('Error during submission:', error);
     }
   };
-  console.log('---> hello', editingTaskId);
+  // console.log('---> hello', editingTaskId);
 
   const handleDelete = async (taskId) => {
     try {
       const res = await axios.delete(`${BASEURL}/task/del/${taskId}`);
       if (res) {
-        window.location.reload();
+        // window.location.reload();
+        fetchTasks();
         console.log('Task deleted successfully');
         a;
         // Optionally, you can perform any action here after successful deletion
@@ -253,6 +273,7 @@ const AssignTaskFaculty = () => {
         }
       );
       setData2(res.data.data);
+      setSelectedEditGroup(res.data.data.groupId);
       // console.log('=====>--', res.data.data);
     } catch (error) {
       console.error('Error during update:', error);
@@ -266,10 +287,12 @@ const AssignTaskFaculty = () => {
     description: '',
     assignedDate: null, // Convert to compatible format if not null
     deadline: null, // Convert to compatible format if not null
-    selectedGroups: [],
     taskType: '',
     taskStatus: '',
   });
+  const [selectedEditGroup, setSelectedEditGroup] = useState([]);
+
+  // console.log('data2.groupId', selectedEditGroup);
   // }, [editingTaskId]);
   // fetch groupMembers-Name
   useEffect(() => {
@@ -277,7 +300,7 @@ const AssignTaskFaculty = () => {
       try {
         setLoadingMembers(true);
         const res = await axios.get(
-          `${BASEURL}/group/groupsList/get/2023-2024/BE/CC/8/groupMembers/65b751821ecafa8130f3853b`
+          `${BASEURL}/group/groupsList/get/${academic}/${currentYear}/${subject}/${semester}/groupMembers/${facultyId}`
         );
         setMembersList(res.data.data);
       } catch (error) {
@@ -301,9 +324,12 @@ const AssignTaskFaculty = () => {
     key: (index + 1).toString(), // Assigning unique key for Ant Design Table
     sr: index + 1, // Adding the serial number
   }));
+  // console.log('------===>', selectedGroups);
   const handleEditTask = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
-
+    if (editFormData.taskType === 'All' || data2?.taskType === 'All') {
+      setSelectedEditGroup([]);
+    }
     try {
       const res = await axios.put(
         `${BASEURL}/task/update/${editingTaskId}`, // Use editingTaskId here
@@ -311,7 +337,7 @@ const AssignTaskFaculty = () => {
           title: editFormData.title || data2.title,
           description: editFormData.description || data2.description,
           taskType: editFormData.taskType || data2.taskType,
-          groupId: selectedGroups || data2.selectedGroups,
+          groupId: selectedEditGroup, // Merge and remove duplicates
           assignedDate: editFormData.assignedDate || data2.assignedDate,
           taskStatus: editFormData.taskStatus || data2.taskStatus,
           deadline: editFormData.deadline || data2.deadline,
@@ -324,6 +350,15 @@ const AssignTaskFaculty = () => {
       );
       if (res) {
         console.log('task updated');
+        setEditFormData({
+          title: '',
+          description: '',
+          assignedDate: null,
+          deadline: null,
+          selectedGroups: [],
+          taskType: '',
+          taskStatus: '',
+        });
         fetchTasks();
         handleCancel2();
 
@@ -333,7 +368,7 @@ const AssignTaskFaculty = () => {
       console.error('Error during update:', error);
     }
   };
-  console.log('====--->', editFormData);
+  // console.log('====--->', editFormData);
   // const data = [
   //   {
   //     key: '1',
@@ -393,7 +428,7 @@ const AssignTaskFaculty = () => {
         'DD-MM-YYYYTHH:mm'
       ).toDate(); // Parse date string to Date object
 
-      console.log(formattedDate);
+      // console.log(formattedDate);
       setFormData({ ...formData, [fieldName]: formattedDate });
     } else {
       setFormData({ ...formData, [fieldName]: value });
@@ -420,6 +455,13 @@ const AssignTaskFaculty = () => {
   //   }
   // };
   const handleChange2 = (fieldName, value) => {
+    if (fieldName === 'groupId') {
+      // Extract the selected groupId from the event value
+      const selectedGroupId = value.target.value;
+      // console.log(selectedGroupId);
+      // Update the selectedGroups state with the selected groupId
+      setSelectedEditGroup((prevGroups) => [...prevGroups, selectedGroupId]);
+    }
     if (fieldName === 'assignedDate' || fieldName === 'deadline') {
       const formattedDate = moment(value.target.value).toDate(); // Parse date string to Date object
       setEditFormData({ ...editFormData, [fieldName]: formattedDate });
@@ -430,6 +472,13 @@ const AssignTaskFaculty = () => {
 
   const handleRemoveGroup = (index) => {
     setSelectedGroups((prevGroups) => {
+      const updatedGroups = [...prevGroups];
+      updatedGroups.splice(index, 1);
+      return updatedGroups;
+    });
+  };
+  const handleRemoveGroup2 = (index) => {
+    setSelectedEditGroup((prevGroups) => {
       const updatedGroups = [...prevGroups];
       updatedGroups.splice(index, 1);
       return updatedGroups;
@@ -610,10 +659,10 @@ dark:focus:border-primary"
       </Modal>
 
       <Modal
-        title="edit Task"
+        title="Edit Task Details"
         visible={isModalVisible2}
-        // onOk={handleOk2}
-        // onCancel={handleCancel2}
+        onOk={handleOk2}
+        onCancel={handleCancel2}
         footer={null}
       >
         <form className="mx-auto max-w-md">
@@ -639,7 +688,6 @@ dark:focus:border-primary"
               Title
             </label>
           </div>
-
           <div className="group relative z-0 mb-5 w-full">
             <input
               type="text"
@@ -662,7 +710,6 @@ dark:focus:border-primary"
               Description
             </label>
           </div>
-
           <div className="flex items-center">
             <div>
               <input
@@ -697,9 +744,10 @@ dark:focus:border-primary"
           </div>
           <div className="my-5">
             {' '}
+            <p>Task Status</p>
             <div className="grid md:grid-cols-2 md:gap-6">
+              {/* {console.log(data2.taskStatus.toString())} */}
               <select
-                // value={editFormData.taskType}
                 defaultValue={data2?.taskStatus?.toString()}
                 name="taskStatus"
                 onChange={(value) => handleChange2('taskStatus', value)}
@@ -710,8 +758,81 @@ dark:focus:border-primary"
                 <option value="Closed">Closed</option>
               </select>
             </div>
-          </div>
+          </div>{' '}
+          <div className="my-5">
+            {' '}
+            <p>Task Type</p>
+            <div className="grid md:grid-cols-2 md:gap-6">
+              <select
+                defaultValue={data2?.taskType?.toString()}
+                name="taskType"
+                onChange={(value) => handleChange2('taskType', value)}
+                className="focus:border-blue-500 w-full rounded border px-3 py-2 font-bold text-black focus:outline-none"
+              >
+                <option value="">Select Task Type</option>
 
+                <>
+                  <option value="All">All</option>
+                  <option value="Individual">Individual</option>
+                </>
+              </select>
+            </div>
+          </div>
+          {editFormData.taskType === 'Individual' && (
+            <div>
+              <Form.Item
+                label="Select Group"
+                name="groupId"
+                rules={[{ required: true, message: 'Please select group!' }]}
+              >
+                <select
+                  value={formData.groupId}
+                  onChange={(value) => handleChange2('groupId', value)}
+                  name="groupId"
+                  className="focus:border-blue-500 w-full rounded border px-3 py-2 font-bold text-black
+                   focus:outline-none"
+                  inputMode="multiple"
+                >
+                  <option value="">Select Group</option>
+                  {loadingMembers ? (
+                    <option disabled>loading...</option>
+                  ) : (
+                    membersList?.map((group) => (
+                      <option key={group.groupId} value={group.groupId}>
+                        {group.groupMembersName.join(', ')}
+                      </option>
+                    ))
+                  )}
+                </select>
+                <div className="flex flex-col">
+                  {/* {data2.groupId?.map((group, index) => (
+                    <div
+                      key={index}
+                      className="text-md gap-2 px-3 py-2"
+                      style={{ display: 'flex', alignItems: 'center' }}
+                    >
+                      <p>{group}</p>
+                      <Button onClick={() => handleRemoveGroup(index)}>
+                        -{' '}
+                      </Button>
+                    </div>
+                  ))} */}
+                  {selectedEditGroup?.map((group, index) => (
+                    <div
+                      key={index}
+                      className="text-md gap-2 px-3 py-2"
+                      style={{ display: 'flex', alignItems: 'center' }}
+                    >
+                      <p>{group}</p>
+                      <Button onClick={() => handleRemoveGroup2(index)}>
+                        -{' '}
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </Form.Item>
+            </div>
+          )}
           <div className="flex justify-end">
             <button
               type="primary"
