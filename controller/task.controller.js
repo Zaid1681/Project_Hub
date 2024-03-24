@@ -96,7 +96,7 @@ const getTaskCriteriaAll = async (req, res, next) => {
 };
 const getTaskByGroupId = async (req, res, next) => {
   try {
-    const { currentYear, academicYear, semester, subject, groupId,facultyId } =
+    const { currentYear, academicYear, semester, subject, groupId, facultyId } =
       req.params;
     console.log(currentYear, academicYear, semester, subject);
     const taskType = "All";
@@ -138,7 +138,15 @@ const getTaskById = async (req, res, next) => {
 const updateTaskById = async (req, res, next) => {
   try {
     const taskId = req.params.id;
-    const { title, description, assignedDate, deadline, isApproved } = req.body;
+    const {
+      title,
+      description,
+      assignedDate,
+      deadline,
+      isApproved,
+      taskStatus,
+      taskType,
+    } = req.body;
     const updatedTask = await Task.findByIdAndUpdate(
       taskId,
       {
@@ -147,6 +155,8 @@ const updateTaskById = async (req, res, next) => {
         assignedDate,
         deadline,
         isApproved,
+        taskStatus,
+        taskType,
       },
       { new: true }
     );

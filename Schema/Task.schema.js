@@ -7,31 +7,29 @@ const TaskSchema = new Schema(
     title: {
       type: String,
       trim: true,
-      maxLength: [150, "title should not exceed 150 character"],
+      maxLength: [150, "title should not exceed 150 characters"],
       required: [true, "title is required"],
     },
     subject: {
       type: String,
       trim: true,
-      maxLength: [150, "subject should not exceed 150 character"],
+      maxLength: [150, "subject should not exceed 150 characters"],
       required: [true, "subject is required"],
     },
     currentYear: {
       type: String,
       trim: true,
-      maxLength: [150, "CurrentYear should not exceed 150 character"],
+      maxLength: [150, "CurrentYear should not exceed 150 characters"],
       required: [true, "CurrentYear is required"],
     },
     academicYear: {
       type: String,
       trim: true,
-      maxLength: [150, "academic should not exceed 150 character"],
+      maxLength: [150, "academic should not exceed 150 characters"],
       required: [true, "academic is required"],
     },
     semester: {
       type: Number,
-      trim: true,
-      maxLength: [150, "semester should not exceed 150 character"],
       required: [true, "semester is required"],
     },
     description: {
@@ -39,12 +37,11 @@ const TaskSchema = new Schema(
       trim: true,
     },
     assignedDate: {
-      type: Date, // Change type to Date
+      type: Date, // Changed type to Date
       required: [true, "assignedDate is required"],
     },
     deadline: {
-      type: Date, // Change type to Date
-      // required: [true, "deadline is required"],
+      type: Date, // Changed type to Date
     },
     taskStatus: {
       type: String,
@@ -58,7 +55,7 @@ const TaskSchema = new Schema(
     },
     groupId: {
       type: [mongoose.Schema.Types.ObjectId],
-      ref: "Group", // Re ference to the Group model
+      ref: "Group", // Reference to the Group model
       default: null,
     },
     facultyId: {
