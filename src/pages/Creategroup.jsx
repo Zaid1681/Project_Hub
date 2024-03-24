@@ -442,9 +442,9 @@ const Creategroup = () => {
 
   return (
     <main className="bg-blue-900 min-h-screen">
-      <section className="mx-auto p-4 md:p-10">
+      <section className="mx-auto">
         <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 text-xl font-semibold text-black">
+          <h2 className="mb-12 text-3xl font-bold text-black">
             Group Formation
           </h2>
           <form className="space-y-6">
@@ -452,7 +452,7 @@ const Creategroup = () => {
             <div>
               <label
                 htmlFor="teamName"
-                className="block font-medium text-black"
+                className="block text-xl font-medium text-black"
               >
                 Team Name
               </label>
@@ -465,9 +465,9 @@ const Creategroup = () => {
                 className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
               />
             </div>
-            <div className="font grid grid-cols-1 gap-5 text-black lg:grid-cols-2">
-              <div className="mb-4 text-black">
-                <label className="block font-medium text-black dark:text-white">
+            <div className="grid grid-cols-1 gap-5 text-black lg:grid-cols-2">
+              <div className=" text-black">
+                <label className="block text-xl font-medium text-black dark:text-white mb-3">
                   Semester
                 </label>
                 <select
@@ -500,8 +500,8 @@ const Creategroup = () => {
                   )}
                 </select>
               </div>
-              <div className="mb-4">
-                <label className="block font-medium text-black dark:text-white">
+              <div className="">
+                <label className="block text-xl mb-3 font-medium text-black dark:text-white">
                   Subject
                 </label>
                 <select
@@ -530,15 +530,15 @@ const Creategroup = () => {
             <div>
               <label
                 htmlFor="memberNames"
-                className="block font-medium text-black"
+                className="block text-xl mt-10 font-bold text-black"
               >
                 Member Names
               </label>
-              <div className="">
-                <h1 className="text-md w-full font-medium text-black">
+              <div className="mt-8">
+                <h2 className="text-xl my-2 w-full font-medium text-black">
                   Member 1
-                </h1>
-                <div className="flex flex-col gap-2 lg:flex-row">
+                </h2>
+                <div className="flex flex-col gap-0 md:gap-5 lg:flex-row">
                   <input
                     type="text"
                     className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
@@ -558,75 +558,75 @@ const Creategroup = () => {
                 </div>
               </div>
             </div>
-            <div>
-              {/* <label
+
+            {/* <label
                 htmlFor="memberNames"
                 className="block font-medium text-black"
               >
                 Member Names
               </label> */}
+            <div>
+              <h2 className="text-xl my-2 w-full font-medium text-black">
+                Member 2
+              </h2>
+              <div className="flex flex-col gap-0 md:gap-5 lg:flex-row">
+                <input
+                  type="text"
+                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                  placeholder="Enter student id (201994101)"
+                  required
+                  value={studentId2}
+                  onChange={handleStudentIdChange2}
+                />
+                <input
+                  type="dropdown"
+                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                  placeholder="Student name"
+                  required
+                  value={studentName2}
+                  readOnly
+                />
+              </div>
+            </div>
+            <div>
+              {/* <label
+                  htmlFor="memberNames"
+                  className="block font-medium text-black"
+                >
+                  Member Names
+                </label> */}
               <div className="">
-                <h1 className="text-md w-full font-medium text-black">
-                  Member 2
-                </h1>
-                <div className="flex flex-col gap-2 lg:flex-row">
+                <h2 className="text-xl my-2 w-full font-medium text-black">
+                  Member 3
+                </h2>
+                <div className="flex flex-col gap-0 md:gap-5 lg:flex-row">
                   <input
                     type="text"
                     className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
                     placeholder="Enter student id (201994101)"
                     required
-                    value={studentId2}
-                    onChange={handleStudentIdChange2}
+                    value={studentId3}
+                    onChange={handleStudentIdChange3}
                   />
                   <input
                     type="dropdown"
                     className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
                     placeholder="Student name"
                     required
-                    value={studentName2}
+                    value={studentName3}
                     readOnly
                   />
                 </div>
               </div>
-              <div>
-                {/* <label
-                  htmlFor="memberNames"
-                  className="block font-medium text-black"
-                >
-                  Member Names
-                </label> */}
-                <div className="">
-                  <h1 className="text-md w-full font-medium text-black">
-                    Member 3
-                  </h1>
-                  <div className="flex flex-col gap-2 lg:flex-row">
-                    <input
-                      type="text"
-                      className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
-                      placeholder="Enter student id (201994101)"
-                      required
-                      value={studentId3}
-                      onChange={handleStudentIdChange3}
-                    />
-                    <input
-                      type="dropdown"
-                      className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
-                      placeholder="Student name"
-                      required
-                      value={studentName3}
-                      readOnly
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
+
           </form>
         </div>
         <div>
           {' '}
           {/* Project details */}
           <div>
-            <h2 className="mx-auto mb-7 pt-10 text-center text-xl font-semibold text-black">
+            <h2 className="mx-auto mb-7 pt-10 text-center text-3xl font-bold text-black">
               Enter Project Details
             </h2>
             {/* {[1, 2, 3].map((index) => (
@@ -686,10 +686,10 @@ const Creategroup = () => {
             ))} */}
             {/* project -1  */}
             <div className="mb-6 rounded-lg bg-white p-6 shadow-md">
-              <div>
+              <div className='my-3'>
                 <label
                   htmlFor="projectTitle1"
-                  className="block font-medium text-black"
+                  className="block text-xl my-2 font-medium text-black"
                 >
                   Project Title
                 </label>
@@ -702,10 +702,10 @@ const Creategroup = () => {
                   className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
                 />
               </div>
-              <div>
+              <div className='my-3'>
                 <label
                   htmlFor="projectDescription1"
-                  className="block font-medium text-black"
+                  className="block text-xl my-2 font-medium text-black"
                 >
                   Project Description
                 </label>
@@ -715,13 +715,13 @@ const Creategroup = () => {
                   value={projectIdea1.description}
                   onChange={handleChange1}
                   name="description"
-                  className="form-textarea w-full rounded border px-3 py-2 focus:outline-none"
+                  className="form-textarea w-full my-2.5 rounded border px-3 py-2 focus:outline-none"
                 ></textarea>
               </div>
-              <div>
+              <div className='my-3'>
                 <label
                   htmlFor="pdfLink1"
-                  className="block font-medium text-black"
+                  className="block text-xl  font-medium text-black"
                 >
                   PDF Link
                 </label>
@@ -737,10 +737,10 @@ const Creategroup = () => {
             </div>
             {/* project -2  */}
             <div className="mb-6 rounded-lg bg-white p-6 shadow-md">
-              <div>
+              <div className='my-3'>
                 <label
                   htmlFor="projectTitle1"
-                  className="block font-medium text-black"
+                  className="block text-xl font-medium text-black"
                 >
                   Project Title
                 </label>
@@ -753,10 +753,10 @@ const Creategroup = () => {
                   className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
                 />
               </div>
-              <div>
+              <div className='my-3'>
                 <label
                   htmlFor="projectDescription1"
-                  className="block font-medium text-black"
+                  className="block text-xl font-medium text-black"
                 >
                   Project Description
                 </label>
@@ -766,13 +766,13 @@ const Creategroup = () => {
                   value={projectIdea2.description}
                   onChange={handleChange2}
                   name="description"
-                  className="form-textarea w-full rounded border px-3 py-2 focus:outline-none"
+                  className="form-textarea w-full my-2.5 rounded border px-3 py-2 focus:outline-none"
                 ></textarea>
               </div>
-              <div>
+              <div className='my-3'>
                 <label
                   htmlFor="pdfLink1"
-                  className="block font-medium text-black"
+                  className="block text-xl font-medium text-black"
                 >
                   PDF Link
                 </label>
@@ -788,10 +788,10 @@ const Creategroup = () => {
             </div>
             {/* project -3  */}
             <div className="mb-6 rounded-lg bg-white p-6 shadow-md">
-              <div>
+              <div className='my-3'>
                 <label
                   htmlFor="projectTitle1"
-                  className="block font-medium text-black"
+                  className="block text-xl font-medium text-black"
                 >
                   Project Title
                 </label>
@@ -804,10 +804,10 @@ const Creategroup = () => {
                   className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
                 />
               </div>
-              <div>
+              <div className='my-3'>
                 <label
                   htmlFor="projectDescription1"
-                  className="block font-medium text-black"
+                  className="block text-xl font-medium text-black"
                 >
                   Project Description
                 </label>
@@ -817,13 +817,13 @@ const Creategroup = () => {
                   value={projectIdea3.description}
                   onChange={handleChange3}
                   name="description"
-                  className="form-textarea w-full rounded border px-3 py-2 focus:outline-none"
+                  className="form-textarea w-full my-2.5 rounded border px-3 py-2 focus:outline-none"
                 ></textarea>
               </div>
-              <div>
+              <div className='my-3'>
                 <label
                   htmlFor="pdfLink1"
-                  className="block font-medium text-black"
+                  className="block text-xl font-medium text-black"
                 >
                   PDF Link
                 </label>
@@ -841,7 +841,7 @@ const Creategroup = () => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="rounded-full bg-black py-2 px-8 font-semibold text-white"
+              className="rounded-md bg-[#0c356a] py-2 px-8 font-semibold text-white"
               onClick={handleSubmit}
             >
               Submit

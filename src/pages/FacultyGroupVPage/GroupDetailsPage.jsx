@@ -78,7 +78,7 @@ const GroupDetailsPage = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () {}, // Callback after click
+        onClick: function () { }, // Callback after click
       }).showToast();
       // console.log(response.data.data);
     } catch (error) {
@@ -104,7 +104,7 @@ const GroupDetailsPage = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () {}, // Callback after click
+        onClick: function () { }, // Callback after click
       }).showToast();
       // console.log(response.data.data);
       // }
@@ -120,7 +120,7 @@ const GroupDetailsPage = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () {}, // Callback after click
+        onClick: function () { }, // Callback after click
       }).showToast();
     }
   };
@@ -130,21 +130,21 @@ const GroupDetailsPage = () => {
   // console.log('===>', groupStatus);
   return (
     <main className="bg-gray-100 min-h-screen">
-      <section className="mx-auto p-4 md:p-10">
+      <section className="mx-auto md:p-10">
         <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
           <h2 className="mb-7 text-3xl font-semibold text-[#0C356A]">GROUP</h2>
 
           <div className="space-y-6">
-            <div className="flex items-center gap-10  text-black ">
+            <div className="flex items-center  text-black ">
               {/* <h1 className="text-xl font-medium">Group No - 1</h1> */}
-              <h1 className="text-xl font-medium">Members Name : </h1>
-              <div className="flex gap-5">
+              <div className="flex flex-wrap gap-2">
+                <h1 className="text-xl font-medium">Members Name : </h1>
                 {membersName?.map((data, index) => (
-                  <h1 className=" text-xl font-medium">{data},</h1>
+                  <h1 key={index} className="text-xl font-medium inline-block md:block">{data},</h1>
                 ))}
               </div>
             </div>
-            <div className="flex gap-10 text-black">
+            <div className="flex flex-col md:flex-row gap-2 md:gap-10 text-black">
               {' '}
               <h1 className="text-xl font-medium">
                 <span>Year : </span>
@@ -255,7 +255,7 @@ const GroupDetailsPage = () => {
               <div className="mt-6">
                 <h1 className="text-xl font-medium">Attachment</h1>
                 {val?.pdfLinks?.map((data, index) => (
-                  <h2 className="mt-1 text-lg">{data}</h2>
+                  <h2 className="mt-1 text-lg"><a href={data}>{data}</a></h2>
                 ))}
               </div>
               <h1> {val.isApproved === true ? 'Approved' : 'Not Approved'}</h1>
@@ -274,8 +274,8 @@ const GroupDetailsPage = () => {
           </div>
         ))}
         <div className="container my-10 mx-auto  gap-10 rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 text-xl font-semibold text-[#0C356A]">
-            Guide Deails
+          <h2 className="mb-7 text-3xl font-semibold text-[#0C356A]">
+            Guide Details
           </h2>
           <div className="flex gap-10">
             {' '}
@@ -294,44 +294,73 @@ const GroupDetailsPage = () => {
           {/* <h1>{data.guideId}</h1> */}
         </div>
 
-        <div className="flex flex-col gap-10">
-          <div className="flex items-center gap-10">
-            <p className="text-xl font-bold text-black/90">Changes Status</p>
+<<<<<<< Updated upstream
+  <div className="flex flex-col gap-10">
+    <div className="flex items-center gap-10">
+      <p className="text-xl font-bold text-black/90">Changes Status</p>
 
-            <div className="group relative z-0 w-full items-center md:w-1/3">
-              <select
-                id="countries"
-                className="text-gray-900 text-md focus:ring-blue-500 placeholder-gray-400 bg-gray-900
-                 block w-full w-[90%] items-center rounded-lg border border-black p-2 text-xl font-semibold text-black"
-                onChange={handleGroupStatusChange} // onChange event handler
-                defaultValue={data?.groupStatus}
-              >
-                <option value="" disbaled>
-                  Select Status
-                </option>
-                <option value="Inprocess">Inprocess</option>
-                <option value="Approved">Approved</option>
-                <option value="Improvement">Improvement</option>
-                <option value="Rejected">Rejected</option>
-              </select>
-            </div>
-          </div>
+      <div className="group relative z-0 w-full items-center md:w-1/3">
+        <select
+          id="countries"
+          className="text-gray-900 text-md focus:ring-blue-500 placeholder-gray-400 bg-gray-900
+                 block w-full items-center rounded-lg border border-black p-2 text-xl font-semibold text-black"
+          onChange={handleGroupStatusChange} // onChange event handler
+          defaultValue={data?.groupStatus}
+        >
+          <option value="" disbaled>
+            Select Status
+          </option>
+          <option value="Inprocess">Inprocess</option>
+          <option value="Approved">Approved</option>
+          <option value="Improvement">Improvement</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+    </div>
 
-          <div className="flex flex-col gap-10 md:flex-row">
-            <AssignGuide groupId={groupId} guideName={data?.guideName} />
-            <div className="flex justify-start">
-              <button
-                className="no-hover my-auto rounded border bg-black px-20 py-3 
+    <div className="flex flex-col gap-10 md:flex-row">
+      <AssignGuide groupId={groupId} guideName={data?.guideName} />
+      <div className="flex justify-start">
+        <button
+          className="no-hover my-auto rounded border bg-black px-20 py-3 
           text-xl font-medium text-white" // Add "no-hover" class to remove hover effect
-                onClick={handleSaveChanges}
-              >
-                Save Changes
-              </button>
-            </div>
-          </div>
+          onClick={handleSaveChanges}
+        >
+          Save Changes
+        </button>
+      </div>
+=======
+        <div className="grid grid-cols-1 xl:grid-cols-3 ">
+        <div className="flex justify-center items-center">
+          <select
+            id="countries"
+            className=" text-gray-900 text-md focus:ring-blue-500
+              placeholder-gray-400 w-50  bg-gray-900 block my-2 rounded-lg border border-black p-2 font-semibold text-black"
+            onChange={handleGroupStatusChange}
+          >
+            <option value="Inprocess">Inprocess</option>
+            <option value="Approved">Approved</option>
+            <option value="Improvement">Improvement</option>
+            <option value="Rejected">Rejected</option>
+            {/* <option value="IN">India</option> */}
+          </select>
         </div>
-      </section>
-    </main>
+        <div className='my-2 flex justify-center items-center'>
+          <AssignGuide groupId={groupId} guideName={data?.guideName} />
+        </div>
+        <div className="flex justify-center items-center my-2">
+          <button
+            className="no-hover my-auto rounded border bg-black px-10 py-2 
+          text-[1rem] font-medium text-white" // Add "no-hover" class to remove hover effect
+            onClick={handleSaveChanges}
+          >
+            Save Changes
+          </button>
+>>>>>>> Stashed changes
+        </div>
+      </div>
+    </section>
+  </main>
   );
 };
 
