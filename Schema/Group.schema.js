@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const ProjectStatus = require("../utils/projectStatus.js");
+const groupStatus = require("../utils/groupStatus.js");
 const groupSchema = new Schema(
   {
     groupName: {
@@ -62,10 +62,10 @@ const groupSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    projectStatus: {
+    groupStatus: {
       type: String,
-      enum: Object.values(ProjectStatus),
-      default: ProjectStatus.Inprocess,
+      enum: Object.values(groupStatus),
+      default: groupStatus.Inprocess,
     },
     guideName: {
       type: String,

@@ -204,40 +204,57 @@ const getApprovedGroup = async (req, res, next) => {
 const updateStatus = async (req, res, next) => {
   try {
     const groupId = req.params.id;
-    let projId = req.params.projId;
-    const groupStatus = req.query.status;
-    // if (groupStatus === "Approved") {
-    //   projId = req.params.projId;
-    // }
-
-    // const { guideId, guideName, approvedProjectId, projectStatus } = req.body;
-    const isProjectApproved = groupStatus === "Approved"; // Simplify boolean assignment
+    const projId = req.params.projId;
+    const isProjectApproved = req.query.status;
 
     // Use Group model instead of Project model for findByIdAndUpdate
     const updatedGroup = await Group.findByIdAndUpdate(
       groupId,
       {
-        // guideId, // Object shorthand notation
-        // guideName,
-        approvedProjectId: projId,
-        // projectStatus,
+        approvedProjectId: projId === "null" ? null : projId, // Handle null case
         isProjectApproved,
-        projectStatus: groupStatus,
       },
       { new: true, runValidators: true } // Add runValidators option to validate schema
     );
 
     if (!updatedGroup) {
-      return next(CustomError(404, "Group not found")); // Use return to stop execution
+      return next(CustomError(404, "Group not found"));
     }
 
     res
       .status(200)
       .json({ message: "Group updated successfully", data: updatedGroup });
   } catch (error) {
-    next(CustomError(500, error.message || "Internal Server Error")); // Use error.message for more detailed error
+    next(CustomError(500, error.message || "Internal Server Error"));
   }
 };
+const updateGrpStatus = async (req, res, next) => {
+  try {
+    const groupId = req.params.id;
+    const status = req.params.status;
+
+    const updatedGroup = await Group.findByIdAndUpdate(
+      groupId,
+      {
+        $set: {
+          groupStatus: status,
+        },
+      },
+      { new: true, runValidators: true } // Add runValidators option to validate schema
+    );
+
+    if (!updatedGroup) {
+      return next(CustomError(404, "Group not found"));
+    }
+
+    res
+      .status(200)
+      .json({ message: "Group Status successfully", data: updatedGroup });
+  } catch (error) {
+    next(CustomError(500, error.message || "Internal Server Error"));
+  }
+};
+
 const updateGuide = async (req, res, next) => {
   try {
     const guideId = req.params.guideId;
@@ -357,4 +374,5 @@ module.exports = {
   getApprovedGroup,
   updateGuide,
   getGroupMembers,
+  updateGrpStatus,
 };

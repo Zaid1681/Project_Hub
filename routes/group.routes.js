@@ -18,6 +18,7 @@ const {
   updateGuide,
   getApprovedGroup,
   getGroupMembers,
+  updateGrpStatus,
   //   getProject,
   //   delProject,
   //   updStatus,
@@ -44,7 +45,8 @@ router.get("/getWithMemberId/get/:memberId", getGroupWithId);
 router.post("/add", addGroup); // here i have to check user too
 
 router.get("/groupDetail/get/:id", getGroup); // here i have to check user too
-router.put("/updateStatus/:id/:projId/status", updateStatus);
+router.put("/updateStatus/:id/:projId/status", updateStatus); // updating the approved projId and isApproved
+router.put("/updateGrpStatus/:id/:status", updateGrpStatus); //==> jsut updating the groupStatus
 router.put("/update/guide/:groupId/:guideId/name", updateGuide);
 router.delete("/del/:id", checkFaculty, delGroup); // checkUser must be there
 
