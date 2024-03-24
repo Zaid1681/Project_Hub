@@ -1,0 +1,58 @@
+[33m79b124e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature-1.0/client[m[33m, [m[1;31morigin/feature-1.0/client[m[33m)[m HEAD@{0}: commit: Task Page At admin panel update
+[33ma6d76b1[m HEAD@{1}: commit: Admin Panel Ui changes
+[33med27e6a[m HEAD@{2}: merge origin/feature-1.0/client: Fast-forward
+[33mac331f9[m HEAD@{3}: reset: moving to HEAD
+[33mac331f9[m HEAD@{4}: checkout: moving from feature-1.0/client to feature-1.0/client
+[33mac331f9[m HEAD@{5}: checkout: moving from feature-1.0/client to feature-1.0/client
+[33mac331f9[m HEAD@{6}: pull origin feature-1.0/client: Fast-forward
+[33m9142ee9[m HEAD@{7}: reset: moving to HEAD
+[33m9142ee9[m HEAD@{8}: pull origin feature-1.0/client: Fast-forward
+[33m1dfd689[m HEAD@{9}: reset: moving to HEAD
+[33m1dfd689[m HEAD@{10}: commit: add task button added
+[33m18ee956[m HEAD@{11}: reset: moving to HEAD
+[33m18ee956[m HEAD@{12}: pull origin feature-1.0/client: Fast-forward
+[33m7c5c627[m HEAD@{13}: reset: moving to HEAD
+[33m7c5c627[m HEAD@{14}: commit: task page padded at faculty side
+[33mcaa87f3[m HEAD@{15}: pull origin feature-1.0/client: Fast-forward
+[33ma4b248a[m HEAD@{16}: reset: moving to HEAD
+[33ma4b248a[m HEAD@{17}: pull origin feature-1.0/client: Fast-forward
+[33m6558ac2[m HEAD@{18}: commit (merge): data merged
+[33m56bfad1[m HEAD@{19}: checkout: moving from tempClient to feature-1.0/client
+[33me2ec255[m[33m ([m[1;32mtempClient[m[33m)[m HEAD@{20}: checkout: moving from tempClient to tempClient
+[33me2ec255[m[33m ([m[1;32mtempClient[m[33m)[m HEAD@{21}: reset: moving to HEAD
+[33me2ec255[m[33m ([m[1;32mtempClient[m[33m)[m HEAD@{22}: checkout: moving from feature-1.0/client to tempClient
+[33m56bfad1[m HEAD@{23}: checkout: moving from tempClient to feature-1.0/client
+[33me2ec255[m[33m ([m[1;32mtempClient[m[33m)[m HEAD@{24}: checkout: moving from feature-1.0/client to tempClient
+[33m56bfad1[m HEAD@{25}: reset: moving to HEAD
+[33m56bfad1[m HEAD@{26}: reset: moving to HEAD
+[33m56bfad1[m HEAD@{27}: checkout: moving from feature-1.0/client to feature-1.0/client
+[33m56bfad1[m HEAD@{28}: checkout: moving from tempClient to feature-1.0/client
+[33me2ec255[m[33m ([m[1;32mtempClient[m[33m)[m HEAD@{29}: checkout: moving from feature-1.0/client to tempClient
+[33m56bfad1[m HEAD@{30}: checkout: moving from tempClient to feature-1.0/client
+[33me2ec255[m[33m ([m[1;32mtempClient[m[33m)[m HEAD@{31}: commit (merge): group page addded
+[33m1575b6e[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{32}: reset: moving to HEAD
+[33m1575b6e[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{33}: checkout: moving from master to tempClient
+[33m1575b6e[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{34}: checkout: moving from tempClient to master
+[33m56bfad1[m HEAD@{35}: checkout: moving from feature-1.0/client to tempClient
+[33m56bfad1[m HEAD@{36}: checkout: moving from tempClient to feature-1.0/client
+[33m56bfad1[m HEAD@{37}: reset: moving to HEAD
+[33m56bfad1[m HEAD@{38}: checkout: moving from feature-1.0/client to tempClient
+[33m56bfad1[m HEAD@{39}: checkout: moving from tempClient to feature-1.0/client
+[33m56bfad1[m HEAD@{40}: checkout: moving from feature-1.0/client to tempClient
+[33m56bfad1[m HEAD@{41}: checkout: moving from tempClient to feature-1.0/client
+[33m56bfad1[m HEAD@{42}: checkout: moving from feature-1.0/client to tempClient
+[33m56bfad1[m HEAD@{43}: checkout: moving from tempClient to feature-1.0/client
+[33m56bfad1[m HEAD@{44}: checkout: moving from feature-1.0/client to tempClient
+[33m56bfad1[m HEAD@{45}: commit: group formation , group fetch done
+[33m85e7872[m HEAD@{46}: commit: group formation feature updated
+[33m8de1419[m HEAD@{47}: commit (merge): group formation part done
+[33m6b4164a[m HEAD@{48}: commit: group formation and fetching part done
+[33m1575b6e[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{49}: reset: moving to master@{10 minutes ago}
+[33m4690e5f[m HEAD@{50}: reset: moving to HEAD
+[33m4690e5f[m HEAD@{51}: reset: moving to HEAD
+[33m4690e5f[m HEAD@{52}: reset: moving to HEAD
+[33m4690e5f[m HEAD@{53}: reset: moving to HEAD
+[33m4690e5f[m HEAD@{54}: pull origin feature-1.0/client: Fast-forward
+[33m1575b6e[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{55}: reset: moving to HEAD
+[33m1575b6e[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{56}: checkout: moving from master to feature-1.0/client
+[33m1575b6e[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{57}: commit (initial): initial

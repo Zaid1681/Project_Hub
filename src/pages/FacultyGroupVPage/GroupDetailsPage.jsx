@@ -90,7 +90,7 @@ const GroupDetailsPage = () => {
       console.log(groupId);
       console.log('-->', groupStatus);
       const response = await axios.put(
-        `${BASEURL}/group/updateStatus/${groupId}/${groupStatus}`
+        `${BASEURL}/group/updateGrpStatus/${groupId}/${groupStatus}`
       );
       console.log('Changes Saved Sucessfully');
       fetchData();
