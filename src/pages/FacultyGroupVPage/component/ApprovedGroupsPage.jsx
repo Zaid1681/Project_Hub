@@ -104,7 +104,7 @@ const ApprovedGroupsPage = () => {
         <a
           href={`/${currentYear}/groups/${subject}/${semester}/${academic}/assignTask`}
           // onClick={handleShowGroups}
-          className={`rounded bg-[#0C356A] w-30 md:w-50  p-2 text-center text-white `}
+          className={`rounded bg-[#0C356A] w-30 md:w-80  p-2 text-center text-white `}
         >
           Assign Task
         </a>

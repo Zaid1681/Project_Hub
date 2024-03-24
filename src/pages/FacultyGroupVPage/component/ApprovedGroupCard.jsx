@@ -54,37 +54,37 @@ const ApprovedGroupCard = ({
     <a
       href={`/${currentYear}/groups/groupsList/${subject}/${semester}/${academic}/${groupId}`}
     >
-      <div className="transform cursor-pointer mx-6 md:mx-0 overflow-hidden rounded-2xl bg-white text-left shadow-lg transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl">
+      <div className="transform text-black cursor-pointer mx-6 md:mx-0 overflow-hidden rounded-2xl bg-white text-left shadow-lg transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl">
         <div className="px-5 py-7">
           <h3 className="mb-8 text-center text-3xl font-bold">{`Group 1`}</h3>
-          <div className="mb-2 flex gap-2 ">
-            <p className="text-gray-900 text-lg font-bold">Project Title:</p>
-            <p className="text-gray-700 text-lg ">{data?.title}</p>
+          <div className="mb-2 flex flex-wrap gap-2 ">
+            <p className="text-xl font-bold">Project Title:</p>
+            <p className="text-lg ">{data?.title}</p>
           </div>
 
-          <div className="flex my-2 jusitfy-center items-center gap-2">
-            <p className="text-gray-900 text-lg font-bold">Project Description:</p>
-            <p className="text-gray-700 text-lg">
+          <div className="flex my-3 flex-wrap jusitfy-center items-center gap-2">
+            <p className="text-xl font-bold">Project Description:</p>
+            <p className="text-lg">
               {showFullAbstract[data?._id]
                 ? data?.description
-                : `${data?.description.slice(0, 140)}${data?.description.length > 140 ? '...' : ''
+                : `${data?.description.slice(0, 50)}${data?.description.length > 50 ? '...' : ''
                 }`}
               {data?.description.length > 140 && (
                 <button
                   onClick={() => toggleAbstract(group.id)}
-                  className="text-blue-500 ml-1 font-bold hover:underline  focus:outline-none"
+                  className="text-blue-500 ml-1 text-base font-bold hover:underline  focus:outline-none"
                 >
                   {showFullAbstract[data?._id] ? 'Read Less' : 'Read More'}
                 </button>
               )}
             </p>
           </div>
-          <div className="flex my-2 jusitfy-center items-center gap-2">
-            <p className="text-gray-900 text-lg font-bold">Assigned Guide :</p>
-            <p className="text-gray-700 text-lg">{guideName}</p>
+          <div className="flex flex-wrap my-3 jusitfy-center items-center gap-2">
+            <p className="text-xl font-bold">Assigned Guide :</p>
+            <p className="text-lg">{guideName}</p>
           </div>
-          <div className="flex my-2 items-center gap-2 flex-wrap">
-            <p className="text-gray-900 text-lg font-bold">Members:</p>
+          <div className="flex my-3 items-center gap-2 flex-wrap">
+            <p className="text-xl font-bold">Members:</p>
             <span className="items-center">{LeaderName}</span>
             {members.map((data, index) => (
               <span key={index} className="mx-1 items-center text-lg">
@@ -92,15 +92,13 @@ const ApprovedGroupCard = ({
               </span>
             ))}
           </div>
-          <div className="flex-col gap-5">
-            <div className="my-2 flex gap-2 ">
-              <p className="text-gray-900 text-lg mb-2 font-bold">Subject :</p>
-              <p className="text-lg">{subjectName}</p>
-            </div>
-            <div className="my-2 flex gap-2 items-center">
-              <p className="text-gray-900 text-lg font-bold">Semester :</p>
-              <p className=" text-lg">{semster}</p>
-            </div>
+          <div className="my-3 flex gap-2 ">
+            <p className=" text-xl mb-2 font-bold">Subject :</p>
+            <p className="text-lg">{subjectName}</p>
+          </div>
+          <div className="my-3 flex gap-2 items-center">
+            <p className=" text-xl font-bold">Semester :</p>
+            <p className=" text-lg">{semster}</p>
           </div>
           {/* <ul className="mb-2 text-sm">
             {group.attachments.map((attachment, index) => (

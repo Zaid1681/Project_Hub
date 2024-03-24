@@ -26,14 +26,14 @@ const FacultyGroupspage = () => {
           <div className="mx-auto flex flex-row gap-3 md:gap-7 items-center justify-center px-20">
             <button
               onClick={handleShowTable}
-              className={`rounded bg-[#0C356A] w-30 md:w-50 p-2  text-white`}
+              className={`rounded bg-[#0C356A] w-30 md:w-80 p-2  text-white`}
             >
               Project Ideas
             </button>
 
             <button
               onClick={handleShowGroups}
-              className={`rounded bg-[#0C356A] w-30 md:w-50 p-2 text-white`}
+              className={`rounded bg-[#0C356A] w-30 md:w-80 p-2 text-white`}
             >
               Groups
             </button>
