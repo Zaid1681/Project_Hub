@@ -275,7 +275,7 @@ const Project2 = () => {
     },
     {
       title: 'Status',
-      dataIndex: 'projectStatus',
+      dataIndex: 'groupStatus',
       filters: [
         {
           text: 'Ongoing',
@@ -294,7 +294,7 @@ const Project2 = () => {
         //   value: 'Round-2 Completed',
         // },
       ],
-      onFilter: (value, record) => record.projectStatus.indexOf(value) === 0,
+      onFilter: (value, record) => record.groupStatus.indexOf(value) === 0,
       render: (status) => {
         let color = '';
         switch (status) {
@@ -324,8 +324,16 @@ const Project2 = () => {
     {
       title: 'Details',
       dataIndex: 'viewMore',
-      render: (_, record) => <a href={`/group/get/${record._id}`}><button type="button" className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-2 text-white `}
-      >View More</button></a>,
+      render: (_, record) => (
+        <a href={`/group/get/${record._id}`}>
+          <button
+            type="button"
+            className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-2 text-white `}
+          >
+            View More
+          </button>
+        </a>
+      ),
       className: 'text-black cursor-pointer p-2.5 text-center',
     },
   ];
@@ -348,8 +356,8 @@ const Project2 = () => {
 
   return (
     <div
-      className="text-black my-10 rounded-sm 
-    border  border-stroke  shadow-default dark:text-black xl:pb-1"
+      className="my-10 rounded-sm border 
+    border-stroke  text-black  shadow-default dark:text-black xl:pb-1"
     >
       <Table
         className=" text-black dark:text-black"

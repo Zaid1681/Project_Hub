@@ -2,11 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const GroupCardSection = ({ group }) => {
-  console.log(group.isProjectApproved)
+  console.log(group.isProjectApproved);
   return (
     <NavLink to={`group/${group._id}`}>
-      <div className="max-w-sm rounded-md overflow-hidden shadow-md p-6 mx-auto text-black dark:text-white dark:bg-boxdark bg-white">
-        <div className="font-semibold text-2xl mb-7">{group.groupName}</div>
+      <div className="mx-auto max-w-sm overflow-hidden rounded-md bg-white p-6 text-black shadow-md dark:bg-boxdark dark:text-white">
+        <div className="mb-7 text-2xl font-semibold">{group.groupName}</div>
         <div className="mb-2">
           <strong>Members:</strong> {group.membersName.join(', ')}
         </div>
@@ -20,10 +20,11 @@ const GroupCardSection = ({ group }) => {
           <strong>Guide:</strong> {group.guideName || 'Not assigned'}
         </div>
         <div className="mb-2">
-          <strong>Status:</strong> {group.projectStatus}
+          <strong>Status:</strong> {group.groupStatus}
         </div>
         <div className="mb-2">
-          <strong>ProjectIdeaApprove:</strong> {group.isProjectApproved}
+          <strong>Approval:</strong>{' '}
+          {group.isProjectApproved === true ? 'True' : 'False'}
         </div>
       </div>
     </NavLink>

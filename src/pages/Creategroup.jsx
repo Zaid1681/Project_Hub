@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { BASEURL } from '../Api';
 
-
 const Creategroup = () => {
   const currentUser = useSelector((state) => state.user);
   const [subjectList, setSubjectList] = useState([]);
@@ -310,7 +309,33 @@ const Creategroup = () => {
   };
 
   // Inside your CreateGroup component
+  const submitProjectIdea = async (projectIdea, groupId) => {
+    console.log(projectIdea, groupId);
+    try {
+      // Project idea data
+      const projectData = {
+        title: projectIdea.title,
+        description: projectIdea.description,
+        pdfLinks: projectIdea.pdfLinks,
+        currentYear: currentUser.currentYear,
+        academicYear: currentUser.academicYear,
+        semester: groupDetails.semester,
+        subject: groupDetails.subject,
+        groupId: groupId,
+      };
 
+      // Call the project creation API
+      const projectResponse = await axios.post(
+        `${BASEURL}/projectIdea/add`,
+        projectData
+      );
+
+      console.log('Project idea submitted successfully:', projectResponse.data);
+    } catch (error) {
+      console.error('Error submitting project idea:', error);
+      throw error; // Re-throw the error to handle it in the main handleSubmit function
+    }
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -341,10 +366,7 @@ const Creategroup = () => {
       };
 
       // Call the group creation API
-      const groupResponse = await axios.post(
-        '${BASEURL}/group/add',
-        groupData
-      );
+      const groupResponse = await axios.post(`${BASEURL}/group/add`, groupData);
 
       console.log('Group creation successful:', groupResponse.data);
       console.log('Group id:', groupResponse.data.data._id);
@@ -417,33 +439,7 @@ const Creategroup = () => {
       alert(error.response.data.message);
     }
   };
-  const submitProjectIdea = async (projectIdea, groupId) => {
-    console.log(projectIdea, groupId);
-    try {
-      // Project idea data
-      const projectData = {
-        title: projectIdea.title,
-        description: projectIdea.description,
-        pdfLinks: projectIdea.pdfLinks,
-        currentYear: currentUser.currentYear,
-        academicYear: currentUser.academicYear,
-        semester: groupDetails.semester,
-        subject: groupDetails.subject,
-        groupId: groupId,
-      };
 
-      // Call the project creation API
-      const projectResponse = await axios.post(
-        '${BASEURL}/projectIdea/add',
-        projectData
-      );
-
-      console.log('Project idea submitted successfully:', projectResponse.data);
-    } catch (error) {
-      console.error('Error submitting project idea:', error);
-      throw error; // Re-throw the error to handle it in the main handleSubmit function
-    }
-  };
   return (
     <main className="bg-blue-900 min-h-screen">
       <section className="mx-auto p-4 md:p-10">

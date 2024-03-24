@@ -69,7 +69,7 @@ const AssignGuide = ({ groupId, guideName }) => {
     const fetchFacultiesName = async () => {
       try {
         const response = await axios.get(
-          '${BASEURL}/admin/auth/getfaculty/getNamelist'
+          `${BASEURL}/admin/auth/getfaculty/getNamelist`
         );
         setFacultiesList(response.data.data);
       } catch (error) {
@@ -84,8 +84,8 @@ const AssignGuide = ({ groupId, guideName }) => {
       <Space>
         <Button
           onClick={showModal}
-          className="no-hover my-auto rounded border bg-black px-10 py-2 pb-8 
-          text-[1rem] font-medium text-white"
+          className="no-hover my-auto rounded border bg-black px-20 py-3   pb-10 
+          text-xl font-medium text-white"
         >
           Assign Guide
         </Button>

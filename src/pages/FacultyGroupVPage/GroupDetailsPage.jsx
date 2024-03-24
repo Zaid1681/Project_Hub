@@ -8,7 +8,7 @@ import { BASEURL } from '../../Api';
 
 const GroupDetailsPage = () => {
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
-  const [groupStatus, setGroupStatus] = useState('Inprocess'); // State for group status
+  const [groupStatus, setGroupStatus] = useState(''); // State for group status
   const [approvedProjId, setApprovedProjId] = useState(null);
 
   const groupId = useLocation().pathname.split('/')[3];
@@ -17,6 +17,7 @@ const GroupDetailsPage = () => {
     setOpenDropdownIndex(openDropdownIndex === index ? null : index);
   };
   const [data, setData] = useState([]);
+  console.log('data.grpStatus', data.groupStatus);
   const [projectDetails, setProjectDetails] = useState([]);
   const membersName = data.membersName;
   const fetchData = async () => {
@@ -25,7 +26,7 @@ const GroupDetailsPage = () => {
         `${BASEURL}/group/groupDetail/get/${groupId}`
       );
       setData(response.data.data);
-      console.log(response.data);
+      console.log('==>', response.data.data);
     } catch (error) {
       console.log('Error fetching Project', error);
     }
@@ -47,17 +48,24 @@ const GroupDetailsPage = () => {
     fetchProject();
   }, [groupId]);
 
-  // Include groupId as a dependency to update only when groupId changes
-  // console.log('data', data);
   const handleStatus = async (projectId, projectStatus) => {
+    //this will add approved proj Id to the group and update its status --> true / false
+    console.log('projectStatus', projectStatus);
     const status = !projectStatus;
-    status === true ? setApprovedProjId(projectId) : setApprovedProjId(null);
+    console.log('===>', status);
+    const approvedProject = status ? projectId : null;
+    setApprovedProjId(approvedProject);
     console.log(projectId, status);
     try {
+      // saving changes to projIdea
       const response = await axios.put(
-        // `${BASEURL}/projectIdea/updateProjectStatus/${projectId}/${status}`
         `${BASEURL}/projectIdea/updateProjectStatus/${projectId}/${status}`
       );
+      console.log('===--->', approvedProjId);
+      const response2 = await axios.put(
+        `${BASEURL}/group/updateStatus/${groupId}/${approvedProject}/status?status=${status}`
+      );
+      // also saev changes to group
       console.log('Status updated Sucessfully');
       fetchProject();
       Toastify({
@@ -78,24 +86,42 @@ const GroupDetailsPage = () => {
     }
   };
   const handleSaveChanges = async () => {
-    // const status = !projectStatus;
-    // console.log(projectId, status);
-
     try {
-      // if (groupStatus === 'Approved'&&) {
       console.log(groupId);
-      console.log(groupStatus);
-      console.log(approvedProjId);
-
-      // } else {
+      console.log('-->', groupStatus);
       const response = await axios.put(
-        `${BASEURL}/group/updateStatus/${groupId}/${approvedProjId}/status?status=${groupStatus}`
+        `${BASEURL}/group/updateStatus/${groupId}/${groupStatus}`
       );
-      console.log('Status updated Sucessfully');
+      console.log('Changes Saved Sucessfully');
+      fetchData();
+      Toastify({
+        text: 'Changes Saved',
+        duration: 1800,
+        gravity: 'top', // `top` or `bottom`
+        position: 'right', // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+          padding: '10px 50px',
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
       // console.log(response.data.data);
       // }
     } catch (error) {
       console.log('Error Udpating Status', error);
+      Toastify({
+        text: 'Error Saving Chages',
+        duration: 1800,
+        gravity: 'top', // `top` or `bottom`
+        position: 'right', // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+          padding: '10px 50px',
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
     }
   };
   const handleGroupStatusChange = (event) => {
@@ -253,38 +279,55 @@ const GroupDetailsPage = () => {
           </h2>
           <div className="flex gap-10">
             {' '}
-            <p className="text-lg font-bold text-black/90">Assigned Guide : </p>
-            <h1 className="text-lg font-bold text-black">{data?.guideName}</h1>
+            <p className="text-xl font-bold text-black/90">Assigned Guide : </p>
+            <h1 className="text-xl font-semibold text-black">
+              {data?.guideName}
+            </h1>
+          </div>
+          <div className="my-2 flex gap-10">
+            {' '}
+            <p className="text-xl font-bold text-black/90">Status :</p>
+            <h1 className="text-xl font-semibold text-black">
+              {data?.groupStatus}
+            </h1>
           </div>
           {/* <h1>{data.guideId}</h1> */}
         </div>
 
-        <div className="flex gap-10">
-          <div className="group relative z-0 w-full items-center md:w-1/3">
-            <select
-              id="countries"
-              className=" text-gray-900 text-md focus:ring-blue-500
-              placeholder-gray-400   bg-gray-900 block 
-              w-full w-[90%] items-center  
-              rounded-lg border border-black p-2 font-semibold text-black"
-              onChange={handleGroupStatusChange}
-            >
-              <option value="Inprocess">Inprocess</option>
-              <option value="Approved">Approved</option>
-              <option value="Improvement">Improvement</option>
-              <option value="Rejected">Rejected</option>
-              {/* <option value="IN">India</option> */}
-            </select>
+        <div className="flex flex-col gap-10">
+          <div className="flex items-center gap-10">
+            <p className="text-xl font-bold text-black/90">Changes Status</p>
+
+            <div className="group relative z-0 w-full items-center md:w-1/3">
+              <select
+                id="countries"
+                className="text-gray-900 text-md focus:ring-blue-500 placeholder-gray-400 bg-gray-900
+                 block w-full w-[90%] items-center rounded-lg border border-black p-2 text-xl font-semibold text-black"
+                onChange={handleGroupStatusChange} // onChange event handler
+                defaultValue={data?.groupStatus}
+              >
+                <option value="" disbaled>
+                  Select Status
+                </option>
+                <option value="Inprocess">Inprocess</option>
+                <option value="Approved">Approved</option>
+                <option value="Improvement">Improvement</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
           </div>
-          <AssignGuide groupId={groupId} guideName={data?.guideName} />
-          <div className="flex justify-start">
-            <button
-              className="no-hover my-auto rounded border bg-black px-10 py-2 
-          text-[1rem] font-medium text-white" // Add "no-hover" class to remove hover effect
-              onClick={handleSaveChanges}
-            >
-              Save Changes
-            </button>
+
+          <div className="flex flex-col gap-10 md:flex-row">
+            <AssignGuide groupId={groupId} guideName={data?.guideName} />
+            <div className="flex justify-start">
+              <button
+                className="no-hover my-auto rounded border bg-black px-20 py-3 
+          text-xl font-medium text-white" // Add "no-hover" class to remove hover effect
+                onClick={handleSaveChanges}
+              >
+                Save Changes
+              </button>
+            </div>
           </div>
         </div>
       </section>

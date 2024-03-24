@@ -107,16 +107,22 @@ const AssignTaskFaculty = () => {
       );
       if (res) {
         console.log('task uploaded');
+        // fetchSpecificTask();
+        handleCancel();
+        setTimeout(() => {
+          location.reload();
+        }, 100);
+
         // Show success message or perform any other action
       }
     } catch (error) {
       console.error('Error during submission:', error);
     }
   };
+  console.log('---> hello', editingTaskId);
 
   const handleEditTask = async () => {
     try {
-      console.log('---> hello', editingTaskId);
       const res = await axios.put(
         `${BASEURL}/task/update/${editingTaskId}`, // Use editingTaskId here
         {
@@ -242,7 +248,7 @@ const AssignTaskFaculty = () => {
     },
   ];
   useEffect(() => {
-    const fetchSubjects = async () => {
+    const fetchTasks = async () => {
       try {
         setLoadingTasks(true);
 
@@ -259,30 +265,31 @@ const AssignTaskFaculty = () => {
     };
 
     if (currentYear && semester && academic && subject && facultyId) {
-      fetchSubjects();
+      fetchTasks();
     }
   }, [currentYear, semester, academic, subject]);
-  useEffect(() => {
-    const fetchSpecificTask = async () => {
-      try {
-        const res = await axios.get(
-          `${BASEURL}/task/getTaskById/${editingTaskId}`, // Use editingTaskId here
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-        setData2(res.data.data);
-        // console.log('=====>--', res.data.data);
-      } catch (error) {
-        console.error('Error during update:', error);
-      }
-    };
-    if (editingTaskId) {
-      fetchSpecificTask();
+
+  // useEffect(() => {
+  const fetchSpecificTask = async () => {
+    try {
+      const res = await axios.get(
+        `${BASEURL}/task/getTaskById/${editingTaskId}`, // Use editingTaskId here
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      setData2(res.data.data);
+      // console.log('=====>--', res.data.data);
+    } catch (error) {
+      console.error('Error during update:', error);
     }
-  }, [editingTaskId]);
+  };
+  if (editingTaskId) {
+    fetchSpecificTask();
+  }
+  // }, [editingTaskId]);
   // fetch groupMembers-Name
   useEffect(() => {
     const fetchMembers = async () => {

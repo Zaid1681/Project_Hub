@@ -7,7 +7,6 @@ import Toastify from 'toastify-js';
 import { Link } from 'react-router-dom';
 import { BASEURL } from '../Api';
 
-
 const IndividualGroupDetailsPage = () => {
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
   const [groupStatus, setGroupStatus] = useState('Inprocess'); // State for group status
@@ -21,10 +20,10 @@ const IndividualGroupDetailsPage = () => {
   // const { groupId } = useParams();
   const [currentYear, setCurrentYear] = useState('');
   const [data, setData] = useState([]);
-  const [academicYear, setAcademicYear] = useState([]);
-  const [semester, setSemester] = useState([]);
-  const [subject, setSubject] = useState([]);
-  const [facultyId, setFacultyId] = useState([]);
+  const [academicYear, setAcademicYear] = useState();
+  const [semester, setSemester] = useState();
+  const [subject, setSubject] = useState();
+  const [facultyId, setFacultyId] = useState();
   const [projectDetails, setProjectDetails] = useState([]);
   const membersName = data.membersName;
   const fetchData = async () => {
@@ -33,16 +32,16 @@ const IndividualGroupDetailsPage = () => {
         `${BASEURL}/group/groupDetail/get/${groupId}`
       );
       setData(response.data.data);
-      const currentYear=response.data.data.currentYear;
-      const academicYear=response.data.data.academicYear;
-      const semester=response.data.data.semester;
-      const subject=response.data.data.subject;
-      const facultyId=response.data.data.facultyId;
-      console.log(currentYear)
-      console.log(academicYear)
-      console.log(semester)
-      console.log(subject)
-      console.log(facultyId)
+      const currentYear = response.data.data.currentYear;
+      const academicYear = response.data.data.academicYear;
+      const semester = response.data.data.semester;
+      const subject = response.data.data.subject;
+      const facultyId = response.data.data.guideId;
+      console.log(currentYear);
+      console.log(academicYear);
+      console.log(semester);
+      console.log(subject);
+      console.log(facultyId);
       setCurrentYear(currentYear);
       setAcademicYear(academicYear);
       setSemester(semester);
@@ -52,14 +51,14 @@ const IndividualGroupDetailsPage = () => {
       console.log('Error fetching Project', error);
     }
   };
-  console.log(groupId)
+  console.log(groupId);
   const fetchProject = async () => {
     try {
       const response = await axios.get(
         `${BASEURL}/projectIdea/getProjByGroupId/${groupId}`
       );
       setProjectDetails(response.data.data);
-      console.log(response.data)
+      console.log('==>', response.data);
       // console.log(response.data.data);
     } catch (error) {
       console.log('Error fetching Project', error);
@@ -108,8 +107,8 @@ const IndividualGroupDetailsPage = () => {
     console.log(academicYear);
     console.log(semester);
     console.log(subject);
-    console.log(facultyId)
-     // Assuming facultyId is available in the data object
+    console.log(facultyId);
+    // Assuming facultyId is available in the data object
     const url = `http://localhost:8080/groupsection/group/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`;
     window.location.href = url;
   };
@@ -141,14 +140,16 @@ const IndividualGroupDetailsPage = () => {
   return (
     <main className="bg-gray-100 min-h-screen">
       {/* <h1>hello world</h1> */}
-      <div className='flex justify-end mx-10'> <a
+      <div className="mx-10 flex justify-end">
+        {' '}
+        <a
           // href={`/${currentYear}/groups/${subject}/${semester}/${academic}/assignTask`}
-          href=''
+          href={`/groupsection/group/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`}
           // onClick={handleShowGroups}
           className={`rounded bg-[#0C356A] px-[3rem] py-2 text-white `}
         >
-          Assign Task
-        </a> 
+          View Tasks
+        </a>
       </div>
       <section className="mx-auto p-4 md:p-10">
         <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
@@ -278,14 +279,23 @@ const IndividualGroupDetailsPage = () => {
                   <h2 className="mt-1 text-lg">{data}</h2>
                 ))}
               </div>
-              <h1> {val.isApproved === true ? 'Approved' : 'Not Approved'}</h1>
-              <div className="flex justify-start">
-              <div className="flex justify-center mt-4">
-        <a href={`/groupsection/group/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`} className="text-black font-bold py-2 px-4 rounded" onClick={handleViewTask}>
-          View Task
-        </a>
-      </div>
+              <div className="flex items-center gap-3 text-center">
+                <h1 className="text-xl font-medium">Status: </h1>{' '}
+                <h1 className="flex items-center text-center">
+                  {val.isApproved === true ? 'Approved' : 'Not Approved'}
+                </h1>
               </div>
+              {/* <div className="flex justify-start">
+                <div className="mt-4 flex justify-center">
+                  <a
+                    href={`/groupsection/group/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`}
+                    className="rounded py-2 px-4 font-bold text-black"
+                    onClick={handleViewTask}
+                  >
+                    View Task
+                  </a>
+                </div>
+              </div> */}
             </div>
           </div>
         ))}
@@ -300,8 +310,6 @@ const IndividualGroupDetailsPage = () => {
           </div>
           {/* <h1>{data.guideId}</h1> */}
         </div>
-
-        
       </section>
     </main>
   );
