@@ -1,0 +1,10 @@
+/* For WebKit (Chrome, Safari) */
+::-webkit-scrollbar {
+  height: 2px; /* Width of vertical scrollbar */
+  width: 2px; /* Width of vertical scrollbar */
+}
+
+/* For WebKit (Chrome, Safari) */
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of scrollbar thumb */
+}
