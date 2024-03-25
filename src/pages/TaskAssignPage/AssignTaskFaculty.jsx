@@ -81,12 +81,15 @@ const AssignTaskFaculty = () => {
   const handleCancel2 = () => {
     setIsModalVisible2(false);
   };
-  console.log('---data', formData);
+  // console.log('---data', formData);
   const handleSubmitTask = async (e) => {
     e.preventDefault();
+    let groups = selectedGroups;
+    console.log('==>', formData.taskType);
     if (formData.taskType === 'All') {
       // setSelectedGroups([]);
-      setSelectedGroups((prevGroups) => []);
+      // setSelectedGroups((prevGroups) => []);
+      groups = null;
 
       // console.log('=======hfhfhfhf', selectedGroups);
     }
@@ -96,7 +99,7 @@ const AssignTaskFaculty = () => {
         {
           title: formData.title,
           description: formData.description,
-          groupId: selectedGroups, // Convert array to string
+          groupId: groups, // Convert array to string
           assignedDate: formData.assignedDate,
           deadline: formData.deadline,
           semester,
@@ -325,10 +328,14 @@ const AssignTaskFaculty = () => {
     sr: index + 1, // Adding the serial number
   }));
   // console.log('------===>', selectedGroups);
+  console.log(editFormData);
   const handleEditTask = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
-    if (editFormData.taskType === 'All' || data2?.taskType === 'All') {
-      setSelectedEditGroup([]);
+    let groups = selectedEditGroup;
+    console.log('-----------', data2?.taskType, editFormData.taskType);
+    if (editFormData.taskType === 'All') {
+      // setSelectedEditGroup([]);
+      groups = null;
     }
     try {
       const res = await axios.put(
@@ -337,7 +344,7 @@ const AssignTaskFaculty = () => {
           title: editFormData.title || data2.title,
           description: editFormData.description || data2.description,
           taskType: editFormData.taskType || data2.taskType,
-          groupId: selectedEditGroup, // Merge and remove duplicates
+          groupId: groups, // Merge and remove duplicates
           assignedDate: editFormData.assignedDate || data2.assignedDate,
           taskStatus: editFormData.taskStatus || data2.taskStatus,
           deadline: editFormData.deadline || data2.deadline,
@@ -460,7 +467,12 @@ const AssignTaskFaculty = () => {
       const selectedGroupId = value.target.value;
       // console.log(selectedGroupId);
       // Update the selectedGroups state with the selected groupId
-      setSelectedEditGroup((prevGroups) => [...prevGroups, selectedGroupId]);
+      setSelectedEditGroup((prevGroups) => {
+        if (!Array.isArray(prevGroups)) {
+          return [selectedGroupId]; // Initialize as an array if not already
+        }
+        return [...prevGroups, selectedGroupId]; // Spread only if it's an array
+      });
     }
     if (fieldName === 'assignedDate' || fieldName === 'deadline') {
       const formattedDate = moment(value.target.value).toDate(); // Parse date string to Date object
