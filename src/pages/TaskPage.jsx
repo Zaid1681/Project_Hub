@@ -45,9 +45,9 @@ const TaskPage = () => {
         );
         // console.log('Tasks fetched:', response.data);
         const fetchedTasks = response.data.data;
-        const taskId = fetchedTasks.map((task) => task._id); // Extract task IDs
+        // const taskId = fetchedTasks.map((task) => task._id); // Extract task IDs
         setTasks(fetchedTasks);
-        setTaskId(taskId); // Set task IDs in state
+        // setTaskId(taskId); // Set task IDs in state
       } catch (error) {
         console.error('Error fetching tasks:', error);
       }
@@ -56,31 +56,36 @@ const TaskPage = () => {
     fetchTasks();
   }, [groupId, currentYear, academicYear, semester, subject, facultyId]);
 
+  // console.log("Fetch all taskID:",taskId)
+
   useEffect(() => {
     const fetchSubmission = async () => {
       try {
-        const response = await axios.get(
-          `${BASEURL}/submission/get/taskId/${taskId}`
-        );
-        console.log('Submissions fetched:', response.data);
-        setSubmissionData(response.data.data); // Assuming the data array is stored in response.data.data
+        if (taskId) {
+          const response = await axios.get(
+            `${BASEURL}/submission/get/taskId/${taskId}`
+          );
+          const data = response.data.data
+          console.log('Submissions fetched:', data);
+          setSubmissionData(response.data.data);
+        }
       } catch (error) {
         console.error('Error fetching submission:', error);
       }
     };
-
-    if (taskId.length > 0) {
-      fetchSubmission();
-    }
+  
+    fetchSubmission();
   }, [taskId]);
+  
 
   const showModal2 = (taskId) => {
+    console.log(taskId);
+    setTaskId(taskId);
     setIsModalVisible2(true);
   };
 
-  const handleTaskSubmission = async (e) => {
-    console.log('taskIds:', taskId); // Add this line to check the value of taskIds
-    e.preventDefault();
+  const handleTaskSubmission = async () => {
+    console.log('taskIds:', taskId);
     try {
       const res = await axios.post(
         `${BASEURL}/submission/add`,
@@ -94,7 +99,7 @@ const TaskPage = () => {
           subject,
           academicYear,
           currentYear,
-          taskId,
+          taskId: taskId, // Send entire taskId as string
         },
         {
           headers: {
@@ -105,11 +110,14 @@ const TaskPage = () => {
       if (res) {
         console.log('task uploaded');
         // Show success message or perform any other action
+        setIsModalVisible(false); // Close the modal after successful submission
       }
     } catch (error) {
       console.error('Error during submission:', error);
     }
   };
+  
+  
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -180,7 +188,7 @@ const TaskPage = () => {
       render: (_, record) => (
         <Button
           icon={<EditOutlined />}
-          onClick={() => showModal2(record.taskId)} // Pass the task ID here for editing
+          onClick={() => showModal2(record._id)} // Pass the task ID here for editing
           className={`rounded bg-[#0C356A] px-[4rem] py-2 text-white hover:bg-[#0c356A]`}
         ></Button>
       ),
@@ -200,6 +208,8 @@ const TaskPage = () => {
     },
   ];
 
+  console.log(submissionData.currentYear)
+
   return (
     <section>
       <Table columns={columns} dataSource={dataWithSrNo} scroll={{ x: true }} />
@@ -218,7 +228,7 @@ const TaskPage = () => {
         >
           <Form.Item
             label="Task Description"
-            name="Description"
+            name="description"
             rules={[
               { required: true, message: 'Please input task description!' },
             ]}
@@ -232,7 +242,7 @@ const TaskPage = () => {
 
           <Form.Item
             label="PDF Link"
-            name="PDF Link"
+            name="pdfLink"
             rules={[{ required: true, message: 'Please input PDF link!' }]}
             value={formData.pdfLink}
             onChange={(e) =>
@@ -244,7 +254,7 @@ const TaskPage = () => {
 
           <Form.Item
             label="Github Link"
-            name="GitHub Link"
+            name="githubLink"
             rules={[{ required: true, message: 'Please input GitHub link!' }]}
             value={formData.githubLink}
             onChange={(e) =>
@@ -258,63 +268,72 @@ const TaskPage = () => {
             <Button
               type="primary"
               htmlType="submit"
-              className="bg-blue-500 text-black"
+              className="text-black"
               onClick={handleTaskSubmission}
             >
-              Save
+              Submit
             </Button>
           </Form.Item>
         </Form>
       </Modal>
-
       <Modal
-        title="Edit Profile"
-        visible={isModalVisible2}
-        onCancel={handleCancel2}
-        footer={null}
+  title="Edit Profile"
+  visible={isModalVisible2}
+  onCancel={handleCancel2}
+  footer={null}
+>
+  {taskId && submissionData && submissionData.length > 0 ? (
+    submissionData.map((submission, index) => (
+      <Form
+        key={submission._id}
+        name={`editSubmissionForm${index}`}
+        initialValues={submission}
       >
-        <Form
-          name="VIew"
-          initialValues={submissionData[0]} // Assuming there's only one submission data object
+        <Form.Item
+          label="Task description"
+          name={`description`}
+          rules={[
+            { required: true, message: 'Please input your description!' },
+          ]}
         >
-          <Form.Item
-            label="Task description"
-            name="description"
-            rules={[
-              { required: true, message: 'Please input your description!' },
-            ]}
-          >
-            <Input />
-          </Form.Item>
+          <Input />
+        </Form.Item>
 
-          <Form.Item
-            label="PDF Link"
-            name="pdfLink"
-            rules={[{ required: true, message: 'Please input PDF link!' }]}
-          >
-            <Input />
-          </Form.Item>
+        <Form.Item
+          label="PDF Link"
+          name={`pdfLink`}
+          rules={[{ required: true, message: 'Please input PDF link!' }]}
+        >
+          <Input />
+        </Form.Item>
 
-          <Form.Item
-            label="GitHub Link"
-            name="githubLink"
-            rules={[{ required: true, message: 'Please input GitHub link!' }]}
-          >
-            <Input />
-          </Form.Item>
+        <Form.Item
+          label="GitHub Link"
+          name={`githubLink`}
+          rules={[{ required: true, message: 'Please input GitHub link!' }]}
+        >
+          <Input />
+        </Form.Item>
 
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="bg-blue-500 text-white"
-              onClick={handleCancel2}
-            >
-              Ok
-            </Button>
-          </Form.Item>
-        </Form>
-      </Modal>
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="bg-blue-500 text-white"
+            onClick={handleCancel2}
+          >
+            Ok
+          </Button>
+        </Form.Item>
+      </Form>
+    ))
+  ) : (
+    <p>No submission data found for this task.</p>
+  )}
+</Modal>
+
+
+
     </section>
   );
 };
