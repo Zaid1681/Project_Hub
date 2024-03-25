@@ -86,7 +86,7 @@ const TaskSubmissions = () => {
       {/* Right Panel */}
       <div className="w-full">
         {' '}
-        <div className="sticky top-28  ml-4 w-full w-full overflow-hidden bg-white p-10">
+        <div className="sticky top-28  ml-4 w-full overflow-hidden text-black bg-white p-10">
           <p className="pb-5 text-xl font-bold">Submission Details</p>
           <div className="flex flex-col gap-4">
             <div>

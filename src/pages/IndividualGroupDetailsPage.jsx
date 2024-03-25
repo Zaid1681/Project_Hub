@@ -93,7 +93,7 @@ const IndividualGroupDetailsPage = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () {}, // Callback after click
+        onClick: function () { }, // Callback after click
       }).showToast();
       // console.log(response.data.data);
     } catch (error) {
@@ -153,19 +153,19 @@ const IndividualGroupDetailsPage = () => {
       </div>
       <section className="mx-auto mt-10  md:p-10">
         <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 text-3xl font-semibold text-[#0C356A]">GROUP</h2>
+          <h2 className="mb-7 text-3xl font-semibold text-black">GROUP</h2>
 
           <div className="space-y-6">
-            <div className="flex items-center gap-10  text-black ">
+            <div className="flex items-center  text-black ">
               {/* <h1 className="text-xl font-medium">Group No - 1</h1> */}
-              <h1 className="text-xl font-medium">Members Name : </h1>
-              <div className="flex gap-5">
+              <div className="flex flex-wrap gap-2">
+                <h1 className="text-xl font-medium">Members Name : </h1>
                 {membersName?.map((data, index) => (
-                  <h1 className=" text-xl font-medium">{data},</h1>
+                  <h1 key={index} className="text-xl font-medium inline-block md:block">{data},</h1>
                 ))}
               </div>
             </div>
-            <div className="flex gap-10 text-black">
+            <div className="flex flex-col md:flex-row gap-2 md:gap-10 text-black">
               {' '}
               <h1 className="text-xl font-medium">
                 <span>Year : </span>
@@ -283,7 +283,7 @@ const IndividualGroupDetailsPage = () => {
               </div>
               <div className="flex items-center gap-3 text-center">
                 <h1 className="text-xl font-medium">Status: </h1>{' '}
-                <h1 className="flex items-center text-center">
+                <h1 className="flex items-center text-center border rounded-xl bg-[#0C356A] text-white px-5 py-2">
                   {val.isApproved === true ? 'Approved' : 'Not Approved'}
                 </h1>
               </div>

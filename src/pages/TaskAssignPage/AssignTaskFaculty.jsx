@@ -735,8 +735,8 @@ dark:focus:border-primary"
                 placeholder="mm/dd/yyyy hh:mm"
                 onChange={(date) => handleChange2('assignedDate', date)}
 
-                // defaultValue={date}
-                // onChange={handleDateChange}
+              // defaultValue={date}
+              // onChange={handleDateChange}
               />
             </div>{' '}
             <span className="text-gray-500 mx-4">to</span>

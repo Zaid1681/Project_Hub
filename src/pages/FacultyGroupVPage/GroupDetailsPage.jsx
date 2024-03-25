@@ -132,7 +132,7 @@ const GroupDetailsPage = () => {
     <main className="bg-gray-100 min-h-screen">
       <section className="mx-auto md:p-10">
         <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 text-3xl font-semibold text-[#0C356A]">GROUP</h2>
+          <h2 className="mb-7 text-3xl font-semibold text-black">GROUP</h2>
 
           <div className="space-y-6">
             <div className="flex items-center  text-black ">
@@ -294,44 +294,44 @@ const GroupDetailsPage = () => {
           {/* <h1>{data.guideId}</h1> */}
         </div>
 
-  <div className="flex flex-col gap-10">
-    <div className="flex items-center gap-10">
-      <p className="text-xl font-bold text-black/90">Changes Status</p>
+        <div className="flex flex-col gap-10">
+          <div className="flex items-center gap-10">
+            <p className="text-xl font-bold text-black/90">Changes Status</p>
 
-      <div className="group relative z-0 w-full items-center md:w-1/3">
-        <select
-          id="countries"
-          className="text-gray-900 text-md focus:ring-blue-500 placeholder-gray-400 bg-gray-900
+            <div className="group relative z-0 w-full items-center md:w-1/3">
+              <select
+                id="countries"
+                className="text-gray-900 text-md focus:ring-blue-500 placeholder-gray-400 bg-gray-900
                  block w-full items-center rounded-lg border border-black p-2 text-xl font-semibold text-black"
-          onChange={handleGroupStatusChange} // onChange event handler
-          defaultValue={data?.groupStatus}
-        >
-          <option value="" disbaled>
-            Select Status
-          </option>
-          <option value="Inprocess">Inprocess</option>
-          <option value="Approved">Approved</option>
-          <option value="Improvement">Improvement</option>
-          <option value="Rejected">Rejected</option>
-        </select>
-      </div>
-    </div>
+                onChange={handleGroupStatusChange} // onChange event handler
+                defaultValue={data?.groupStatus}
+              >
+                <option value="" disbaled>
+                  Select Status
+                </option>
+                <option value="Inprocess">Inprocess</option>
+                <option value="Approved">Approved</option>
+                <option value="Improvement">Improvement</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+          </div>
 
-    <div className="flex flex-col gap-10 md:flex-row">
-      <AssignGuide groupId={groupId} guideName={data?.guideName} />
-      <div className="flex justify-start">
-        <button
-          className="no-hover my-auto rounded border bg-black px-20 py-3 
+          <div className="flex flex-col gap-10 md:flex-row">
+            <AssignGuide groupId={groupId} guideName={data?.guideName} />
+            <div className="flex justify-start">
+              <button
+                className="no-hover my-auto rounded border bg-black px-20 py-3 
           text-xl font-medium text-white" // Add "no-hover" class to remove hover effect
-          onClick={handleSaveChanges}
-        >
-          Save Changes
-        </button>
-      </div>
+                onClick={handleSaveChanges}
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
   );
 };
 
