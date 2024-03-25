@@ -146,6 +146,7 @@ const updateTaskById = async (req, res, next) => {
       isApproved,
       taskStatus,
       taskType,
+      groupId,
     } = req.body;
     const updatedTask = await Task.findByIdAndUpdate(
       taskId,
@@ -155,6 +156,7 @@ const updateTaskById = async (req, res, next) => {
         assignedDate,
         deadline,
         isApproved,
+        groupId,
         taskStatus,
         taskType,
       },
