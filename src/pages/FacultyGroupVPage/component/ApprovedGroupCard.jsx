@@ -14,6 +14,7 @@ const ApprovedGroupCard = ({
   approvedProjId,
   LeaderName,
   groupId,
+  index,
 }) => {
   console.log(
     guideName,
@@ -24,7 +25,8 @@ const ApprovedGroupCard = ({
     guideId,
     projectAppStatus,
     approvedProjId,
-    groupId
+    groupId,
+    index
   );
   const [data, setData] = useState(null);
   const [showFullAbstract, setShowFullAbstract] = useState({});
@@ -54,21 +56,22 @@ const ApprovedGroupCard = ({
     <a
       href={`/${currentYear}/groups/groupsList/${subject}/${semester}/${academic}/${groupId}`}
     >
-      <div className="transform text-black cursor-pointer mx-6 md:mx-0 overflow-hidden rounded-2xl bg-white text-left shadow-lg transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl">
+      <div className="mx-6 transform cursor-pointer overflow-hidden rounded-2xl bg-white text-left text-black shadow-lg transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl md:mx-0">
         <div className="px-5 py-7">
-          <h3 className="mb-8 text-center text-3xl font-bold">{`Group 1`}</h3>
+          <h3 className="mb-8 text-center text-3xl font-bold">{index}</h3>
           <div className="mb-2 flex flex-wrap gap-2 ">
             <p className="text-xl font-bold">Project Title:</p>
             <p className="text-lg ">{data?.title}</p>
           </div>
 
-          <div className="flex my-3 flex-wrap jusitfy-center items-center gap-2">
+          <div className="jusitfy-center my-3 flex flex-wrap items-center gap-2">
             <p className="text-xl font-bold">Project Description:</p>
             <p className="text-lg">
               {showFullAbstract[data?._id]
                 ? data?.description
-                : `${data?.description.slice(0, 50)}${data?.description.length > 50 ? '...' : ''
-                }`}
+                : `${data?.description.slice(0, 50)}${
+                    data?.description.length > 50 ? '...' : ''
+                  }`}
               {data?.description.length > 140 && (
                 <button
                   onClick={() => toggleAbstract(group.id)}
@@ -79,11 +82,11 @@ const ApprovedGroupCard = ({
               )}
             </p>
           </div>
-          <div className="flex flex-wrap my-3 jusitfy-center items-center gap-2">
+          <div className="jusitfy-center my-3 flex flex-wrap items-center gap-2">
             <p className="text-xl font-bold">Assigned Guide :</p>
             <p className="text-lg">{guideName}</p>
           </div>
-          <div className="flex my-3 items-center gap-2 flex-wrap">
+          <div className="my-3 flex flex-wrap items-center gap-2">
             <p className="text-xl font-bold">Members:</p>
             <span className="items-center">{LeaderName}</span>
             {members.map((data, index) => (
@@ -93,10 +96,10 @@ const ApprovedGroupCard = ({
             ))}
           </div>
           <div className="my-3 flex gap-2 ">
-            <p className=" text-xl mb-2 font-bold">Subject :</p>
+            <p className=" mb-2 text-xl font-bold">Subject :</p>
             <p className="text-lg">{subjectName}</p>
           </div>
-          <div className="my-3 flex gap-2 items-center">
+          <div className="my-3 flex items-center gap-2">
             <p className=" text-xl font-bold">Semester :</p>
             <p className=" text-lg">{semster}</p>
           </div>

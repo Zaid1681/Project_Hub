@@ -105,14 +105,14 @@ const ApprovedGroupsPage = () => {
           href={`/${currentYear}/groups/${subject}/${semester}/${academic}/assignTask`}
           // onClick={handleShowGroups}
           className={`w-30 rounded bg-[#0C356A] p-2  text-center text-white md:w-80 `}
-          className={`rounded bg-[#0C356A] w-30 md:w-80  p-2 text-center text-white `}
         >
           Assign Task
         </a>
       </div>
       <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
-        {personalGroup.map((group) => (
+        {personalGroup.map((group, index) => (
           <ApprovedGroupCard
+            index
             guideName={group.guideName}
             members={group.membersName}
             semster={group.semester}
