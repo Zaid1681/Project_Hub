@@ -38,11 +38,7 @@ const SubmissionSchema = new Schema(
     githubLink: {
       type: String,
     },
-    taskStatus: {
-      type: String,
-      enum: Object.values(taskStatus),
-      default: taskStatus.Pending,
-    },
+
     groupId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Group", // Re ference to the Group model
