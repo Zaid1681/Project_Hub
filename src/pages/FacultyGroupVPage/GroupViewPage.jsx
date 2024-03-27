@@ -16,6 +16,7 @@ const GroupViewPage = () => {
   const [subjectList, setSubjectList] = useState([]);
 
   const currentUser = useSelector((state) => state.user);
+  const facultyId = currentUser.userData._id
 
   const handleSemesterChange = (e) => {
     const selectedSemester = parseInt(e.target.value, 10);

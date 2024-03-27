@@ -130,24 +130,24 @@ const ProjectProject = () => {
       className:
         'bg-boxdark bg-black  text-white hover:bg-unset text-center p-2.5',
     },
-    {
-      title: 'Description',
-      dataIndex: 'description',
-      // defaultSortOrder: 'descend',
-      // ...getColumnSearchProps('gender', 'Genders'),
+    // {
+    //   title: 'Description',
+    //   dataIndex: 'description',
+    //   // defaultSortOrder: 'descend',
+    //   // ...getColumnSearchProps('gender', 'Genders'),
 
-      className:
-        'bg-boxdark bg-black  text-white hover:bg-unset text-center p-2.5',
-    },
-    {
-      title: 'semester',
-      dataIndex: 'semester',
-      // defaultSortOrder: 'descend',
-      // ...getColumnSearchProps('gender', 'Genders'),
+    //   className:
+    //     'bg-boxdark bg-black  text-white hover:bg-unset text-center p-2.5',
+    // },
+    // {
+    //   title: 'semester',
+    //   dataIndex: 'semester',
+    //   // defaultSortOrder: 'descend',
+    //   // ...getColumnSearchProps('gender', 'Genders'),
 
-      className:
-        'bg-boxdark bg-black  text-white hover:bg-unset text-center p-2.5',
-    },
+    //   className:
+    //     'bg-boxdark bg-black  text-white hover:bg-unset text-center p-2.5',
+    // },
     // {
     //   title: 'Role Applied',
     //   dataIndex: 'Role',
