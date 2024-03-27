@@ -5,11 +5,13 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Toastify from 'toastify-js';
+import { MdDelete } from 'react-icons/md';
 
 import { BASEURL } from '../Api';
 import { EditOutlined } from '@ant-design/icons';
 import './table.css';
 import { FaLink } from 'react-icons/fa6';
+import { MdModeEditOutline } from 'react-icons/md';
 
 const { RangePicker } = DatePicker;
 
@@ -19,6 +21,7 @@ const TaskPage = () => {
   const [task, setTasks] = useState([]);
   const [taskId, setTaskId] = useState([]);
   const [fetchTaskId, setFetchTaskId] = useState([]);
+  const [update, setUpdate] = useState(false);
 
   const groupId = useLocation().pathname.split('/')[3];
   const currentYear = useLocation().pathname.split('/')[4];
@@ -32,10 +35,20 @@ const TaskPage = () => {
     pdfLink: '',
     githubLink: '',
   });
+  const [updateFormData, setUpdateFormData] = useState({
+    description: '',
+    pdfLink: '',
+    githubLink: '',
+  });
   const handleChange = (fieldName, value) => {
     setFormData({ ...formData, [fieldName]: value });
   };
-  console.log('===>', formData);
+  const handleChange2 = (fieldName, value) => {
+    setUpdateFormData({ ...updateFormData, [fieldName]: value });
+  };
+  // console.log('===>', formData);
+  console.log('===>', updateFormData);
+
   const [submissionData, setSubmissionData] = useState([]);
   // console.log(groupId);
   // console.log(currentYear);
@@ -66,16 +79,127 @@ const TaskPage = () => {
   // console.log("Fetch all taskID:",taskId)
   const fetchSubmission = async () => {
     try {
-      if (taskId) {
+      if (fetchTaskId) {
         const response = await axios.get(
           `${BASEURL}/submission/get/taskId/${fetchTaskId}`
         );
         const data = response.data.data;
         console.log('Submissions fetched:', data);
-        setSubmissionData(response.data.data);
+        setSubmissionData(response.data.data[0]);
       }
     } catch (error) {
       console.error('Error fetching submission:', error);
+    }
+  };
+  const handleSetUpdate = async () => {
+    setUpdate(!update);
+  };
+  const handleSubmissionDelete = async (submissionId) => {
+    try {
+      if (submissionId) {
+        const confirmUpdate = window.confirm(
+          'Are you sure you want to Delete Submission?'
+        );
+        if (!confirmUpdate) {
+          // If the user cancels, exit the function
+          handleCancel2();
+          return;
+        }
+
+        const response = await axios.delete(
+          `${BASEURL}/submission/del/${submissionId}`
+        );
+        // const data = response.data.data;
+        Toastify({
+          text: 'Submission Deleted',
+          duration: 1800,
+          gravity: 'top', // `top` or `bottom`
+          position: 'right', // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          style: {
+            background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+            padding: '10px 50px',
+          },
+          onClick: function () {}, // Callback after click
+        }).showToast();
+        handleCancel2();
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+
+        console.log('Delete Sucesss');
+        console.log(response);
+        // setSubmissionData(response.data.data[0]);
+      }
+    } catch (error) {
+      console.error('Error deleting submission:', error);
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        console.error('Error during submission:', error.response.data.message);
+        alert(error.response.data.message);
+      } else {
+        console.error('Error during submission:', error);
+      }
+    }
+  };
+  const handleUpdateSubmission = async (submissionId) => {
+    try {
+      if (submissionId) {
+        const confirmUpdate = window.confirm(
+          'Are you sure you want to update the submission?'
+        );
+        if (!confirmUpdate) {
+          // If the user cancels, exit the function
+          return;
+        }
+
+        const response = await axios.put(
+          `${BASEURL}/submission/update/${submissionId}`,
+          {
+            description:
+              updateFormData.description || submissionData.description,
+            pdfLink: updateFormData.pdfLink || submissionData.pdfLink,
+            githubLink: updateFormData.githubLink || submissionData.githubLink,
+          }
+        );
+        if (response) {
+          Toastify({
+            text: 'Submission Updated',
+            duration: 1800,
+            gravity: 'top', // `top` or `bottom`
+            position: 'right', // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+              padding: '10px 50px',
+            },
+            onClick: function () {}, // Callback after click
+          }).showToast();
+          handleCancel2();
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+
+          console.log('Submission updated');
+          console.log(response);
+        }
+        // setSubmissionData(response.data.data[0]);
+      }
+    } catch (error) {
+      console.error('Error updating submission:', error);
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        console.error('Error during submission:', error.response.data.message);
+        alert(error.response.data.message);
+      } else {
+        console.error('Error during submission:', error);
+      }
     }
   };
   useEffect(() => {
@@ -252,7 +376,7 @@ const TaskPage = () => {
     },
   ];
 
-  console.log(submissionData.currentYear);
+  // console.log(submissionData.currentYear);
 
   return (
     <section>
@@ -341,12 +465,129 @@ const TaskPage = () => {
         </form>
       </Modal>
       <Modal
-        title="Edit Profile"
+        title="View Submission"
         visible={isModalVisible2}
         onCancel={handleCancel2}
         footer={null}
       >
-        <div>Hello Submission</div>
+        {submissionData ? (
+          <form onSubmit={handleTaskSubmission}>
+            <div className="pb-12">
+              <div className="mt-2 flex flex-col gap-5">
+                <div className="sm:col-span-4">
+                  <label
+                    htmlFor="description"
+                    className="text-gray-900 block text-lg font-medium leading-6"
+                  >
+                    Submission Description
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      id="message"
+                      rows="3"
+                      onChange={(e) =>
+                        handleChange2('description', e.target.value)
+                      }
+                      disabled={!update} // Here, the input will be disabled if `update` is false
+                      className="text-gray-900 bg-gray-50 border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 text-md block w-full rounded-lg border p-2.5 text-lg dark:text-white"
+                      placeholder="Submission Description"
+                      defaultValue={submissionData?.description}
+                    />
+                  </div>
+                </div>
+
+                <div className="col-span-full">
+                  <label
+                    htmlFor="pdfLink"
+                    className="text-gray-900 block flex items-center gap-2 text-lg font-medium leading-6"
+                  >
+                    Pdf Link{' '}
+                    <a
+                      href={submissionData?.pdfLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaLink className="flex" />
+                    </a>
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      name="pdfLink"
+                      id="pdfLink"
+                      onChange={(e) => handleChange2('pdfLink', e.target.value)}
+                      disabled={!update} // Here, the input will be disabled if `update` is false
+                      defaultValue={submissionData?.pdfLink}
+                      className="text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600 text-md block w-full rounded-md border-0 px-5 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:leading-6"
+                    />
+                  </div>
+                </div>
+
+                <div className="sm:col-span-2 sm:col-start-1">
+                  <label
+                    htmlFor="githubLink"
+                    className="text-gray-900 block flex items-center gap-2 text-lg font-medium leading-6"
+                  >
+                    Github Link{' '}
+                    <a
+                      href={submissionData?.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaLink className="flex" />
+                    </a>
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      name="githubLink"
+                      id="githubLink"
+                      onChange={(e) =>
+                        handleChange2('githubLink', e.target.value)
+                      }
+                      disabled={!update} // Here, the input will be disabled if `update` is false
+                      defaultValue={submissionData?.githubLink}
+                      className="text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600 text-md block w-full rounded-md border-0 px-5 py-1.5 text-lg shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:leading-6"
+                    />
+                  </div>
+                </div>
+                <div className="flex gap-5">
+                  <div className="sm:col-span-2 sm:col-start-1">
+                    <button
+                      type="button"
+                      className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-2 text-white `}
+                      onClick={handleSetUpdate}
+                    >
+                      <MdModeEditOutline className="text-xl " />
+                    </button>
+                  </div>
+                  <div className="sm:col-span-2 sm:col-start-1">
+                    <button
+                      type="button"
+                      onClick={() => handleSubmissionDelete(submissionData._id)}
+                      className={`mb-2 rounded  border border-[#0C356A] px-[1rem] py-2 text-white`}
+                    >
+                      <MdDelete className="text-xl text-[#0C356A]" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+              {update && (
+                <div className="mx-auto sm:col-span-2 sm:col-start-1">
+                  <button
+                    type="button"
+                    onClick={() => handleUpdateSubmission(submissionData._id)}
+                    className={`mx-auto mb-2 rounded bg-[#0C356A] px-[1rem] py-2 text-white`}
+                  >
+                    Update Submission
+                  </button>
+                </div>
+              )}
+            </div>
+          </form>
+        ) : (
+          <p>No Submission Available</p>
+        )}
       </Modal>
     </section>
   );
