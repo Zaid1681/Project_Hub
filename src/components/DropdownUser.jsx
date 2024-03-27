@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 
 import UserOne from '../images/user/user-01.png';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+
 
 import { setUserData, removeUserData } from '../Redux/slices/user-slice'; // Update the path
 
@@ -13,6 +15,29 @@ const DropdownUser = () => {
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
+
+  const currentUser = useSelector((state) => state.user);
+  const userId = currentUser.userData._id;
+  const userName = currentUser.userData.name;
+  const userStudentId = currentUser.userData.studentId;
+  console.log(userId)
+  console.log(userName)
+  console.log(userStudentId)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userDetail = await axios.get(
+          `${BASEURL}/student/getStudentById/${userId}`
+        );
+        setUser(userDetail.data.data);
+      } catch (error) {
+        console.log('Error fetching user data: ', error);
+      }
+    };
+
+    fetchData();
+  }, [userId]);
 
   // close on click outside
     const logoutUser = () => {
@@ -55,9 +80,9 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Zaid Khan
+            {userName}
           </span>
-          <span className="block text-xs">201994101</span>
+          <span className="block text-xs">{userStudentId}</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">

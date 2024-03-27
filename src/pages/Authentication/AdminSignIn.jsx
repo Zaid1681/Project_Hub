@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Toastify from 'toastify-js';
 import { useDispatch } from 'react-redux';
 
@@ -19,6 +19,8 @@ const AdminSignIn = () => {
   const isFaculty = false;
 
   const navigate = useNavigate();
+  const [academicYears, setAcademicYears] = useState([]);
+
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
@@ -92,6 +94,22 @@ const AdminSignIn = () => {
     });
   };
   // console.log('login', loginData);
+
+  const generateAcademicYears = () => {
+    const currentYear = new Date().getFullYear();
+    const options = [];
+    for (let i = 0; i < 5; i++) {
+      const startYear = currentYear - i;
+      const endYear = startYear + 1;
+      options.push(`${startYear}-${endYear}`);
+    }
+    setAcademicYears(options);
+  };
+
+  // Call generateAcademicYears function when component mounts
+  useEffect(() => {
+    generateAcademicYears();
+  }, []);
 
   return (
     <>
@@ -217,6 +235,7 @@ const AdminSignIn = () => {
                     </span>
                   </div>
                   <div className="mb-4 flex-1">
+                    <div className="relative">
                     <label className="mb-2.5 block font-medium text-black dark:text-white">
                       Choose Academic Year
                     </label>
@@ -224,13 +243,16 @@ const AdminSignIn = () => {
                       <select
                         name="year"
                         onChange={handleLoginInputChange}
-                        className="border-grey w-full rounded-lg border  bg-transparent py-3 pl-4 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="border-grey w-full rounded-lg border bg-transparent py-3 pl-4 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       >
-                        <option value={loginData.year} disabled selected>
+                        <option value="" disabled selected>
                           Select Academic Year
                         </option>
-                        <option value="2023-2024">2023-2024</option>
-                        <option value="2023-2024">2023-2024</option>
+                        {academicYears.map((year, index) => (
+                          <option key={index} value={year}>
+                            {year}
+                          </option>
+                        ))}
                       </select>
                       <span className="absolute right-4 top-4">
                         <svg
@@ -245,6 +267,7 @@ const AdminSignIn = () => {
                         </svg>
                       </span>
                     </div>
+                  </div>
                   </div>
                 </div>
 

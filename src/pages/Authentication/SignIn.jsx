@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Toastify from 'toastify-js';
 import { useDispatch } from 'react-redux';
 import { BASEURL } from '../../Api';
@@ -16,6 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const SignIn = () => {
   const dispatch = useDispatch();
+  const [academicYears, setAcademicYears] = useState([]);
 
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
@@ -29,10 +30,7 @@ const SignIn = () => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        `${BASEURL}/auth/signin`,
-        loginData
-      );
+      const res = await axios.post(`${BASEURL}/auth/signin`, loginData);
 
       if (res) {
         console.log('Registration success');
@@ -68,7 +66,7 @@ const SignIn = () => {
             background: 'linear-gradient(to right, #3C50E0, #3C50E0',
             padding: '10px 50px',
           },
-          onClick: function () { }, // Callback after click
+          onClick: function () {}, // Callback after click
         }).showToast();
         setTimeout(() => {
           navigate('/home');
@@ -92,6 +90,22 @@ const SignIn = () => {
     });
   };
   // console.log('login', loginData);
+
+  const generateAcademicYears = () => {
+    const currentYear = new Date().getFullYear();
+    const options = [];
+    for (let i = 0; i < 5; i++) {
+      const startYear = currentYear - i;
+      const endYear = startYear + 1;
+      options.push(`${startYear}-${endYear}`);
+    }
+    setAcademicYears(options);
+  };
+
+  // Call generateAcademicYears function when component mounts
+  useEffect(() => {
+    generateAcademicYears();
+  }, []);
 
   return (
     <>
@@ -233,7 +247,7 @@ const SignIn = () => {
                       </svg>
                     </span>
                   </div>
-                  <div className="mb-4 flex-1">
+                  <div className="relative">
                     <label className="mb-2.5 block font-medium text-black dark:text-white">
                       Choose Academic Year
                     </label>
@@ -241,13 +255,16 @@ const SignIn = () => {
                       <select
                         name="year"
                         onChange={handleLoginInputChange}
-                        className="border-grey w-full rounded-lg border  bg-transparent py-3 pl-4 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="border-grey w-full rounded-lg border bg-transparent py-3 pl-4 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       >
-                        <option value={loginData.year} disabled selected>
+                        <option value="" disabled selected>
                           Select Academic Year
                         </option>
-                        <option value="2023-2024">2023-2024</option>
-                        <option value="2023-2024">2023-2024</option>
+                        {academicYears.map((year, index) => (
+                          <option key={index} value={year}>
+                            {year}
+                          </option>
+                        ))}
                       </select>
                       <span className="absolute right-4 top-4">
                         <svg
