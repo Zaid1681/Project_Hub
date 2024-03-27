@@ -30,20 +30,17 @@ const SubmissionCard = ({ subData, index, handleSetData }) => {
   return (
     <a
       key={subData._id}
-      className="border-1 my-6 flex cursor-pointer flex-col items-center justify-center
-       bg-[#D3D3D3]/30 py-2
-       text-lg shadow-lg"
+      className="flex cursor-pointer flex-col items-center justify-center "
       onClick={() => handleSetData(subData)}
     >
-      <p className="font-semibold">Group {index + 1}</p>
+      <p className="text-2xl font-semibold">Group {index + 1}</p>
 
-      <div>
-        <p className=" font-semibold">Group Members: </p>
-        {/* <p>Zaid , Vishal , Vaishnavi</p> */}
-        <div className="mx-auto grid grid-cols-2">
+      <div className='flex flex-wrap gap-2 mt-3'>
+        <p className="text-lg font-semibold">Group Members: </p>
+        <div className="flex text-base font-medium flex-wrap ">
           {' '}
           {data?.membersName?.map((data, index) => (
-            <p>{data}, </p>
+            <p>{data},</p>
           ))}
         </div>
       </div>

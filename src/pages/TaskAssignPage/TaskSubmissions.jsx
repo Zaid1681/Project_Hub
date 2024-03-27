@@ -56,13 +56,10 @@ const TaskSubmissions = () => {
   };
 
   return (
-    <div className="flex  p-4">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-10 text-black">
       {/* Left Panel */}
-      <div
-        className="flex w-[40%] flex-col items-center justify-center gap-1 rounded-2xl
-       bg-white/80 py-10 px-5"
-      >
-        <div className="mb-4 w-full">
+      <div className="col-span-1 flex w-90 md:w-full h-full items-center justify-center  gap-1  bg-white/80 py-10 px-5">
+        <div className=" items-center justify-center p-4 bg-[#D3D3D3]/30 rounded-xl">
           {loading ? (
             <Spin size="large" />
           ) : data && data.length > 0 ? (
@@ -84,35 +81,42 @@ const TaskSubmissions = () => {
       </div>
 
       {/* Right Panel */}
-      <div className="w-full">
+      <div className="w-full col-span-3">
         {' '}
-        <div className="sticky top-28  ml-4 w-full w-full overflow-hidden bg-white p-10">
-          <p className="pb-5 text-xl font-bold">Submission Details</p>
-          <div className="flex flex-col gap-4">
-            <div>
-              <h1 className="text-lg font-semibold">Description:</h1>
-              <p>{submissionData?.description}</p>
+        <div className="top-28 w-full overflow-hidden bg-white p-10">
+          <p className="pb-5 text-2xl md:text-3xl font-bold">Submission Details</p>
+          <div className="flex flex-col gap-5 mt-5">
+            <div className='flex flex-wrap gap-2 '>
+              <h1 className="text-xl font-semibold">Description:</h1>
+              <p className='flex text-lg items-center justify-center font-medium'>{submissionData?.description}</p>
             </div>
-            <div>
-              <h1 className="text-lg font-semibold">Semester:</h1>
-              <p>{submissionData?.semester}</p>
+            <div className='flex flex-wrap gap-2'>
+              <h1 className="text-xl font-semibold">Semester:</h1>
+              <p className='flex text-lg items-center justify-center font-medium'>{submissionData?.semester}</p>
             </div>
-            <div>
-              <h1 className="text-lg font-semibold">Subject:</h1>
-              <p>{decodeURIComponent(submissionData?.subject)}</p>
+            <div className='flex flex-wrap gap-2'>
+              <h1 className="text-xl font-semibold">Subject:</h1>
+              <p className='flex text-lg items-center justify-center font-medium'>{decodeURIComponent(submissionData?.subject)}</p>
             </div>
-            <div>
-              <h1 className="text-lg font-semibold">Github Link:</h1>
-              <p className="flex items-center gap-2 text-lg">
-                {submissionData?.githubLink}{' '}
-                <FaExternalLinkAlt className="flex hover:cursor-pointer" />
+            <div className="flex flex-wrap gap-2">
+              <h1 className="text-xl font-semibold">Github Link:</h1>
+              <p className="text-lg flex flex-wrap gap-2 items-center font-medium">
+                <a
+                  href={submissionData?.githubLink}
+                  className="break-all flex-wrap "
+                >
+                  {submissionData?.githubLink}
+                </a>
               </p>
             </div>
-            <div>
-              <h1 className="text-lg font-semibold">Pdf Link:</h1>
-              <p className="flex items-center gap-2 text-lg">
-                {submissionData?.pdfLink}{' '}
-                <FaExternalLinkAlt className="flex hover:cursor-pointer" />
+
+
+            <div className='flex flex-wrap gap-2'>
+              <h1 className="text-xl font-semibold">Pdf Link:</h1>
+              <p className="flex  break-words gap-2 text-lg items-center justify-center font-medium">
+                <a href={submissionData?.pdfLink} className="break-all flex-wrap ">
+                  {submissionData?.pdfLink}{' '}
+                </a>
               </p>
             </div>
             <div className="text-xl">
