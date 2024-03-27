@@ -513,7 +513,7 @@ const AssignTaskFaculty = () => {
       <Table columns={columns} dataSource={dataWithSrNo} scroll={{ x: true }} />
 
       <Modal
-        title="Add Task"
+        title={<h1 className='text-2xl mb-10'>Add Task</h1>}
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -525,19 +525,19 @@ const AssignTaskFaculty = () => {
           onSubmit={handleSubmitTask}
         >
           <Form.Item
-            label="Task Title"
+            label={<h1 className='text-lg'>Task Title</h1>}
             name="taskTitle"
             rules={[{ required: true, message: 'Please input task title!' }]}
             value={formData.title}
           >
             <Input
-              className="border-2"
+              className='border-2'
               onChange={(e) => handleChange('title', e.target.value)}
             />
           </Form.Item>
 
           <Form.Item
-            label="Task Description"
+            label={<h1 className='text-lg'>Task Description</h1>}
             name="taskDescription"
             rules={[
               { required: true, message: 'Please input task description!' },
@@ -550,7 +550,7 @@ const AssignTaskFaculty = () => {
           </Form.Item>
 
           <Form.Item
-            label="Task Type"
+            label={<h1 className='text-lg'>Task Type</h1>}
             name="taskType"
             rules={[{ required: true, message: 'Please select task type!' }]}
             onChange={handleTypeChange}
@@ -559,7 +559,7 @@ const AssignTaskFaculty = () => {
             <select
               onChange={(value) => handleChange('taskType', value)}
               name="taskType"
-              className="focus:border-blue-500 w-full rounded border px-3 py-2 font-bold text-black focus:outline-none"
+              className="focus:border-blue-500 w-full rounded border px-3 py-2 font-medium text-black focus:outline-none"
             >
               <option value="">Select Task Type</option>
 
@@ -612,7 +612,7 @@ const AssignTaskFaculty = () => {
             </div>
           )}
           <Form.Item
-            label="Assigned Date"
+            label={<h1 className='text-lg'>Assigned Date</h1>}
             name="assignedDate"
             rules={[
               { required: true, message: 'Please select assigned date!' },
@@ -636,7 +636,7 @@ const AssignTaskFaculty = () => {
             </div>
           </Form.Item>
           <Form.Item
-            label="Completion Date"
+            label={<h1 className='text-lg'>Completion Date</h1>}
             name="deadline"
             rules={[
               { required: true, message: 'Please select completion date!' },
@@ -658,13 +658,11 @@ dark:focus:border-primary"
             </div>
           </Form.Item>
 
-          <Form.Item>
+          <Form.Item className='flex items-center justify-center'>
             <Button
               htmlType="submit"
-              className={`rounded bg-[#0C356A] px-10 text-white `}
-              onClick={handleSubmitTask}
-
-            >
+              className={`bg-[#0C356A] mt-3 px-10 h-10 rounded-md text-white `}
+              onClick={handleSubmitTask}>
               Save
             </Button>
           </Form.Item>
@@ -860,7 +858,7 @@ dark:focus:border-primary"
           </div>
         </form>
       </Modal>
-    </div>
+    </div >
   );
 };
 
