@@ -54,6 +54,12 @@ const StudentSchema = new Schema({
     trim: true,
     validate: passwordValidator,
   },
+  confirmPassword: {
+    type: String,
+    required: [true, "Password is required"],
+    trim: true,
+    validate: passwordValidator,
+  },
   currentYear: {
     // FE / SE / TE / BE
     type: String,
@@ -63,6 +69,11 @@ const StudentSchema = new Schema({
     // Even , ODD
     type: Number,
     // required: [true, "Number is required"],
+  },
+  gender: {
+    // FE / SE / TE / BE
+    type: String,
+    // required: [true, "Current Year is required"],
   },
   // academicYear: {
   //   // 2023-2024
@@ -81,7 +92,16 @@ const StudentSchema = new Schema({
   },
   branch: {
     type: String,
-    required: [true, "Branch  is required"],
+    // required: [true, "Branch  is required"],
+  },
+  address: {
+    type: String,
+    // required: [true, "Branch  is required"],
+  },
+  phoneNumber: {
+    // 2020
+    type: Number,
+    required: [true, "Phone number  is required"],
   },
   role: {
     type: String,
@@ -98,8 +118,8 @@ const StudentSchema = new Schema({
     default: [],
   },
   skills: {
-    type: [String],
-    default: [],
+    type: String,
+    default: '',
   },
   aboutMe: {
     type: String,

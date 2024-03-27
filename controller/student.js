@@ -15,6 +15,7 @@ const createStudent = async (req, res, next) => {
       studentId,
       projectRecord,
       aboutMe,
+      skills
     } = req.body;
 
     // Create a new student instance
@@ -30,6 +31,7 @@ const createStudent = async (req, res, next) => {
       studentId,
       projectRecord,
       aboutMe,
+      skills
     });
 
     // Save the new student to the database

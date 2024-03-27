@@ -16,31 +16,30 @@ const signup = async (req, res, next) => {
       passingYear,
       branch,
       studentId,
+      address,
+      gender,
+      phoneNumber,
+      confirmPassword
     } = req.body;
-    console.log(
-      "server  reg ",
-      name,
-      email,
-      password,
-      startingYear,
-      passingYear,
-      branch,
-      studentId
-    );
+
+    // Check if the email ends with "@vcet.edu.in"
+    if (!email.endsWith("@vcet.edu.in")) {
+      return res.status(400).json({ error: "Only VCET email addresses are allowed to sign up." });
+    }
 
     const existingFaculty = await Student.findOne({ email });
     if (existingFaculty) {
-      return next(CustomError(404, "Student Already Exists"));
+      return res.status(400).json({ error: "Student with this email already exists." });
     }
 
-    // const existingID = await Student.findOne({ studentId });
-    // if (existingID) {
-    //   return next(CustomError(404, "Student ID Already Exists"));
-    // }
+    // Validate password and confirmPassword matching
+    if (password !== confirmPassword) {
+      return res.status(400).json({ error: "Password and Confirm Password do not match." });
+    }
 
-    var salt = bcrypt.genSaltSync(10);
-    console.log(salt);
-    var hash = bcrypt.hashSync(password, salt);
+    // Hash the password
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt);
 
     const newStudent = new Student({
       name,
@@ -50,18 +49,21 @@ const signup = async (req, res, next) => {
       passingYear,
       branch,
       studentId,
+      gender,
+      address,
+      phoneNumber,
+      confirmPassword: hash
     });
 
     await newStudent.save();
-    res
-      .status(200)
-      .send({ message: "Student created successfully!!", data: newStudent });
-    console.log("Student created successfully");
+    return res.status(200).json({ message: "Student created successfully!!", data: newStudent });
   } catch (error) {
     console.log(error);
-    next(error); // Pass the error to Express error handling middleware
+    next(error);
   }
 };
+
+
 
 const signin = async (req, res, next) => {
   try {
