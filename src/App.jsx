@@ -118,7 +118,9 @@ function App() {
                 path="/home/project/:id"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <ViewProject />
+                    </RequirePath>
                     {/* <ViewProject2 /> */}
                   </Suspense>
                 }
@@ -128,7 +130,9 @@ function App() {
                 path="/:currentYear/project/subject"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <SubjectPage />
+                    </RequirePath>
                   </Suspense>
                 }
               />{' '}
@@ -136,7 +140,9 @@ function App() {
                 path="/:currentYear/project/subject/project/projectlist/:subject/:semester/:academic/project/:projectId"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <FacultyProjectDetail />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -144,7 +150,9 @@ function App() {
                 path="/:currentYear/project/subject/project/projectlist/:subject/:semester/:academic"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <ProjectPage />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -153,7 +161,9 @@ function App() {
                 path="/:currentYear/groups/groupsList/:subject/:semester/:academic"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <FacultyGroupspage />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -161,7 +171,9 @@ function App() {
                 path="/:currentYear/groups/groupsList/:subject/:semester/:academic/:groupId"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <IndividualGroupPage />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -177,7 +189,9 @@ function App() {
                 path="/group/get/:id"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <GroupDetailsPage />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -185,7 +199,9 @@ function App() {
                 path="/groupsection/group/:id"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <IndividualGroupDetailsPage />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -193,7 +209,9 @@ function App() {
                 path="/:currentYear/group"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <GroupViewPage />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -221,7 +239,9 @@ function App() {
                 path="/semproject"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <Semproject />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -229,7 +249,9 @@ function App() {
                 path="/profile"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <Profile />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -245,7 +267,9 @@ function App() {
                 path="/se/student"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <SeStudent />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -261,7 +285,9 @@ function App() {
                 path="/te/student"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <TeStudent />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -285,7 +311,9 @@ function App() {
                 path="/fe/student"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <BeStudent />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -293,7 +321,9 @@ function App() {
                 path="/addproject"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <Addproject />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -301,7 +331,9 @@ function App() {
                 path="/creategroup"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <Creategroup />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -309,7 +341,9 @@ function App() {
                 path="/ui/alerts"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <Alerts />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -317,7 +351,9 @@ function App() {
                 path="/ui/buttons"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <Buttons />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -325,7 +361,9 @@ function App() {
                 path="/college"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <College />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -333,7 +371,9 @@ function App() {
                 path="/groupcomment"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <GroupComment />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -341,7 +381,9 @@ function App() {
                 path="/groupsection"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <GroupSection />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -350,7 +392,9 @@ function App() {
                 path="/groupsection/group/:groupId/:currentYear/:academicYear/:semester/:subject/:facultyId"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <TaskPage />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -358,7 +402,9 @@ function App() {
                 path="/:currentYear/groups/:subject/:semester/:academic/assignTask"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <AssignTaskFaculty />
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -366,7 +412,9 @@ function App() {
                 path="/:currentYear/groups/:subject/:semester/:academic/assignTask/submission/:taskId"
                 element={
                   <Suspense fallback={<Loader />}>
+                    <RequirePath>
                     <TaskSubmissions />
+                    </RequirePath>
                   </Suspense>
                 }
               />
