@@ -14,6 +14,10 @@ import { PlusOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import Toastify from 'toastify-js';
+import { MdDelete } from 'react-icons/md';
+import moment from 'moment'; // Import moment.js library
+
 import { BASEURL } from '../Api';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import './table.css';
@@ -322,11 +326,17 @@ const TaskPage = () => {
       title: 'Assigned',
       dataIndex: 'assignedDate',
       key: 'assignedDate',
+      render: (assignedDate) => (
+        <span>{moment(assignedDate).format('DD-MM-YYYY, HH:mm')}</span>
+      ),
     },
     {
       title: 'Deadline',
       dataIndex: 'deadline',
       key: 'deadline',
+      render: (deadline) => (
+        <span>{moment(deadline).format('DD-MM-YYYY, HH:mm')}</span>
+      ),
     },
     {
       title: 'Status',
@@ -438,6 +448,7 @@ const TaskPage = () => {
         onCancel={handleCancel2}
         footer={null}
       >
+<<<<<<< Updated upstream
         {taskId && submissionData && submissionData.length > 0 ? (
           submissionData.map((submission, index) => (
             <Form
@@ -464,6 +475,33 @@ const TaskPage = () => {
       }}
     />
   </Form.Item>
+=======
+        {submissionData ? (
+          <form onSubmit={handleTaskSubmission}>
+            <div className="pb-12">
+              <div className="mt-2 flex flex-col gap-5">
+                <div className="sm:col-span-4">
+                  <label
+                    htmlFor="description"
+                    className="text-gray-900 block text-lg font-medium leading-6"
+                  >
+                    Submission Description
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      id="message"
+                      rows="3"
+                      onChange={(e) =>
+                        handleChange2('description', e.target.value)
+                      }
+                      disabled={!update} // Here, the input will be disabled if `update` is false
+                      className="text-gray-900 bg-gray-50 border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 text-md text-md block w-full rounded-lg border p-2.5 dark:text-white"
+                      placeholder="Submission Description"
+                      defaultValue={submissionData?.description}
+                    />
+                  </div>
+                </div>
+>>>>>>> Stashed changes
 
   <Form.Item
     label="PDF Link"
@@ -482,6 +520,7 @@ const TaskPage = () => {
     />
   </Form.Item>
 
+<<<<<<< Updated upstream
   <Form.Item
     label="GitHub Link"
     name={`githubLink`}
@@ -514,6 +553,72 @@ const TaskPage = () => {
 </Form>
 
           ))
+=======
+                <div className="sm:col-span-2 sm:col-start-1">
+                  <label
+                    htmlFor="githubLink"
+                    className="text-gray-900 block flex items-center gap-2 text-lg font-medium leading-6"
+                  >
+                    Github Link{' '}
+                    <a
+                      href={submissionData?.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaLink className="flex" />
+                    </a>
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      name="githubLink"
+                      id="githubLink"
+                      onChange={(e) =>
+                        handleChange2('githubLink', e.target.value)
+                      }
+                      disabled={!update} // Here, the input will be disabled if `update` is false
+                      defaultValue={submissionData?.githubLink}
+                      className="text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600 text-md
+                       text-md block w-full rounded-md border-0 px-5 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 
+                       focus:ring-inset sm:leading-6"
+                    />
+                  </div>
+                </div>
+                <div className="flex gap-5">
+                  <div className="sm:col-span-2 sm:col-start-1">
+                    <button
+                      type="button"
+                      className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-2 text-white `}
+                      onClick={handleSetUpdate}
+                    >
+                      <MdModeEditOutline className="text-xl " />
+                    </button>
+                  </div>
+                  <div className="sm:col-span-2 sm:col-start-1">
+                    <button
+                      type="button"
+                      onClick={() => handleSubmissionDelete(submissionData._id)}
+                      className={`mb-2 rounded  border border-[#0C356A] px-[1rem] py-2 text-white`}
+                    >
+                      <MdDelete className="text-xl text-[#0C356A]" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+              {update && (
+                <div className="mx-auto sm:col-span-2 sm:col-start-1">
+                  <button
+                    type="button"
+                    onClick={() => handleUpdateSubmission(submissionData._id)}
+                    className={`mx-auto mb-2 rounded bg-[#0C356A] px-[1rem] py-2 text-white`}
+                  >
+                    Update Submission
+                  </button>
+                </div>
+              )}
+            </div>
+          </form>
+>>>>>>> Stashed changes
         ) : (
           <p>No submission data found for this task.</p>
         )}
