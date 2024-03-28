@@ -35,7 +35,7 @@ const SignIn = () => {
     phoneNumber: '',
     startingYear: '',
     passingYear: '',
-    address:''
+    address: ''
   });
   // hanlde register function
   const handleRegisterSubmit = async (e) => {
@@ -58,7 +58,7 @@ const SignIn = () => {
           studentId: '',
           gender: '',
           phoneNumber: '',
-          address:''
+          address: ''
         });
         // const userData = await res.json();
         console.log(res);
@@ -102,8 +102,8 @@ const SignIn = () => {
   return (
     <>
       <div className="flex max-h-full items-center justify-center bg-black text-black">
-        <div className="m-20 flex w-10/12 max-w-screen-xl rounded-xl  border border-stroke bg-white p-0 shadow-default dark:border-strokedark dark:bg-boxdark">
-          {/* <div className="hidden w-full xl:block xl:w-1/2">
+        <div className="m-10 md:m-20 flex w-10/12 max-w-screen-xl rounded-xl  border border-stroke bg-white p-0 shadow-default dark:border-strokedark dark:bg-boxdark">
+          <div className="hidden w-full xl:block xl:w-1/2">
             <div className="mt-60 items-center justify-center">
               <div>
                 <img
@@ -121,19 +121,19 @@ const SignIn = () => {
                 </h2>
               </div>
             </div>
-          </div> */}
+          </div>
 
-          <div className="w-full border-stroke dark:border-strokedark  xl:border-l-2">
-            <div className="w-full p-4 sm:p-12.5 xl:p-10.5">
+          <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
+            <div className="w-full p-5 sm:p-12.5 xl:p-10.5">
               {/* <span className="mb-1.5 block font-medium">Start for free</span> */}
-              <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
+              <h2 className="mb-12 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
                 Sign Up to Project Hub
               </h2>
 
               <form onSubmit={handleRegisterSubmit}>
                 <div className="grid grid-cols-1 gap-2 md:grid-cols-2 ">
                   <div className="mb-6">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    <label className="mb-2.5 text-lg block font-medium text-black dark:text-white">
                       Full Name
                     </label>
                     <div className="relative">
@@ -141,14 +141,14 @@ const SignIn = () => {
                         type="text"
                         name="name"
                         onChange={handleRegisterInputChange}
-                        placeholder="Enter your Name"
+                        placeholder="Enter your full name"
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                         value={registerData.name}
                       />
                     </div>
                   </div>
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    <label className="mb-2.5 block text-lg font-medium text-black dark:text-white">
                       Student Id
                     </label>
                     <div className="relative">
@@ -156,7 +156,7 @@ const SignIn = () => {
                         type="number"
                         name="studentId"
                         onChange={handleRegisterInputChange}
-                        placeholder="Enter your Number"
+                        placeholder="Enter your student id"
                         value={registerData.studentId}
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
@@ -166,7 +166,7 @@ const SignIn = () => {
                 <div></div>
                 <div className="grid grid-cols-1 gap-2 md:grid-cols-2 ">
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    <label className="mb-2.5 text-lg block font-medium dark:text-white">
                       Gender
                     </label>
                     <div className="relative">
@@ -198,7 +198,7 @@ const SignIn = () => {
                   </div>
 
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    <label className="mb-2.5 text-lg block font-medium text-black dark:text-white">
                       Phone Number
                     </label>
                     <div className="relative">
@@ -206,7 +206,7 @@ const SignIn = () => {
                         type="number"
                         name="phoneNumber"
                         onChange={handleRegisterInputChange}
-                        placeholder="Enter your Number"
+                        placeholder="Enter your number"
                         value={registerData.phoneNumber}
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
@@ -215,13 +215,13 @@ const SignIn = () => {
                 </div>
                 <div className='gap-5'>
                   <div className='mb-4'>
-                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    <label className="mb-2.5 text-lg block font-medium text-black dark:text-white">
                       Address
                     </label>
                     <div className='realtive'>
-                    <input
+                      <input
                         type="text"
-                        placeholder="Enter your Address"
+                        placeholder="Enter your a ddress"
                         name="address"
                         onChange={handleRegisterInputChange}
                         value={registerData.address}
@@ -229,34 +229,33 @@ const SignIn = () => {
                       />
 
                     </div>
-                    
+
                   </div>
 
                 </div>
 
                 <div className="gap-5">
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
-                      Email
+                    <label className="mb-2.5 text-lg block font-medium text-black dark:text-white">
+                      VCET Email Id
                     </label>
                     <div className="relative">
                       <input
                         type="email"
                         name="email"
                         onChange={handleRegisterInputChange}
-                        placeholder="Enter your email"
+                        placeholder="Enter your vcet email id"
                         value={registerData.email}
-                        className={`w-full rounded-lg border ${
-                          !registerData.email.endsWith('@vcet.edu.in')
-                            ? 'border-red-500'
-                            : 'border-stroke'
-                        } bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary`}
+                        className={`w-full rounded-lg border ${!registerData.email.endsWith('@vcet.edu.in')
+                          ? 'border-red-500'
+                          : 'border-stroke'
+                          } bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary`}
                       />
-                      {!registerData.email.endsWith('@vcet.edu.in') && (
+                      {/* {!registerData.email.endsWith('@vcet.edu.in') && (
                         <p className="text-red-500 mt-1 text-sm">
                           VCET email address is required
                         </p>
-                      )}
+                      )} */}
                       <span className="absolute right-4 top-4">
                         <svg
                           className="fill-current"
@@ -279,8 +278,8 @@ const SignIn = () => {
                 </div>
 
                 <div className="grid grid-cols-1 gap-2 md:grid-cols-2 ">
-                  <div className="mb-6">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                  <div className="mb-1">
+                    <label className="mb-2.5 text-lg block font-medium text-black dark:text-white">
                       Password
                     </label>
                     <div className="relative">
@@ -316,8 +315,8 @@ const SignIn = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="mb-6">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                  <div className="mb-1">
+                    <label className="mb-2.5 text-lg block font-medium text-black dark:text-white">
                       Confrim Password
                     </label>
                     <div className="relative">
@@ -352,7 +351,7 @@ const SignIn = () => {
 
                 <div className="grid grid-cols-1 gap-2 md:grid-cols-2 ">
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    <label className="mb-2.5 text-lg block font-medium text-black dark:text-white">
                       Joining year
                     </label>
                     <div className="relative">
@@ -360,14 +359,14 @@ const SignIn = () => {
                         type="text"
                         name="startingYear"
                         onChange={handleRegisterInputChange}
-                        placeholder="Enter Joining year"
+                        placeholder="Enter joining year"
                         value={registerData.startingYear}
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
                     </div>
                   </div>
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    <label className="mb-2.5 text-lg block font-medium text-black dark:text-white">
                       Passing year
                     </label>
                     <div className="relative">
@@ -375,7 +374,7 @@ const SignIn = () => {
                         type="text"
                         name="passingYear"
                         onChange={handleRegisterInputChange}
-                        placeholder="Enter Passing year"
+                        placeholder="Enter passing year"
                         value={registerData.passingYear}
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
@@ -387,7 +386,7 @@ const SignIn = () => {
                   <input
                     type="submit"
                     value="Create account"
-                    className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-2 text-white transition hover:bg-opacity-90"
+                    className="w-full cursor-pointer rounded-lg border border-[#0C356A] bg-[#0C356A] p-2 text-white transition hover:bg-opacity-90"
                   />
                 </div>
 

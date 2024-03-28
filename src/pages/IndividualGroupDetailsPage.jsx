@@ -159,26 +159,26 @@ const IndividualGroupDetailsPage = () => {
             <div className="flex items-center  text-black ">
               {/* <h1 className="text-xl font-medium">Group No - 1</h1> */}
               <div className="flex flex-wrap gap-2">
-                <h1 className="text-xl font-medium">Members Name : </h1>
+                <h2 className="text-xl font-medium">Members Name : </h2>
                 {membersName?.map((data, index) => (
-                  <h1 key={index} className="text-xl font-medium inline-block md:block">{data},</h1>
+                  <h2 key={index} className="text-xl font-medium inline-block md:block">{data},</h2>
                 ))}
               </div>
             </div>
             <div className="flex flex-col md:flex-row gap-2 md:gap-10 text-black">
               {' '}
-              <h1 className="text-xl font-medium">
+              <h2 className="text-xl font-medium">
                 <span>Year : </span>
                 {data.currentYear}
-              </h1>
-              <h1 className="text-xl font-medium">
+              </h2>
+              <h2 className="text-xl font-medium">
                 <span>Semester : </span>
                 {data.semester}
-              </h1>
-              <h1 className="text-xl font-medium">
+              </h2>
+              <h2 className="text-xl font-medium">
                 <span>Subject : </span>
                 {data.subject}
-              </h1>
+              </h2>
             </div>
           </div>
         </div>
@@ -302,18 +302,18 @@ const IndividualGroupDetailsPage = () => {
           </div>
         ))}
         <div className="container my-10 mx-auto  gap-10 rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 text-xl font-semibold text-[#0C356A]">
+          <h2 className="mb-7 text-3xl font-semibold text-black">
             Guide Deails
           </h2>
           <div className="flex gap-10">
             {' '}
-            <p className="text-lg font-bold text-black/90">Assigned Guide : </p>
-            <h1 className="text-lg font-bold text-black">{data?.guideName}</h1>
+            <p className="text-xl font-bold text-black/90">Assigned Guide : </p>
+            <h1 className="text-xl font-bold text-black">{data?.guideName}</h1>
           </div>
           {/* <h1>{data.guideId}</h1> */}
         </div>
       </section>
-    </main>
+    </main >
   );
 };
 

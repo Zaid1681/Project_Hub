@@ -66,7 +66,7 @@ const SignIn = () => {
             background: 'linear-gradient(to right, #3C50E0, #3C50E0',
             padding: '10px 50px',
           },
-          onClick: function () {}, // Callback after click
+          onClick: function () { }, // Callback after click
         }).showToast();
         setTimeout(() => {
           navigate('/home');
@@ -286,7 +286,7 @@ const SignIn = () => {
                   <input
                     type="submit"
                     value="Sign In"
-                    className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-2 text-white transition hover:bg-opacity-90"
+                    className="w-full cursor-pointer rounded-lg border border-[#0C356A] bg-[#0C356A] p-2 text-white transition hover:bg-opacity-90"
                   />
                 </div>
 
