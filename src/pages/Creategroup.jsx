@@ -4,6 +4,7 @@ import AddGroupModal from './AddGroupModal';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { BASEURL } from '../Api';
+import Breadcrumb from '../components/Breadcrumb';
 
 const Creategroup = () => {
   const currentUser = useSelector((state) => state.user);
@@ -441,12 +442,10 @@ const Creategroup = () => {
   };
 
   return (
-    <main className="bg-blue-900 min-h-screen">
+    <main className="bg-blue-900 min-h-screen text-black">
+      <Breadcrumb pageName="Group Formation" />
       <section className="mx-auto">
-        <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-12 text-3xl font-bold text-black">
-            Group Formation
-          </h2>
+        <div className="container mx-auto rounded-xl bg-white p-8 shadow-md">
           <form className="space-y-6">
             {/* Team details */}
             <div>
@@ -530,7 +529,7 @@ const Creategroup = () => {
             <div>
               <label
                 htmlFor="memberNames"
-                className="block text-xl mt-10 font-bold text-black"
+                className="block text-2xl mt-10 font-medium text-black"
               >
                 Member Names
               </label>
@@ -626,7 +625,7 @@ const Creategroup = () => {
           {' '}
           {/* Project details */}
           <div>
-            <h2 className="mx-auto mb-7 pt-10 text-center text-3xl font-bold text-black">
+            <h2 className="mx-auto my-11 text-center text-3xl font-semibold text-black">
               Enter Project Details
             </h2>
             {/* {[1, 2, 3].map((index) => (
@@ -685,7 +684,7 @@ const Creategroup = () => {
               </div>
             ))} */}
             {/* project -1  */}
-            <div className="mb-6 rounded-lg bg-white p-6 shadow-md">
+            <div className="mb-6 rounded-xl bg-white p-6 shadow-md">
               <div className='my-3'>
                 <label
                   htmlFor="projectTitle1"
@@ -736,7 +735,7 @@ const Creategroup = () => {
               </div>
             </div>
             {/* project -2  */}
-            <div className="mb-6 rounded-lg bg-white p-6 shadow-md">
+            <div className="mb-6 rounded-xl bg-white p-6 shadow-md">
               <div className='my-3'>
                 <label
                   htmlFor="projectTitle1"
@@ -787,7 +786,7 @@ const Creategroup = () => {
               </div>
             </div>
             {/* project -3  */}
-            <div className="mb-6 rounded-lg bg-white p-6 shadow-md">
+            <div className="mb-6 rounded-xl bg-white p-6 shadow-md">
               <div className='my-3'>
                 <label
                   htmlFor="projectTitle1"
@@ -841,7 +840,7 @@ const Creategroup = () => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="rounded-md bg-[#0c356a] py-2 px-8 font-semibold text-white"
+              className="rounded-md mt-6 bg-[#0c356a] py-2 px-8 font-semibold text-white"
               onClick={handleSubmit}
             >
               Submit
