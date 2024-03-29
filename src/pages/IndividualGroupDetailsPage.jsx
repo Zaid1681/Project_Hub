@@ -153,7 +153,7 @@ const IndividualGroupDetailsPage = () => {
       </div>
       <section className="mx-auto mt-10  md:p-10">
         <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 text-3xl font-semibold text-black">GROUP</h2>
+          <h2 className="mb-7 text-3xl font-inter font-semibold text-black">Group Details</h2>
 
           <div className="space-y-6">
             <div className="flex items-center  text-black ">
@@ -302,13 +302,13 @@ const IndividualGroupDetailsPage = () => {
           </div>
         ))}
         <div className="container my-10 mx-auto  gap-10 rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 text-3xl font-semibold text-black">
-            Guide Deails
+          <h2 className="mb-7 text-3xl font-inter font-semibold text-black">
+            Guide Details
           </h2>
-          <div className="flex gap-10">
+          <div className="flex gap-2">
             {' '}
-            <p className="text-xl font-bold text-black/90">Assigned Guide : </p>
-            <h1 className="text-xl font-bold text-black">{data?.guideName}</h1>
+            <p className="text-xl font-medium text-black/90">Assigned Guide : </p>
+            <h1 className="text-xl font-medium text-black">{data?.guideName}</h1>
           </div>
           {/* <h1>{data.guideId}</h1> */}
         </div>

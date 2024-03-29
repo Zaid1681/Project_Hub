@@ -149,7 +149,7 @@ const Addproject = () => {
   return (
     <>
       <Breadcrumb pageName="Project Details" />
-      <div className="bg-white p-10 text-black shadow-xl dark:bg-boxdark dark:text-white rounded-xl">
+      <div className="bg-white p-10 text-black shadow-xl dark:bg-boxdark dark:text-white rounded-2xl">
         <form onSubmit={handleSubmitProject} className="">
           <div className="mb-4">
             <label className="block text-xl mb-2 font-medium text-black dark:text-white">

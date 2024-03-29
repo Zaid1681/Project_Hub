@@ -445,7 +445,7 @@ const Creategroup = () => {
     <main className="bg-blue-900 min-h-screen text-black">
       <Breadcrumb pageName="Group Formation" />
       <section className="mx-auto">
-        <div className="container mx-auto rounded-xl bg-white p-8 shadow-md">
+        <div className="container mx-auto rounded-2xl bg-white p-8 shadow-md">
           <form className="space-y-6">
             {/* Team details */}
             <div>
@@ -625,8 +625,8 @@ const Creategroup = () => {
           {' '}
           {/* Project details */}
           <div>
-            <h2 className="mx-auto my-11 text-center text-3xl font-semibold text-black">
-              Enter Project Details
+            <h2 className="mx-auto text-start my-11 text-4xl font-bold text-black font-inter">
+              Project Ideas
             </h2>
             {/* {[1, 2, 3].map((index) => (
               <div
@@ -684,7 +684,7 @@ const Creategroup = () => {
               </div>
             ))} */}
             {/* project -1  */}
-            <div className="mb-6 rounded-xl bg-white p-6 shadow-md">
+            <div className="mb-6 rounded-2xl bg-white p-6 shadow-md">
               <div className='my-3'>
                 <label
                   htmlFor="projectTitle1"
@@ -735,7 +735,7 @@ const Creategroup = () => {
               </div>
             </div>
             {/* project -2  */}
-            <div className="mb-6 rounded-xl bg-white p-6 shadow-md">
+            <div className="mb-6 rounded-2xl bg-white p-6 shadow-md">
               <div className='my-3'>
                 <label
                   htmlFor="projectTitle1"
@@ -786,7 +786,7 @@ const Creategroup = () => {
               </div>
             </div>
             {/* project -3  */}
-            <div className="mb-6 rounded-xl bg-white p-6 shadow-md">
+            <div className="mb-6 rounded-2xl bg-white p-6 shadow-md">
               <div className='my-3'>
                 <label
                   htmlFor="projectTitle1"
