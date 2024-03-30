@@ -145,9 +145,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     <React.Fragment>
                       <NavLink
                         to="#"
-                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === '/se' ||
+                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-primary dark:hover:bg-meta-4 ${(pathname === '/se' ||
                           pathname.includes('secondyear')) &&
-                          'bg-graydark dark:bg-meta-4'
+                          'bg-primary dark:bg-meta-4'
                           }`}
                         onClick={(e) => {
                           e.preventDefault();

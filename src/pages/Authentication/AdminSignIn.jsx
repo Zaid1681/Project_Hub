@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
 import { useNavigate } from 'react-router-dom';
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Toastify from 'toastify-js';
 import { useDispatch } from 'react-redux';
 
@@ -123,7 +123,7 @@ const AdminSignIn = () => {
                 className="mx-auto mt-10  h-50 w-50 rounded-full"
               />
             </div>
-            <div className="px-10 pt-4 pb-10 text-center">
+            <div className="px-10 pt-4 pb-10 text-center font-inter">
               <h1 className="mb-4 text-6xl font-extrabold text-primary">
                 Welcome to!
               </h1>
@@ -140,7 +140,7 @@ const AdminSignIn = () => {
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-10.5">
               {/* <span className="mb-1.5 block font-medium">Start for free</span> */}
-              <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
+              <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2 font-inter">
                 Sign In to Project Hub
               </h2>
               <h2 className="mb-9 text-lg font-bold text-black dark:text-white">
@@ -236,38 +236,38 @@ const AdminSignIn = () => {
                   </div>
                   <div className="mb-4 flex-1">
                     <div className="relative">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
-                      Choose Academic Year
-                    </label>
-                    <div className="relative">
-                      <select
-                        name="year"
-                        onChange={handleLoginInputChange}
-                        className="border-grey w-full rounded-lg border bg-transparent py-3 pl-4 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                      >
-                        <option value="" disabled selected>
-                          Select Academic Year
-                        </option>
-                        {academicYears.map((year, index) => (
-                          <option key={index} value={year}>
-                            {year}
-                          </option>
-                        ))}
-                      </select>
-                      <span className="absolute right-4 top-4">
-                        <svg
-                          className="fill-current"
-                          width="22"
-                          height="22"
-                          viewBox="0 0 22 22"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
+                      <label className="mb-2.5 block font-medium text-black dark:text-white">
+                        Choose Academic Year
+                      </label>
+                      <div className="relative">
+                        <select
+                          name="year"
+                          onChange={handleLoginInputChange}
+                          className="border-grey w-full rounded-lg border bg-transparent py-3 pl-4 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                         >
-                          {/* SVG content */}
-                        </svg>
-                      </span>
+                          <option value="" disabled selected>
+                            Select Academic Year
+                          </option>
+                          {academicYears.map((year, index) => (
+                            <option key={index} value={year}>
+                              {year}
+                            </option>
+                          ))}
+                        </select>
+                        <span className="absolute right-4 top-4">
+                          <svg
+                            className="fill-current"
+                            width="22"
+                            height="22"
+                            viewBox="0 0 22 22"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            {/* SVG content */}
+                          </svg>
+                        </span>
+                      </div>
                     </div>
-                  </div>
                   </div>
                 </div>
 

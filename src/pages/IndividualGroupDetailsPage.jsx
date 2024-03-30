@@ -308,7 +308,7 @@ const IndividualGroupDetailsPage = () => {
           <div className="flex gap-2">
             {' '}
             <p className="text-xl font-medium text-black/90">Assigned Guide : </p>
-            <h1 className="text-xl font-medium text-black">{data?.guideName}</h1>
+            <h2 className="text-xl font-medium text-black">{data?.guideName}</h2>
           </div>
           {/* <h1>{data.guideId}</h1> */}
         </div>

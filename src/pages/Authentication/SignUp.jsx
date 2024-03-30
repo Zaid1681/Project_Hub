@@ -112,7 +112,7 @@ const SignIn = () => {
                   className="mx-auto mt-10  h-50 w-50 rounded-full"
                 />
               </div>
-              <div className="px-16 pt-2 pb-16 text-center">
+              <div className="px-16 pt-2 pb-16 text-center font-inter">
                 <h1 className="mb-4 text-6xl font-extrabold text-primary">
                   Welcome to!
                 </h1>
@@ -126,7 +126,7 @@ const SignIn = () => {
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full p-5 sm:p-12.5 xl:p-10.5">
               {/* <span className="mb-1.5 block font-medium">Start for free</span> */}
-              <h2 className="mb-12 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
+              <h2 className="mb-12 text-2xl font-bold text-black dark:text-white sm:text-title-xl2 font-inter">
                 Sign Up to Project Hub
               </h2>
 
@@ -142,7 +142,7 @@ const SignIn = () => {
                         name="name"
                         onChange={handleRegisterInputChange}
                         placeholder="Enter your full name"
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="w-full rounded-lg border border-grey  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                         value={registerData.name}
                       />
                     </div>
@@ -158,7 +158,7 @@ const SignIn = () => {
                         onChange={handleRegisterInputChange}
                         placeholder="Enter your student id"
                         value={registerData.studentId}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="w-full rounded-lg border border-grey  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
                     </div>
                   </div>
@@ -175,7 +175,7 @@ const SignIn = () => {
                         name="gender"
                         onChange={handleRegisterInputChange}
                         value={registerData.gender}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-16 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="w-full rounded-lg border  border-grey bg-transparent py-4 pl-6 pr-16 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       >
                         <option value="" disabled>
                           Select your gender
@@ -208,7 +208,7 @@ const SignIn = () => {
                         onChange={handleRegisterInputChange}
                         placeholder="Enter your number"
                         value={registerData.phoneNumber}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="w-full rounded-lg border border-grey bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
                     </div>
                   </div>
@@ -225,7 +225,7 @@ const SignIn = () => {
                         name="address"
                         onChange={handleRegisterInputChange}
                         value={registerData.address}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="w-full rounded-lg border border-grey  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
 
                     </div>
@@ -248,7 +248,7 @@ const SignIn = () => {
                         value={registerData.email}
                         className={`w-full rounded-lg border ${!registerData.email.endsWith('@vcet.edu.in')
                           ? 'border-red-500'
-                          : 'border-stroke'
+                          : 'border-grey '
                           } bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary`}
                       />
                       {/* {!registerData.email.endsWith('@vcet.edu.in') && (
@@ -289,7 +289,7 @@ const SignIn = () => {
                         name="password"
                         value={registerData.password}
                         onChange={handleRegisterInputChange}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="w-full rounded-lg border border-grey  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
 
                       <span className="absolute right-4 top-4">
@@ -329,7 +329,7 @@ const SignIn = () => {
                             name="confirmPassword"
                             onChange={handleRegisterInputChange}
                             value={registerData.confirmPassword}
-                            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                            className="w-full rounded-lg border border-grey  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                           />
                           {/* Render eye icon based on showPassword state */}
                           {showPassword ? (
@@ -361,7 +361,7 @@ const SignIn = () => {
                         onChange={handleRegisterInputChange}
                         placeholder="Enter joining year"
                         value={registerData.startingYear}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="w-full rounded-lg border border-grey  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
                     </div>
                   </div>
@@ -376,7 +376,7 @@ const SignIn = () => {
                         onChange={handleRegisterInputChange}
                         placeholder="Enter passing year"
                         value={registerData.passingYear}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="w-full rounded-lg border border-grey  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
                     </div>
                   </div>
