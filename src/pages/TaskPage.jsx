@@ -14,14 +14,10 @@ import { PlusOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import Toastify from 'toastify-js';
-import { MdDelete } from 'react-icons/md';
-import moment from 'moment'; // Import moment.js library
-
 import { BASEURL } from '../Api';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import './table.css';
-
+import moment from 'moment';
 const { RangePicker } = DatePicker;
 
 const TaskPage = () => {
@@ -131,7 +127,6 @@ const TaskPage = () => {
     }
   };
 
-
   const editSubmissionForm = async () => {
     try {
       // Fetch submission IDs associated with the task
@@ -141,12 +136,12 @@ const TaskPage = () => {
       const submissionIds = response.data.data.map(
         (submission) => submission._id
       );
-  
+
       // Iterate through each submission ID and update submission details
       for (const submissionId of submissionIds) {
         // Construct the updated submission object
         const updatedSubmission = {};
-  
+
         // Update submission object with new values
         if (editSubmission.description !== '') {
           updatedSubmission.description = editSubmission.description;
@@ -157,7 +152,7 @@ const TaskPage = () => {
         if (editSubmission.githubLink !== '') {
           updatedSubmission.githubLink = editSubmission.githubLink;
         }
-  
+
         // Update submission details using axios.put if there are changes
         if (Object.keys(updatedSubmission).length > 0) {
           const res = await axios.put(
@@ -169,7 +164,7 @@ const TaskPage = () => {
               },
             }
           );
-  
+
           // Optionally, update submission data in the state
           if (res) {
             console.log('Submission updated successfully');
@@ -194,9 +189,6 @@ const TaskPage = () => {
       console.error('Error updating submission:', error);
     }
   };
-  
-  
-  
 
   const showModal2 = (taskId) => {
     console.log(taskId);
@@ -270,8 +262,6 @@ const TaskPage = () => {
       }
     }
   };
-  
-  
 
   const showModal = (taskId) => {
     setTaskId(taskId);
@@ -363,17 +353,15 @@ const TaskPage = () => {
             <Button type="primary" danger icon={<DeleteOutlined />}></Button>
           </Popconfirm>
           <Button
-  type="button"
-  onClick={() => showModal(record._id)} // Pass the taskId here for submission
-  className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-2 text-white `}
->
-  Submit
-</Button>
-
+            type="button"
+            onClick={() => showModal(record._id)} // Pass the taskId here for submission
+            className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-2 text-white `}
+          >
+            Submit
+          </Button>
         </Space>
       ),
     },
-    
   ];
 
   return (
@@ -448,177 +436,81 @@ const TaskPage = () => {
         onCancel={handleCancel2}
         footer={null}
       >
-<<<<<<< Updated upstream
         {taskId && submissionData && submissionData.length > 0 ? (
           submissionData.map((submission, index) => (
             <Form
-  key={submission._id}
-  name={`editSubmissionForm${index}`}
-  initialValues={submission}
-  onSubmit={() => editSubmissionForm(index)} // Pass the index parameter
->
-  <Form.Item
-    label="Task description"
-    name={`description`}
-    rules={[
-      { required: true, message: 'Please input your description!' },
-    ]}
-  >
-    <Input
-      // Pass the index parameter to the onChange handler
-      onChange={(e) => {
-        const updatedDescription = e.target.value;
-        setEditSubmission((prevState) => ({
-          ...prevState,
-          description: updatedDescription,
-        }));
-      }}
-    />
-  </Form.Item>
-=======
-        {submissionData ? (
-          <form onSubmit={handleTaskSubmission}>
-            <div className="pb-12">
-              <div className="mt-2 flex flex-col gap-5">
-                <div className="sm:col-span-4">
-                  <label
-                    htmlFor="description"
-                    className="text-gray-900 block text-lg font-medium leading-6"
-                  >
-                    Submission Description
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="message"
-                      rows="3"
-                      onChange={(e) =>
-                        handleChange2('description', e.target.value)
-                      }
-                      disabled={!update} // Here, the input will be disabled if `update` is false
-                      className="text-gray-900 bg-gray-50 border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 text-md text-md block w-full rounded-lg border p-2.5 dark:text-white"
-                      placeholder="Submission Description"
-                      defaultValue={submissionData?.description}
-                    />
-                  </div>
-                </div>
->>>>>>> Stashed changes
+              key={submission._id}
+              name={`editSubmissionForm${index}`}
+              initialValues={submission}
+              onSubmit={() => editSubmissionForm(index)} // Pass the index parameter
+            >
+              <Form.Item
+                label="Task description"
+                name={`description`}
+                rules={[
+                  { required: true, message: 'Please input your description!' },
+                ]}
+              >
+                <Input
+                  // Pass the index parameter to the onChange handler
+                  onChange={(e) => {
+                    const updatedDescription = e.target.value;
+                    setEditSubmission((prevState) => ({
+                      ...prevState,
+                      description: updatedDescription,
+                    }));
+                  }}
+                />
+              </Form.Item>
 
-  <Form.Item
-    label="PDF Link"
-    name={`pdfLink`}
-    rules={[{ required: true, message: 'Please input PDF link!' }]}
-  >
-    <Input
-      // Pass the index parameter to the onChange handler
-      onChange={(e) => {
-        const updatedPdfLink = e.target.value;
-        setEditSubmission((prevState) => ({
-          ...prevState,
-          pdfLink: updatedPdfLink,
-        }));
-      }}
-    />
-  </Form.Item>
+              <Form.Item
+                label="PDF Link"
+                name={`pdfLink`}
+                rules={[{ required: true, message: 'Please input PDF link!' }]}
+              >
+                <Input
+                  // Pass the index parameter to the onChange handler
+                  onChange={(e) => {
+                    const updatedPdfLink = e.target.value;
+                    setEditSubmission((prevState) => ({
+                      ...prevState,
+                      pdfLink: updatedPdfLink,
+                    }));
+                  }}
+                />
+              </Form.Item>
 
-<<<<<<< Updated upstream
-  <Form.Item
-    label="GitHub Link"
-    name={`githubLink`}
-    rules={[
-      { required: true, message: 'Please input GitHub link!' },
-    ]}
-  >
-    <Input
-      // Pass the index parameter to the onChange handler
-      onChange={(e) => {
-        const updatedGithubLink = e.target.value;
-        setEditSubmission((prevState) => ({
-          ...prevState,
-          githubLink: updatedGithubLink,
-        }));
-      }}
-    />
-  </Form.Item>
+              <Form.Item
+                label="GitHub Link"
+                name={`githubLink`}
+                rules={[
+                  { required: true, message: 'Please input GitHub link!' },
+                ]}
+              >
+                <Input
+                  // Pass the index parameter to the onChange handler
+                  onChange={(e) => {
+                    const updatedGithubLink = e.target.value;
+                    setEditSubmission((prevState) => ({
+                      ...prevState,
+                      githubLink: updatedGithubLink,
+                    }));
+                  }}
+                />
+              </Form.Item>
 
-  <Form.Item>
-    <Button
-      type="primary"
-      htmlType="submit"
-      className="bg-blue-500 text-white"
-      onClick={() => editSubmissionForm(index)} // Pass the index parameter
-    >
-      Ok
-    </Button>
-  </Form.Item>
-</Form>
-
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="bg-blue-500 text-white"
+                  onClick={() => editSubmissionForm(index)} // Pass the index parameter
+                >
+                  Ok
+                </Button>
+              </Form.Item>
+            </Form>
           ))
-=======
-                <div className="sm:col-span-2 sm:col-start-1">
-                  <label
-                    htmlFor="githubLink"
-                    className="text-gray-900 block flex items-center gap-2 text-lg font-medium leading-6"
-                  >
-                    Github Link{' '}
-                    <a
-                      href={submissionData?.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <FaLink className="flex" />
-                    </a>
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="githubLink"
-                      id="githubLink"
-                      onChange={(e) =>
-                        handleChange2('githubLink', e.target.value)
-                      }
-                      disabled={!update} // Here, the input will be disabled if `update` is false
-                      defaultValue={submissionData?.githubLink}
-                      className="text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600 text-md
-                       text-md block w-full rounded-md border-0 px-5 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 
-                       focus:ring-inset sm:leading-6"
-                    />
-                  </div>
-                </div>
-                <div className="flex gap-5">
-                  <div className="sm:col-span-2 sm:col-start-1">
-                    <button
-                      type="button"
-                      className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-2 text-white `}
-                      onClick={handleSetUpdate}
-                    >
-                      <MdModeEditOutline className="text-xl " />
-                    </button>
-                  </div>
-                  <div className="sm:col-span-2 sm:col-start-1">
-                    <button
-                      type="button"
-                      onClick={() => handleSubmissionDelete(submissionData._id)}
-                      className={`mb-2 rounded  border border-[#0C356A] px-[1rem] py-2 text-white`}
-                    >
-                      <MdDelete className="text-xl text-[#0C356A]" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-              {update && (
-                <div className="mx-auto sm:col-span-2 sm:col-start-1">
-                  <button
-                    type="button"
-                    onClick={() => handleUpdateSubmission(submissionData._id)}
-                    className={`mx-auto mb-2 rounded bg-[#0C356A] px-[1rem] py-2 text-white`}
-                  >
-                    Update Submission
-                  </button>
-                </div>
-              )}
-            </div>
-          </form>
->>>>>>> Stashed changes
         ) : (
           <p>No submission data found for this task.</p>
         )}

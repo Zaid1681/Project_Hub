@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const SignIn = () => {
   const dispatch = useDispatch();
+
   const [showPassword, setShowPassword] = useState(false);
   const [confirmShowPassword, setConfirmShowPassword] = useState(false);
   const handleTogglePasswordVisibility = () => {
@@ -23,28 +24,56 @@ const SignIn = () => {
   const handleTogglePasswordVisibility2 = () => {
     setConfirmShowPassword(!confirmShowPassword);
   };
+  const getCurrentYear = () => {
+    return new Date().getFullYear();
+  };
+  const generateYearOptions = () => {
+    const currentYear = getCurrentYear();
+    const yearOptions = [];
+
+    for (let year = currentYear - 10; year <= currentYear; year++) {
+      yearOptions.push(year.toString());
+    }
+
+    return yearOptions;
+  };
+  const yearOptions = generateYearOptions();
 
   const navigate = useNavigate();
   const [registerData, setRegisterData] = useState({
-    name: '',
+    fname: '',
+    lname: '',
+    mname: '',
     email: '',
     password: '',
-    confirmPassword: '',
+    cpassword: '',
     gender: '',
     studentId: '',
     phoneNumber: '',
     startingYear: '',
     passingYear: '',
-    address:''
+    address: '',
   });
   // hanlde register function
   const handleRegisterSubmit = async (e) => {
-    if (registerData.password != registerData.confirmPassword) {
-      alert('Password and Confirm Password must be same');
+    if (registerData.password != registerData.cpassword) {
+      return alert('Password and Confirm Password must be same');
     }
     e.preventDefault();
     try {
-      const res = await axios.post(`${BASEURL}/auth/signup`, registerData);
+      const Studentname = registerData.fname + ' ' + registerData.lname;
+      const res = await axios.post(`${BASEURL}/auth/signup`, {
+        name: Studentname,
+        email: registerData.email,
+        password: registerData.password,
+        currentYear: registerData.currentYear,
+        gender: registerData.gender,
+        address: registerData.address,
+        studentId: registerData.studentId,
+        phone: registerData.phone,
+        startingYear: registerData.startingYear || '',
+        passingYear: registerData.passingYear,
+      });
 
       if (res) {
         console.log('Registration success');
@@ -58,7 +87,7 @@ const SignIn = () => {
           studentId: '',
           gender: '',
           phoneNumber: '',
-          address:''
+          address: '',
         });
         // const userData = await res.json();
         console.log(res);
@@ -67,14 +96,14 @@ const SignIn = () => {
         Toastify({
           text: 'Registered Sucessfully',
           duration: 1800,
-          gravity: 'top', // `top` or `bottom`
-          position: 'right', // `left`, `center` or `right`
+          gravity: 'top', // top or bottom
+          position: 'right', // left, center or right
           stopOnFocus: true, // Prevents dismissing of toast on hover
           style: {
             background: 'linear-gradient(to right, #3C50E0, #3C50E0',
             padding: '10px 50px',
           },
-          onClick: function () { }, // Callback after click
+          onClick: function () {}, // Callback after click
         }).showToast();
         setTimeout(() => {
           navigate('/');
@@ -92,12 +121,29 @@ const SignIn = () => {
   };
   // handle Change function
   const handleRegisterInputChange = (e) => {
-    // e.preventDefault();
-    setRegisterData({
-      ...registerData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    // Check if the changed input is startingYear
+    if (name === 'startingYear') {
+      // Calculate the passing year by adding 4 years to the starting year
+      const startingYear = parseInt(value);
+      const passingYear = startingYear + 4;
+
+      // Update the registerData state with the new passing year
+      setRegisterData((prevData) => ({
+        ...prevData,
+        [name]: value,
+        passingYear: passingYear.toString(), // Convert passingYear to string before updating
+      }));
+    } else {
+      // If the changed input is not startingYear, update registerData as usual
+      setRegisterData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
+
   console.log('regsiterData', registerData);
   return (
     <>
@@ -139,7 +185,7 @@ const SignIn = () => {
                     <div className="relative">
                       <input
                         type="text"
-                        name="name"
+                        name="fname"
                         onChange={handleRegisterInputChange}
                         placeholder="Enter your Name"
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
@@ -149,7 +195,38 @@ const SignIn = () => {
                   </div>
                   <div className="mb-4">
                     <label className="mb-2.5 block font-medium text-black dark:text-white">
-                      Student Id
+                      Middle Name
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        name="mname"
+                        onChange={handleRegisterInputChange}
+                        placeholder="Enter your Name"
+                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      />
+                    </div>
+                  </div>
+                  <div className="mb-4">
+                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                      Last Name
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        name="lname"
+                        onChange={handleRegisterInputChange}
+                        placeholder="Enter your Name"
+                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  {' '}
+                  <div className="mb-4">
+                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                      Student ID
                     </label>
                     <div className="relative">
                       <input
@@ -213,13 +290,13 @@ const SignIn = () => {
                     </div>
                   </div>
                 </div>
-                <div className='gap-5'>
-                  <div className='mb-4'>
-                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                <div className="gap-5">
+                  <div className="mb-4">
+                    <label className="mb-2.5 block font-medium text-black dark:text-white">
                       Address
                     </label>
-                    <div className='realtive'>
-                    <input
+                    <div className="realtive">
+                      <input
                         type="text"
                         placeholder="Enter your Address"
                         name="address"
@@ -227,17 +304,17 @@ const SignIn = () => {
                         value={registerData.address}
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
-
                     </div>
-                    
                   </div>
-
                 </div>
 
                 <div className="gap-5">
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
-                      Email
+                    <label className=" block font-medium text-black dark:text-white">
+                      Vcet Email
+                    </label>
+                    <label className="dark:text-red text-red-500  mb-2.5 block text-sm">
+                      *Vcet email only
                     </label>
                     <div className="relative">
                       <input
@@ -356,14 +433,30 @@ const SignIn = () => {
                       Joining year
                     </label>
                     <div className="relative">
-                      <input
-                        type="text"
+                      <select
                         name="startingYear"
                         onChange={handleRegisterInputChange}
-                        placeholder="Enter Joining year"
-                        value={registerData.startingYear}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                      />
+                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-16 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      >
+                        <option value="" disabled>
+                          Select Starting Year
+                        </option>
+                        {yearOptions.map((year) => (
+                          <option key={year} value={year}>
+                            {year}
+                          </option>
+                        ))}
+                      </select>
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 transform">
+                        <svg
+                          className="fill-current"
+                          width="22"
+                          height="22"
+                          viewBox="0 0 22 22"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        ></svg>
+                      </span>
                     </div>
                   </div>
                   <div className="mb-4">
@@ -374,9 +467,11 @@ const SignIn = () => {
                       <input
                         type="text"
                         name="passingYear"
+                        disabled // Make the input field disabled
+                        value={registerData.passingYear}
                         onChange={handleRegisterInputChange}
                         placeholder="Enter Passing year"
-                        value={registerData.passingYear}
+                        // value={registerData.passingYear}
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
                     </div>

@@ -17,7 +17,7 @@ const Profile = () => {
     startingYear: '',
     passingYear: '',
     branch: '',
-    skills:'',
+    skills: '',
   });
 
   const currentUser = useSelector((state) => state.user);
@@ -108,9 +108,7 @@ const Profile = () => {
           <Form.Item
             label="Skills"
             name="skills"
-            rules={[
-              { required: true, message: 'Please input your skills!' },
-            ]}
+            rules={[{ required: true, message: 'Please input your skills!' }]}
             value={user?.skills}
             onChange={(e) =>
               setUpdateUserForm({ ...updateUserForm, aboutMe: e.target.value })
@@ -199,8 +197,7 @@ const Profile = () => {
         <div className="bg-gray-100 rounded-md p-7 shadow-lg">
           <h2 className="mt-5 text-xl font-semibold">Skills</h2>
           <div className="flex gap-3">
-          <p className="justify-start text-base ">{user?.skills}</p>
-            
+            <p className="justify-start text-base ">{user?.skills}</p>
           </div>
           <h2 className="mt-5 text-xl font-semibold">Joining Year</h2>
           <div className="ml-3 mt-1 flex items-center gap-2">
