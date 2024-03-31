@@ -67,9 +67,14 @@ const getSubmissionTaskId = async (req, res, next) => {
 const updateSubmission = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const submission = await Submissions.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
+    const { description, githubLink, pdfLink } = req.body;
+    const submission = await Submissions.findByIdAndUpdate(
+      id,
+      { description, githubLink, pdfLink },
+      {
+        new: true,
+      }
+    );
     if (!submission) {
       return res.status(404).json({
         success: false,

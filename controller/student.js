@@ -7,15 +7,11 @@ const createStudent = async (req, res, next) => {
       name,
       email,
       password,
-      currentYear,
-      semester,
       startingYear,
       passingYear,
       branch,
       studentId,
-      projectRecord,
-      aboutMe,
-      skills
+      gender,
     } = req.body;
 
     // Create a new student instance
@@ -30,8 +26,7 @@ const createStudent = async (req, res, next) => {
       branch,
       studentId,
       projectRecord,
-      aboutMe,
-      skills
+      gender,
     });
 
     // Save the new student to the database
@@ -49,10 +44,16 @@ const createStudent = async (req, res, next) => {
 const updateStudent = async (req, res, next) => {
   try {
     const { id } = req.params; // Assuming you are passing the student ID in the URL
-    const { aboutMe, skills ,startingYear,passingYear,branch} = req.body;
+    const { aboutMe, skills, startingYear, passingYear, branch } = req.body;
 
     // Find the student by ID and update its details
-    await Students.findByIdAndUpdate(id, { aboutMe, skills,startingYear,passingYear,branch});
+    await Students.findByIdAndUpdate(id, {
+      aboutMe,
+      skills,
+      startingYear,
+      passingYear,
+      branch,
+    });
 
     res
       .status(200)

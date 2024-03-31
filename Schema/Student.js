@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const role = require("../utils/role.js");
+const gender = require("../utils/gender.js");
 
 // Define the projectRecord sub-schema
 const ProjectRecordSchema = new Schema(
@@ -40,6 +41,11 @@ const StudentSchema = new Schema({
     trim: true,
     required: [true, "Student Name is required"],
   },
+  fullName: {
+    type: String,
+    trim: true,
+    required: [true, "Student Name is required"],
+  },
   email: {
     type: String,
     required: [true, "Email  is required"],
@@ -61,32 +67,18 @@ const StudentSchema = new Schema({
     validate: passwordValidator,
   },
   currentYear: {
-    // FE / SE / TE / BE
     type: String,
-    // required: [true, "Current Year is required"],
+    trim: true,
   },
   semester: {
-    // Even , ODD
     type: Number,
     // required: [true, "Number is required"],
   },
-  gender: {
-    // FE / SE / TE / BE
-    type: String,
-    // required: [true, "Current Year is required"],
-  },
-  // academicYear: {
-  //   // 2023-2024
-  //   type: String,
-  //   required: true,
-  // },
   startingYear: {
-    // 2020
     type: Number,
     required: [true, "Joining Year  is required"],
   },
   passingYear: {
-    // 2024
     type: Number,
     required: [true, "Passing Year  is required"],
   },
@@ -123,7 +115,25 @@ const StudentSchema = new Schema({
   },
   aboutMe: {
     type: String,
+    default: "",
+  },
+  aboutSlug: {
+    type: String,
     default: "Hii im Software developer",
+  },
+  phone: {
+    type: Number,
+    required: [true, "phone number is required"],
+  },
+  address: {
+    type: String,
+    trim: true,
+    required: [true, "Address is required"],
+  },
+  gender: {
+    type: String,
+    enum: Object.values(gender),
+    required: [true, "Gender is required"],
   },
 });
 
