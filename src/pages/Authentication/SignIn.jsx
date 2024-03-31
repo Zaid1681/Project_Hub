@@ -110,7 +110,7 @@ const SignIn = () => {
   return (
     <>
       <div className="flex h-screen items-center justify-center bg-black text-black">
-        <div className="m-0 flex w-3/4 max-w-screen-xl rounded-xl   rounded-sm border border-stroke bg-white p-0 shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div className="m-0 flex w-3/4 max-w-screen-xl rounded-xl  border border-stroke bg-white p-0 shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div>
               <img
@@ -119,8 +119,8 @@ const SignIn = () => {
                 className="mx-auto mt-10  h-50 w-50 rounded-full"
               />
             </div>
-            <div className="px-10 pt-4 pb-10 text-center">
-              <h1 className="mb-4 text-6xl font-extrabold text-primary">
+            <div className="px-10 pt-4 pb-10 text-center font-inter">
+              <h1 className="mb-4 text-6xl  font-extrabold text-primary">
                 Welcome to!
               </h1>
               <h2 className="mb-2 text-3xl font-bold text-primary">
@@ -136,7 +136,7 @@ const SignIn = () => {
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-10.5">
               {/* <span className="mb-1.5 block font-medium">Start for free</span> */}
-              <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
+              <h2 className="mb-9 font-inter text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
                 Sign In to Project Hub
               </h2>
 
@@ -286,7 +286,7 @@ const SignIn = () => {
                   <input
                     type="submit"
                     value="Sign In"
-                    className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-2 text-white transition hover:bg-opacity-90"
+                    className="w-full cursor-pointer rounded-lg border border-[#0C356A] bg-[#0C356A] p-2 text-white transition hover:bg-opacity-90"
                   />
                 </div>
 

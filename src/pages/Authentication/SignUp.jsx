@@ -21,9 +21,13 @@ const SignIn = () => {
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  const handleTogglePasswordVisibility2 = () => {
-    setConfirmShowPassword(!confirmShowPassword);
+  const handleToggleConfirmPasswordVisibility = () => {
+    // Change the function name
+    setShowPassword(!showPassword);
+
+    setConfirmShowPassword(!confirmShowPassword); // Use the correct state variable
   };
+
   const getCurrentYear = () => {
     return new Date().getFullYear();
   };
@@ -49,17 +53,36 @@ const SignIn = () => {
     cpassword: '',
     gender: '',
     studentId: '',
-    phoneNumber: '',
+    phone: '',
     startingYear: '',
     passingYear: '',
     address: '',
   });
   // hanlde register function
   const handleRegisterSubmit = async (e) => {
-    if (registerData.password != registerData.cpassword) {
-      return alert('Password and Confirm Password must be same');
-    }
+    // Check if any of the required fields are empty
     e.preventDefault();
+    console.log('helo world');
+    if (
+      !registerData.fname ||
+      !registerData.lname ||
+      !registerData.email ||
+      !registerData.password ||
+      !registerData.cpassword ||
+      !registerData.studentId ||
+      !registerData.phone ||
+      !registerData.gender ||
+      !registerData.startingYear ||
+      !registerData.passingYear
+    ) {
+      console.log('Should not be empty');
+      alert('All the fields must be filled');
+      return toast.error('All fields are required');
+    }
+
+    if (registerData.password != registerData.cpassword) {
+      return toast.error('Password and Confirm Password must be the same');
+    }
     try {
       const Studentname = registerData.fname + ' ' + registerData.lname;
       const res = await axios.post(`${BASEURL}/auth/signup`, {
@@ -71,7 +94,7 @@ const SignIn = () => {
         address: registerData.address,
         studentId: registerData.studentId,
         phone: registerData.phone,
-        startingYear: registerData.startingYear || '',
+        startingYear: registerData.startingYear,
         passingYear: registerData.passingYear,
       });
 
@@ -81,12 +104,12 @@ const SignIn = () => {
           name: '',
           email: '',
           password: '',
-          confirmPassword: '',
+          cpassword: '',
           startingYear: '',
           passingYear: '',
           studentId: '',
           gender: '',
-          phoneNumber: '',
+          phone: '',
           address: '',
         });
         // const userData = await res.json();
@@ -123,8 +146,25 @@ const SignIn = () => {
   const handleRegisterInputChange = (e) => {
     const { name, value } = e.target;
 
-    // Check if the changed input is startingYear
-    if (name === 'startingYear') {
+    // Check if the changed input is studentId
+    if (name === 'studentId') {
+      // Check if the entered value is longer than 9 characters
+      if (value.length > 9) {
+        // Trim the value to 9 characters
+        const trimmedValue = value.slice(0, 9);
+        // Update the registerData state with the trimmed value
+        setRegisterData((prevData) => ({
+          ...prevData,
+          [name]: trimmedValue,
+        }));
+      } else {
+        // Update registerData with the entered value
+        setRegisterData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+      }
+    } else if (name === 'startingYear') {
       // Calculate the passing year by adding 4 years to the starting year
       const startingYear = parseInt(value);
       const passingYear = startingYear + 4;
@@ -136,7 +176,7 @@ const SignIn = () => {
         passingYear: passingYear.toString(), // Convert passingYear to string before updating
       }));
     } else {
-      // If the changed input is not startingYear, update registerData as usual
+      // For other inputs, update registerData as usual
       setRegisterData((prevData) => ({
         ...prevData,
         [name]: value,
@@ -148,53 +188,36 @@ const SignIn = () => {
   return (
     <>
       <div className="flex max-h-full items-center justify-center bg-black text-black">
-        <div className="m-20 flex w-10/12 max-w-screen-xl rounded-xl  border border-stroke bg-white p-0 shadow-default dark:border-strokedark dark:bg-boxdark">
-          {/* <div className="hidden w-full xl:block xl:w-1/2">
-            <div className="mt-60 items-center justify-center">
-              <div>
-                <img
-                  src="/phlogo.jpg"
-                  alt=""
-                  className="mx-auto mt-10  h-50 w-50 rounded-full"
-                />
-              </div>
-              <div className="px-16 pt-2 pb-16 text-center">
-                <h1 className="mb-4 text-6xl font-extrabold text-primary">
-                  Welcome to!
-                </h1>
-                <h2 className="mb-2 text-3xl font-bold text-primary">
-                  Project Hub: Collaborative Platform for Students and Faculty
-                </h2>
-              </div>
-            </div>
-          </div> */}
-
-          <div className="w-full border-stroke dark:border-strokedark  xl:border-l-2">
-            <div className="w-full p-4 sm:p-12.5 xl:p-10.5">
+        <div
+          className="m-10 flex w-10/12 max-w-screen-xl rounded-xl border  border-stroke bg-white p-0 
+        shadow-default dark:border-strokedark dark:bg-boxdark md:m-20"
+        >
+          <div className="xl w-full border-stroke dark:border-strokedark xl:border-l-2">
+            <div className="w-full p-5 sm:p-12.5 xl:p-10.5">
               {/* <span className="mb-1.5 block font-medium">Start for free</span> */}
-              <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
+              <h2 className="mb-12 font-inter text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
                 Sign Up to Project Hub
               </h2>
 
               <form onSubmit={handleRegisterSubmit}>
-                <div className="grid grid-cols-1 gap-2 md:grid-cols-2 ">
+                <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 ">
                   <div className="mb-6">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
-                      Full Name
+                    <label className="mb-2.5 block text-lg font-medium text-black dark:text-white">
+                      First Name
                     </label>
                     <div className="relative">
                       <input
                         type="text"
                         name="fname"
                         onChange={handleRegisterInputChange}
-                        placeholder="Enter your Name"
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                        value={registerData.name}
+                        value={registerData.fname}
+                        placeholder="Enter your full name"
+                        className="border-grey w-full rounded-lg border  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
                     </div>
                   </div>
-                  <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                  <div className="mb-6">
+                    <label className="mb-2.5 block text-lg font-medium text-black dark:text-white">
                       Middle Name
                     </label>
                     <div className="relative">
@@ -202,13 +225,14 @@ const SignIn = () => {
                         type="text"
                         name="mname"
                         onChange={handleRegisterInputChange}
+                        value={registerData.mname}
                         placeholder="Enter your Name"
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="border-grey w-full rounded-lg border  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
                     </div>
                   </div>
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    <label className="mb-2.5 block text-lg font-medium text-black dark:text-white">
                       Last Name
                     </label>
                     <div className="relative">
@@ -216,14 +240,14 @@ const SignIn = () => {
                         type="text"
                         name="lname"
                         onChange={handleRegisterInputChange}
+                        value={registerData.lname}
                         placeholder="Enter your Name"
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="border-grey w-full rounded-lg border  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
                     </div>
                   </div>
                 </div>
                 <div>
-                  {' '}
                   <div className="mb-4">
                     <label className="mb-2.5 block font-medium text-black dark:text-white">
                       Student ID
@@ -233,9 +257,9 @@ const SignIn = () => {
                         type="number"
                         name="studentId"
                         onChange={handleRegisterInputChange}
-                        placeholder="Enter your Number"
+                        placeholder="Enter your student id"
                         value={registerData.studentId}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="border-grey w-full rounded-lg border  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
                     </div>
                   </div>
@@ -243,7 +267,7 @@ const SignIn = () => {
                 <div></div>
                 <div className="grid grid-cols-1 gap-2 md:grid-cols-2 ">
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    <label className="mb-2.5 block text-lg font-medium dark:text-white">
                       Gender
                     </label>
                     <div className="relative">
@@ -252,7 +276,7 @@ const SignIn = () => {
                         name="gender"
                         onChange={handleRegisterInputChange}
                         value={registerData.gender}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-16 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="border-grey w-full rounded-lg  border bg-transparent py-4 pl-6 pr-16 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       >
                         <option value="" disabled>
                           Select your gender
@@ -275,17 +299,17 @@ const SignIn = () => {
                   </div>
 
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    <label className="mb-2.5 block text-lg font-medium text-black dark:text-white">
                       Phone Number
                     </label>
                     <div className="relative">
                       <input
                         type="number"
-                        name="phoneNumber"
+                        name="phone"
                         onChange={handleRegisterInputChange}
-                        placeholder="Enter your Number"
-                        value={registerData.phoneNumber}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        placeholder="Enter your number"
+                        value={registerData.phone}
+                        className="border-grey w-full rounded-lg border bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
                     </div>
                   </div>
@@ -293,16 +317,16 @@ const SignIn = () => {
                 <div className="gap-5">
                   <div className="mb-4">
                     <label className="mb-2.5 block font-medium text-black dark:text-white">
-                      Address
+                      Address (Optional)
                     </label>
                     <div className="realtive">
                       <input
                         type="text"
-                        placeholder="Enter your Address"
+                        placeholder="Enter your a ddress"
                         name="address"
                         onChange={handleRegisterInputChange}
                         value={registerData.address}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="border-grey w-full rounded-lg border  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
                     </div>
                   </div>
@@ -321,19 +345,19 @@ const SignIn = () => {
                         type="email"
                         name="email"
                         onChange={handleRegisterInputChange}
-                        placeholder="Enter your email"
+                        placeholder="Enter your vcet email id"
                         value={registerData.email}
                         className={`w-full rounded-lg border ${
                           !registerData.email.endsWith('@vcet.edu.in')
                             ? 'border-red-500'
-                            : 'border-stroke'
+                            : 'border-grey '
                         } bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary`}
                       />
-                      {!registerData.email.endsWith('@vcet.edu.in') && (
+                      {/* {!registerData.email.endsWith('@vcet.edu.in') && (
                         <p className="text-red-500 mt-1 text-sm">
                           VCET email address is required
                         </p>
-                      )}
+                      )} */}
                       <span className="absolute right-4 top-4">
                         <svg
                           className="fill-current"
@@ -356,8 +380,8 @@ const SignIn = () => {
                 </div>
 
                 <div className="grid grid-cols-1 gap-2 md:grid-cols-2 ">
-                  <div className="mb-6">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                  <div className="mb-1">
+                    <label className="mb-2.5 block text-lg font-medium text-black dark:text-white">
                       Password
                     </label>
                     <div className="relative">
@@ -367,7 +391,7 @@ const SignIn = () => {
                         name="password"
                         value={registerData.password}
                         onChange={handleRegisterInputChange}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="border-grey w-full rounded-lg border  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
 
                       <span className="absolute right-4 top-4">
@@ -393,32 +417,31 @@ const SignIn = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="mb-6">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                  <div className="mb-1">
+                    <label className="mb-2.5 block text-lg font-medium text-black dark:text-white">
                       Confrim Password
                     </label>
                     <div className="relative">
                       <div className="mb-6">
                         <div className="relative">
                           <input
-                            type={showPassword ? 'text' : 'password'} // Conditionally set input type based on showPassword state
-                            //value={registerData.cpassword}
+                            type={showPassword ? 'text' : 'password'}
                             placeholder="6+ Characters, 1 Capital letter"
-                            name="confirmPassword"
+                            name="cpassword"
                             onChange={handleRegisterInputChange}
-                            value={registerData.confirmPassword}
-                            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                            value={registerData.cpassword}
+                            className="border-grey w-full rounded-lg border bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                           />
-                          {/* Render eye icon based on showPassword state */}
-                          {showPassword ? (
-                            <FaEyeSlash
-                              className="absolute top-1/2 right-3 -translate-y-1/2 transform cursor-pointer"
-                              onClick={handleTogglePasswordVisibility2}
-                            />
-                          ) : (
+
+                          {confirmShowPassword ? (
                             <FaEye
                               className="absolute top-1/2 right-3 -translate-y-1/2 transform cursor-pointer"
-                              onClick={handleTogglePasswordVisibility2}
+                              onClick={handleToggleConfirmPasswordVisibility}
+                            />
+                          ) : (
+                            <FaEyeSlash
+                              className="absolute top-1/2 right-3 -translate-y-1/2 transform cursor-pointer"
+                              onClick={handleToggleConfirmPasswordVisibility}
                             />
                           )}
                         </div>
@@ -429,18 +452,16 @@ const SignIn = () => {
 
                 <div className="grid grid-cols-1 gap-2 md:grid-cols-2 ">
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    <label className="mb-2.5 block text-lg font-medium text-black dark:text-white">
                       Joining year
                     </label>
                     <div className="relative">
                       <select
                         name="startingYear"
                         onChange={handleRegisterInputChange}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-16 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="border-grey w-full rounded-lg border  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       >
-                        <option value="" disabled>
-                          Select Starting Year
-                        </option>
+                        <option value="">Select Starting Year</option>
                         {yearOptions.map((year) => (
                           <option key={year} value={year}>
                             {year}
@@ -460,7 +481,7 @@ const SignIn = () => {
                     </div>
                   </div>
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    <label className="mb-2.5 block text-lg font-medium text-black dark:text-white">
                       Passing year
                     </label>
                     <div className="relative">
@@ -472,18 +493,20 @@ const SignIn = () => {
                         onChange={handleRegisterInputChange}
                         placeholder="Enter Passing year"
                         // value={registerData.passingYear}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="border-grey w-full rounded-lg border  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
                     </div>
                   </div>
                 </div>
 
                 <div className="mt-5">
-                  <input
+                  <button
+                    onSubmit={handleRegisterSubmit}
                     type="submit"
-                    value="Create account"
-                    className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-2 text-white transition hover:bg-opacity-90"
-                  />
+                    className="w-full cursor-pointer rounded-lg border border-[#0C356A] bg-[#0C356A] p-2 text-white transition hover:bg-opacity-90"
+                  >
+                    Create Account
+                  </button>
                 </div>
 
                 <div className="mt-6 text-center">

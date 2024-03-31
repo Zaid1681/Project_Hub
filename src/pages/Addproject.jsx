@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import Toastify from 'toastify-js';
 import axios from 'axios ';
 import { BASEURL } from '../Api';
+import Breadcrumb from '../components/Breadcrumb';
+
 
 const Addproject = () => {
   const currentUser = useSelector((state) => state.user);
@@ -145,151 +147,190 @@ const Addproject = () => {
     });
   };
   return (
-    <div className="   bg-white p-10 text-black shadow-xl dark:bg-boxdark dark:text-white">
-      <h1 className="text-2xl font-bold">Project Details</h1>
-      <form onSubmit={handleSubmitProject} className="mt-8">
-        <div className="mb-4">
-          <label className="block font-medium text-black dark:text-white">
-            Project Title
-          </label>
-          <input
-            type="text"
-            name="title"
-            value={projectDetails.title}
-            onChange={(e) => handleInputChange(e, 'title')}
-            className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block font-medium text-black dark:text-white">
-            Description
-          </label>
-          <textarea
-            name="description"
-            rows="4"
-            value={projectDetails.description}
-            onChange={(e) => handleInputChange(e, 'description')}
-            className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
-          />
-        </div>
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+    <>
+      <Breadcrumb pageName="Project Details" />
+      <div className="bg-white p-10 text-black shadow-xl dark:bg-boxdark dark:text-white rounded-2xl">
+        <form onSubmit={handleSubmitProject} className="">
           <div className="mb-4">
-            <label className="block font-medium text-black dark:text-white">
-              Semester
-            </label>
-            <select
-              name="semester"
-              defaultValue=""
-              value={projectDetails.semester}
-              onChange={handleSemesterChange}
-              className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
-            >
-              <option value="" disabled>
-                Select Semester
-              </option>
-              {currentUser.currentYear === 'SE' && (
-                <>
-                  <option value="3">Semester 3</option>
-                  <option value="4">Semester 4</option>
-                </>
-              )}
-              {currentUser.currentYear === 'TE' && (
-                <>
-                  <option value="5">Semester 5</option>
-                  <option value="6">Semester 6</option>
-                </>
-              )}
-              {currentUser.currentYear === 'BE' && (
-                <>
-                  <option value="7">Semester 7</option>
-                  <option value="8">Semester 8</option>
-                </>
-              )}
-            </select>
-          </div>{' '}
-          <div className="mb-4">
-            <label className="block font-medium text-black dark:text-white">
-              Subject
-            </label>
-            <select
-              name="subject"
-              value={projectDetails.subject}
-              defaultValue={''}
-              onChange={(e) => handleInputChange(e, 'subject')}
-              className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
-            >
-              <option value="" disabled>
-                Select Subject
-              </option>
-              {loadingSubjects ? (
-                <option disabled>Loading subjects...</option>
-              ) : (
-                subjectList?.map((subject, index) => (
-                  <option key={index} value={subject}>
-                    {subject}
-                  </option>
-                ))
-              )}
-            </select>
-          </div>
-        </div>
-        <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
-          {' '}
-          <div className="mb-4">
-            <label className="block font-medium  text-black dark:text-white">
-              Github Link
+            <label className="block text-xl mb-2 font-medium text-black dark:text-white">
+              Project Title
             </label>
             <input
               type="text"
-              name="github"
-              value={projectDetails.github}
-              onChange={(e) => handleInputChange(e, 'github')}
+              name="title"
+              value={projectDetails.title}
+              onChange={(e) => handleInputChange(e, 'title')}
               className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
             />
           </div>
           <div className="mb-4">
-            <label className="block font-medium  text-black dark:text-white">
-              Linkedin Link
+            <label className="block text-xl mb-2 font-medium text-black dark:text-white">
+              Description
             </label>
-            <input
-              type="text"
-              name="github"
-              value={projectDetails.linkedinLink}
-              onChange={(e) => handleInputChange(e, 'linkedinLink')}
-              className="focus:border-blue-500 w-full  rounded border px-3 py-2 focus:outline-none"
+            <textarea
+              name="description"
+              rows="4"
+              value={projectDetails.description}
+              onChange={(e) => handleInputChange(e, 'description')}
+              className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
             />
           </div>
-        </div>
-        <div className="mb-4">
-          <label className="block font-medium text-black dark:text-white">
-            PDF Links
-          </label>
-          {projectDetails.pdfLinks.map((pdfLink, index) => (
-            <div key={index} className="mb-2 flex">
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+            <div className="mb-4">
+              <label className="block text-xl mb-2 font-medium text-black dark:text-white">
+                Semester
+              </label>
+              <select
+                name="semester"
+                defaultValue=""
+                value={projectDetails.semester}
+                onChange={handleSemesterChange}
+                className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
+              >
+                <option value="" disabled>
+                  Select Semester
+                </option>
+                {currentUser.currentYear === 'SE' && (
+                  <>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                  </>
+                )}
+                {currentUser.currentYear === 'TE' && (
+                  <>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                  </>
+                )}
+                {currentUser.currentYear === 'BE' && (
+                  <>
+                    <option value="7">Semester 7</option>
+                    <option value="8">Semester 8</option>
+                  </>
+                )}
+              </select>
+            </div>{' '}
+            <div className="mb-4">
+              <label className="block text-xl mb-2 font-medium text-black dark:text-white">
+                Subject
+              </label>
+              <select
+                name="subject"
+                value={projectDetails.subject}
+                defaultValue={''}
+                onChange={(e) => handleInputChange(e, 'subject')}
+                className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
+              >
+                <option value="" disabled>
+                  Select Subject
+                </option>
+                {loadingSubjects ? (
+                  <option disabled>Loading subjects...</option>
+                ) : (
+                  subjectList?.map((subject, index) => (
+                    <option key={index} value={subject}>
+                      {subject}
+                    </option>
+                  ))
+                )}
+              </select>
+            </div>
+          </div>
+          <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2 mt-4">
+            {' '}
+            <div className="mb-4">
+              <label className="block text-xl mb-2 font-medium  text-black dark:text-white">
+                Github Link
+              </label>
               <input
                 type="text"
-                value={pdfLink}
-                onChange={(e) => handleInputChange(e, 'pdfLinks', index)}
-                className="focus:border-blue-500 mr-2 w-1/2 rounded border px-3 py-2 focus:outline-none"
+                name="github"
+                value={projectDetails.github}
+                onChange={(e) => handleInputChange(e, 'github')}
+                className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
               />
-              <button
-                type="button"
-                onClick={() => handleAdditionButtonClick('pdfLinks')}
-                className="bg-blue-500 rounded px-2 text-black dark:text-white"
-              >
-                +
-              </button>
-              <button
-                type="button"
-                onClick={() => handleRemovalButtonClick('pdfLinks', index)}
-                className="bg-red-500 ml-2 rounded px-2 font-bold font-bold text-black"
-              >
-                -
-              </button>
             </div>
-          ))}
-        </div>
-        {/* <div className="mb-4">
+            <div className="mb-4">
+              <label className="block text-xl mb-2 font-medium  text-black dark:text-white">
+                Linkedin Link
+              </label>
+              <input
+                type="text"
+                name="github"
+                value={projectDetails.linkedinLink}
+                onChange={(e) => handleInputChange(e, 'linkedinLink')}
+                className="focus:border-blue-500 w-full  rounded border px-3 py-2 focus:outline-none"
+              />
+            </div>
+          </div>
+          <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2 mt-4">
+            <div className="mb-4">
+              <label className="block text-xl mb-2 font-medium text-black dark:text-white">
+                PDF Links
+              </label>
+              {projectDetails.pdfLinks.map((pdfLink, index) => (
+                <div key={index} className="mb-2 flex">
+                  <input
+                    type="text"
+                    value={pdfLink}
+                    onChange={(e) => handleInputChange(e, 'pdfLinks', index)}
+                    className="focus:border-blue-500 mr-5 w-full rounded border px-3 py-2 focus:outline-none"
+                  />
+                  <div className='flex items-center justify-center gap-5'>
+                    <button
+                      type="button"
+                      onClick={() => handleAdditionButtonClick('pdfLinks')}
+                      className="bg-[#0c356a] rounded-xl h-10 text-xl px-4 text-white dark:text-white"
+                    >
+                      +
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleRemovalButtonClick('pdfLinks', index)}
+                      className="bg-[#0c356a] rounded-xl h-10 text-xl px-4 text-white"
+                    >
+                      -
+                    </button>
+                  </div>
+
+                </div>
+              ))}
+            </div>
+            <div className="mb-4">
+              <label className="block text-xl mb-2 font-medium text-black dark:text-white">
+                Keywords
+              </label>
+              {projectDetails.keywords.map((keyword, index) => (
+                <div key={index} className="mb-2 flex">
+                  <input
+                    type="text"
+                    value={keyword}
+                    onChange={(e) => handleInputChange(e, 'keywords', index)}
+                    className="focus:border-blue-500 mr-5 w-full rounded border px-3 py-2 focus:outline-none"
+                  />
+                  <div className='flex items-center justify-center gap-5'>
+                    <button
+                      type="button"
+                      onClick={() => handleAdditionButtonClick('keywords')}
+                      className="bg-[#0c356a] rounded-xl h-10 text-xl px-4 text-white"
+                    >
+                      +
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleRemovalButtonClick('keywords', index)}
+                      className="bg-[#0c356a] rounded-xl h-10 text-xl px-4 text-white"
+                    >
+                      -
+                    </button>
+                  </div>
+
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* <div className="mb-4">
           <label className="block font-medium text-black dark:text-white">
             Social Media Links
           </label>
@@ -313,61 +354,34 @@ const Addproject = () => {
             </div>
           ))}
         </div> */}{' '}
-        <div className="mb-4">
-          <label className="block font-medium text-black dark:text-white">
-            Images
-          </label>
-          <input
-            onChange={handleImageChange}
-            className="text-gray-900 border-gray-300 bg-gray-50 dark:text-gray-400 dark:bg-gray-700 
+          <div className="mb-4">
+            <label className="block text-xl mb-2 font-medium text-black dark:text-white">
+              Images
+            </label>
+            <input
+              onChange={handleImageChange}
+              className="text-gray-900 border-gray-300 bg-gray-50 dark:text-gray-400 dark:bg-gray-700 
               dark:border-gray-600 dark:placeholder-gray-400 block w-full cursor-pointer rounded-lg
-              border p-2 text-sm focus:outline-none"
-            id="images"
-            type="file"
-            multiple
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block font-medium text-black dark:text-white">
-            Keywords
-          </label>
-          {projectDetails.keywords.map((keyword, index) => (
-            <div key={index} className="mb-2 flex">
-              <input
-                type="text"
-                value={keyword}
-                onChange={(e) => handleInputChange(e, 'keywords', index)}
-                className="focus:border-blue-500 mr-2 w-1/2 rounded border px-3 py-2 focus:outline-none"
-              />
-              <button
-                type="button"
-                onClick={() => handleAdditionButtonClick('keywords')}
-                className="bg-blue-500 rounded px-2 font-bold text-black"
-              >
-                +
-              </button>
-              <button
-                type="button"
-                onClick={() => handleRemovalButtonClick('keywords', index)}
-                className="bg-red-500 ml-2 rounded px-2 font-bold font-bold text-black"
-              >
-                -
-              </button>
-            </div>
-          ))}
-        </div>
-        {/* ... (existing form elements) ... */}
-        <div className="m-auto flex justify-center">
-          <button
-            type="submit"
-            onClick={handleSubmitProject}
-            className="inline-flex items-center justify-center rounded bg-primary py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-15"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
+              border p-2 text-sm focus:outline-none mt-3"
+              id="images"
+              type="file"
+              multiple
+            />
+          </div>
+
+          {/* ... (existing form elements) ... */}
+          <div className="m-auto flex justify-center">
+            <button
+              type="submit"
+              onClick={handleSubmitProject}
+              className="inline-flex items-center justify-center rounded bg-[#0c356a]  mt-6 py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-15"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

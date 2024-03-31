@@ -132,7 +132,7 @@ const GroupDetailsPage = () => {
     <main className="bg-gray-100 min-h-screen">
       <section className="mx-auto md:p-10">
         <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 text-3xl font-semibold text-black">GROUP</h2>
+          <h2 className="mb-7 text-3xl font-bold text-black font-inter">GROUP</h2>
 
           <div className="space-y-6">
             <div className="flex items-center  text-black ">
