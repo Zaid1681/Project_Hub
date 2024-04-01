@@ -17,6 +17,13 @@ import 'react-toastify/dist/ReactToastify.css';
 const SignIn = () => {
   const dispatch = useDispatch();
   const [academicYears, setAcademicYears] = useState([]);
+  const [academicYearOptions, setAcademicYearOptions] = useState([]);
+  const [academicYearData, setAcademicYearData] = useState({
+    joiningYear: '',
+    passingYear: '',
+  });
+
+  const [yearList, setYearList] = useState([]);
 
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
@@ -25,6 +32,7 @@ const SignIn = () => {
     currentYear: '',
     year: '',
   });
+
   console.log('signin', loginData);
   // hanlde register function
   const handleLoginSubmit = async (e) => {
@@ -71,8 +79,6 @@ const SignIn = () => {
         setTimeout(() => {
           navigate('/home');
         }, 2000);
-
-        // toast.success("Registration successful!");
       } else {
         console.error('Registration failed');
         // toast.error("Registration failed. Please try again.");
@@ -83,29 +89,81 @@ const SignIn = () => {
     }
   };
   const handleLoginInputChange = (e) => {
-    // e.preventDefault();
+    const { name, value } = e.target;
     setLoginData({
       ...loginData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+
+    // if (name === 'email') {
+    //   findDataUsingEmail(value);
+    // }
   };
   // console.log('login', loginData);
+  const findDataUsingEmail = async () => {
+    const emailData = loginData?.email;
+    try {
+      const res = await axios.get(`${BASEURL}/auth/getEmail/${emailData}`);
+      if (res.data) {
+        const { joiningYear, passingYear } = res.data.data;
+        console.log('Email Found:', res.data.data);
+        setAcademicYearData({
+          joiningYear: joiningYear,
+          passingYear: passingYear,
+        });
+      } else {
+        setAcademicYearData({
+          joiningYear: '',
+          passingYear: '',
+        });
+        console.error('Email Not Found');
+      }
+    } catch (error) {
+      setAcademicYearData({
+        joiningYear: '',
+        passingYear: '',
+      });
+      console.error('Error fetching data:', error);
+    }
+  };
 
+  useEffect(() => {
+    if (loginData?.email) {
+      findDataUsingEmail();
+    }
+  }, [loginData?.email]);
+
+  // const generateAcademicYears = () => {
+  //   const currentYear = new Date().getFullYear();
+  //   const options = [];
+  //   for (let i = 0; i < 5; i++) {
+  //     const startYear = currentYear - i;
+  //     const endYear = startYear + 1;
+  //     options.push(`${startYear}-${endYear}`);
+  //   }
+  //   setAcademicYears(options);
+  // };
   const generateAcademicYears = () => {
-    const currentYear = new Date().getFullYear();
+    const joiningYear = academicYearData?.joiningYear;
+    const passingYear = academicYearData?.passingYear;
     const options = [];
-    for (let i = 0; i < 5; i++) {
-      const startYear = currentYear - i;
-      const endYear = startYear + 1;
+    for (let i = joiningYear; i < passingYear; i++) {
+      const startYear = i;
+      const endYear = i + 1;
       options.push(`${startYear}-${endYear}`);
     }
-    setAcademicYears(options);
+    setAcademicYearOptions(options);
   };
 
   // Call generateAcademicYears function when component mounts
+  console.log(
+    academicYearData?.joiningYear,
+    'ssdsd',
+    academicYearData?.passingYear
+  );
   useEffect(() => {
     generateAcademicYears();
-  }, []);
+  }, [academicYearData]);
 
   return (
     <>
@@ -260,7 +318,7 @@ const SignIn = () => {
                         <option value="" disabled selected>
                           Select Academic Year
                         </option>
-                        {academicYears.map((year, index) => (
+                        {academicYearOptions.map((year, index) => (
                           <option key={index} value={year}>
                             {year}
                           </option>
@@ -283,11 +341,12 @@ const SignIn = () => {
                 </div>
 
                 <div className="mb-2">
-                  <input
-                    type="submit"
-                    value="Sign In"
+                  <button
+                    onClick={handleLoginSubmit}
                     className="w-full cursor-pointer rounded-lg border border-[#0C356A] bg-[#0C356A] p-2 text-white transition hover:bg-opacity-90"
-                  />
+                  >
+                    Sign in
+                  </button>
                 </div>
 
                 <div className="mt-6 text-center">
