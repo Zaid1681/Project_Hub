@@ -6,10 +6,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import Toastify from 'toastify-js';
 import { Link } from 'react-router-dom';
 import { BASEURL } from '../Api';
+import { useNavigate } from 'react-router-dom';
+
 import ChatSection from '../components/ChatSection';
 
-
 const IndividualGroupDetailsPage = () => {
+  const navigate = useNavigate();
+
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
   const [groupStatus, setGroupStatus] = useState('Inprocess'); // State for group status
   const [approvedProjId, setApprovedProjId] = useState(null);
@@ -53,6 +56,60 @@ const IndividualGroupDetailsPage = () => {
       console.log('Error fetching Project', error);
     }
   };
+  const handleDeleteGroup = async (e) => {
+    e.preventDefault();
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this group? this will delete details of projects and groups . This action cannot be undone.'
+    );
+
+    if (!confirmDelete) {
+      // If user cancels the confirmation, exit the function
+      return;
+    }
+    try {
+      // Retrieve all project ideas associated with the group
+      const response = await axios.get(
+        `${BASEURL}/projectIdea/getProjByGroupId/${groupId}`
+      );
+      const projectIdeas = response.data.data;
+
+      // Delete each project idea one by one
+      await Promise.all(
+        projectIdeas.map(async (projectIdea) => {
+          await axios.delete(`${BASEURL}/projectIdea/del/${projectIdea._id}`);
+        })
+      );
+
+      // Once all project ideas are deleted, delete the group itself
+      await axios.delete(`${BASEURL}/group/del/${groupId}`);
+
+      // Optionally, you can perform additional actions after deleting the group
+
+      console.log('Group and associated project ideas deleted successfully');
+      Toastify({
+        text: 'Groups deleted Sucessfully',
+        duration: 1800,
+        gravity: 'top', // `top` or `bottom`
+        position: 'right', // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+          padding: '10px 50px',
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
+      setTimeout(() => {
+        navigate('/groupSection');
+      }, 500);
+    } catch (error) {
+      console.error(
+        'Error deleting group and associated project ideas: ',
+        error
+      );
+      // Handle errors if necessary
+    }
+  };
+
   console.log(groupId);
   const fetchProject = async () => {
     try {
@@ -95,7 +152,7 @@ const IndividualGroupDetailsPage = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () { }, // Callback after click
+        onClick: function () {}, // Callback after click
       }).showToast();
       // console.log(response.data.data);
     } catch (error) {
@@ -155,7 +212,9 @@ const IndividualGroupDetailsPage = () => {
       </div>
       <section className="mx-auto mt-10  md:p-10">
         <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 text-3xl font-inter font-semibold text-black">Group Details</h2>
+          <h2 className="mb-7 font-inter text-3xl font-semibold text-black">
+            Group Details
+          </h2>
 
           <div className="space-y-6">
             <div className="flex items-center  text-black ">
@@ -163,11 +222,16 @@ const IndividualGroupDetailsPage = () => {
               <div className="flex flex-wrap gap-2">
                 <h2 className="text-xl font-medium">Members Name : </h2>
                 {membersName?.map((data, index) => (
-                  <h2 key={index} className="text-xl font-medium inline-block md:block">{data},</h2>
+                  <h2
+                    key={index}
+                    className="inline-block text-xl font-medium md:block"
+                  >
+                    {data},
+                  </h2>
                 ))}
               </div>
             </div>
-            <div className="flex flex-col md:flex-row gap-2 md:gap-10 text-black">
+            <div className="flex flex-col gap-2 text-black md:flex-row md:gap-10">
               {' '}
               <h2 className="text-xl font-medium">
                 <span>Year : </span>
@@ -285,7 +349,7 @@ const IndividualGroupDetailsPage = () => {
               </div>
               <div className="flex items-center gap-3 text-center">
                 <h1 className="text-xl font-medium">Status: </h1>{' '}
-                <h1 className="flex items-center text-center border rounded-xl bg-[#0C356A] text-white px-5 py-2">
+                <h1 className="flex items-center rounded-xl border bg-[#0C356A] px-5 py-2 text-center text-white">
                   {val.isApproved === true ? 'Approved' : 'Not Approved'}
                 </h1>
               </div>
@@ -304,20 +368,34 @@ const IndividualGroupDetailsPage = () => {
           </div>
         ))}
         <div className="container my-10 mx-auto  gap-10 rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 text-3xl font-inter font-semibold text-black">
+          <h2 className="mb-7 font-inter text-3xl font-semibold text-black">
             Guide Details
           </h2>
           <div className="flex gap-2">
             {' '}
-            <p className="text-xl font-medium text-black/90">Assigned Guide : </p>
-            <h2 className="text-xl font-medium text-black">{data?.guideName}</h2>
+            <p className="text-xl font-medium text-black/90">
+              Assigned Guide :{' '}
+            </p>
+            <h2 className="text-xl font-medium text-black">
+              {data?.guideName}
+            </h2>
           </div>
           {/* <h1>{data.guideId}</h1> */}
         </div>
         <ChatSection />
-
+        <div className="mx-10 my-10 flex justify-end">
+          {' '}
+          <button
+            // href={`/${currentYear}/groups/${subject}/${semester}/${academic}/assignTask`}
+            // href={`/groupsection/group/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`}
+            onClick={handleDeleteGroup}
+            className={`rounded bg-[#0C356A] px-[3rem] py-2 text-white `}
+          >
+            Delete Group
+          </button>
+        </div>
       </section>
-    </main >
+    </main>
   );
 };
 

@@ -339,105 +339,120 @@ const Creategroup = () => {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    try {
-      // Group creation data
-
-      const groupData = {
-        groupName: groupDetails.title,
-        subject: groupDetails.subject,
-        semester: groupDetails.semester,
-        membersId: [
-          studentId,
-          studentId2,
-          studentId3,
-          currentUser.userData.studentId,
-        ],
-        membersName: [
-          studentName,
-          studentName2,
-          studentName3,
-          currentUser.userData.name,
-        ],
-        groupLeaderId: currentUser.userData.studentId,
-        groupLeaderName: currentUser.userData.name,
-        academicYear: currentUser.academicYear,
-        currentYear: currentUser.currentYear,
-        github: groupDetails.githubLink,
-      };
-
-      // Call the group creation API
-      const groupResponse = await axios.post(`${BASEURL}/group/add`, groupData);
-
-      console.log('Group creation successful:', groupResponse.data);
-      console.log('Group id:', groupResponse.data.data._id);
-      const groupId = groupResponse.data.data._id;
-      try {
-        await submitProjectIdea(projectIdea1, groupId);
-
-        // Submit Project Idea 2
-        await submitProjectIdea(projectIdea2, groupId);
-
-        // Submit Project Idea 3
-        await submitProjectIdea(projectIdea3, groupId);
-        console.log('All project ideas submitted successfully!');
-      } catch (error) {
-        console.log(error);
-      }
-
-      // Project idea data
-      // const projectData = {
-      //   title: projectIdea.title,
-      //   description: projectIdea.description,
-      //   pdfLinks: projectIdea.pdfLinks,
-      //   currentYear: currentUser.currentYear,
-      //   academicYear: currentUser.academicYear,
-      //   semester: groupDetails.semester,
-      //   subject: groupDetails.subject,
-      //   groupId: groupResponse.data.data._id, // Use the group ID from the group creation response
-      // };
-
-      // // Call the project creation API
-      // const projectResponse = await axios.post(
-      //   '${BASEURL}/projectIdea/add',
-      //   projectData
-      // );
-      setProjectIdea1({
-        title: '',
-        description: '',
-        pdfLinks: '',
-      });
-      setProjectIdea2({
-        title: '',
-        description: '',
-        pdfLinks: '',
-      });
-      setProjectIdea3({
-        title: '',
-        description: '',
-        pdfLinks: '',
-      });
-
-      setGroupDetails((prevDetails) => ({
-        ...prevDetails,
-        title: '',
-        description: '',
-        pdfLinks: [''],
-        semester: '',
-        subject: '',
-      }));
-
-      setStudentName('');
-      setStudentName2('');
-      setStudentName3('');
-
-      // console.log('Project idea creation successful:', projectResponse.data);
-    } catch (error) {
-      console.error(
-        'Error:',
-        error.response ? error.response.data.message : error.message
+    // Check if at least one member is added
+    const groupCreatorId = currentUser.userData.studentId;
+    if (
+      (studentId && groupCreatorId === studentId) ||
+      (studentId2 && groupCreatorId === studentId2) ||
+      (studentId3 && groupCreatorId === studentId3)
+    ) {
+      alert(
+        'Error: You cannot add your own student ID. Details: A group creator should not add their own student Id it is automatically get added'
       );
-      alert(error.response.data.message);
+      return;
+    } else if (!studentId && !studentId2 && !studentId3) {
+      alert('Error: At least one member must be added.');
+      return;
+    }
+
+    // Check if at least one project idea is submitted
+    else if (
+      !projectIdea1.title &&
+      !projectIdea2.title &&
+      !projectIdea3.title
+    ) {
+      alert('Error: At least one project idea must be submitted.');
+      return;
+    }
+    //
+    // Check if any of the student IDs are duplicated
+    else if (
+      (studentId && (studentId === studentId2 || studentId === studentId3)) ||
+      (studentId2 && studentId2 === studentId3)
+    ) {
+      alert('Error: Same student cannot be added twice.');
+      return; // Exit the function if duplicate student IDs are found
+    } else {
+      try {
+        // Group creation data
+        const groupData = {
+          groupName: groupDetails.title,
+          subject: groupDetails.subject,
+          semester: groupDetails.semester,
+          membersId: [
+            studentId,
+            studentId2,
+            studentId3,
+            currentUser.userData.studentId,
+          ],
+          membersName: [
+            studentName,
+            studentName2,
+            studentName3,
+            currentUser.userData.name,
+          ],
+          groupLeaderId: currentUser.userData.studentId,
+          groupLeaderName: currentUser.userData.name,
+          academicYear: currentUser.academicYear,
+          currentYear: currentUser.currentYear,
+          github: groupDetails.githubLink,
+        };
+
+        // Call the group creation API
+        const groupResponse = await axios.post(
+          `${BASEURL}/group/add`,
+          groupData
+        );
+
+        console.log('Group creation successful:', groupResponse.data);
+        console.log('Group id:', groupResponse.data.data._id);
+        const groupId = groupResponse.data.data._id;
+
+        // Submit Project Ideas
+        await Promise.all([
+          submitProjectIdea(projectIdea1, groupId),
+          submitProjectIdea(projectIdea2, groupId),
+          submitProjectIdea(projectIdea3, groupId),
+        ]);
+
+        console.log('All project ideas submitted successfully!');
+        Toastify({
+          text: 'Group Created Sucessfully',
+          duration: 1800,
+          gravity: 'top', // `top` or `bottom`
+          position: 'right', // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          style: {
+            background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+            padding: '10px 50px',
+          },
+          onClick: function () {}, // Callback after click
+        }).showToast();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+        // Reset form and state after successful submission
+        setProjectIdea1({ title: '', description: '', pdfLinks: '' });
+        setProjectIdea2({ title: '', description: '', pdfLinks: '' });
+        setProjectIdea3({ title: '', description: '', pdfLinks: '' });
+        setGroupDetails({
+          ...groupDetails,
+          title: '',
+          description: '',
+          pdfLinks: [''],
+          semester: '',
+          subject: '',
+        });
+        setStudentName('');
+        setStudentName2('');
+        setStudentName3('');
+      } catch (error) {
+        console.error(
+          'Error:',
+          error.response ? error.response.data.message : error.message
+        );
+        alert(error.response.data.message);
+      }
     }
   };
 

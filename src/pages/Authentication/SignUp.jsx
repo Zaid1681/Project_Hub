@@ -254,7 +254,7 @@ const SignIn = () => {
                     </label>
                     <div className="relative">
                       <input
-                        type="number"
+                        type="text"
                         name="studentId"
                         onChange={handleRegisterInputChange}
                         placeholder="Enter your student id"
