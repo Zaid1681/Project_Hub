@@ -9,7 +9,6 @@ const createStudent = async (req, res, next) => {
       password,
       startingYear,
       passingYear,
-      branch,
       studentId,
       gender,
     } = req.body;
@@ -19,13 +18,10 @@ const createStudent = async (req, res, next) => {
       name,
       email,
       password,
-      currentYear,
       semester,
       startingYear,
       passingYear,
-      branch,
       studentId,
-      projectRecord,
       gender,
     });
 

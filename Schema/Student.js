@@ -41,11 +41,6 @@ const StudentSchema = new Schema({
     trim: true,
     required: [true, "Student Name is required"],
   },
-  fullName: {
-    type: String,
-    trim: true,
-    required: [true, "Student Name is required"],
-  },
   email: {
     type: String,
     required: [true, "Email  is required"],
@@ -58,13 +53,7 @@ const StudentSchema = new Schema({
     type: String,
     required: [true, "Password is required"],
     trim: true,
-    validate: passwordValidator,
-  },
-  confirmPassword: {
-    type: String,
-    required: [true, "Password is required"],
-    trim: true,
-    validate: passwordValidator,
+    // validate: passwordValidator,
   },
   currentYear: {
     type: String,
@@ -84,16 +73,8 @@ const StudentSchema = new Schema({
   },
   branch: {
     type: String,
-    // required: [true, "Branch  is required"],
-  },
-  address: {
-    type: String,
-    // required: [true, "Branch  is required"],
-  },
-  phoneNumber: {
-    // 2020
-    type: Number,
-    required: [true, "Phone number  is required"],
+    required: [true, "Branch  is required"],
+    default: "IT",
   },
   role: {
     type: String,
@@ -110,8 +91,8 @@ const StudentSchema = new Schema({
     default: [],
   },
   skills: {
-    type: String,
-    default: '',
+    type: [String],
+    default: [],
   },
   aboutMe: {
     type: String,
@@ -129,6 +110,19 @@ const StudentSchema = new Schema({
     type: String,
     trim: true,
     required: [true, "Address is required"],
+  },
+  isapprovedFromAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  isBlocked: {
+    type: Boolean,
+    default: false,
+  },
+  approvedAdminId: {
+    type: Schema.Types.ObjectId,
+    ref: "Faculty", // Assuming you have a User model, replace 'User' with the actual model name
+    default: null,
   },
   gender: {
     type: String,

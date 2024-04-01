@@ -1,4 +1,4 @@
-const Faculty = require("../Schema/Faculty.js");
+// const Faculty = require("../Schema/Faculty.js");
 const Student = require("../Schema/Student.js");
 const bcrypt = require("bcrypt");
 const CustomError = require("../utils/error.js");
@@ -18,23 +18,21 @@ const signup = async (req, res, next) => {
       studentId,
       address,
       gender,
-      phoneNumber,
-      confirmPassword
+      phone,
     } = req.body;
 
     // Check if the email ends with "@vcet.edu.in"
     if (!email.endsWith("@vcet.edu.in")) {
-      return res.status(400).json({ error: "Only VCET email addresses are allowed to sign up." });
+      return res
+        .status(400)
+        .json({ error: "Only VCET email addresses are allowed to sign up." });
     }
 
     const existingFaculty = await Student.findOne({ email });
     if (existingFaculty) {
-      return res.status(400).json({ error: "Student with this email already exists." });
-    }
-
-    // Validate password and confirmPassword matching
-    if (password !== confirmPassword) {
-      return res.status(400).json({ error: "Password and Confirm Password do not match." });
+      return res
+        .status(400)
+        .json({ error: "Student with this email already exists." });
     }
 
     // Hash the password
@@ -51,19 +49,18 @@ const signup = async (req, res, next) => {
       studentId,
       gender,
       address,
-      phoneNumber,
-      confirmPassword: hash
+      phone,
     });
 
     await newStudent.save();
-    return res.status(200).json({ message: "Student created successfully!!", data: newStudent });
+    return res
+      .status(200)
+      .json({ message: "Student created successfully!!", data: newStudent });
   } catch (error) {
     console.log(error);
     next(error);
   }
 };
-
-
 
 const signin = async (req, res, next) => {
   try {
@@ -119,6 +116,33 @@ const getAllStudents = async (req, res, next) => {
     // next(error);
   }
 };
+const getStudentEmail = async (req, res, next) => {
+  try {
+    const email = req.params.email;
+    const studentData = await Student.find({ email });
+
+    if (studentData.length === 0) {
+      throw new CustomError("Student Profile Not Found", 400);
+    } else {
+      // Assuming startingYear and passingYear are properties of the Student model
+      res.status(200).json({
+        data: {
+          joiningYear: studentData[0].startingYear,
+          passingYear: studentData[0].passingYear,
+        },
+      });
+    }
+  } catch (error) {
+    // Check if error is defined and has the status property
+    if (error && error.status) {
+      res.status(error.status).json({ message: error.message });
+    } else {
+      // If error doesn't have the status property, handle it as a server error
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+};
+
 const getStudent = async (req, res, next) => {
   try {
     const Faculty = await Student.findById(req.params.id);
@@ -168,4 +192,5 @@ module.exports = {
   getAllStudents,
   getStudent,
   getStudentNameById,
+  getStudentEmail,
 };
