@@ -9,6 +9,7 @@ import { BASEURL } from '../Api';
 import { useNavigate } from 'react-router-dom';
 
 import ChatSection from '../components/ChatSection';
+import ProjectIdeaCard from '../components/ProjectIdeaCard';
 
 const IndividualGroupDetailsPage = () => {
   const navigate = useNavigate();
@@ -330,41 +331,7 @@ const IndividualGroupDetailsPage = () => {
             className="container mx-auto my-10 rounded-lg bg-white p-8 shadow-md"
           >
             {' '}
-            <div className="space-y-4 text-black">
-              <div className="mt-6">
-                <h1 className="text-xl font-medium">Title</h1>
-                <h2 className="mt-2 text-lg">{val.title}</h2>
-              </div>
-              <div className="mt-5">
-                <h1 className="text-xl font-medium">Abstract</h1>
-                <p className="mt-2 text-lg">{val.description}</p>
-              </div>
-              <div className="mt-6">
-                <h1 className="text-xl font-medium">Attachment</h1>
-                {val?.pdfLinks?.map((data, index) => (
-                  <h2 className="mt-1 break-words text-lg">
-                    <a href={data}> {data}</a>
-                  </h2>
-                ))}
-              </div>
-              <div className="flex items-center gap-3 text-center">
-                <h1 className="text-xl font-medium">Status: </h1>{' '}
-                <h1 className="flex items-center rounded-xl border bg-[#0C356A] px-5 py-2 text-center text-white">
-                  {val.isApproved === true ? 'Approved' : 'Not Approved'}
-                </h1>
-              </div>
-              {/* <div className="flex justify-start">
-                <div className="mt-4 flex justify-center">
-                  <a
-                    href={`/groupsection/group/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`}
-                    className="rounded py-2 px-4 font-bold text-black"
-                    onClick={handleViewTask}
-                  >
-                    View Task
-                  </a>
-                </div>
-              </div> */}
-            </div>
+            <ProjectIdeaCard val={val} />
           </div>
         ))}
         <div className="container my-10 mx-auto  gap-10 rounded-lg bg-white p-8 shadow-md">
