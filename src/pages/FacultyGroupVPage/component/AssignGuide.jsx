@@ -84,7 +84,7 @@ const AssignGuide = ({ groupId, guideName }) => {
       <Space>
         <Button
           onClick={showModal}
-          className="no-hover my-auto rounded border bg-black px-20 py-3   pb-10 
+          className="no-hover my-auto rounded-md border bg-[#0C356A] px-20 py-3   pb-10 
           text-xl font-medium text-white"
         >
           Assign Guide
@@ -99,7 +99,7 @@ const AssignGuide = ({ groupId, guideName }) => {
           // In your JSX:
           <Button
             key="assignGuide"
-            className="border border-black font-bold text-black"
+            className="border border-black bg-[#0C356A] font-bold text-white"
             onClick={handleAssignGuide}
           >
             Assign Guide

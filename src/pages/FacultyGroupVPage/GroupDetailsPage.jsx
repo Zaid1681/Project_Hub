@@ -132,7 +132,7 @@ const GroupDetailsPage = () => {
     <main className="bg-gray-100 min-h-screen">
       <section className="mx-auto md:p-10">
         <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 text-3xl font-bold text-black font-inter">GROUP</h2>
+          <h2 className="mb-7 text-3xl font-bold text-black font-inter">Group</h2>
 
           <div className="space-y-6">
             <div className="flex items-center  text-black ">
@@ -146,18 +146,18 @@ const GroupDetailsPage = () => {
             </div>
             <div className="flex flex-col md:flex-row gap-2 md:gap-10 text-black">
               {' '}
-              <h1 className="text-xl font-medium">
+              <h2 className="text-xl font-medium">
                 <span>Year : </span>
                 {data.currentYear}
-              </h1>
-              <h1 className="text-xl font-medium">
+              </h2>
+              <h2 className="text-xl font-medium">
                 <span>Semester : </span>
                 {data.semester}
-              </h1>
-              <h1 className="text-xl font-medium">
+              </h2>
+              <h2 className="text-xl font-medium">
                 <span>Subject : </span>
                 {data.subject}
-              </h1>
+              </h2>
             </div>
           </div>
         </div>
@@ -274,7 +274,7 @@ const GroupDetailsPage = () => {
           </div>
         ))}
         <div className="container my-10 mx-auto  gap-10 rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 text-3xl font-semibold text-[#0C356A]">
+          <h2 className="mb-7 text-3xl font-bold text-black font-inter">
             Guide Details
           </h2>
           <div className="flex gap-10">
@@ -321,7 +321,7 @@ const GroupDetailsPage = () => {
             <AssignGuide groupId={groupId} guideName={data?.guideName} />
             <div className="flex justify-start">
               <button
-                className="no-hover my-auto rounded border bg-black px-20 py-3 
+                className="no-hover my-auto rounded-md border bg-[#0C356A] px-20 py-3 
           text-xl font-medium text-white" // Add "no-hover" class to remove hover effect
                 onClick={handleSaveChanges}
               >
@@ -330,8 +330,8 @@ const GroupDetailsPage = () => {
             </div>
           </div>
         </div>
-      </section>
-    </main>
+      </section >
+    </main >
   );
 };
 

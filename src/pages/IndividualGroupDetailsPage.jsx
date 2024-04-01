@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Toastify from 'toastify-js';
 import { Link } from 'react-router-dom';
 import { BASEURL } from '../Api';
+import ChatSection from '../components/ChatSection';
+
 
 const IndividualGroupDetailsPage = () => {
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
@@ -312,6 +314,8 @@ const IndividualGroupDetailsPage = () => {
           </div>
           {/* <h1>{data.guideId}</h1> */}
         </div>
+        <ChatSection />
+
       </section>
     </main >
   );
