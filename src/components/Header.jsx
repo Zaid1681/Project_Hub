@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Logo from '../images/logo/logo-icon.svg';
-import { IoSearch } from "react-icons/io5";
+import { IoSearch } from 'react-icons/io5';
 import DarkModeSwitcher from './DarkModeSwitcher';
 import DropdownMessage from './DropdownMessage';
 import DropdownNotification from './DropdownNotification';
@@ -24,26 +24,31 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
             <span className="relative block h-5.5 w-5.5 cursor-pointer">
               <span className="du-block absolute right-0 h-full w-full">
                 <span
-                  className={`relative top-0 left-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-[0] duration-200 ease-in-out dark:bg-white ${!sidebarOpen && '!w-full delay-300'
-                    }`}
+                  className={`relative top-0 left-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-[0] duration-200 ease-in-out dark:bg-white ${
+                    !sidebarOpen && '!w-full delay-300'
+                  }`}
                 ></span>
                 <span
-                  className={`relative top-0 left-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-150 duration-200 ease-in-out dark:bg-white ${!sidebarOpen && 'delay-400 !w-full'
-                    }`}
+                  className={`relative top-0 left-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-150 duration-200 ease-in-out dark:bg-white ${
+                    !sidebarOpen && 'delay-400 !w-full'
+                  }`}
                 ></span>
                 <span
-                  className={`relative top-0 left-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-200 duration-200 ease-in-out dark:bg-white ${!sidebarOpen && '!w-full delay-500'
-                    }`}
+                  className={`relative top-0 left-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-200 duration-200 ease-in-out dark:bg-white ${
+                    !sidebarOpen && '!w-full delay-500'
+                  }`}
                 ></span>
               </span>
               <span className="absolute right-0 h-full w-full rotate-45">
                 <span
-                  className={`absolute left-2.5 top-0 block h-full w-0.5 rounded-sm bg-black delay-300 duration-200 ease-in-out dark:bg-white ${!sidebarOpen && '!h-0 !delay-[0]'
-                    }`}
+                  className={`absolute left-2.5 top-0 block h-full w-0.5 rounded-sm bg-black delay-300 duration-200 ease-in-out dark:bg-white ${
+                    !sidebarOpen && '!h-0 !delay-[0]'
+                  }`}
                 ></span>
                 <span
-                  className={`delay-400 absolute left-0 top-2.5 block h-0.5 w-full rounded-sm bg-black duration-200 ease-in-out dark:bg-white ${!sidebarOpen && '!h-0 !delay-200'
-                    }`}
+                  className={`delay-400 absolute left-0 top-2.5 block h-0.5 w-full rounded-sm bg-black duration-200 ease-in-out dark:bg-white ${
+                    !sidebarOpen && '!h-0 !delay-200'
+                  }`}
                 ></span>
               </span>
             </span>
@@ -60,8 +65,8 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
         </div>
 
         <div className="hidden sm:block">
-          <form action="https://formbold.com/s/unique_form_id" method="POST">
-            <div className="border flex items-center px-4 rounded-full bg-gray">
+          {/* <form action="https://formbold.com/s/unique_form_id" method="POST">
+            <div className="flex items-center rounded-full border bg-gray px-4">
               <button className="">
                 <IoSearch />
               </button>
@@ -71,7 +76,7 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
                 className="w-full bg-transparent py-2 px-3 focus:outline-none"
               />
             </div>
-          </form>
+          </form> */}
         </div>
 
         <div className="flex items-center gap-3 2xsm:gap-7">

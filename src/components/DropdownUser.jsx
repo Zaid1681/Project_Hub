@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-  import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import UserOne from '../images/user/user-01.png';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { BASEURL } from '../Api';
 import { useSelector } from 'react-redux';
-
 
 import { setUserData, removeUserData } from '../Redux/slices/user-slice'; // Update the path
 
@@ -12,6 +13,7 @@ const DropdownUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [user, setUser] = useState();
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
@@ -20,9 +22,9 @@ const DropdownUser = () => {
   const userId = currentUser.userData._id;
   const userName = currentUser.userData.name;
   const userStudentId = currentUser.userData.studentId;
-  console.log(userId)
-  console.log(userName)
-  console.log(userStudentId)
+  console.log(userId);
+  console.log(userName);
+  console.log(userStudentId);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,11 +42,11 @@ const DropdownUser = () => {
   }, [userId]);
 
   // close on click outside
-    const logoutUser = () => {
-      dispatch(removeUserData());
-      console.log('logout sucess');
-      navigate('/auth/signin');
-    };
+  const logoutUser = () => {
+    dispatch(removeUserData());
+    console.log('logout sucess');
+    navigate('/auth/signin');
+  };
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!dropdown.current) return;
@@ -143,7 +145,7 @@ const DropdownUser = () => {
               My Profile
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link
               to="#"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
@@ -188,7 +190,7 @@ const DropdownUser = () => {
               </svg>
               Account Settings
             </Link>
-          </li>
+          </li> */}
         </ul>
         <button
           onClick={logoutUser}

@@ -5,7 +5,6 @@ import axios from 'axios ';
 import { BASEURL } from '../Api';
 import Breadcrumb from '../components/Breadcrumb';
 
-
 const Addproject = () => {
   const currentUser = useSelector((state) => state.user);
 
@@ -96,7 +95,7 @@ const Addproject = () => {
             background: 'linear-gradient(to right, #3C50E0, #3C50E0',
             padding: '10px 50px',
           },
-          onClick: function () { },
+          onClick: function () {},
         }).showToast();
         setTimeout(() => {
           // Redirect or do any other action after successful submission
@@ -149,10 +148,10 @@ const Addproject = () => {
   return (
     <>
       <Breadcrumb pageName="Project Details" />
-      <div className="bg-white p-10 text-black shadow-xl dark:bg-boxdark dark:text-white rounded-2xl">
+      <div className="rounded-2xl bg-white p-10 text-black shadow-xl dark:bg-boxdark dark:text-white">
         <form onSubmit={handleSubmitProject} className="">
           <div className="mb-4">
-            <label className="block text-xl mb-2 font-medium text-black dark:text-white">
+            <label className="mb-2 block text-xl font-medium text-black dark:text-white">
               Project Title
             </label>
             <input
@@ -164,7 +163,7 @@ const Addproject = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-xl mb-2 font-medium text-black dark:text-white">
+            <label className="mb-2 block text-xl font-medium text-black dark:text-white">
               Description
             </label>
             <textarea
@@ -177,7 +176,7 @@ const Addproject = () => {
           </div>
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
             <div className="mb-4">
-              <label className="block text-xl mb-2 font-medium text-black dark:text-white">
+              <label className="mb-2 block text-xl font-medium text-black dark:text-white">
                 Semester
               </label>
               <select
@@ -211,7 +210,7 @@ const Addproject = () => {
               </select>
             </div>{' '}
             <div className="mb-4">
-              <label className="block text-xl mb-2 font-medium text-black dark:text-white">
+              <label className="mb-2 block text-xl font-medium text-black dark:text-white">
                 Subject
               </label>
               <select
@@ -236,10 +235,10 @@ const Addproject = () => {
               </select>
             </div>
           </div>
-          <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2 mt-4">
+          <div className="mt-4 grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
             {' '}
             <div className="mb-4">
-              <label className="block text-xl mb-2 font-medium  text-black dark:text-white">
+              <label className="mb-2 block text-xl font-medium  text-black dark:text-white">
                 Github Link
               </label>
               <input
@@ -251,7 +250,7 @@ const Addproject = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-xl mb-2 font-medium  text-black dark:text-white">
+              <label className="mb-2 block text-xl font-medium  text-black dark:text-white">
                 Linkedin Link
               </label>
               <input
@@ -263,9 +262,9 @@ const Addproject = () => {
               />
             </div>
           </div>
-          <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2 mt-4">
+          <div className="mt-4 grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
             <div className="mb-4">
-              <label className="block text-xl mb-2 font-medium text-black dark:text-white">
+              <label className="mb-2 block text-xl font-medium text-black dark:text-white">
                 PDF Links
               </label>
               {projectDetails.pdfLinks.map((pdfLink, index) => (
@@ -276,28 +275,29 @@ const Addproject = () => {
                     onChange={(e) => handleInputChange(e, 'pdfLinks', index)}
                     className="focus:border-blue-500 mr-5 w-full rounded border px-3 py-2 focus:outline-none"
                   />
-                  <div className='flex items-center justify-center gap-5'>
+                  <div className="flex items-center justify-center gap-5">
                     <button
                       type="button"
                       onClick={() => handleAdditionButtonClick('pdfLinks')}
-                      className="bg-[#0c356a] rounded-xl h-10 text-xl px-4 text-white dark:text-white"
+                      className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white dark:text-white"
                     >
                       +
                     </button>
                     <button
                       type="button"
-                      onClick={() => handleRemovalButtonClick('pdfLinks', index)}
-                      className="bg-[#0c356a] rounded-xl h-10 text-xl px-4 text-white"
+                      onClick={() =>
+                        handleRemovalButtonClick('pdfLinks', index)
+                      }
+                      className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white"
                     >
                       -
                     </button>
                   </div>
-
                 </div>
               ))}
             </div>
             <div className="mb-4">
-              <label className="block text-xl mb-2 font-medium text-black dark:text-white">
+              <label className="mb-2 block text-xl font-medium text-black dark:text-white">
                 Keywords
               </label>
               {projectDetails.keywords.map((keyword, index) => (
@@ -308,28 +308,28 @@ const Addproject = () => {
                     onChange={(e) => handleInputChange(e, 'keywords', index)}
                     className="focus:border-blue-500 mr-5 w-full rounded border px-3 py-2 focus:outline-none"
                   />
-                  <div className='flex items-center justify-center gap-5'>
+                  <div className="flex items-center justify-center gap-5">
                     <button
                       type="button"
                       onClick={() => handleAdditionButtonClick('keywords')}
-                      className="bg-[#0c356a] rounded-xl h-10 text-xl px-4 text-white"
+                      className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white"
                     >
                       +
                     </button>
                     <button
                       type="button"
-                      onClick={() => handleRemovalButtonClick('keywords', index)}
-                      className="bg-[#0c356a] rounded-xl h-10 text-xl px-4 text-white"
+                      onClick={() =>
+                        handleRemovalButtonClick('keywords', index)
+                      }
+                      className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white"
                     >
                       -
                     </button>
                   </div>
-
                 </div>
               ))}
             </div>
           </div>
-
           {/* <div className="mb-4">
           <label className="block font-medium text-black dark:text-white">
             Social Media Links
@@ -355,26 +355,25 @@ const Addproject = () => {
           ))}
         </div> */}{' '}
           <div className="mb-4">
-            <label className="block text-xl mb-2 font-medium text-black dark:text-white">
+            <label className="mb-2 block text-xl font-medium text-black dark:text-white">
               Images
             </label>
             <input
               onChange={handleImageChange}
               className="text-gray-900 border-gray-300 bg-gray-50 dark:text-gray-400 dark:bg-gray-700 
-              dark:border-gray-600 dark:placeholder-gray-400 block w-full cursor-pointer rounded-lg
-              border p-2 text-sm focus:outline-none mt-3"
+              dark:border-gray-600 dark:placeholder-gray-400 mt-3 block w-full cursor-pointer
+              rounded-lg border p-2 text-sm focus:outline-none"
               id="images"
               type="file"
               multiple
             />
           </div>
-
           {/* ... (existing form elements) ... */}
           <div className="m-auto flex justify-center">
             <button
               type="submit"
               onClick={handleSubmitProject}
-              className="inline-flex items-center justify-center rounded bg-[#0c356a]  mt-6 py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-15"
+              className="mt-6 inline-flex items-center justify-center rounded  bg-[#0c356a] py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-15"
             >
               Submit
             </button>

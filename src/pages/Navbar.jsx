@@ -166,7 +166,7 @@ function NavListMenu() {
 function NavList() {
   return (
     <List className="mt-4 mb-6 p-0 text-xl lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
-      <Typography
+      {/* <Typography
         as="a"
         href="#"
         variant="small"
@@ -176,9 +176,9 @@ function NavList() {
         <ListItem className="flex items-center gap-2 py-2 pr-4 text-xl font-bold">
           Home
         </ListItem>
-      </Typography>
-      <NavListMenu />
-      <Typography
+      </Typography> */}
+      {/* <NavListMenu /> */}
+      {/* <Typography
         as="a"
         href="#"
         variant="small"
@@ -188,7 +188,7 @@ function NavList() {
         <ListItem className="flex items-center gap-2 py-2 pr-4 text-xl font-bold">
           Search
         </ListItem>
-      </Typography>
+      </Typography> */}
     </List>
   );
 }

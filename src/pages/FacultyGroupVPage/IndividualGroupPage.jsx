@@ -10,6 +10,7 @@ import {
   Popconfirm,
   Select,
 } from 'antd';
+import '../../Table.css';
 import { PlusOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -20,7 +21,6 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 const { RangePicker } = DatePicker;
 
 const IndividualGroupPage = () => {
-
   const currentUser = useSelector((state) => state.user);
   const facultyId = currentUser.userData._id;
 
@@ -103,19 +103,11 @@ const IndividualGroupPage = () => {
     console.log('Submission IDs:', submissionIds); // Log submission IDs whenever there is a change
   }, [submissionIds]);
 
-
-  
-  
-  
-
   const showModal2 = (taskId) => {
     console.log(taskId);
     setTaskId(taskId);
     setIsModalVisible2(true);
   };
-
-  
-  
 
   const showModal = (taskId) => {
     setTaskId(taskId);
@@ -182,19 +174,16 @@ const IndividualGroupPage = () => {
       render: (_, record) => (
         <Space size="middle">
           <Button
-  type="button"
-  // onClick={() => showModal(record._id)} // Pass the taskId here for submission
-  className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-2 text-white `}
-  onClick={() => showModal2(record._id)} // Pass the taskId here for submission
-
->
-  Check
-</Button>
-
+            type="button"
+            // onClick={() => showModal(record._id)} // Pass the taskId here for submission
+            className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-1 text-white `}
+            onClick={() => showModal2(record._id)} // Pass the taskId here for submission
+          >
+            Check
+          </Button>
         </Space>
       ),
     },
-    
   ];
 
   return (
@@ -209,78 +198,77 @@ const IndividualGroupPage = () => {
         {taskId && submissionData && submissionData.length > 0 ? (
           submissionData.map((submission, index) => (
             <Form
-  key={submission._id}
-  name={`editSubmissionForm${index}`}
-  initialValues={submission}
-  onSubmit={() => editSubmissionForm(index)} // Pass the index parameter
->
-  <Form.Item
-    label="Task description"
-    name={`description`}
-    rules={[
-      { required: true, message: 'Please input your description!' },
-    ]}
-  >
-    <Input
-      // Pass the index parameter to the onChange handler
-      onChange={(e) => {
-        const updatedDescription = e.target.value;
-        setEditSubmission((prevState) => ({
-          ...prevState,
-          description: updatedDescription,
-        }));
-      }}
-    />
-  </Form.Item>
+              key={submission._id}
+              name={`editSubmissionForm${index}`}
+              initialValues={submission}
+              onSubmit={() => editSubmissionForm(index)} // Pass the index parameter
+            >
+              <Form.Item
+                label="Task description"
+                name={`description`}
+                rules={[
+                  { required: true, message: 'Please input your description!' },
+                ]}
+              >
+                <Input
+                  // Pass the index parameter to the onChange handler
+                  onChange={(e) => {
+                    const updatedDescription = e.target.value;
+                    setEditSubmission((prevState) => ({
+                      ...prevState,
+                      description: updatedDescription,
+                    }));
+                  }}
+                />
+              </Form.Item>
 
-  <Form.Item
-    label="PDF Link"
-    name={`pdfLink`}
-    rules={[{ required: true, message: 'Please input PDF link!' }]}
-  >
-    <Input
-      // Pass the index parameter to the onChange handler
-      onChange={(e) => {
-        const updatedPdfLink = e.target.value;
-        setEditSubmission((prevState) => ({
-          ...prevState,
-          pdfLink: updatedPdfLink,
-        }));
-      }}
-    />
-  </Form.Item>
+              <Form.Item
+                label="PDF Link"
+                name={`pdfLink`}
+                rules={[{ required: true, message: 'Please input PDF link!' }]}
+              >
+                <Input
+                  // Pass the index parameter to the onChange handler
+                  onChange={(e) => {
+                    const updatedPdfLink = e.target.value;
+                    setEditSubmission((prevState) => ({
+                      ...prevState,
+                      pdfLink: updatedPdfLink,
+                    }));
+                  }}
+                />
+              </Form.Item>
 
-  <Form.Item
-    label="GitHub Link"
-    name={`githubLink`}
-    rules={[
-      { required: true, message: 'Please input GitHub link!' },
-    ]}
-  >
-    <Input
-      // Pass the index parameter to the onChange handler
-      onChange={(e) => {
-        const updatedGithubLink = e.target.value;
-        setEditSubmission((prevState) => ({
-          ...prevState,
-          githubLink: updatedGithubLink,
-        }));
-      }}
-    />
-  </Form.Item>
+              <Form.Item
+                label="GitHub Link"
+                name={`githubLink`}
+                rules={[
+                  { required: true, message: 'Please input GitHub link!' },
+                ]}
+              >
+                <Input
+                  // Pass the index parameter to the onChange handler
+                  onChange={(e) => {
+                    const updatedGithubLink = e.target.value;
+                    setEditSubmission((prevState) => ({
+                      ...prevState,
+                      githubLink: updatedGithubLink,
+                    }));
+                  }}
+                />
+              </Form.Item>
 
-  <Form.Item>
-    <Button
-      type="primary"
-      htmlType="submit"
-      className="bg-blue-500 text-white"
-      onClick={() => editSubmissionForm(index)} // Pass the index parameter
-    >
-      Ok
-    </Button>
-  </Form.Item>
-</Form>
-
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="bg-blue-500 text-white"
+                  onClick={() => editSubmissionForm(index)} // Pass the index parameter
+                >
+                  Ok
+                </Button>
+              </Form.Item>
+            </Form>
           ))
         ) : (
           <p>No submission data found for this task.</p>

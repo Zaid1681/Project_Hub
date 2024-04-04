@@ -3,6 +3,8 @@ import { MdEdit } from 'react-icons/md';
 import { Modal } from 'antd';
 import axios from 'axios'; // Import axios if not already imported
 import { BASEURL } from '../Api';
+import { FaLink } from 'react-icons/fa6';
+
 const ProjectIdeaCard = ({ val }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [formData, setFormData] = useState({
@@ -82,8 +84,12 @@ const ProjectIdeaCard = ({ val }) => {
         </div>
         <div className="mt-6">
           <h1 className="text-xl font-medium">Attachment</h1>
+
           {formData?.pdfLinks?.map((data, index) => (
-            <h2 className="mt-1 break-words px-2 text-lg font-semibold">
+            <h2 className="mt-1 flex items-center break-words px-2 text-lg font-semibold">
+              <a href={data} target="_blank" className="my-auto mx-2">
+                <FaLink />
+              </a>{' '}
               <a
                 target="_blank"
                 className="hover:text-cyan-800" // Apply hover effect class here

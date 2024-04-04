@@ -6,7 +6,6 @@ import Card from '../components/Cards';
 import Breadcrumb from '../components/Breadcrumb';
 import { Typography } from '@material-tailwind/react';
 
-
 export default function HomePage() {
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 12;
@@ -76,21 +75,21 @@ export default function HomePage() {
         {' '}
         <div className="mx-10">
           {' '}
-          <div className="w-[14rem] rounded border-2 shadow-xl">
+          <div className="w-[18rem] rounded border-2 text-center shadow-xl">
             <h1 className="p-8 text-xl font-bold text-body">Store Project</h1>
           </div>
         </div>
         <div className="mx-10">
           {' '}
-          <div className="w-[14rem] rounded border-2 shadow-xl">
+          <div className="w-[18rem] rounded border-2 text-center shadow-xl">
             <h1 className="p-8 text-center text-xl font-bold text-body">
-              Colaborate
+              Groups Formation
             </h1>
           </div>
         </div>
         <div className="mx-10">
           {' '}
-          <div className="w-[14rem] rounded border-2 shadow-xl">
+          <div className="w-[18rem]  rounded border-2 text-center shadow-xl">
             <h1 className="p-8 text-xl font-bold text-body">
               Explore Projects
             </h1>
@@ -98,7 +97,7 @@ export default function HomePage() {
         </div>
         {/* <div className="mx-10">
           {' '}
-          <div className="w-[14rem] rounded border-2 shadow-xl">
+          <div className="w-[18rem] text-center rounded border-2 shadow-xl">
             <h1 className="p-8 text-xl font-bold text-body">
               Communicate with faculties
             </h1>
@@ -106,23 +105,24 @@ export default function HomePage() {
         </div> */}
         <div className="mx-10">
           {' '}
-          <div className="w-[12rem] rounded border-2 shadow-xl">
-            <h1 className="p-8 text-xl font-bold text-body">Community</h1>
+          <div className="w-[18rem] rounded border-2 text-center shadow-xl">
+            <h1 className="p-8 text-xl font-bold text-body">
+              Faculty Collaboration
+            </h1>
           </div>
         </div>
       </div>
 
       <div className="container mx-auto px-5 py-10">
-        <Breadcrumb pageName="All Project" />
+        {/* <Breadcrumb pageName="All Project" /> */}
 
-        <div className="my-5 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+        {/* <div className="my-5 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
           {currentCards.map((_, index) => (
             <Card key={index} />
           ))}
-          {/* Add more cards here */}
-        </div>
+        </div> */}
 
-        <div className="mt-5 flex justify-center">
+        {/* <div className="mt-5 flex justify-center">
           <button
             onClick={() => paginate(currentPage - 1)}
             className="bg-gray-300 mx-1 rounded px-3 py-1 font-bold text-black"
@@ -135,8 +135,8 @@ export default function HomePage() {
             className="bg-gray-300 mx-1 rounded px-3 py-1 font-bold text-black"
           >
             &#8594;
-          </button>
-        </div>
+          </button> */}
+        {/* </div> */}
       </div>
     </div>
   );

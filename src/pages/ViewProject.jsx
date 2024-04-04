@@ -4,11 +4,11 @@ import CardOne from '../components/CardOne';
 import { Link } from 'react-router-dom';
 import { SiCanva } from 'react-icons/si';
 import { FaLink } from 'react-icons/fa6';
-import { CgProfile } from "react-icons/cg";
-import { GiGraduateCap } from "react-icons/gi";
-import { IoBookOutline } from "react-icons/io5";
-import { FaRegFilePdf } from "react-icons/fa6";
-import { TbAntennaBars5 } from "react-icons/tb";
+import { CgProfile } from 'react-icons/cg';
+import { GiGraduateCap } from 'react-icons/gi';
+import { IoBookOutline } from 'react-icons/io5';
+import { FaRegFilePdf } from 'react-icons/fa6';
+import { TbAntennaBars5 } from 'react-icons/tb';
 import Toastify from 'toastify-js';
 import ImageSlider from '../components/ImageSlider';
 import { useSelector } from 'react-redux';
@@ -37,9 +37,7 @@ const ViewProject = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${BASEURL}/project/get/${path}`
-        );
+        const response = await axios.get(`${BASEURL}/project/get/${path}`);
         setData(response.data);
       } catch (error) {
         console.log('Error fetching Project', error);
@@ -78,7 +76,7 @@ const ViewProject = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () { }, // Callback after click
+        onClick: function () {}, // Callback after click
       }).showToast();
     } catch (error) {
       console.log('Error fetching Project', error);
@@ -88,23 +86,23 @@ const ViewProject = () => {
   console.log('Project data', data);
   return (
     <div className="space-y-6 rounded-2xl bg-white py-12 px-5">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className="container mx-auto grid grid-cols-1 gap-10 md:grid-cols-2">
         <div className="my-5 h-60 md:h-80">
           {/* here Image Slider will come (work in progress) */}
           <ImageSlider />
         </div>
         <div className="my-">
-          <h4 className="mb-10 text-center text-2xl md:text-3xl font-inter font-bold text-black dark:text-white">
+          <h4 className="mb-10 text-center font-inter text-2xl font-bold text-black dark:text-white md:text-3xl">
             About
           </h4>
           <div className="flex flex-col gap-2 px-4 text-black ">
             <div className="flex items-center gap-3.5">
               <CgProfile size={28} />
-              <span className="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-bold">
+              <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
                 Student name:
               </span>
               {/* <a href="/profile" className="icon-link flex items-center"> */}
-              <span className="text-lg md:text-xl font-medium text-black dark:text-white">
+              <span className="text-lg font-medium text-black dark:text-white md:text-xl">
                 {data.sName}
               </span>
               {/* </a> */}
@@ -112,44 +110,58 @@ const ViewProject = () => {
             <div className="flex items-center gap-3.5">
               <IoBookOutline size={28} />
 
-              <span className="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-bold">
+              <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
                 Subject:
               </span>
-              <span className="text-black text-lg md:text-xl font-medium dark:text-white">{data.subject}</span>
+              <span className="text-lg font-medium text-black dark:text-white md:text-xl">
+                {data.subject}
+              </span>
             </div>
             <div className="flex items-center gap-3.5">
               <GiGraduateCap size={28} />
-              <span className="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-bold">
+              <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
                 Year:
               </span>
-              <span className="text-black text-lg md:text-xl font-medium dark:text-white">
+              <span className="text-lg font-medium text-black dark:text-white md:text-xl">
                 {data.currentYear}
               </span>
             </div>
             <div className="flex items-center gap-3.5">
               <TbAntennaBars5 size={28} />
-              <span className="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-bold">
+              <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
                 Semester:
               </span>
-              <span className="text-black text-lg md:text-xl font-medium dark:text-white">
+              <span className="text-lg font-medium text-black dark:text-white md:text-xl">
                 {data.semester}
               </span>
             </div>
             <div className="flex items-center gap-3.5">
               <FaLink size={25} />
-              <span className="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-bold">
+              <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
                 Useful Links:
               </span>
-              <div className='flex gap-3.5'>
+              <div className="flex gap-3.5">
                 <div className="icon-link flex items-center text-lg md:text-xl">
                   {/* GitHub icon */}
-                  <a className="font-bold " href="https://github.com/"><FaGithub className="mr-1" /></a>
+                  <a
+                    className="font-bold "
+                    target="_blank"
+                    href="https://github.com/"
+                  >
+                    <FaGithub className="mr-1" />
+                  </a>
                 </div>
                 <div
                   href={`${data.linkedinLink}`}
                   className="icon-link flex items-center text-lg md:text-xl"
                 >
-                  <a className="mr-2 font-bold text-black" href={data.pdfLinks}><FaRegFilePdf />{' '}</a>
+                  <a
+                    className="mr-2 font-bold text-black"
+                    target="_blank"
+                    href={data.pdfLinks}
+                  >
+                    <FaRegFilePdf />{' '}
+                  </a>
                   {/* {.map((data, index) => (
                   <p className="mr-2 text-lg font-bold text-body">
                     {data.pdfLinks}
@@ -157,19 +169,17 @@ const ViewProject = () => {
                 ))} */}
                 </div>
               </div>
-
             </div>
 
-
-            <div className="border rounded-xl my-5 flex w-40 md:w-60 items-center bg-[#0C356A]  p-2 text-center text-black">
-              <p className="mx-auto text-lg md:text-xl font-bold text-white ">
+            <div className="my-5 flex w-40 items-center rounded-xl border bg-[#0C356A] p-2  text-center text-black md:w-60">
+              <p className="mx-auto text-lg font-bold text-white md:text-xl ">
                 {data.isApproved == true ? 'Approved' : 'InProcess'}
               </p>
             </div>
             {currentUser.role == 'Faculty' ? (
               <div>
                 <div className="text-bold mb-4 text-black">
-                  <label className="block text-xl mb-2 font-medium text-black dark:text-white">
+                  <label className="mb-2 block text-xl font-medium text-black dark:text-white">
                     Semester
                   </label>
                   <select
@@ -200,24 +210,23 @@ const ViewProject = () => {
           </div>
         </div>
       </div>
-      <div className="px-5 pt-5 mt-10 text-black">
-        <h1 className="text-2xl md:text-3xl font-bold text-center">PROJECT DETAILS</h1>
-        {' '}
+      <div className="mt-10 px-5 pt-5 text-black">
+        <h1 className="text-center text-2xl font-bold md:text-3xl">
+          PROJECT DETAILS
+        </h1>{' '}
         {/* Title &  Description */}
         <div className="flex-col py-3">
-          <h1 className="text-lg md:text-xl font-bold mt-10">
-            {data.title}
+          <h1 className="mt-10 text-lg font-bold md:text-xl">{data.title}</h1>
+          <h1 className="mt-5 text-lg font-medium md:text-xl">
+            {data.description}
           </h1>
-          <h1 className="text-lg md:text-xl font-medium mt-5">{data.description}</h1>
-          <div className="flex items-center gap-3.5 mt-5">
-            <span className="text-lg md:text-xl font-medium">
-              Keyword:
-            </span>
+          <div className="mt-5 flex items-center gap-3.5">
+            <span className="text-lg font-medium md:text-xl">Keyword:</span>
 
             <div className="flex gap-3.5">
               {data?.keywords?.map((data, index) => (
                 <a href="#" className="icon-link" key={index}>
-                  <span className=" font-bold bg-[#0C356A] py-2 px-3 rounded-xl text-white dark:text-white">
+                  <span className=" rounded-xl bg-[#0C356A] py-2 px-3 font-bold text-white dark:text-white">
                     {data}
                   </span>
                 </a>
@@ -229,8 +238,6 @@ const ViewProject = () => {
             </div>
           </div>
         </div>
-
-
         {/* Images */}
         {/* <div className="flex flex-col py-10">
           <h1 className=" mr-3 text-2xl font-bold text-black">
@@ -245,8 +252,6 @@ const ViewProject = () => {
         </div> */}
         {/* Project Details */}
         {/* Useful Links */}
-
-
       </div>
       {/* Contact Me */}
     </div>

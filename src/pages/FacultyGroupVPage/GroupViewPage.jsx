@@ -16,7 +16,7 @@ const GroupViewPage = () => {
   const [subjectList, setSubjectList] = useState([]);
 
   const currentUser = useSelector((state) => state.user);
-  const facultyId = currentUser.userData._id
+  const facultyId = currentUser.userData._id;
 
   const handleSemesterChange = (e) => {
     const selectedSemester = parseInt(e.target.value, 10);
@@ -47,7 +47,7 @@ const GroupViewPage = () => {
     <>
       {/* Breadcrumb and Semester Select */}
       <div className="flex justify-between">
-        <Breadcrumb pageName="Project list" />
+        <Breadcrumb pageName="Groups List" />
         <div className="mb-4">
           <label className="block font-medium text-black dark:text-white">
             Select Semester
