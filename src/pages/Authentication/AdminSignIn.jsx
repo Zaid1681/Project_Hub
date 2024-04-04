@@ -37,10 +37,7 @@ const AdminSignIn = () => {
       //   },
       //   body: JSON.stringify(userDataWithDefaults),
       // });
-      const res = await axios.post(
-        `${BASEURL}/admin/auth/signin`,
-        loginData
-      );
+      const res = await axios.post(`${BASEURL}/admin/auth/signin`, loginData);
 
       if (res) {
         console.log('Registration success');
@@ -70,7 +67,7 @@ const AdminSignIn = () => {
             background: 'linear-gradient(to right, #3C50E0, #3C50E0',
             padding: '10px 50px',
           },
-          onClick: function () { }, // Callback after click
+          onClick: function () {}, // Callback after click
         }).showToast();
         setTimeout(() => {
           navigate('/');
@@ -83,6 +80,16 @@ const AdminSignIn = () => {
       }
     } catch (error) {
       console.error('Error during registration:', error);
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        console.error('Error during submission:', error.response.data.message);
+        alert(error.response.data.message);
+      } else {
+        console.error('Error during submission:', error);
+      }
       // toast.error("An error occurred. Please try again later.");
     }
   };
@@ -140,7 +147,7 @@ const AdminSignIn = () => {
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-10.5">
               {/* <span className="mb-1.5 block font-medium">Start for free</span> */}
-              <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2 font-inter">
+              <h2 className="mb-9 font-inter text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
                 Sign In to Project Hub
               </h2>
               <h2 className="mb-9 text-lg font-bold text-black dark:text-white">
@@ -279,14 +286,14 @@ const AdminSignIn = () => {
                   />
                 </div>
 
-                <div className="mt-6 text-center">
+                {/* <div className="mt-6 text-center">
                   <p>
                     Don’t have any account?{' '}
                     <Link to="/auth/signup" className="text-primary">
                       Sign Up
                     </Link>
                   </p>
-                </div>
+                </div> */}
               </form>
             </div>
           </div>

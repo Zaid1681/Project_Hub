@@ -4,7 +4,7 @@ import Breadcrumb from '../components/Breadcrumb';
 import GroupCardSection from '../components/GroupCardSection';
 import { useSelector } from 'react-redux';
 import { BASEURL } from '../Api';
- // Import useSelector from react-redux
+// Import useSelector from react-redux
 
 const GroupSection = () => {
   const [myGroups, setMyGroups] = useState([]);

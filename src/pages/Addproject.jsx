@@ -159,7 +159,7 @@ const Addproject = () => {
               name="title"
               value={projectDetails.title}
               onChange={(e) => handleInputChange(e, 'title')}
-              className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
+              className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
             />
           </div>
           <div className="mb-4">
@@ -246,7 +246,7 @@ const Addproject = () => {
                 name="github"
                 value={projectDetails.github}
                 onChange={(e) => handleInputChange(e, 'github')}
-                className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
+                className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
               />
             </div>
             <div className="mb-4">
@@ -258,7 +258,7 @@ const Addproject = () => {
                 name="github"
                 value={projectDetails.linkedinLink}
                 onChange={(e) => handleInputChange(e, 'linkedinLink')}
-                className="focus:border-blue-500 w-full  rounded border px-3 py-2 focus:outline-none"
+                className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
               />
             </div>
           </div>
@@ -273,9 +273,9 @@ const Addproject = () => {
                     type="text"
                     value={pdfLink}
                     onChange={(e) => handleInputChange(e, 'pdfLinks', index)}
-                    className="focus:border-blue-500 mr-5 w-full rounded border px-3 py-2 focus:outline-none"
+                    className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
                   />
-                  <div className="flex items-center justify-center gap-5">
+                  <div className="flex items-center justify-center gap-5 px-4">
                     <button
                       type="button"
                       onClick={() => handleAdditionButtonClick('pdfLinks')}
@@ -306,9 +306,9 @@ const Addproject = () => {
                     type="text"
                     value={keyword}
                     onChange={(e) => handleInputChange(e, 'keywords', index)}
-                    className="focus:border-blue-500 mr-5 w-full rounded border px-3 py-2 focus:outline-none"
+                    className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
                   />
-                  <div className="flex items-center justify-center gap-5">
+                  <div className="flex items-center justify-center gap-5 px-4">
                     <button
                       type="button"
                       onClick={() => handleAdditionButtonClick('keywords')}
@@ -362,7 +362,7 @@ const Addproject = () => {
               onChange={handleImageChange}
               className="text-gray-900 border-gray-300 bg-gray-50 dark:text-gray-400 dark:bg-gray-700 
               dark:border-gray-600 dark:placeholder-gray-400 mt-3 block w-full cursor-pointer
-              rounded-lg border p-2 text-sm focus:outline-none"
+              rounded-lg border border-black p-2 text-sm focus:outline-none"
               id="images"
               type="file"
               multiple

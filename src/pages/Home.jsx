@@ -3,7 +3,7 @@ import ProjectCard from '../components/ProjectCard';
 import { React, useEffect, useState } from 'react';
 import axios from 'axios';
 import { BASEURL } from '../Api';
- // Make sure to import axios
+// Make sure to import axios
 
 const Home = () => {
   const [project, setProject] = useState([]);
@@ -11,9 +11,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const allProject = await axios.get(
-          `${BASEURL}/project/getApproved`
-        );
+        const allProject = await axios.get(`${BASEURL}/project/getApproved`);
         console.log('all ', allProject.data);
         setProject(allProject.data); // Set the fetched data to the state
       } catch (error) {
@@ -28,7 +26,7 @@ const Home = () => {
     <>
       <Breadcrumb pageName="Project List" />
 
-      <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
         {project?.map((projectItem, index) => (
           <ProjectCard key={index} project={projectItem} />
         ))}
