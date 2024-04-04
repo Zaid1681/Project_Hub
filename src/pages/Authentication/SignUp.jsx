@@ -91,7 +91,7 @@ const SignIn = () => {
         password: registerData.password,
         currentYear: registerData.currentYear,
         gender: registerData.gender,
-        address: registerData.address,
+        address: registerData.address || '',
         studentId: registerData.studentId,
         phone: registerData.phone,
         startingYear: registerData.startingYear,
