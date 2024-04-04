@@ -48,6 +48,6 @@ router.get("/groupDetail/get/:id", getGroup); // here i have to check user too
 router.put("/updateStatus/:id/:projId/status", updateStatus); // updating the approved projId and isApproved
 router.put("/updateGrpStatus/:id/:status", updateGrpStatus); //==> jsut updating the groupStatus
 router.put("/update/guide/:groupId/:guideId/name", updateGuide);
-router.delete("/del/:id", checkFaculty, delGroup); // checkUser must be there
+router.delete("/del/:id", delGroup); // checkUser must be there
 
 module.exports = router;

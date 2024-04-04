@@ -28,8 +28,14 @@ const signup = async (req, res, next) => {
         .json({ error: "Only VCET email addresses are allowed to sign up." });
     }
 
-    const existingFaculty = await Student.findOne({ email });
-    if (existingFaculty) {
+    const existingStudent = await Student.findOne({ email });
+    if (existingStudent) {
+      return res
+        .status(400)
+        .json({ error: "Student with this email already exists." });
+    }
+    const existingStudent2 = await Student.findOne({ studentId });
+    if (existingStudent2) {
       return res
         .status(400)
         .json({ error: "Student with this email already exists." });

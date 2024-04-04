@@ -91,8 +91,8 @@ const StudentSchema = new Schema({
     default: [],
   },
   skills: {
-    type: [String],
-    default: [],
+    type: String,
+    default: "",
   },
   aboutMe: {
     type: String,
@@ -100,7 +100,15 @@ const StudentSchema = new Schema({
   },
   aboutSlug: {
     type: String,
-    default: "Hii im Software developer",
+    default: "Hello, I am VCET student",
+  },
+  githubLink: {
+    type: String,
+    default: "",
+  },
+  linkedinLink: {
+    type: String,
+    default: "",
   },
   phone: {
     type: Number,

@@ -4,11 +4,13 @@ const {
   updateStudent,
   deleteStudent,
   getStudentById,
+  getAllStudent,
 } = require("../controller/student");
 const router = express.Router();
 
 // CREATE A STUDENT
 router.post("/createStudent", createStudent);
+router.get("/getAll", getAllStudent);
 router.get("/getStudentById/:id", getStudentById);
 
 // UPDATE A STUDENT

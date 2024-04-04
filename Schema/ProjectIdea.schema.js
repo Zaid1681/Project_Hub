@@ -37,12 +37,12 @@ const ProjectIdeaSchema = new Schema(
       type: String,
       trim: true,
       maxLength: [150, "title should not exceed 150 character"],
-      required: [true, "title is required"],
+      // required: [true, "title is required"],
     },
     description: {
       type: String,
       trim: true,
-      required: [true, "title is required"],
+      // required: [true, "title is required"],
     },
     pdfLinks: {
       type: [String],

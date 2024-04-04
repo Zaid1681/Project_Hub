@@ -40,15 +40,14 @@ const createStudent = async (req, res, next) => {
 const updateStudent = async (req, res, next) => {
   try {
     const { id } = req.params; // Assuming you are passing the student ID in the URL
-    const { aboutMe, skills, startingYear, passingYear, branch } = req.body;
+    const { aboutMe, skills, linkedinLink, githubLink } = req.body;
 
     // Find the student by ID and update its details
     await Students.findByIdAndUpdate(id, {
       aboutMe,
       skills,
-      startingYear,
-      passingYear,
-      branch,
+      linkedinLink,
+      githubLink,
     });
 
     res
@@ -96,10 +95,27 @@ const getStudentById = async (req, res, next) => {
     next(error);
   }
 };
+const getAllStudent = async (req, res, next) => {
+  try {
+    const student = await Students.findById();
+
+    if (!student) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Student not found" });
+    }
+
+    res.status(200).json({ success: true, data: student });
+  } catch (error) {
+    // If any error occurs, pass it to the error handling middleware
+    next(error);
+  }
+};
 
 module.exports = {
   createStudent,
   updateStudent,
+  getAllStudent,
   deleteStudent,
   getStudentById,
 };
