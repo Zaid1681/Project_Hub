@@ -38,6 +38,8 @@ const AssignTaskFaculty = () => {
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
+  const [loading, setLoading] = useState(false); // State for loading indicator
+
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalVisible2, setIsModalVisible2] = useState(false);
@@ -84,6 +86,7 @@ const AssignTaskFaculty = () => {
   // console.log('---data', formData);
   const handleSubmitTask = async (e) => {
     e.preventDefault();
+    setLoading(true)
     let groups = selectedGroups;
     console.log('==>', formData.taskType);
     if (formData.taskType === 'All') {
@@ -128,6 +131,7 @@ const AssignTaskFaculty = () => {
           deadline: null,
         });
         setSelectedGroups([]);
+        setLoading(false)
         fetchTasks();
         handleCancel();
         // setTimeout(() => {
@@ -137,6 +141,7 @@ const AssignTaskFaculty = () => {
         // Show success message or perform any other action
       }
     } catch (error) {
+      setLoading(false)
       console.error('Error during submission:', error);
     }
   };
@@ -330,7 +335,8 @@ const AssignTaskFaculty = () => {
   // console.log('------===>', selectedGroups);
   console.log(editFormData);
   const handleEditTask = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
+    setLoading(true) // Prevent default form submission behavior
     let groups = selectedEditGroup;
     console.log('-----------', data2?.taskType, editFormData.taskType);
     if (editFormData.taskType === 'All') {
@@ -368,10 +374,12 @@ const AssignTaskFaculty = () => {
         });
         fetchTasks();
         handleCancel2();
+        setLoading(false)
 
         // Show success message or perform any other action
       }
     } catch (error) {
+      setLoading(false)
       console.error('Error during update:', error);
     }
   };
@@ -664,7 +672,8 @@ dark:focus:border-primary"
               className={`mt-3 h-10 rounded-md bg-[#0C356A] px-10 text-white `}
               onClick={handleSubmitTask}
             >
-              Save
+            {loading ? 'Submitting...' : 'Save'}
+
             </Button>
           </Form.Item>
         </Form>
@@ -854,7 +863,8 @@ dark:focus:border-primary"
               // onClick={showModal}
               className={`mb-2 rounded bg-[#0C356A] px-[4rem] py-2 text-white `}
             >
-              Edit Task
+            {loading ? 'Submitting...' : 'Edit Task'}
+
             </button>
           </div>
         </form>

@@ -15,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false); // State for loading indicator
+  const [isLoading, setIsLoading] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
   const [confirmShowPassword, setConfirmShowPassword] = useState(false);
@@ -260,11 +260,6 @@ const SignIn = () => {
   console.log('regsiterData', registerData);
   return (
     <>
-      {loading && (
-        <div className="bg-gray-300 fixed top-0 left-0 z-50 flex h-full w-full items-center justify-center bg-opacity-50">
-          <div className="loader border-gray-200 h-32 w-32 rounded-full border-8 border-t-8 ease-linear"></div>
-        </div>
-      )}
       <div className="flex max-h-full items-center justify-center bg-black text-black">
         <div
           className="m-10 flex w-10/12 max-w-screen-xl rounded-xl border  border-stroke bg-white p-0 
