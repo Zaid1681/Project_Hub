@@ -81,10 +81,23 @@ const SignIn = () => {
         }, 2000);
       } else {
         console.error('Registration failed');
+
         // toast.error("Registration failed. Please try again.");
       }
     } catch (error) {
       console.error('Error during registration:', error);
+      Toastify({
+        text: 'Please check  your credentials and try again!',
+        duration: 1800,
+        gravity: 'top', // `top` or `bottom`
+        position: 'right', // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+          padding: '10px 50px',
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
       // toast.error("An error occurred. Please try again later.");
     }
   };
