@@ -15,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // State for loading indicator
 
   const [showPassword, setShowPassword] = useState(false);
   const [confirmShowPassword, setConfirmShowPassword] = useState(false);

@@ -34,7 +34,6 @@ const TaskPage = () => {
   const [taskId, setTaskId] = useState(null);
   const [loading, setLoading] = useState(false); // State for loading indicator
 
-
   const groupId = useLocation().pathname.split('/')[3];
   const currentYear = useLocation().pathname.split('/')[4];
   const academicYear = useLocation().pathname.split('/')[5];
@@ -211,7 +210,7 @@ const TaskPage = () => {
             },
             onClick: function () {}, // Callback after click
           }).showToast();
-          setLoading(false)
+          setLoading(false);
           setTimeout(() => {
             window.location.reload();
           }, 500);
@@ -403,7 +402,6 @@ const TaskPage = () => {
             onClick={() => showModal(record._id)} // Pass the taskId here for submission
             className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-1 text-white `}
             disabled={loading} // Disable button when loading
-
           >
             {loading ? 'Submitting...' : 'Submit'}
           </Button>
@@ -473,8 +471,7 @@ const TaskPage = () => {
               className={`mb-2 items-center rounded bg-[#0C356A] px-[1rem] py-1 text-white  `}
               disabled={loading}
             >
-            {loading ? 'Submitting...' : 'Submit Task'}
-
+              {loading ? 'Submitting...' : 'Submit Task'}
             </Button>
           </Form.Item>
         </Form>
@@ -585,8 +582,7 @@ const TaskPage = () => {
                     className={`text-md mb-2 items-center rounded bg-[#0C356A] px-[1rem]    text-white `}
                     disabled={loading}
                   >
-                  {loading ? 'Submitting...' : 'Updated Task'}
-
+                    {loading ? 'Submitting...' : 'Updated Task'}
                   </Button>
                 )}
               </div>

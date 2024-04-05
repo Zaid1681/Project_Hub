@@ -119,11 +119,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <ViewProject />
-=======
-                    <ViewProject />
->>>>>>> Stashed changes
                     </RequirePath>
                     {/* <ViewProject2 /> */}
                   </Suspense>
@@ -135,11 +131,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <SubjectPage />
-=======
-                    <SubjectPage />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -149,11 +141,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <FacultyProjectDetail />
-=======
-                    <FacultyProjectDetail />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -163,11 +151,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <ProjectPage />
-=======
-                    <ProjectPage />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -178,11 +162,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <FacultyGroupspage />
-=======
-                    <FacultyGroupspage />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -192,11 +172,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <IndividualGroupPage />
-=======
-                    <IndividualGroupPage />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -214,11 +190,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <GroupDetailsPage />
-=======
-                    <GroupDetailsPage />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -228,11 +200,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <IndividualGroupDetailsPage />
-=======
-                    <IndividualGroupDetailsPage />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -242,11 +210,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <GroupViewPage />
-=======
-                    <GroupViewPage />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -276,11 +240,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <Semproject />
-=======
-                    <Semproject />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -290,11 +250,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <Profile />
-=======
-                    <Profile />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -312,11 +268,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <SeStudent />
-=======
-                    <SeStudent />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -334,11 +286,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <TeStudent />
-=======
-                    <TeStudent />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -364,11 +312,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <BeStudent />
-=======
-                    <BeStudent />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -378,11 +322,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <Addproject />
-=======
-                    <Addproject />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -392,11 +332,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <Creategroup />
-=======
-                    <Creategroup />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -406,11 +342,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <Alerts />
-=======
-                    <Alerts />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -420,11 +352,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <Buttons />
-=======
-                    <Buttons />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -434,11 +362,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <College />
-=======
-                    <College />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -448,11 +372,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <GroupComment />
-=======
-                    <GroupComment />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -462,11 +382,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <GroupSection />
-=======
-                    <GroupSection />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -477,11 +393,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <TaskPage />
-=======
-                    <TaskPage />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -491,11 +403,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <AssignTaskFaculty />
-=======
-                    <AssignTaskFaculty />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
@@ -505,11 +413,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-<<<<<<< Updated upstream
                       <TaskSubmissions />
-=======
-                    <TaskSubmissions />
->>>>>>> Stashed changes
                     </RequirePath>
                   </Suspense>
                 }
