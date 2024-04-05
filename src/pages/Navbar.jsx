@@ -5,7 +5,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="flex flex-wrap items-center justify-between bg-black/10 p-6">
+    <nav className="flex flex-wrap items-center justify-between bg-black/10 p-3 px-5">
       {' '}
       <div className="mr-6 flex flex-shrink-0 items-center text-white lg:mr-72">
         <img
@@ -20,14 +20,14 @@ function Navbar() {
           className="font-semibold-500 font-semibold-400 flex items-center rounded px-3 py-2 text-black hover:text-black"
         >
           <svg
-            className={`h-3 w-3 fill-current ${isOpen ? 'hidden' : 'block'}`}
+            className={`h-5 w-5 fill-current ${isOpen ? 'hidden' : 'block'}`}
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
           </svg>
           <svg
-            className={`h-3 w-3 fill-current ${isOpen ? 'block' : 'hidden'}`}
+            className={`h-5 w-5 fill-current ${isOpen ? 'block' : 'hidden'}`}
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -66,16 +66,16 @@ function Navbar() {
             Fourth Link
           </a> */}
         </div>
-        <div className="mt-5 flex-col items-center justify-center sm:flex">
+        <div className="mt-5 flex items-center justify-center gap-3 sm:flex-col md:flex-row">
           <a
             href="/auth/signin"
-            className="bg-amber-500 inline-flex items-center border-0 border border-white py-2 px-4 text-lg font-bold text-black"
+            className="bg-amber-500 inline-flex items-center border-0 border-2 border-white py-2 px-4 text-lg font-bold text-black shadow-lg"
           >
             Student Login
           </a>
           <a
             href="/admin/auth/signin"
-            className="bg-amber-500 inline-flex items-center border-0 border border-white py-2 px-4 text-lg font-bold text-black"
+            className="bg-amber-500 inline-flex items-center border-0 border-2 border-white py-2 px-4 text-lg font-bold text-black shadow-lg"
           >
             Faculty Login
           </a>

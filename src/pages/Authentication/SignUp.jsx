@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const SignIn = () => {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false); // State for loading indicator
 
   const [showPassword, setShowPassword] = useState(false);
   const [confirmShowPassword, setConfirmShowPassword] = useState(false);
@@ -62,6 +63,7 @@ const SignIn = () => {
   const handleRegisterSubmit = async (e) => {
     // Check if any of the required fields are empty
     e.preventDefault();
+    setIsLoading(true); // Start loading
     console.log('helo world');
     if (
       !registerData.fname ||
@@ -128,18 +130,35 @@ const SignIn = () => {
           },
           onClick: function () {}, // Callback after click
         }).showToast();
+        setIsLoading(false); // Stop loading
         setTimeout(() => {
           navigate('/');
         }, 2000);
 
         // toast.success("Registration successful!");
       } else {
+        alert('error');
         console.error('Registration failed');
         // toast.error("Registration failed. Please try again.");
       }
     } catch (error) {
+      Toastify({
+        text: `Registration Failed !${error.response.data.error}`,
+        duration: 2000,
+        gravity: 'top',
+        position: 'right',
+        style: {
+          fontSize: '14px',
+          background: 'linear-gradient(to right, #FF6B6B, #FF6B6B)',
+          padding: '10px 10px',
+        },
+      }).showToast();
+      // if (error.response && error.response.status === 500) {
+      // }
       console.error('Error during registration:', error);
       // toast.error("An error occurred. Please try again later.");
+    } finally {
+      setIsLoading(false); // Reset loading state after API request completes
     }
   };
   // handle Change function
@@ -502,10 +521,11 @@ const SignIn = () => {
                 <div className="mt-5">
                   <button
                     onSubmit={handleRegisterSubmit}
+                    disabled={isLoading}
                     type="submit"
                     className="w-full cursor-pointer rounded-lg border border-[#0C356A] bg-[#0C356A] p-2 text-white transition hover:bg-opacity-90"
                   >
-                    Create Account
+                    {isLoading ? 'Loading...' : 'Create Account'}
                   </button>
                 </div>
 
