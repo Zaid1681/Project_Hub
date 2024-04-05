@@ -7,6 +7,9 @@ import { BASEURL } from '../Api';
 import Breadcrumb from '../components/Breadcrumb';
 
 const Creategroup = () => {
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
   const currentUser = useSelector((state) => state.user);
   const [subjectList, setSubjectList] = useState([]);
 
@@ -339,6 +342,7 @@ const Creategroup = () => {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     // Check if at least one member is added
     const groupCreatorId = currentUser.userData.studentId;
     if (
@@ -346,6 +350,7 @@ const Creategroup = () => {
       (studentId2 && groupCreatorId === studentId2) ||
       (studentId3 && groupCreatorId === studentId3)
     ) {
+      
       alert(
         'Error: You cannot add your own student ID. Details: A group creator should not add their own student Id it is automatically get added'
       );
@@ -397,6 +402,7 @@ const Creategroup = () => {
           currentYear: currentUser.currentYear,
           github: groupDetails.githubLink,
         };
+        setLoading(true);
 
         // Call the group creation API
         const groupResponse = await axios.post(
@@ -428,6 +434,8 @@ const Creategroup = () => {
           },
           onClick: function () {}, // Callback after click
         }).showToast();
+        setLoading(false);
+
         setTimeout(() => {
           window.location.reload();
         }, 1000);
@@ -447,11 +455,16 @@ const Creategroup = () => {
         setStudentName2('');
         setStudentName3('');
       } catch (error) {
+        setLoading(false);
+
         console.error(
           'Error:',
           error.response ? error.response.data.message : error.message
         );
         alert(error.response.data.message);
+      } finally {
+        // Reset loading state after completion (whether success or failure)
+        setLoading(false);
       }
     }
   };
@@ -856,8 +869,9 @@ const Creategroup = () => {
               type="submit"
               className="mt-6 rounded-md bg-[#0c356a] py-2 px-8 font-semibold text-white"
               onClick={handleSubmit}
+              disabled={loading} // Disable button when loading
             >
-              Submit
+              {loading ? 'Submitting...' : 'Submit'}
             </button>
           </div>
         </div>

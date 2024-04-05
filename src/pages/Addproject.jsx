@@ -7,9 +7,11 @@ import Breadcrumb from '../components/Breadcrumb';
 
 const Addproject = () => {
   const currentUser = useSelector((state) => state.user);
+  const [emptyFieldError, setEmptyFieldError] = useState('');
 
   const [subjectList, setSubjectList] = useState([]);
   const [loadingSubjects, setLoadingSubjects] = useState(false);
+  const [loading, setLoading] = useState(false); // State for loading indicator
 
   const [projectDetails, setProjectDetails] = useState({
     title: '',
@@ -26,12 +28,13 @@ const Addproject = () => {
     studentId: null,
     photos: [],
   });
-
+  console.log('---->', projectDetails);
   const handleInputChange = (e, key, index) => {
     const { value } = e.target;
 
     if (key === 'pdfLinks' || key === 'keywords') {
       const updatedArray = [...projectDetails[key]];
+
       updatedArray[index] = value;
       setProjectDetails({ ...projectDetails, [key]: updatedArray });
     } else {
@@ -51,6 +54,17 @@ const Addproject = () => {
 
   const handleSubmitProject = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true during form submission
+
+    // Check for empty fields
+    // const hasEmptyField = Object.values(projectDetails).some(
+    //   (value) => value === '' || value === null
+    // );
+    // if (hasEmptyField) {
+    //   setEmptyFieldError('Please fill out all fields');
+    //   return;
+    // }
+
     const formData = new FormData();
     formData.append('title', projectDetails.title);
     formData.append('description', projectDetails.description);
@@ -97,11 +111,47 @@ const Addproject = () => {
           },
           onClick: function () {},
         }).showToast();
+        setProjectDetails({
+          title: '',
+          description: '',
+          pdfLinks: [''],
+          github: '',
+          linkedinLink: '',
+          currentYear: '',
+          semester: null,
+          subject: '',
+          academicYear: '',
+          keywords: [''],
+          sName: '',
+          studentId: null,
+          photos: [],
+        });
+
+        // setEmptyFieldError('');
+        setLoading(false); // Reset loading state after successful submission
+
         setTimeout(() => {
+          window.location.reload();
           // Redirect or do any other action after successful submission
         }, 2000);
       }
     } catch (error) {
+      setLoading(false); // Reset loading state on error
+      Toastify({
+        text: `Project Submission failed !${error.response.data.message}`,
+        duration: 2000,
+        gravity: 'top',
+        position: 'right',
+        style: {
+          fontSize: '14px',
+          background: 'linear-gradient(to right, #FF6B6B, #FF6B6B)',
+          padding: '10px 10px',
+        },
+      }).showToast();
+      // if (error.response && error.response.status === 500) {
+      // }
+      console.error('Error during registration:', error);
+
       console.error('Error during submission:', error);
     }
   };
@@ -132,19 +182,60 @@ const Addproject = () => {
   }, [currentUser.currentYear, projectDetails.semester]);
 
   const handleAdditionButtonClick = (key) => {
-    setProjectDetails((prevDetails) => ({
-      ...prevDetails,
-      [key]: [...prevDetails[key], ''],
-    }));
+    // Check if the number of keywords is less than 2
+    if (projectDetails.keywords.length < 2) {
+      setProjectDetails((prevDetails) => ({
+        ...prevDetails,
+        [key]: [...prevDetails[key], ''],
+      }));
+    } else if (projectDetails.keywords.length < 4) {
+      setProjectDetails((prevDetails) => ({
+        ...prevDetails,
+        [key]: [...prevDetails[key], ''],
+      }));
+    } else {
+      // If the number of keywords is already 2 or more, prevent addition
+      Toastify({
+        text: 'Maximum 2 keywords allowed!',
+        duration: 2000,
+        gravity: 'top',
+        position: 'right',
+        style: {
+          fontSize: '14px',
+          background: 'linear-gradient(to right, #FF6B6B, #FF6B6B)',
+          padding: '10px 10px',
+        },
+      }).showToast();
+    }
   };
 
   const handleRemovalButtonClick = (key, index) => {
-    setProjectDetails((prevDetails) => {
-      const updatedArray = [...prevDetails[key]];
-      updatedArray.splice(index, 1);
-      return { ...prevDetails, [key]: updatedArray };
-    });
+    // Determine the length of the array based on the key
+    const arrayLength = projectDetails[key].length;
+
+    // Only allow removal if there's more than one element in the array
+    if (arrayLength > 1) {
+      setProjectDetails((prevDetails) => {
+        const updatedArray = [...prevDetails[key]];
+        updatedArray.splice(index, 1);
+        return { ...prevDetails, [key]: updatedArray };
+      });
+    } else {
+      // If there's only one element, show a toast or any other notification
+      Toastify({
+        text: `Cannot remove. At least one ${key.slice(0, -1)} is required.`,
+        duration: 2000,
+        gravity: 'top',
+        position: 'right',
+        style: {
+          fontSize: '14px',
+          background: 'linear-gradient(to right, #FF6B6B, #FF6B6B)',
+          padding: '10px 10px',
+        },
+      }).showToast();
+    }
   };
+
   return (
     <>
       <Breadcrumb pageName="Project Details" />
@@ -288,6 +379,7 @@ const Addproject = () => {
                       onClick={() =>
                         handleRemovalButtonClick('pdfLinks', index)
                       }
+                      disabled={projectDetails.pdfLinks.length <= 1} // Disable remove button if there's only one PDF link
                       className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white"
                     >
                       -
@@ -312,6 +404,7 @@ const Addproject = () => {
                     <button
                       type="button"
                       onClick={() => handleAdditionButtonClick('keywords')}
+                      disabled={projectDetails.keywords.length >= 2} // Disable add button if there are already 2 keywords
                       className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white"
                     >
                       +
@@ -321,6 +414,7 @@ const Addproject = () => {
                       onClick={() =>
                         handleRemovalButtonClick('keywords', index)
                       }
+                      disabled={projectDetails.keywords.length <= 1} // Disable remove button if there's only one keyword
                       className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white"
                     >
                       -
@@ -373,9 +467,10 @@ const Addproject = () => {
             <button
               type="submit"
               onClick={handleSubmitProject}
+              disabled={loading} // Disable button when loading
               className="mt-6 inline-flex items-center justify-center rounded  bg-[#0c356a] py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-15"
             >
-              Submit
+              {loading ? 'Submitting...' : 'Submit'}
             </button>
           </div>
         </form>

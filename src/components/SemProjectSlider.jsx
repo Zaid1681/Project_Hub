@@ -119,24 +119,41 @@ const SemProjectSlider = ({ sem }) => {
       <div className="w-1/4">
         <div className="text-bold text-black">
           <label className="block font-medium text-black dark:text-white">
-            <Breadcrumb pageName="Semester" />
+            <Breadcrumb pageName="Project Record" />
           </label>
+
+          <label className="block font-medium text-black dark:text-white my-2">
+            Select Semester
+          </label>
+
           <select
             name="semester"
             defaultValue=""
             value={projectDetails.semester}
             onChange={handleSemesterChange}
-            className="focus:border-blue-500 w-50 rounded-md border px-5 py-2 focus:outline-none"
+            className="focus:border-blue-500 w-50 rounded-md border px-5 py-2 font-bold focus:outline-none"
           >
             <option value="" disabled>
               Select Semester
             </option>
-            <option value="3">Semester 3</option>
-            <option value="4">Semester 4</option>
-            <option value="5">Semester 5</option>
-            <option value="6">Semester 6</option>
-            <option value="7">Semester 7</option>
-            <option value="8">Semester 8</option>
+            <option className="font-bold" value="3">
+              Semester 3
+            </option>
+            <option className="font-bold" value="4">
+              Semester 4
+            </option>
+            <option className="font-bold" value="5">
+              Semester 5
+            </option>
+            <option className="font-bold" value="6">
+              Semester 6
+            </option>
+            <option className="font-bold" value="7">
+              Semester 7
+            </option>
+            <option className="font-bold" value="8">
+              Semester 8
+            </option>
           </select>
         </div>
       </div>
