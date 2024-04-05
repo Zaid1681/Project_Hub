@@ -82,28 +82,33 @@ const SignIn = () => {
             padding: '10px 50px',
           },
         }).showToast();
+        setIsLoading(false); // Set loading state to true during API request
+
         setTimeout(() => {
           navigate('/home');
         }, 2000);
       } else {
         console.error('Registration failed');
+        setIsLoading(false); // Set loading state to true during API request
 
         // toast.error("Registration failed. Please try again.");
       }
     } catch (error) {
       console.error('Error during registration:', error);
       Toastify({
-        text: 'Please check  your credentials and try again!',
+        text: 'Wrong Credentials',
         duration: 1800,
         gravity: 'top', // `top` or `bottom`
         position: 'right', // `left`, `center` or `right`
         stopOnFocus: true, // Prevents dismissing of toast on hover
         style: {
-          background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+          background: 'linear-gradient(to right, #FF6B6B, #FF6B6B)',
           padding: '10px 50px',
         },
         onClick: function () {}, // Callback after click
       }).showToast();
+      setIsLoading(false); // Set loading state to true during API request
+
       // toast.error("An error occurred. Please try again later.");
     }
   };
