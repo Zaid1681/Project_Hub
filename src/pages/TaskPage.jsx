@@ -32,6 +32,7 @@ const TaskPage = () => {
   const [inputDisable, setInputDisable] = useState(true);
   const [task, setTasks] = useState([]);
   const [taskId, setTaskId] = useState(null);
+  const [loading, setLoading] = useState(false); // State for loading indicator
 
   const groupId = useLocation().pathname.split('/')[3];
   const currentYear = useLocation().pathname.split('/')[4];
@@ -162,6 +163,8 @@ const TaskPage = () => {
     }
   };
   const handleUpdateSubmission = async (submissionId, e) => {
+    setLoading(true); // Set loading to true during form submission
+
     // Ask for confirmation before proceeding with update
     const confirmed = window.confirm(
       'Are you sure you want to update this submission?'
@@ -207,11 +210,13 @@ const TaskPage = () => {
             },
             onClick: function () {}, // Callback after click
           }).showToast();
+          setLoading(false);
           setTimeout(() => {
             window.location.reload();
           }, 500);
         }
       } catch (error) {
+        setLoading(false); // Reset loading state on error
         console.error('Error updating submission:', error);
       }
     } else {
@@ -228,6 +233,8 @@ const TaskPage = () => {
 
   const handleTaskSubmission = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true during form submission
+
     console.log('taskIds:', taskId);
     try {
       const res = await axios.post(
@@ -273,7 +280,9 @@ const TaskPage = () => {
         });
         setTaskId('');
         // Show success message or perform any other action
-        setIsModalVisible(false); // Close the modal after successful submission
+        setIsModalVisible(false);
+        setLoading(false); // Reset loading state after successful submission
+        // Close the modal after successful submission
         setTimeout(() => {
           window.location.reload();
         }, 500);
@@ -392,8 +401,9 @@ const TaskPage = () => {
             type="button"
             onClick={() => showModal(record._id)} // Pass the taskId here for submission
             className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-1 text-white `}
+            disabled={loading} // Disable button when loading
           >
-            Submit
+            {loading ? 'Submitting...' : 'Submit'}
           </Button>
         </Space>
       ),
@@ -459,8 +469,9 @@ const TaskPage = () => {
               type="button"
               onClick={handleTaskSubmission}
               className={`mb-2 items-center rounded bg-[#0C356A] px-[1rem] py-1 text-white  `}
+              disabled={loading}
             >
-              Submit Task
+              {loading ? 'Submitting...' : 'Submit Task'}
             </Button>
           </Form.Item>
         </Form>
@@ -569,8 +580,9 @@ const TaskPage = () => {
                     type="button"
                     onClick={() => handleUpdateSubmission(submissionData._id)} // Pass the taskId here for submission
                     className={`text-md mb-2 items-center rounded bg-[#0C356A] px-[1rem]    text-white `}
+                    disabled={loading}
                   >
-                    Update Submission
+                    {loading ? 'Submitting...' : 'Updated Task'}
                   </Button>
                 )}
               </div>

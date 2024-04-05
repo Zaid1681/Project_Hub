@@ -174,6 +174,7 @@ const IndividualGroupPage = () => {
       render: (_, record) => (
         <Space size="middle">
           <Button
+<<<<<<< Updated upstream
             type="button"
             // onClick={() => showModal(record._id)} // Pass the taskId here for submission
             className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-1 text-white `}
@@ -181,6 +182,17 @@ const IndividualGroupPage = () => {
           >
             Check
           </Button>
+=======
+  type="button"
+  // onClick={() => showModal(record._id)} // Pass the taskId here for submission
+  className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-2 text-white `}
+  onClick={() => showModal2(record._id)} // Pass the taskId here for submission
+
+>
+  Check
+</Button>
+
+>>>>>>> Stashed changes
         </Space>
       ),
     },
