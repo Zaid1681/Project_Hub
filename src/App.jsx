@@ -98,9 +98,7 @@ function App() {
                 // path="/hh"
                 element={
                   <Suspense fallback={<Loader />}>
-                    <RequirePath>
-                      <ECommerce />{' '}
-                    </RequirePath>
+                    <RequirePath>{/* <ECommerce />{' '} */}</RequirePath>
                   </Suspense>
                 }
               />

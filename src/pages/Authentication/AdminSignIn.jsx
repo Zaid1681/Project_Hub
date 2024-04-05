@@ -15,6 +15,8 @@ import { BASEURL } from '../../Api';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AdminSignIn = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
   const isFaculty = false;
 
@@ -29,14 +31,23 @@ const AdminSignIn = () => {
   // hanlde register function
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Set loading state to true during API request
+    if (!loginData.email || !loginData.password || !loginData.year) {
+      setIsLoading(false); // Set loading state to true during API request
+
+      Toastify({
+        text: 'Please fill in all the  fields.',
+        duration: 1800,
+        gravity: 'top',
+        position: 'right',
+        style: {
+          background: 'linear-gradient(to right, #FF6B6B, #FF6B6B)',
+          padding: '10px 50px',
+        },
+      }).showToast();
+      return; // Exit function if any required field is missing
+    }
     try {
-      // const response = await fetch('http://localhost:8081/api/v1/auth/signup', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(userDataWithDefaults),
-      // });
       const res = await axios.post(`${BASEURL}/admin/auth/signin`, loginData);
 
       if (res) {
@@ -69,27 +80,45 @@ const AdminSignIn = () => {
           },
           onClick: function () {}, // Callback after click
         }).showToast();
+        setIsLoading(false); // Set loading state to true during API request
+
         setTimeout(() => {
-          navigate('/');
+          navigate('/home');
         }, 2000);
 
         // toast.success("Registration successful!");
       } else {
         console.error('Registration failed');
+        setIsLoading(false); // Set loading state to true during API request
+
         // toast.error("Registration failed. Please try again.");
       }
     } catch (error) {
       console.error('Error during registration:', error);
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        console.error('Error during submission:', error.response.data.message);
-        alert(error.response.data.message);
-      } else {
-        console.error('Error during submission:', error);
-      }
+      // if (
+      //   error.response &&
+      //   error.response.data &&
+      //   error.response.data.message
+      // ) {
+      //   console.error('Error during submission:', error.response.data.message);
+      //   alert(error.response.data.message);
+      // } else {
+      //   console.error('Error during submission:', error);
+      // }
+      Toastify({
+        text: 'Wrong Credentials',
+        duration: 1800,
+        gravity: 'top', // `top` or `bottom`
+        position: 'right', // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: 'linear-gradient(to right, #FF6B6B, #FF6B6B)',
+          padding: '10px 50px',
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
+      setIsLoading(false); // Set loading state to true during API request
+
       // toast.error("An error occurred. Please try again later.");
     }
   };
