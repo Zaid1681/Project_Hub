@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import { NavbarWithMegaMenu } from '../components/Navbar';
-import { NavbarWithMegaMenu } from './Navbar';
+import Navbar from './Navbar';
 import Card from '../components/Cards';
 // import Breadcrumb from './Breadcrumb';
 import Breadcrumb from '../components/Breadcrumb';
@@ -50,7 +50,7 @@ export default function HomePage() {
 
   return (
     <div style={{ backgroundColor: 'white', minHeight: '100vh' }}>
-      <NavbarWithMegaMenu />
+      <Navbar />
 
       <div className="my-10 flex items-center justify-center ">
         <Typography
@@ -71,42 +71,42 @@ export default function HomePage() {
           with confidence.
         </Typography>
       </div>
-      <div className="my-14 grid grid-cols-4 ">
+      <div className="my-14 mx-5 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {' '}
-        <div className="mx-10">
+        <div className="">
           {' '}
-          <div className="w-[18rem] rounded border-2 text-center shadow-xl">
-            <h1 className="p-8 text-xl font-bold text-body">Store Project</h1>
+          <div className="rounded border-2 text-center shadow-xl">
+            <h1 className="p-6 text-xl font-bold text-body">Store Project</h1>
           </div>
         </div>
-        <div className="mx-10">
+        <div className="">
           {' '}
-          <div className="w-[18rem] rounded border-2 text-center shadow-xl">
-            <h1 className="p-8 text-center text-xl font-bold text-body">
+          <div className="h-20 items-center rounded border-2 text-center shadow-xl">
+            <h1 className="items-center p-6 text-center text-xl font-bold text-body my-auto">
               Groups Formation
             </h1>
           </div>
         </div>
-        <div className="mx-10">
+        <div className="">
           {' '}
-          <div className="w-[18rem]  rounded border-2 text-center shadow-xl">
-            <h1 className="p-8 text-xl font-bold text-body">
+          <div className=" rounded border-2 text-center shadow-xl">
+            <h1 className="p-6 text-xl font-bold text-body">
               Explore Projects
             </h1>
           </div>
         </div>
-        {/* <div className="mx-10">
+        {/* <div className="">
           {' '}
-          <div className="w-[18rem] text-center rounded border-2 shadow-xl">
-            <h1 className="p-8 text-xl font-bold text-body">
+          <div className="text-center rounded border-2 shadow-xl">
+            <h1 className="p-6 text-xl font-bold text-body">
               Communicate with faculties
             </h1>
           </div>
         </div> */}
-        <div className="mx-10">
+        <div className="">
           {' '}
-          <div className="w-[18rem] rounded border-2 text-center shadow-xl">
-            <h1 className="p-8 text-xl font-bold text-body">
+          <div className="rounded border-2 text-center shadow-xl">
+            <h1 className="p-6 text-xl font-bold text-body">
               Faculty Collaboration
             </h1>
           </div>

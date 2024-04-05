@@ -48,8 +48,8 @@ const ViewProject = () => {
   }, [path]); // Include path as a dependency to update only when path changes
 
   const handleSemesterChange = (e) => {
-    const selectedSemester = e.target.value;
-    setProjectDetails({ ...projectDetails, isApproved: selectedSemester });
+    const selectedStatus = e.target.value;
+    setProjectDetails({ ...projectDetails, isApproved: selectedStatus });
   };
   const pdfLinks = data.pdfLinks;
   console.log('-->', projectDetails.isApproved);
@@ -141,26 +141,22 @@ const ViewProject = () => {
                 Useful Links:
               </span>
               <div className="flex gap-3.5">
-                <div className="icon-link flex items-center text-lg md:text-xl">
+                <div className="icon-link flex items-center gap-4 text-lg md:text-xl">
                   {/* GitHub icon */}
-                  <a
-                    className="font-bold "
-                    target="_blank"
-                    href="https://github.com/"
-                  >
-                    <FaGithub className="mr-1" />
-                  </a>
+                  {data?.pdfLinks?.map((data, index) => (
+                    <a className="font-bold " target="_blank" href={data}>
+                      <FaRegFilePdf />
+                    </a>
+                  ))}
                 </div>
-                <div
-                  href={`${data.linkedinLink}`}
-                  className="icon-link flex items-center text-lg md:text-xl"
-                >
+                <div className="icon-link flex items-center text-lg md:text-xl">
                   <a
                     className="mr-2 font-bold text-black"
                     target="_blank"
-                    href={data.pdfLinks}
+                    href={data?.githubLink}
                   >
-                    <FaRegFilePdf />{' '}
+                    {' '}
+                    <FaGithub className="mr-1" />
                   </a>
                   {/* {.map((data, index) => (
                   <p className="mr-2 text-lg font-bold text-body">
@@ -176,37 +172,6 @@ const ViewProject = () => {
                 {data.isApproved == true ? 'Approved' : 'InProcess'}
               </p>
             </div>
-            {currentUser.role == 'Faculty' ? (
-              <div>
-                <div className="text-bold mb-4 text-black">
-                  <label className="mb-2 block text-xl font-medium text-black dark:text-white">
-                    Semester
-                  </label>
-                  <select
-                    name="semester"
-                    defaultValue=""
-                    value={projectDetails.isApproved}
-                    onChange={handleSemesterChange}
-                    className="focus:border-blue-500 w-1/2 rounded border px-3 py-2 focus:outline-none"
-                  >
-                    <option value="">Select Status</option>
-                    <option value="Approved">Approved</option>
-                    <option value="Rejected">Rejected</option>
-                  </select>
-                </div>
-                <div className="">
-                  <button
-                    type="button"
-                    onClick={updateStatus}
-                    className="me-2  mb-2 rounded-lg bg-[#0C356A] px-5 py-2.5 text-sm font-medium text-white focus:outline-none focus:ring-4"
-                  >
-                    Save
-                  </button>
-                </div>
-              </div>
-            ) : (
-              ''
-            )}
           </div>
         </div>
       </div>
@@ -252,6 +217,40 @@ const ViewProject = () => {
         </div> */}
         {/* Project Details */}
         {/* Useful Links */}
+      </div>
+      <div className="mx-5">
+        {' '}
+        {currentUser.role == 'Faculty' ? (
+          <div>
+            <div className="text-bold mb-4 text-black  ">
+              <label className="mb-2 block text-xl font-medium text-black dark:text-white">
+                Select Status
+              </label>
+              <select
+                name="semester"
+                defaultValue=""
+                value={projectDetails.isApproved}
+                onChange={handleSemesterChange}
+                className="focus:border-blue-500 w-1/2 rounded border px-3 py-2 focus:outline-none"
+              >
+                <option value="">Select Status</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+            <div className="">
+              <button
+                type="button"
+                onClick={updateStatus}
+                className="me-2  mb-2 rounded-lg bg-[#0C356A] px-5 py-2.5 text-sm font-medium text-white focus:outline-none focus:ring-4"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        ) : (
+          ''
+        )}
       </div>
       {/* Contact Me */}
     </div>

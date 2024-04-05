@@ -349,7 +349,7 @@ const IndividualGroupDetailsPage = () => {
           </div>
           {/* <h1>{data.guideId}</h1> */}
         </div>
-        <ChatSection />
+        {/* <ChatSection /> */}
         <div className="mx-10 my-10 flex justify-end">
           {' '}
           <button

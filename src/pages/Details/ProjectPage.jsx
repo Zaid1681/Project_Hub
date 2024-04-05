@@ -4,8 +4,8 @@ import { useParams, NavLink } from 'react-router-dom';
 import Breadcrumb from '../../components/Breadcrumb';
 import { SearchOutlined } from '@ant-design/icons';
 import FacultyProjectDetail from './FacultyProjectDetail';
-import './ApplicantTable.css';
-
+// import './ApplicantTable.css';
+import '../../table.css';
 import { Table, Tag, Input, Space } from 'antd';
 
 // import Card from '../../components/Cardsdemo';
@@ -114,13 +114,13 @@ const ProjectProject = () => {
       title: 'Sr no',
       dataIndex: 'sr',
       defaultSortOrder: 'descend',
-      className: 'bg-boxdark bg-black p-2.5 text-white text-sm font-medium ',
+      // className: 'bg-boxdark bg-black p-2.5 text-white text-sm font-medium ',
     },
     {
       title: 'Student Name',
       dataIndex: 'sName',
       ...getColumnSearchProps('sName', 'sName'),
-      className: 'bg-boxdark bg-black p-2.5 text-white text-sm font-medium ',
+      // className: 'bg-boxdark bg-black p-2.5 text-white text-sm font-medium ',
     },
     {
       title: 'Project Title',
@@ -128,33 +128,10 @@ const ProjectProject = () => {
       // defaultSortOrder: 'descend',
       ...getColumnSearchProps('title', 'title'),
 
-      className:
-        'bg-boxdark bg-black  text-white hover:bg-unset text-center p-2.5',
+      // className:
+      //   'bg-boxdark bg-black  text-white hover:bg-unset text-center p-2.5',
     },
-    // {
-    //   title: 'Description',
-    //   dataIndex: 'description',
-    //   // defaultSortOrder: 'descend',
-    //   // ...getColumnSearchProps('gender', 'Genders'),
 
-    //   className:
-    //     'bg-boxdark bg-black  text-white hover:bg-unset text-center p-2.5',
-    // },
-    // {
-    //   title: 'semester',
-    //   dataIndex: 'semester',
-    //   // defaultSortOrder: 'descend',
-    //   // ...getColumnSearchProps('gender', 'Genders'),
-
-    //   className:
-    //     'bg-boxdark bg-black  text-white hover:bg-unset text-center p-2.5',
-    // },
-    // {
-    //   title: 'Role Applied',
-    //   dataIndex: 'Role',
-    //   ...getColumnSearchProps('role', 'Role'),
-    //   className: 'bg-boxdark  text-white bg-black p-2.5 text-center',
-    // },
     {
       title: 'Status',
       dataIndex: 'isApproved',
@@ -177,7 +154,7 @@ const ProjectProject = () => {
           </Tag>
         );
       },
-      className: 'bg-boxdark bg-black p-2.5 text-center',
+      // className: 'bg-boxdark bg-black p-2.5 text-center',
     },
     // {
     //   title: 'Rounds',
@@ -242,13 +219,13 @@ const ProjectProject = () => {
           {/* <p>View</p> */}
           <button
             type="button"
-            className="bg-primary-100 text-primary-700 hover:bg-primary-accent-100 focus:bg-primary-accent-100 active:bg-primary-accent-200 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out focus:outline-none focus:ring-0"
+            className="bg-primary-100 text-primary-700 hover:bg-primary-accent-100 focus:bg-primary-accent-100 active:bg-primary-accent-200 inline-block rounded border px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out focus:outline-none focus:ring-0"
           >
             View{' '}
           </button>
         </NavLink>
       ),
-      className: 'bg-black text-white bg-boxdark p-2.5 text-center',
+      // className: 'bg-black text-white bg-boxdark p-2.5 text-center',
     },
   ];
 
@@ -283,7 +260,6 @@ const ProjectProject = () => {
       </div> */}
       <div className="rounded-sm border border-stroke  px-5 pt-6 pb-2.5 text-white  shadow-default dark:border-strokedark dark:bg-boxdark dark:text-white sm:px-7.5 xl:pb-1">
         <Table
-          className="bg-boxdark  text-black dark:text-white"
           columns={columns}
           // dataSource={data}
           dataSource={dataWithSrNo} // Use modified data here

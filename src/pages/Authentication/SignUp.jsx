@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const SignIn = () => {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false); // State for loading indicator
 
   const [showPassword, setShowPassword] = useState(false);
   const [confirmShowPassword, setConfirmShowPassword] = useState(false);
@@ -93,7 +94,7 @@ const SignIn = () => {
         password: registerData.password,
         currentYear: registerData.currentYear,
         gender: registerData.gender,
-        address: registerData.address,
+        address: registerData.address || '',
         studentId: registerData.studentId,
         phone: registerData.phone,
         startingYear: registerData.startingYear,
@@ -130,12 +131,14 @@ const SignIn = () => {
           },
           onClick: function () {}, // Callback after click
         }).showToast();
+        setIsLoading(false); // Stop loading
         setTimeout(() => {
           navigate('/');
         }, 2000);
 
         // toast.success("Registration successful!");
       } else {
+        alert('error');
         console.error('Registration failed');
         Toastify({
           text: 'Please fill  all the fields correctly!',
@@ -152,6 +155,19 @@ const SignIn = () => {
         // toast.error("Registration failed. Please try again.");
       }
     } catch (error) {
+      Toastify({
+        text: `Registration Failed !${error.response.data.error}`,
+        duration: 2000,
+        gravity: 'top',
+        position: 'right',
+        style: {
+          fontSize: '14px',
+          background: 'linear-gradient(to right, #FF6B6B, #FF6B6B)',
+          padding: '10px 10px',
+        },
+      }).showToast();
+      // if (error.response && error.response.status === 500) {
+      // }
       console.error('Error during registration:', error);
       Toastify({
         text: 'Please fill  all the fields correctly!',
@@ -166,6 +182,8 @@ const SignIn = () => {
         onClick: function () {}, // Callback after click
       }).showToast();
       // toast.error("An error occurred. Please try again later.");
+    } finally {
+      setIsLoading(false); // Reset loading state after API request completes
     }
     setLoading(false);
   };
@@ -174,6 +192,8 @@ const SignIn = () => {
     const { name, value } = e.target;
 
     // Check if the changed input is studentId
+    const sanitizedValue = value.replace(/<[^>]*>?/gm, ''); // Remove HTML tags
+
     if (name === 'studentId') {
       // Check if the entered value is longer than 9 characters
       if (value.length > 9) {
@@ -206,7 +226,7 @@ const SignIn = () => {
       // For other inputs, update registerData as usual
       setRegisterData((prevData) => ({
         ...prevData,
-        [name]: value,
+        [name]: sanitizedValue,
       }));
     }
   };
@@ -534,10 +554,11 @@ const SignIn = () => {
                 <div className="mt-5">
                   <button
                     onSubmit={handleRegisterSubmit}
+                    disabled={isLoading}
                     type="submit"
                     className="w-full cursor-pointer rounded-lg border border-[#0C356A] bg-[#0C356A] p-2 text-white transition hover:bg-opacity-90"
                   >
-                    Create Account
+                    {isLoading ? 'Loading...' : 'Create Account'}
                   </button>
                 </div>
 

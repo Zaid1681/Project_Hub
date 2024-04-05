@@ -6,13 +6,11 @@ import React, { useState, useEffect } from 'react';
 import Toastify from 'toastify-js';
 import { useDispatch } from 'react-redux';
 import { BASEURL } from '../../Api';
-
+// import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { setUserData } from '../../Redux/slices/user-slice'; // Update the path
 
 import axios from 'axios';
-
-// import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -34,21 +32,38 @@ const SignIn = () => {
   });
 
   console.log('signin', loginData);
-  // hanlde register function
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Set loading state to true during API request
+    if (
+      !loginData.email ||
+      !loginData.password ||
+      !loginData.currentYear ||
+      !loginData.year
+    ) {
+      setIsLoading(false); // Set loading state to true during API request
+
+      Toastify({
+        text: 'Please fill in all the  fields.',
+        duration: 1800,
+        gravity: 'top',
+        position: 'right',
+        style: {
+          background: 'linear-gradient(to right, #FF6B6B, #FF6B6B)',
+          padding: '10px 50px',
+        },
+      }).showToast();
+      return; // Exit function if any required field is missing
+    }
     try {
       const res = await axios.post(`${BASEURL}/auth/signin`, loginData);
-
-      if (res) {
-        console.log('Registration success');
-        // const userData = await res.json();
-        console.log('==>', res.data);
-        const userData = res.data; // Extract user data from the response
+      if (res.status === 200) {
+        const userData = res.data;
         const userToken = res.data.token;
         const academicYear = loginData.year;
         const year = loginData.currentYear;
-        console.log(year);
         dispatch(
           setUserData({
             data: userData,
@@ -57,24 +72,15 @@ const SignIn = () => {
             year,
           })
         );
-
-        setLoginData({
-          email: '',
-          password: '',
-          currentYear: '',
-          year: '',
-        });
         Toastify({
-          text: 'Login Sucessfully',
+          text: 'Login Successfully',
           duration: 1800,
-          gravity: 'top', // `top` or `bottom`
-          position: 'right', // `left`, `center` or `right`
-          stopOnFocus: true, // Prevents dismissing of toast on hover
+          gravity: 'top',
+          position: 'right',
           style: {
             background: 'linear-gradient(to right, #3C50E0, #3C50E0',
             padding: '10px 50px',
           },
-          onClick: function () {}, // Callback after click
         }).showToast();
         setTimeout(() => {
           navigate('/home');
@@ -101,11 +107,14 @@ const SignIn = () => {
       // toast.error("An error occurred. Please try again later.");
     }
   };
+
   const handleLoginInputChange = (e) => {
     const { name, value } = e.target;
+    const sanitizedValue = value.replace(/<\/?[^>]+(>|$)/g, '');
+
     setLoginData({
       ...loginData,
-      [name]: value,
+      [name]: sanitizedValue,
     });
 
     // if (name === 'email') {
@@ -245,7 +254,6 @@ const SignIn = () => {
                     </span>
                   </div>
                 </div>
-
                 <div className="mb-6">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Password
@@ -351,17 +359,17 @@ const SignIn = () => {
                       </span>
                     </div>
                   </div>
-                </div>
-
+                </div>{' '}
                 <div className="mb-2">
                   <button
+                    type="submit"
                     onClick={handleLoginSubmit}
                     className="w-full cursor-pointer rounded-lg border border-[#0C356A] bg-[#0C356A] p-2 text-white transition hover:bg-opacity-90"
+                    disabled={isLoading} // Disable button while loading
                   >
-                    Sign in
+                    {isLoading ? 'Loading...' : 'Sign in'}
                   </button>
                 </div>
-
                 <div className="mt-6 text-center">
                   <p>
                     Don’t have any account?{' '}
