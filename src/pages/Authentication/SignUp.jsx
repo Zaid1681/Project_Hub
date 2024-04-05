@@ -65,7 +65,6 @@ const SignIn = () => {
     // Check if any of the required fields are empty
     e.preventDefault();
     setLoading(true);
-    setLoading(true);
     console.log('helo world');
     if (
       !registerData.fname ||
@@ -81,10 +80,11 @@ const SignIn = () => {
     ) {
       console.log('Should not be empty');
       alert('All the fields must be filled');
-      return toast.error('All fields are required');
     }
 
     if (registerData.password != registerData.cpassword) {
+      alert('Password is not same');
+
       return toast.error('Password and Confirm Password must be the same');
     }
     try {
@@ -141,31 +141,6 @@ const SignIn = () => {
       } else {
         alert('error');
         console.error('Registration failed');
-        Toastify({
-          text: 'Please fill  all the fields correctly!',
-          duration: 1800,
-          gravity: 'top', // top or bottom
-          position: 'right', // left, center or right
-          stopOnFocus: true, // Prevents dismissing of toast on hover
-          style: {
-            background: 'linear-gradient(to right, #3C50E0, #3C50E0',
-            padding: '10px 50px',
-          },
-          onClick: function () {}, // Callback after click
-        }).showToast();
-        Toastify({
-          text: 'Please fill  all the fields correctly!',
-          duration: 1800,
-          gravity: 'top', // top or bottom
-          position: 'right', // left, center or right
-          stopOnFocus: true, // Prevents dismissing of toast on hover
-          style: {
-            background: 'linear-gradient(to right, #3C50E0, #3C50E0',
-            padding: '10px 50px',
-          },
-          onClick: function () {}, // Callback after click
-        }).showToast();
-        // toast.error("Registration failed. Please try again.");
       }
     } catch (error) {
       Toastify({
@@ -182,35 +157,9 @@ const SignIn = () => {
       // if (error.response && error.response.status === 500) {
       // }
       console.error('Error during registration:', error);
-      Toastify({
-        text: 'Please fill  all the fields correctly!',
-        duration: 1800,
-        gravity: 'top', // top or bottom
-        position: 'right', // left, center or right
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-          background: 'linear-gradient(to right, #3C50E0, #3C50E0',
-          padding: '10px 50px',
-        },
-        onClick: function () {}, // Callback after click
-      }).showToast();
-      Toastify({
-        text: 'Please fill  all the fields correctly!',
-        duration: 1800,
-        gravity: 'top', // top or bottom
-        position: 'right', // left, center or right
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-          background: 'linear-gradient(to right, #3C50E0, #3C50E0',
-          padding: '10px 50px',
-        },
-        onClick: function () {}, // Callback after click
-      }).showToast();
-      // toast.error("An error occurred. Please try again later.");
     } finally {
       setIsLoading(false); // Reset loading state after API request completes
     }
-    setLoading(false);
     setLoading(false);
   };
   // handle Change function
@@ -260,15 +209,10 @@ const SignIn = () => {
   console.log('regsiterData', registerData);
   return (
     <>
-      {loading && (
-        <div className="bg-gray-300 fixed top-0 left-0 z-50 flex h-full w-full items-center justify-center bg-opacity-50">
-          <div className="loader border-gray-200 h-32 w-32 rounded-full border-8 border-t-8 ease-linear"></div>
-        </div>
-      )}
       <div className="flex max-h-full items-center justify-center bg-black text-black">
         <div
           className="m-10 flex w-10/12 max-w-screen-xl rounded-xl border  border-stroke bg-white p-0 
-        shadow-default dark:border-strokedark dark:bg-boxdark md:m-20"
+          shadow-default dark:border-strokedark dark:bg-boxdark md:m-20"
         >
           <div className="xl w-full border-stroke dark:border-strokedark xl:border-l-2">
             <div className="w-full p-5 sm:p-12.5 xl:p-10.5">
@@ -432,10 +376,10 @@ const SignIn = () => {
                         } bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary`}
                       />
                       {/* {!registerData.email.endsWith('@vcet.edu.in') && (
-                        <p className="text-red-500 mt-1 text-sm">
-                          VCET email address is required
-                        </p>
-                      )} */}
+                          <p className="text-red-500 mt-1 text-sm">
+                            VCET email address is required
+                          </p>
+                        )} */}
                       <span className="absolute right-4 top-4">
                         <svg
                           className="fill-current"
