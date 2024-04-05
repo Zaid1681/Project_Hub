@@ -166,6 +166,8 @@ const SignIn = () => {
     const { name, value } = e.target;
 
     // Check if the changed input is studentId
+    const sanitizedValue = value.replace(/<[^>]*>?/gm, ''); // Remove HTML tags
+
     if (name === 'studentId') {
       // Check if the entered value is longer than 9 characters
       if (value.length > 9) {
@@ -198,7 +200,7 @@ const SignIn = () => {
       // For other inputs, update registerData as usual
       setRegisterData((prevData) => ({
         ...prevData,
-        [name]: value,
+        [name]: sanitizedValue,
       }));
     }
   };

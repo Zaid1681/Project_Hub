@@ -37,6 +37,26 @@ const SignIn = () => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true); // Set loading state to true during API request
+    if (
+      !loginData.email ||
+      !loginData.password ||
+      !loginData.currentYear ||
+      !loginData.year
+    ) {
+      setIsLoading(false); // Set loading state to true during API request
+
+      Toastify({
+        text: 'Please fill in all the  fields.',
+        duration: 1800,
+        gravity: 'top',
+        position: 'right',
+        style: {
+          background: 'linear-gradient(to right, #FF6B6B, #FF6B6B)',
+          padding: '10px 50px',
+        },
+      }).showToast();
+      return; // Exit function if any required field is missing
+    }
     try {
       const res = await axios.post(`${BASEURL}/auth/signin`, loginData);
       if (res.status === 200) {
@@ -86,9 +106,11 @@ const SignIn = () => {
 
   const handleLoginInputChange = (e) => {
     const { name, value } = e.target;
+    const sanitizedValue = value.replace(/<\/?[^>]+(>|$)/g, '');
+
     setLoginData({
       ...loginData,
-      [name]: value,
+      [name]: sanitizedValue,
     });
 
     // if (name === 'email') {
