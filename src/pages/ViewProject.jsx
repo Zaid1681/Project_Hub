@@ -76,7 +76,7 @@ const ViewProject = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () {}, // Callback after click
+        onClick: function () { }, // Callback after click
       }).showToast();
     } catch (error) {
       console.log('Error fetching Project', error);
@@ -85,17 +85,17 @@ const ViewProject = () => {
 
   console.log('Project data', data);
   return (
-    <div className="space-y-6 rounded-2xl bg-white py-12 px-5">
-      <div className="container mx-auto grid grid-cols-1 gap-10 md:grid-cols-2">
+    <div className="space-y-6 rounded-2xl bg-white dark:text-white dark:bg-boxdark py-12 px-5">
+      <div className="container mx-auto grid grid-cols-1 gap-10 md:grid-cols-2 ">
         <div className="my-5 h-60 md:h-80">
           {/* here Image Slider will come (work in progress) */}
           <ImageSlider />
         </div>
         <div className="my-">
-          <h4 className="mb-10 text-center font-inter text-2xl font-bold text-black dark:text-white md:text-3xl">
+          <h4 className="mb-10 text-center font-inter text-2xl font-bold text-black dark:text-white dark:text-black md:text-3xl ">
             About
           </h4>
-          <div className="flex flex-col gap-2 px-4 text-black ">
+          <div className="dark:text-white flex flex-col gap-2 px-4 text-black ">
             <div className="flex items-center gap-3.5">
               <CgProfile size={28} />
               <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
@@ -151,7 +151,7 @@ const ViewProject = () => {
                 </div>
                 <div className="icon-link flex items-center text-lg md:text-xl">
                   <a
-                    className="mr-2 font-bold text-black"
+                    className="mr-2 font-bold dark:text-white text-black"
                     target="_blank"
                     href={data?.githubLink}
                   >
@@ -175,7 +175,7 @@ const ViewProject = () => {
           </div>
         </div>
       </div>
-      <div className="mt-10 px-5 pt-5 text-black">
+      <div className="mt-10 px-5 pt-5 dark:text-white text-black">
         <h1 className="text-center text-2xl font-bold md:text-3xl">
           PROJECT DETAILS
         </h1>{' '}
@@ -188,10 +188,10 @@ const ViewProject = () => {
           <div className="mt-5 flex items-center gap-3.5">
             <span className="text-lg font-medium md:text-xl">Keyword:</span>
 
-            <div className="flex gap-3.5">
+            <div className="flex flex-wrap  md:gap-3.5 gap-6">
               {data?.keywords?.map((data, index) => (
                 <a href="#" className="icon-link" key={index}>
-                  <span className=" rounded-xl bg-[#0C356A] py-2 px-3 font-bold text-white dark:text-white">
+                  <span className=" rounded-xl bg-[#0C356A] m-2 py-2 px-3 font-bold text-white dark:text-white">
                     {data}
                   </span>
                 </a>

@@ -37,11 +37,10 @@ export default function HomePage() {
       <button
         key={i}
         onClick={() => paginate(i)}
-        className={`mx-1 rounded px-3 py-1 ${
-          currentPage === i
-            ? 'bg-gray-800 text-#4f61e3 text-xl font-bold'
-            : 'bg-gray-300 font-bold text-black'
-        }`}
+        className={`mx-1 rounded px-3 py-1 ${currentPage === i
+          ? 'bg-gray-800 text-#4f61e3 text-xl font-bold'
+          : 'bg-gray-300 font-bold text-black'
+          }`}
       >
         {i}
       </button>
@@ -49,53 +48,53 @@ export default function HomePage() {
   }
 
   return (
-    <div style={{ backgroundColor: 'white', minHeight: '100vh' }}>
+    <div className='text-black' style={{ backgroundColor: 'white', minHeight: '100vh' }}>
       <Navbar />
-
-      <div className="my-10 flex items-center justify-center ">
-        <Typography
-          variant="h1"
-          className="my-5 text-center text-4xl"
-          color="primary"
-        >
-          Welcome to Project Hub
-        </Typography>
-      </div>
-      <div className="my-5 mx-14 flex items-center justify-center">
-        <Typography variant="h1" className="  text-2xl" color="primary">
-          At Project Hub, we believe in the power of knowledge sharing. Our
-          platform allows students to showcase their projects, share detailed
-          insights, and collaborate with peers. By sharing your projects, you're
-          not just contributing to a growing repository of knowledge; you're
-          also helping fellow students embark on their own academic journeys
-          with confidence.
-        </Typography>
-      </div>
-      <div className="my-14 mx-5 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {' '}
-        <div className="">
-          {' '}
-          <div className="rounded border-2 text-center shadow-xl">
-            <h1 className="p-6 text-xl font-bold text-body">Store Project</h1>
-          </div>
+      <div className='flex-col items-center justify-center py-10 md:py-[60px]'>
+        <div className=" flex items-center justify-center ">
+          <Typography
+            variant="h1"
+            className="md:mt-20 md:mb-10 my-15 text-center md:text-5xl text-4xl font-inter"
+            color="primary"
+          >
+            Welcome to Project Hub
+          </Typography>
         </div>
-        <div className="">
-          {' '}
-          <div className="h-20 items-center rounded border-2 text-center shadow-xl">
-            <h1 className="items-center p-6 text-center text-xl font-bold text-body my-auto">
-              Groups Formation
-            </h1>
-          </div>
+        <div className="my-5 mx-8 flex items-center justify-center md:text-center text-justify">
+          <Typography variant="h1" className="font-opensans md:text-2xl text-xl" color="primary">
+            At Project Hub, we believe in the power of knowledge sharing. Our
+            platform allows students to showcase their projects, share detailed
+            insights, and collaborate with peers. By sharing your projects, you're
+            not just contributing to a growing repository of knowledge; you're
+            also helping fellow students embark on their own academic journeys
+            with confidence.
+          </Typography>
         </div>
-        <div className="">
+        <div className="my-15 mx-5 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {' '}
-          <div className=" rounded border-2 text-center shadow-xl">
-            <h1 className="p-6 text-xl font-bold text-body">
-              Explore Projects
-            </h1>
+          <div className="">
+            {' '}
+            <div className="rounded-lg border-2 text-center shadow-xl">
+              <h1 className="p-6 text-xl font-bold">Store Project</h1>
+            </div>
           </div>
-        </div>
-        {/* <div className="">
+          <div className="">
+            {' '}
+            <div className="rounded-lg items-center border-2 text-center shadow-xl">
+              <h1 className="items-center p-6 text-center text-xl font-bold  my-auto">
+                Groups Formation
+              </h1>
+            </div>
+          </div>
+          <div className="">
+            {' '}
+            <div className="rounded-lg border-2 text-center shadow-xl">
+              <h1 className="p-6 text-xl font-bold">
+                Explore Projects
+              </h1>
+            </div>
+          </div>
+          {/* <div className="">
           {' '}
           <div className="text-center rounded border-2 shadow-xl">
             <h1 className="p-6 text-xl font-bold text-body">
@@ -103,26 +102,28 @@ export default function HomePage() {
             </h1>
           </div>
         </div> */}
-        <div className="">
-          {' '}
-          <div className="rounded border-2 text-center shadow-xl">
-            <h1 className="p-6 text-xl font-bold text-body">
-              Faculty Collaboration
-            </h1>
+          <div className="">
+            {' '}
+            <div className="rounded-lg border-2 text-center shadow-xl">
+              <h1 className="p-6 text-xl font-bold ">
+                Faculty Collaboration
+              </h1>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-5 py-10">
-        {/* <Breadcrumb pageName="All Project" /> */}
 
-        {/* <div className="my-5 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+      {/* <div className="container mx-auto px-5 py-10"> */}
+      {/* <Breadcrumb pageName="All Project" /> */}
+
+      {/* <div className="my-5 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
           {currentCards.map((_, index) => (
             <Card key={index} />
           ))}
         </div> */}
 
-        {/* <div className="mt-5 flex justify-center">
+      {/* <div className="mt-5 flex justify-center">
           <button
             onClick={() => paginate(currentPage - 1)}
             className="bg-gray-300 mx-1 rounded px-3 py-1 font-bold text-black"
@@ -136,8 +137,8 @@ export default function HomePage() {
           >
             &#8594;
           </button> */}
-        {/* </div> */}
-      </div>
+      {/* </div> */}
+      {/* </div> */}
     </div>
   );
 }
