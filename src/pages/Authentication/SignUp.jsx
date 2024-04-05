@@ -65,6 +65,7 @@ const SignIn = () => {
     // Check if any of the required fields are empty
     e.preventDefault();
     setLoading(true);
+    setLoading(true);
     console.log('helo world');
     if (
       !registerData.fname ||
@@ -152,6 +153,18 @@ const SignIn = () => {
           },
           onClick: function () {}, // Callback after click
         }).showToast();
+        Toastify({
+          text: 'Please fill  all the fields correctly!',
+          duration: 1800,
+          gravity: 'top', // top or bottom
+          position: 'right', // left, center or right
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          style: {
+            background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+            padding: '10px 50px',
+          },
+          onClick: function () {}, // Callback after click
+        }).showToast();
         // toast.error("Registration failed. Please try again.");
       }
     } catch (error) {
@@ -181,10 +194,23 @@ const SignIn = () => {
         },
         onClick: function () {}, // Callback after click
       }).showToast();
+      Toastify({
+        text: 'Please fill  all the fields correctly!',
+        duration: 1800,
+        gravity: 'top', // top or bottom
+        position: 'right', // left, center or right
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+          padding: '10px 50px',
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
       // toast.error("An error occurred. Please try again later.");
     } finally {
       setIsLoading(false); // Reset loading state after API request completes
     }
+    setLoading(false);
     setLoading(false);
   };
   // handle Change function

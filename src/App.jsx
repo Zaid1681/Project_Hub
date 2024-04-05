@@ -16,7 +16,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 // import ProjectList from './pages/Details/ProjectList';
 const Home = lazy(() => import('./pages/Home'));
-const Chart = lazy(() => import('./pages/Chart'));
+// const Chart = lazy(() => import('./pages/Chart'));
 const SubjectPage = lazy(() => import('./pages/Details/SubjectPage'));
 const SeProject = lazy(() => import('./pages/SE/SeProject'));
 const TeProject = lazy(() => import('./pages/TE/TeProject'));

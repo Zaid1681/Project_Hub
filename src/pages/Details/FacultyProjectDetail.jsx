@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { BASEURL } from '../../Api';
-import './ApplicantTable.css';
+import '../table.css';
 const FacultyProjectDetail = () => {
   const { projectId } = useParams();
   const [data, setData] = useState([]);
