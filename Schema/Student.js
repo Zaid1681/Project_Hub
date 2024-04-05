@@ -117,7 +117,7 @@ const StudentSchema = new Schema({
   address: {
     type: String,
     trim: true,
-    required: [true, "Address is required"],
+    // required: [true, "Address is required"],
   },
   isapprovedFromAdmin: {
     type: Boolean,
