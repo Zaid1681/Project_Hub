@@ -13,7 +13,7 @@ cloudinary.config({
 const addProject = async (req, res, next) => {
   try {
     if (!req.files || !req.files.photos) {
-      return res.status(400).json({ message: "No files uploaded" });
+      return res.status(400).json({ message: " Fill all the fields" });
     }
 
     const files = Array.isArray(req.files.photos)

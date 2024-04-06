@@ -5,6 +5,7 @@ const CustomError = require("../utils/error.js");
 var JWT = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
+const { sendEmail } = require("./sendEmail.js");
 
 const signup = async (req, res, next) => {
   try {
@@ -38,7 +39,7 @@ const signup = async (req, res, next) => {
     if (existingStudent2) {
       return res
         .status(400)
-        .json({ error: "Student with this email already exists." });
+        .json({ error: "Student with this StudentId already exists." });
     }
 
     // Hash the password
@@ -59,6 +60,8 @@ const signup = async (req, res, next) => {
     });
 
     await newStudent.save();
+    await sendEmail(email);
+
     return res
       .status(200)
       .json({ message: "Student created successfully!!", data: newStudent });
@@ -98,6 +101,7 @@ const signin = async (req, res, next) => {
     const { ...otherDetails } = studentDetail._doc;
 
     console.log("Logged in successfully");
+
     res
       .cookie("access_token", token, { httpOnly: true })
       .status(200)
@@ -105,7 +109,7 @@ const signin = async (req, res, next) => {
     console.log("Token:", token);
   } catch (error) {
     console.error("Error in signin controller:", error);
-    next(error);
+    next(error); // Forward the error to the error handling middleware
   }
 };
 const getAllStudents = async (req, res, next) => {

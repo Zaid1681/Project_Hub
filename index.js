@@ -6,10 +6,10 @@ const cors = require("cors");
 const app = express();
 const routes = require("./routes/index.routes.js");
 const authRoutes = require("./routes/auth");
+const PORT = process.env.PORT || 8080;
 
 var cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
-
 app.get("/cors", (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   res.send({ msg: "This has CORS enabled 🎈" });
@@ -37,8 +37,6 @@ app.use((err, req, res, next) => {
     message,
   });
 });
-
-const PORT = process.env.PORT || 8080; // Use the port from the environment variable or default to 8080
 
 app.listen(PORT, () => {
   connect();
