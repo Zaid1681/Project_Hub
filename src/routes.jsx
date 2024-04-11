@@ -11,8 +11,10 @@ import { SignIn, SignUp } from "@/pages/auth";
 import SecondYearGrps from "./pages/dashboard/SecondYearGrps";
 import ThirdYearGrps from "./pages/dashboard/ThirdYearGrps";
 import { FinalYearGrps } from "./pages/dashboard/FinalYearGrps";
+import GroupsViewPageAdmin from "./pages/dashboard/GroupsViewPageAdmin";
+import GroupsProjIdeaViewPage from "./pages/dashboard/GroupsProjIdeaViewPage";
 
-const icon = {
+const icon = {  
   className: "w-5 h-5 text-inherit",
 };
 
@@ -25,6 +27,8 @@ export const routes = [
         name: "dashboard",
         path: "/home",
         element: <Home />,
+        showInSidebar: true, // Add this flag to indicate whether to show in sidenav or not
+
       },
       // {
       //   icon: <UserCircleIcon {...icon} />,
@@ -35,39 +39,71 @@ export const routes = [
       {
         icon: <UserCircleIcon {...icon} />,
         name: "Students",
+        path: "/:currentYear/groupList/:subject/:semester",
+        element: <GroupsViewPageAdmin />, 
+        showInSidebar: false, // Add this flag to indicate whether to show in sidenav or not
+
+      },
+      {
+        icon: <UserCircleIcon {...icon} />,
+        name: "Students",
+        path: "/group/get/:id",
+        element: <GroupsProjIdeaViewPage />, 
+        showInSidebar: false, // Add this flag to indicate whether to show in sidenav or not
+
+      },
+      
+      {
+        icon: <UserCircleIcon {...icon} />,
+        name: "Students",
         path: "/student-list",
-        element: <StudentList />,
+        element: <ThirdYearGrps />,
+        showInSidebar: true, // Add this flag to indicate whether to show in sidenav or not
+
       }, {
         icon: <UserCircleIcon {...icon} />,
         name: "Faculties",
         path: "/faculties-list",
         element: <FacultiesList />,
+        showInSidebar: true, // Add this flag to indicate whether to show in sidenav or not
+
       },
       {
         icon: <TableCellsIcon {...icon} />,
         name: "SecondYear",
-        path: "/SE",
-        element: <SecondYearGrps />,
+        path: "/SE/groupList",
+        element: <FinalYearGrps />,
+        showInSidebar: true, // Add this flag to indicate whether to show in sidenav or not
+
       },
-     
       {
         icon: <TableCellsIcon {...icon} />,
         name: "ThirdYear",
-        path: "/TE",
-        element: <ThirdYearGrps />,
+        path: "/TE/groupList",
+        element: <FinalYearGrps />,
+        showInSidebar: true, // Add this flag to indicate whether to show in sidenav or not
+
       },
       {
         icon: <TableCellsIcon {...icon} />,
         name: "FinalYear",
-        path: "/BE",
+        path: "/BE/groupList",
         element: <FinalYearGrps />,
+        showInSidebar: true, // Add this flag to indicate whether to show in sidenav or not
+
       },
       // {
       //   icon: <TableCellsIcon {...icon} />,
-      //   name: "tables",
-      //   path: "/tables",
-      //   element: <Tables />,
+      //   name: "FinalYear",
+      //   path:"/:currentYear/groups/groupsList/:subject/:semester/:academic/:groupId",
+      //   element: <FinalYearGrps />,
       // },
+      {
+        icon: <TableCellsIcon {...icon} />,
+        name: "tables",
+        path: "/app/tables",
+        element: <Tables />,
+      },
       // {
       //   icon: <InformationCircleIcon {...icon} />,
       //   name: "notifications",
