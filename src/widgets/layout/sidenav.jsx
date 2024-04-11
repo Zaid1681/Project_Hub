@@ -5,8 +5,9 @@ import {
   Avatar,
   Button,
   IconButton,
-  Typography,
+  Typography, 
 } from "@material-tailwind/react";
+import SidebarLinkGroup from "@/components/SidebarLinkGroupProps";
 import { useMaterialTailwindController, setOpenSidenav } from "@/context";
 
 export function Sidenav({ brandImg, brandName, routes }) {
