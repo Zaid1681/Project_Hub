@@ -108,159 +108,6 @@ const GroupViewPageAdmin = () => {
       ),
   });
 
-  // const data = [
-  //   {
-  //     key: '1',
-  //     name: 'John Brown',
-  //     gender: 'Male',
-  //     // age: 32,
-
-  //     role: 'Web Developer',
-  //     round: 'Round -2 Scheduled',
-  //     status: 'Ongoing',
-  //     dob: '23/10/2001',
-  //     email: 'John@gmail.com',
-  //     contact: 9579888546,
-  //     resume: 'resume link',
-  //     about: 'hello i am zaid',
-  //     remark1: 'hello in round-1 it is get rejected due to the followig reason',
-  //     remark2: 'remark02 rejected',
-  //   },
-  //   {
-  //     key: '2',
-  //     name: 'Jim Green',
-  //     gender: 'Male',
-  //     age: 42,
-  //     role: 'App Developer',
-  //     email: 'Jim@gmail.com',
-
-  //     round: 'Round-1 Completed',
-
-  //     status: 'New',
-  //   },
-  //   {
-  //     key: '3',
-  //     name: 'Joe Black',
-  //     age: 32,
-  //     gender: 'Male',
-  //     role: 'Graphic Design',
-  //     round: 'Round-1 Completed',
-  //     email: 'Joe@gmail.com',
-  //     status: 'Rejected',
-  //   },
-  //   {
-  //     key: '4',
-  //     name: 'Jim Red',
-  //     age: 32,
-  //     gender: 'Female',
-  //     role: 'Web Developer',
-  //     email: 'Joe@gmail.com',
-
-  //     round: 'Round-1 Completed',
-
-  //     status: 'Ongoing',
-  //   },
-  //   {
-  //     key: '4',
-  //     name: 'Jim Red',
-  //     age: 32,
-  //     gender: 'Female',
-  //     role: 'Web Developer',
-  //     round: 'Round-1 Completed',
-
-  //     status: 'Ongoing',
-  //   },
-  //   {
-  //     key: '4',
-  //     name: 'Jim Red',
-  //     age: 32,
-  //     gender: 'Female',
-  //     role: 'Web Developer',
-  //     round: 'Round-1 Completed',
-
-  //     status: 'Ongoing',
-  //   },
-  //   {
-  //     key: '4',
-  //     name: 'Jim Red',
-  //     age: 32,
-  //     gender: 'Female',
-  //     role: 'Web Developer',
-  //     round: 'Round-1 Completed',
-
-  //     status: 'Ongoing',
-  //   },
-  //   {
-  //     key: '4',
-  //     name: 'Jim Red',
-  //     age: 32,
-  //     gender: 'Female',
-  //     role: 'Web Developer',
-  //     round: 'Round-1 Scheduled',
-
-  //     status: 'Ongoing',
-  //   },
-  //   {
-  //     key: '4',
-  //     name: 'Jim Red',
-  //     age: 32,
-  //     gender: 'Female',
-  //     role: 'Web Developer',
-  //     round: 'Round-1 Completed',
-
-  //     status: 'Ongoing',
-  //   },
-  //   {
-  //     key: '4',
-  //     name: 'Jim Red',
-  //     age: 32,
-  //     gender: 'Female',
-  //     role: 'Web Developer',
-  //     round: 'Round-1 Completed',
-
-  //     status: 'Ongoing',
-  //   },
-  //   {
-  //     key: '4',
-  //     name: 'Jim Red',
-  //     age: 32,
-  //     gender: 'Female',
-  //     role: 'Web Developer',
-  //     round: 'Round-2 Scheduled',
-
-  //     status: 'Ongoing',
-  //   },
-  //   {
-  //     key: '4',
-  //     name: 'Jim Red',
-  //     age: 32,
-  //     gender: 'Female',
-  //     role: 'Web Developer',
-  //     round: 'Round-2 Completed',
-
-  //     status: 'Ongoing',
-  //   },
-  //   {
-  //     key: '4',
-  //     name: 'Jim Red',
-  //     age: 32,
-  //     gender: 'Female',
-  //     role: 'Web Developer',
-  //     round: 'Round-2 Completed',
-
-  //     status: 'Ongoing',
-  //   },
-  //   {
-  //     key: '4',
-  //     name: 'Jim Red',
-  //     age: 32,
-  //     gender: 'Female',
-  //     role: 'Web Developer',
-  //     round: 'Round-2 Completed',
-
-  //     status: 'Ongoing',
-  //   },
-  // ];
   const columns = [
     {
       title: 'Sr no',
@@ -294,24 +141,12 @@ const GroupViewPageAdmin = () => {
       title: 'Status',
       dataIndex: 'groupStatus',
       filters: [
-        {
-          text: 'Ongoing',
-          value: 'Ongoing',
-        },
-        {
-          text: 'Completed',
-          value: 'Completed',
-        },
-        // {
-        //   text: 'Round-1 Completed',
-        //   value: 'Round-1 Completed',
-        // },
-        // {
-        //   text: 'Round-2 Completed',
-        //   value: 'Round-2 Completed',
-        // },
+        { text: 'Rejected', value: 'Rejected' },
+        { text: 'Approved', value: 'Approved' },
+        { text: 'Inprocess', value: 'Inprocess' },
+        { text: 'Improvement', value: 'Improvement' }
       ],
-      onFilter: (value, record) => record.groupStatus.indexOf(value) === 0,
+      onFilter: (value, record) => record.groupStatus === value,
       render: (status) => {
         let color = '';
         switch (status) {
@@ -336,8 +171,27 @@ const GroupViewPageAdmin = () => {
           </Tag>
         );
       },
-      className: ' text-center ',
+      className: 'text-center',
     },
+   {
+  title: 'Guide Name',
+  dataIndex: 'guideName',
+  ...getColumnSearchProps('guideName', 'Guide Name'), // Add custom filter search bar
+  render: (guideName) => <span>{guideName}</span>, // Render guideName as simple text
+  className: 'text-center',
+},
+
+    {
+      title: 'Academic Year',
+      dataIndex: 'academicYear',
+      filters: data
+        .map(item => item.academicYear) // Extract academic years from data
+        .filter((value, index, self) => self.indexOf(value) === index) // Filter unique academic years
+        .map(academicYear => ({ text: academicYear, value: academicYear })), // Map academic years to filter options
+      onFilter: (value, record) => record.academicYear.indexOf(value) === 0, // Filter logic
+      className: 'text-center',
+    },
+    
     {
       title: 'Details',
       dataIndex: 'viewMore',
@@ -347,7 +201,7 @@ const GroupViewPageAdmin = () => {
             type="button"
             className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-2 text-white `}
           >
-            View More
+            View
           </button>
         </a>
       ),
@@ -374,7 +228,7 @@ const GroupViewPageAdmin = () => {
   return (
     <div
       className="my-10 rounded-sm 
-    border-stroke  text-black  shadow-default dark:text-black xl:pb-1"
+    border-stroke  text-black  shadow-default dark:text-black xl:pb-1 "
     >
       <Table
         className=" text-black dark:text-black"

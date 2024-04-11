@@ -46,7 +46,7 @@ export const routes = [
       },
       {
         icon: <UserCircleIcon {...icon} />,
-        name: "Students",
+        name: "groupDetails",
         path: "/group/get/:id",
         element: <GroupsProjIdeaViewPage />, 
         showInSidebar: false, // Add this flag to indicate whether to show in sidenav or not
@@ -57,7 +57,7 @@ export const routes = [
         icon: <UserCircleIcon {...icon} />,
         name: "Students",
         path: "/student-list",
-        element: <ThirdYearGrps />,
+        element: <StudentList />,
         showInSidebar: true, // Add this flag to indicate whether to show in sidenav or not
 
       }, {
