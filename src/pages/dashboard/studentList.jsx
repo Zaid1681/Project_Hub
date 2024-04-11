@@ -42,6 +42,48 @@ export const StudentList = () => {
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  
+// Function to handle student deletion
+const handleDelete = async (record) => {
+  // Show confirmation dialog
+  const confirmDelete = window.confirm(`Are you sure you want to delete ${record.name}?`);
+
+  if (confirmDelete) {
+    try {
+      // Make a POST request to delete the student by ID
+      const res = await axios.delete(`${BASEURL}/auth/delStudent/${record._id}`, {
+        studentId: record.studentId,
+      });
+
+      // Check if the deletion was successful
+      if (res.status === 200) {
+        console.log('Student deleted successfully:', record.studentId);
+        Toastify({
+          text: 'Student Profile Deleted Sucessfully',
+          duration: 1800,
+          gravity: 'top', // top or bottom
+          position: 'right', // left, center or right
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          style: {
+            background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+            padding: '10px 50px',
+          },
+          onClick: function () {}, // Callback after click
+        }).showToast();
+        // You can update the UI accordingly if needed
+        // For example, you can refetch the data to update the table
+        fetchData();
+      } else {
+        // Handle error response if needed
+        console.error('Failed to delete student:', record.studentId);
+      }
+    } catch (error) {
+      // Handle error if the request fails
+      console.error('Error deleting student:', error);
+    }
+  }
+};
+
   const handleToggleConfirmPasswordVisibility = () => {
     // Change the function name
     setShowPassword(!showPassword);
@@ -194,7 +236,7 @@ export const StudentList = () => {
 
         // dispatch(setUserData(userData));
         Toastify({
-          text: 'Registered Sucessfully',
+          text: 'Student Profile Created  Sucessfully',
           duration: 1800,
           gravity: 'top', // top or bottom
           position: 'right', // left, center or right
@@ -371,7 +413,7 @@ const columns = [
     key: 'action',
     render: (_, record) => (
       <Space size="middle">
-        <Button className="p-5 py-2 " >
+        <Button className="p-5 py-2 " onClick={() => handleDelete(record)}>
           Delete
         </Button>
         <Button className="p-5 py-2 " >
