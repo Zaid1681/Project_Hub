@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 // import locofy from './locofy.png';
-import phlogo2 from "../../public/phlogo2.png";
-
+import phlogo2 from '../../public/phlogo2.png';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,11 +9,7 @@ function Navbar() {
     <nav className="flex flex-wrap items-center justify-between bg-black/10 py-6 px-6">
       {' '}
       <div className="mr-6 flex flex-shrink-0 items-center text-white lg:mr-72">
-        <img
-          src={phlogo2}
-          className="mr-2 h-full w-20"
-          alt="Logo"
-        />
+        <img src={phlogo2} className="mr-2 h-full w-20" alt="Logo" />
       </div>
       <div className="block text-xl lg:hidden">
         <button
@@ -38,10 +33,11 @@ function Navbar() {
         </button>
       </div>
       <div
-        className={`block w-full flex-grow lg:flex lg:w-auto lg:items-center ${isOpen ? 'block' : 'hidden'
-          }`}
+        className={`block w-full flex-grow lg:flex lg:w-auto lg:items-center ${
+          isOpen ? 'block' : 'hidden'
+        }`}
       >
-        <div className="text-center mb-6 md:mb-0 font-semibold text-2xl lg:flex-grow">
+        <div className="mb-6 text-center text-2xl font-semibold md:mb-0 lg:flex-grow">
           <a
             href="#"
             className="mt-4 mr-4 block font-semibold text-black lg:mt-0 lg:inline-block "
@@ -67,16 +63,16 @@ function Navbar() {
             Fourth Link
           </a> */}
         </div>
-        <div className="flex items-center justify-center gap-3 flex-col md:flex-row">
+        <div className="flex flex-col items-center justify-center gap-3 md:flex-row">
           <a
             href="/auth/signin"
-            className="inline-flex items-center border-2 py-2 px-4 text-lg font-bold rounded-xl text-white bg-[#0C356A] border-[#0C356A] shadow-lg"
+            className="inline-flex items-center rounded-xl border-2 border-[#0C356A] bg-[#0C356A] py-2 px-4 text-lg font-bold text-white shadow-lg"
           >
             Student Login
           </a>
           <a
             href="/admin/auth/signin"
-            className="inline-flex items-center border-2 py-2 px-4 text-lg font-bold rounded-xl text-white bg-[#0C356A] border-[#0C356A] shadow-lg"
+            className="inline-flex items-center rounded-xl border-2 border-[#0C356A] bg-[#0C356A] py-2 px-4 text-lg font-bold text-white shadow-lg"
           >
             Faculty Login
           </a>

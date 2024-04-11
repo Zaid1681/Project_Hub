@@ -22,11 +22,19 @@ const SemProjectCard = ({ project }) => {
           </div>
 
           <div className="mt-auto flex flex-col justify-between gap-2 py-2 text-center">
-            <div className="flex items-center gap-2">
-              <FaRegUserCircle className="my-auto text-xl" />
-              <p className="text-md flex items-center font-medium text-black dark:text-white">
-                {project.sName}
-              </p>
+            <div className="flex items-center justify-between">
+              <div className="flex gap-2">
+                <FaRegUserCircle className="my-auto text-xl" />
+                <p className="text-md flex items-center font-medium text-black dark:text-white">
+                  {project.sName}
+                </p>
+              </div>
+              <div>
+                {' '}
+                <p className="text-md text-blue-600 flex items-center  rounded p-1 font-bold dark:text-white">
+                  {project.isApproved ? 'Approved' : 'Inprocess '}
+                </p>
+              </div>
             </div>
             <div className="mt-2  flex gap-1 ">
               {project?.keywords?.map((data, index) => (

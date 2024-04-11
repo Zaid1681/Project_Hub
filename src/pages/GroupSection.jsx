@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Breadcrumb from '../components/Breadcrumb';
 import GroupCardSection from '../components/GroupCardSection';
+import Loader from '../components/Loader'; // Import Loader component
 import { useSelector } from 'react-redux';
 import { BASEURL } from '../Api';
-// Import useSelector from react-redux
 
 const GroupSection = () => {
   const [myGroups, setMyGroups] = useState([]);
-  const currentUser = useSelector((state) => state.user); // Define currentUser using useSelector
+  const [loading, setLoading] = useState(true); // State to manage loading state
+  const currentUser = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -17,22 +18,28 @@ const GroupSection = () => {
           `${BASEURL}/group/getWithMemberId/get/${currentUser.userData.studentId}`
         );
         setMyGroups(response.data.data);
+        setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
         console.log('Error fetching groups: ', error);
+        setLoading(false); // Set loading to false if there's an error
       }
     };
 
     fetchGroups();
-  }, [currentUser]); // Add currentUser to the dependency array
+  }, [currentUser]);
 
   return (
     <>
       <Breadcrumb pageName="Groups" />
-      <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-        {myGroups.map((group, index) => (
-          <GroupCardSection key={index} group={group} />
-        ))}
-      </div>
+      {loading ? ( // Render loader if loading is true
+        <Loader />
+      ) : (
+        <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+          {myGroups.map((group, index) => (
+            <GroupCardSection key={index} group={group} />
+          ))}
+        </div>
+      )}
     </>
   );
 };

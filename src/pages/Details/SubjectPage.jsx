@@ -5,37 +5,79 @@ import SubjectCard from '../../components/SubjectCard';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { BASEURL } from '../../Api';
+// import Loader from '../../components/Loader';
 
 const SubjectPage = () => {
   const currentYear = useLocation().pathname.split('/')[1];
+  const [currentSemester, setCurrentSemester] = useState();
+  const [currentSemester2, setCurrentSemester2] = useState();
   const [projectDetails, setProjectDetails] = useState({
-    semester: localStorage.getItem('selectedSemester') || '', // Retrieve selected semester from localStorage
+    semester: localStorage.getItem('selectedSemester') || '',
   });
   const [loadingSubjects, setLoadingSubjects] = useState(false);
-  const [subjectList, setSubjectList] = useState([]);
+  const [subjectList1, setSubjectList1] = useState([]);
+  const [subjectList2, setSubjectList2] = useState([]);
 
   const currentUser = useSelector((state) => state.user);
 
   const handleSemesterChange = (e) => {
     const selectedSemester = parseInt(e.target.value, 10);
     setProjectDetails({ ...projectDetails, semester: selectedSemester });
-    localStorage.setItem('selectedSemester', selectedSemester); // Store selected semester in localStorage
+    localStorage.setItem('selectedSemester', selectedSemester);
+  };
+  const fetchSubjects = async () => {
+    try {
+      setLoadingSubjects(true);
+      let res1, res2;
+      if (currentYear === 'BE') {
+        // Fetch subjects for both semester 7 and semester 8
+        res1 = await axios.get(
+          `${BASEURL}/subject/get/sub?currentYear=${currentYear}&semester=7`
+        );
+        setCurrentSemester(7);
+
+        setSubjectList1(res1.data.data);
+
+        res2 = await axios.get(
+          `${BASEURL}/subject/get/sub?currentYear=${currentYear}&semester=8`
+        );
+        setSubjectList2(res2.data.data);
+        setCurrentSemester2(8);
+      } else if (currentYear === 'TE') {
+        // Fetch subjects for both semester 5 and semester 6
+        res1 = await axios.get(
+          `${BASEURL}/subject/get/sub?currentYear=${currentYear}&semester=5`
+        );
+        setSubjectList1(res1.data.data);
+
+        res2 = await axios.get(
+          `${BASEURL}/subject/get/sub?currentYear=${currentYear}&semester=6`
+        );
+        setSubjectList2(res2.data.data);
+        setCurrentSemester(5);
+        setCurrentSemester2(6);
+      } else {
+        // Fetch subjects for both semester 3 and semester 4
+        res1 = await axios.get(
+          `${BASEURL}/subject/get/sub?currentYear=${currentYear}&semester=3`
+        );
+        setSubjectList1(res1.data.data);
+
+        res2 = await axios.get(
+          `${BASEURL}/subject/get/sub?currentYear=${currentYear}&semester=4`
+        );
+        setSubjectList2(res2.data.data);
+        setCurrentSemester(3);
+        setCurrentSemester2(4);
+      }
+    } catch (error) {
+      console.error('Error fetching subjects:', error);
+    } finally {
+      setLoadingSubjects(false);
+    }
   };
 
   useEffect(() => {
-    const fetchSubjects = async () => {
-      try {
-        setLoadingSubjects(true);
-        const res = await axios.get(
-          `${BASEURL}/subject/get/sub?currentYear=${currentYear}&semester=${projectDetails.semester}`
-        );
-        setSubjectList(res.data.data);
-      } catch (error) {
-        console.error('Error fetching subjects:', error);
-      } finally {
-        setLoadingSubjects(false);
-      }
-    };
     if (currentYear && projectDetails.semester) {
       fetchSubjects();
     }
@@ -43,10 +85,9 @@ const SubjectPage = () => {
 
   return (
     <>
-      {/* Breadcrumb and Semester Select */}
       <div className="flex justify-between">
         <Breadcrumb pageName="Project list" />
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label className="block font-medium text-black dark:text-white">
             Select Semester
           </label>
@@ -77,22 +118,58 @@ const SubjectPage = () => {
               </>
             )}
           </select>
+        </div> */}
+      </div>
+      {loadingSubjects ? (
+        <div>Wait Fetching</div>
+      ) : (
+        <div className="my-10 mb-10">
+          <div className="my-10 flex pl-2  text-xl font-bold text-black ">
+            <h1 className="hover:bg-gray-500  cursor-pointer rounded-xl  border border-gray bg-white py-2 px-3 shadow-2xl">
+              Semester {currentSemester}
+            </h1>{' '}
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {subjectList1.map((subject, index) => (
+              <SubjectCard
+                key={index}
+                subject={subject}
+                academic={currentUser.academicYear}
+                currentYear={currentYear}
+                semester={projectDetails.semester}
+              />
+            ))}
+          </div>{' '}
         </div>
-      </div>
-
-      {/* Subject Cards */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-        {subjectList.map((subject, index) => (
-          <SubjectCard
-            Two
-            key={index}
-            subject={subject}
-            academic={currentUser.academicYear}
-            currentYear={currentYear}
-            semester={projectDetails.semester}
-          />
-        ))}
-      </div>
+      )}
+      <div className="my-10">
+        {' '}
+        <hr className="text-" />
+      </div>{' '}
+      {loadingSubjects ? (
+        <div>Wait Fetching Subjects</div>
+      ) : (
+        <div className="my-10">
+          {' '}
+          <div className="my-10 flex pl-2  text-2xl font-bold text-black ">
+            <h1 className="hover:bg-gray-500  cursor-pointer rounded-xl  border border-gray bg-white py-2 px-3 shadow-2xl">
+              {' '}
+              Semester {currentSemester2}
+            </h1>{' '}
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {subjectList2.map((subject, index) => (
+              <SubjectCard
+                key={index}
+                subject={subject}
+                academic={currentUser.academicYear}
+                currentYear={currentYear}
+                semester={projectDetails.semester}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </>
   );
 };

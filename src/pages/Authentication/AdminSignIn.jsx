@@ -308,11 +308,14 @@ const AdminSignIn = () => {
                 </div>
 
                 <div className="mb-2">
-                  <input
+                  <button
                     type="submit"
-                    value="Sign In"
-                    className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-2 text-white transition hover:bg-opacity-90"
-                  />
+                    onClick={handleLoginSubmit}
+                    className="w-full cursor-pointer rounded-lg border border-[#0C356A] bg-[#0C356A] p-2 text-white transition hover:bg-opacity-90"
+                    disabled={isLoading} // Disable button while loading
+                  >
+                    {isLoading ? 'Loading...' : 'Sign in'}
+                  </button>
                 </div>
 
                 {/* <div className="mt-6 text-center">

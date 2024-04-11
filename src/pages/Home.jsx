@@ -1,12 +1,13 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Breadcrumb from '../components/Breadcrumb';
 import ProjectCard from '../components/ProjectCard';
-import { React, useEffect, useState } from 'react';
-import axios from 'axios';
+import Loader from '../components/Loader'; // Import your loader component
 import { BASEURL } from '../Api';
-// Make sure to import axios
 
 const Home = () => {
   const [project, setProject] = useState([]);
+  const [loading, setLoading] = useState(true); // Initialize loading state
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,6 +17,8 @@ const Home = () => {
         setProject(allProject.data); // Set the fetched data to the state
       } catch (error) {
         console.log('All Project fetching Error ', error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching data
       }
     };
 
@@ -26,11 +29,15 @@ const Home = () => {
     <>
       <Breadcrumb pageName="Project List" />
 
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-        {project?.map((projectItem, index) => (
-          <ProjectCard key={index} project={projectItem} />
-        ))}
-      </div>
+      {loading ? (
+        <Loader /> // Render loader while data is being fetched
+      ) : (
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+          {project?.map((projectItem, index) => (
+            <ProjectCard key={index} project={projectItem} />
+          ))}
+        </div>
+      )}
     </>
   );
 };

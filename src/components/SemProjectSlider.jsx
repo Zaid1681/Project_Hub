@@ -4,7 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ProjectCard from '../components/ProjectCard';
 import Breadcrumb from '../components/Breadcrumb';
-
+import Loader from './Loader';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import SemProjectCard from './SemProjectCard';
@@ -122,8 +122,8 @@ const SemProjectSlider = ({ sem }) => {
             <Breadcrumb pageName="Project Record" />
           </label>
 
-          <label className="block font-medium text-black dark:text-white my-2">
-            Select Semester
+          <label className="my-2 w-full font-medium text-black dark:text-white md:block hidden">
+            <h1>Select Semester</h1>
           </label>
 
           <select
@@ -161,7 +161,9 @@ const SemProjectSlider = ({ sem }) => {
         {' '}
         {/* Use grid to create a 2-column grid */}
         {loading ? (
-          <p>Loading...</p>
+          <p>
+            <Loader />
+          </p>
         ) : (
           project.map((data) => (
             <SemProjectCard key={data._id} project={data} />

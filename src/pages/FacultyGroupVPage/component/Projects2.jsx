@@ -9,6 +9,7 @@ import { BASEURL } from '../../../Api';
 // import BrandOne from '../images/brand/brand-01.svg'; // Import other brand images as needed
 // import './ApplicantTable.css';
 // import EditApplicant from './EditApplicant';
+import Toastify from 'toastify-js';
 
 const Project2 = () => {
   const [searchText, setSearchText] = useState('');
@@ -27,22 +28,40 @@ const Project2 = () => {
     clearFilters();
     setSearchText('');
   };
+  const fetchData = async () => {
+    try {
+      const decodedSubject = decodeURIComponent(subject); // Decode the subject
+
+      const res = await axios.get(
+        `${BASEURL}/group/groupsList/get/${academic}/${currentYear}/${decodedSubject}/${semester}`
+      );
+      // console.log(res.data);
+      setData(res.data.data);
+      // alert(res.data.message);
+      console.log('==>', res.data.data);
+    } catch (error) {
+      Toastify({
+        text: `${error.response.data.message}`,
+        duration: 1800,
+        gravity: 'top', // `top` or `bottom`
+        position: 'right', // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+          padding: '10px 50px',
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
+
+      // alert(error.response.data.message);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(
-          `${BASEURL}/group/groupsList/get/${academic}/${currentYear}/${subject}/${semester}`
-        );
-        // console.log(res.data);
-        setData(res.data.data);
-        // alert(res.data.message);
-        console.log('==>', res.data.data);
-      } catch (error) {
-        alert(error.response.data.message);
-      }
-    };
     // fetchVideo();
-    fetchData();
+    // fetchData();
+    if (currentYear && subject && semester && academic) {
+      fetchData();
+    }
   }, []);
 
   const getColumnSearchProps = (dataIndex, columnTitle) => ({
@@ -356,7 +375,7 @@ const Project2 = () => {
 
   return (
     <div
-      className="my-10 rounded-sm border 
+      className="my-10 rounded-sm 
     border-stroke  text-black  shadow-default dark:text-black xl:pb-1"
     >
       <Table

@@ -38,6 +38,7 @@ const Creategroup = lazy(() => import('./pages/Creategroup'));
 const Addproject = lazy(() => import('./pages/Addproject'));
 const Alerts = lazy(() => import('./pages/UiElements/Alerts'));
 const Buttons = lazy(() => import('./pages/UiElements/Buttons'));
+const HomePage = lazy(() => import('./pages/HomePage'));
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
 const StudentGroups = lazy(() => import('./pages/Details/StudentGroups'));
 const GroupViewPage = lazy(() =>
@@ -60,7 +61,6 @@ const TaskPage = lazy(() => import('./pages/TaskPage'));
 import { useSelector } from 'react-redux';
 import AdminSignIn from './pages/Authentication/AdminSignIn';
 import FacultyProjectDetail from './pages/Details/FacultyProjectDetail';
-import HomePage from './pages/HomePage';
 import ApprovedGroupsPage from './pages/FacultyGroupVPage/component/ApprovedGroupsPage';
 import ViewProject2 from './pages/ViewProject2';
 function App() {

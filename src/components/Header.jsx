@@ -52,7 +52,7 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
 
           <Link
             className="block flex-shrink-0 text-lg font-inter font-bold dark:text-white text-black lg:hidden"
-            to="/"
+            to="/home"
           >
             {/* <img src={Logo} alt="Logo" /> */}
             Project Hub

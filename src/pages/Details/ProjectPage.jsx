@@ -13,7 +13,7 @@ import FacultyProjectCard from '../../components/FacultyProjectCard';
 
 import axios from 'axios';
 import { BASEURL } from '../../Api';
-import '../table.css'
+import '../table.css';
 const ProjectProject = () => {
   const { subject, currentYear, semester, academic } = useParams();
   console.log(subject, currentYear, semester, academic);

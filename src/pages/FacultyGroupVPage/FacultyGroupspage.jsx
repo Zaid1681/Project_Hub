@@ -23,17 +23,17 @@ const FacultyGroupspage = () => {
     <section className="container mx-auto my-12 flex flex-col items-center">
       <div className=" font-medium">
         <div className="mx-auto text-center">
-          <div className="mx-auto flex flex-row gap-3 md:gap-7 items-center justify-center px-20">
+          <div className="mx-auto flex flex-row items-center justify-center gap-3 px-20 md:gap-7">
             <button
               onClick={handleShowTable}
-              className={`rounded bg-[#0C356A] w-30 md:w-80 p-2  text-white`}
+              className={`w-30 rounded bg-[#0C356A] p-2 text-white  md:w-80`}
             >
               Project Ideas
             </button>
 
             <button
               onClick={handleShowGroups}
-              className={`rounded bg-[#0C356A] w-30 md:w-80 p-2 text-white`}
+              className={`w-30 rounded bg-[#0C356A] p-2 text-white md:w-80`}
             >
               Groups
             </button>
