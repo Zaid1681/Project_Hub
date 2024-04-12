@@ -5,6 +5,7 @@ const {
   getAllStudents,
   getStudent,
   getStudentNameById,
+  delStudent,
   getStudentEmail,
 } = require("../controller/auth");
 const router = express.Router();
@@ -16,6 +17,7 @@ router.post("/signin", signin);
 router.get("/getAllStudents", getAllStudents);
 router.get("/getEmail/:email", getStudentEmail);
 router.get("/getStudent/:id", getStudent);
+router.delete("/delStudent/:id", delStudent);
 router.get("/getStudentByID", getStudentNameById);
 
 module.exports = router;
