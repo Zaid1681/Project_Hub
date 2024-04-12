@@ -312,7 +312,41 @@ const getGroupsByCriteria = async (req, res, next) => {
     // Add each criteria to the query object if it's provided
     if (currentYear) query.currentYear = currentYear;
     if (semester) query.semester = semester;
-    if (academicYear) query.academicYear = academicYear;
+    if (academicYear) query.academicYear = academicYear || "";
+    if (subject) query.subject = subject;
+
+    // Add criteria for isProjectApproved and projectStatus
+    // query.isProjectApproved = true;
+    // query.projectStatus = "Approved";
+
+    // Find groups matching all the provided criteria
+    const groups = await Group.find(query).lean();
+
+    if (!groups || groups.length === 0) {
+      return next(
+        CustomError(404, "No groups found for the provided criteria")
+      );
+    }
+
+    res.status(200).json({
+      message: "Groups fetched successfully",
+      data: groups,
+    });
+  } catch (error) {
+    next(CustomError(500, error));
+  }
+};
+const getAllGroupsByCriteria = async (req, res, next) => {
+  try {
+    const { currentYear, semester, subject } = req.params;
+
+    // Construct the query object based on the provided criteria
+    const query = {};
+
+    // Add each criteria to the query object if it's provided
+    if (currentYear) query.currentYear = currentYear;
+    if (semester) query.semester = semester;
+    // if (academicYear) query.academicYear = academicYear || "";
     if (subject) query.subject = subject;
 
     // Add criteria for isProjectApproved and projectStatus
@@ -372,6 +406,7 @@ module.exports = {
   getGroupsByCriteria,
   getGroupWithId,
   getApprovedGroup,
+  getAllGroupsByCriteria,
   updateGuide,
   getGroupMembers,
   updateGrpStatus,

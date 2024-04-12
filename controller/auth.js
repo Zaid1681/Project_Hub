@@ -167,6 +167,20 @@ const getStudent = async (req, res, next) => {
     // next(error);
   }
 };
+const delStudent = async (req, res, next) => {
+  try {
+    const Faculty = await Student.findByIdAndDelete(req.params.id);
+    if (Faculty.length === 0) {
+      throw CustomError("Faculty not found", 400);
+    } else {
+      res.status(200).json(Faculty);
+    }
+  } catch (error) {
+    // console.log("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+    // next(error);
+  }
+};
 
 const getStudentNameById = async (req, res, next) => {
   try {
@@ -202,5 +216,6 @@ module.exports = {
   getAllStudents,
   getStudent,
   getStudentNameById,
+  delStudent,
   getStudentEmail,
 };

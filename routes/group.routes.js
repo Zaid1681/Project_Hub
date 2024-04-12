@@ -19,6 +19,7 @@ const {
   getApprovedGroup,
   getGroupMembers,
   updateGrpStatus,
+  getAllGroupsByCriteria,
   //   getProject,
   //   delProject,
   //   updStatus,
@@ -32,6 +33,10 @@ router.get("/getAll", getAllGroup);
 router.get(
   "/groupsList/get/:academic/:currentYear/:subject/:semester",
   getGroupsByCriteria
+);
+router.get(
+  "/groupsList/getAll/:currentYear/:subject/:semester",
+  getAllGroupsByCriteria
 );
 router.get(
   "/groupsList/get/approved/:academic/:currentYear/:subject/:semester/:guideId",

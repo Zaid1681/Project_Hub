@@ -8,6 +8,8 @@ const connect = () => {
     .connect(process.env.MONGO_ID, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 30000, // 30 seconds timeout
+      socketTimeoutMS: 45000, // 45 seconds timeout
     })
     .then(() => {
       console.log("connected to DB sucessfully!!");
@@ -15,7 +17,7 @@ const connect = () => {
     .catch((error) => {
       console.log("Error: ", error);
     });
-}
+};
 mongoose.connection.on("disconnected", () => {
   console.log("Mongodb disconnected");
 });
