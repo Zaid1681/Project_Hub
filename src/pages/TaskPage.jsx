@@ -23,6 +23,7 @@ import { MdEdit } from 'react-icons/md';
 
 import moment from 'moment';
 import { FaLink } from 'react-icons/fa6';
+import ChatSectionTaskPage from '../components/ChatSectionTaskPage';
 
 const { RangePicker } = DatePicker;
 
@@ -67,20 +68,29 @@ const TaskPage = () => {
     console.log(inputDisable);
   };
   console.log('===>', editFormData);
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await axios.get(
-          `${BASEURL}/task/getTaskByCriteria/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`
-        );
-        // console.log('Tasks fetched:', response.data);
-        const fetchedTasks = response.data.data;
-        setTasks(fetchedTasks);
-      } catch (error) {
-        console.error('Error fetching tasks:', error);
-      }
-    };
+  const fetchTasks = async () => {
+    try {
+      const response = await axios.get(
+        `${BASEURL}/task/getTaskByCriteria/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`
+      );
+      const response2 = await axios.get(
+        `${BASEURL}/task/getTaskByCriteriaAll/${academicYear}/${currentYear}/${semester}/${subject}/${facultyId}`
+      );
 
+      const fetchedTasks1 = response.data.data;
+      console.log('fetchedTasks1', fetchedTasks1);
+      const fetchedTasks2 = response2.data.data;
+      console.log('fetchedTasks2', fetchedTasks2);
+
+      // Combine the data from both responses
+      const combinedTasks = [...fetchedTasks1, ...fetchedTasks2];
+
+      setTasks(combinedTasks);
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
+    }
+  };
+  useEffect(() => {
     fetchTasks();
   }, [groupId, currentYear, academicYear, semester, subject, facultyId]);
 
@@ -592,6 +602,15 @@ const TaskPage = () => {
           <p>No submission data found for this task.</p>
         )}
       </Modal>
+      <div className="my-10">
+        {' '}
+        <div>
+          <h2 className="mb-2 font-inter text-3xl font-semibold text-black md:pl-10">
+            Chats
+          </h2>
+        </div>
+        <ChatSectionTaskPage />
+      </div>
     </section>
   );
 };

@@ -96,28 +96,25 @@ const AssignTaskFaculty = () => {
       // console.log('=======hfhfhfhf', selectedGroups);
     }
     try {
-      const res = await axios.post(
-        `${BASEURL}/task/add`,
-        {
-          title: formData.title,
-          description: formData.description,
-          groupId: groups, // Convert array to string
-          assignedDate: formData.assignedDate,
-          deadline: formData.deadline,
-          semester,
-          facultyId: currentUser.userData._id,
-          subject,
-          academicYear: academic,
-          currentYear,
-          taskType: formData.taskType,
-          // Use formData instead of currentUser
+      const taskData = {
+        title: formData.title,
+        description: formData.description,
+        groupId: groups, // Convert array to string
+        assignedDate: formData.assignedDate,
+        deadline: formData.deadline,
+        semester,
+        facultyId: currentUser.userData._id,
+        subject,
+        academicYear: academic,
+        currentYear,
+        taskType: formData.taskType,
+      };
+      console.log('this is taskData', taskData);
+      const res = await axios.post(`${BASEURL}/task/add`, taskData, {
+        headers: {
+          'Content-Type': 'application/json', // Change to JSON content type
         },
-        {
-          headers: {
-            'Content-Type': 'application/json', // Change to JSON content type
-          },
-        }
-      );
+      });
       if (res) {
         console.log('task uploaded');
         // fetchSpecificTask();
@@ -133,9 +130,9 @@ const AssignTaskFaculty = () => {
         setLoading(false);
         fetchTasks();
         handleCancel();
-        // setTimeout(() => {
-        //   location.reload();
-        // }, 100);
+        setTimeout(() => {
+          location.reload();
+        }, 500);
 
         // Show success message or perform any other action
       }
@@ -253,7 +250,7 @@ const AssignTaskFaculty = () => {
       setLoadingTasks(true);
 
       const res = await axios.get(
-        `${BASEURL}/task/getTaskByCriteriaAll/${academic}/${currentYear}/${semester}/${subject}/${facultyId}`
+        `${BASEURL}/task/getTaskByCriteriaAll/atfaculties/${academic}/${currentYear}/${semester}/${subject}/${facultyId}`
       );
       // console.log('===>', res.data);
       setData(res.data.data);
@@ -425,6 +422,7 @@ const AssignTaskFaculty = () => {
   //     status: 'In Progress',
   //   },
   // ];
+  console.log(formData);
   const handleChange = (fieldName, value) => {
     if (fieldName === 'groupId') {
       // Extract the selected groupId from the event value
@@ -436,14 +434,14 @@ const AssignTaskFaculty = () => {
       const taskType = value.target.value;
       setFormData({ ...formData, [fieldName]: taskType });
     } else if (fieldName === 'assignedDate' || fieldName === 'deadline') {
-      // const reversedDate = value.target.value.split('-').reverse().join('-');
       const formattedDate = moment(
         value.target.value,
-        'DD-MM-YYYYTHH:mm'
+        'YYYY-MM-DDTHH:mm'
       ).toDate(); // Parse date string to Date object
-
-      // console.log(formattedDate);
-      setFormData({ ...formData, [fieldName]: formattedDate });
+      setFormData((prevData) => ({
+        ...prevData,
+        [fieldName]: formattedDate,
+      }));
     } else {
       setFormData({ ...formData, [fieldName]: value });
     }

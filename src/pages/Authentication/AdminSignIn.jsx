@@ -134,7 +134,7 @@ const AdminSignIn = () => {
   const generateAcademicYears = () => {
     const currentYear = new Date().getFullYear();
     const options = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 10; i++) {
       const startYear = currentYear - i;
       const endYear = startYear + 1;
       options.push(`${startYear}-${endYear}`);
@@ -255,9 +255,9 @@ const AdminSignIn = () => {
                     </span>
                   </div>
                 </div>
-                <div className="mb-4 flex gap-2 ">
+                <div className="mb-6 ">
                   <div className="relative">
-                    <span className="absolute right-4 top-4">
+                    <span className="absolute right-4  top-4">
                       <svg
                         className="fill-current"
                         width="22"

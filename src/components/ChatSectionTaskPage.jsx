@@ -7,10 +7,13 @@ import { BASEURL } from '../Api';
 import axios from 'axios';
 import { MdDelete } from 'react-icons/md';
 
-const ChatSection = () => {
-  const { id } = useParams();
-  const groupId = id;
+const ChatSectionTaskPage = () => {
+  const { groupId } = useParams();
+  // const groupId = id;
   const [chatDes, setChatDes] = useState('');
+  const [appProjId, setAppProjId] = useState(null);
+  console.log('--->:', groupId);
+  console.log('--->appProjId', appProjId);
   const [chat, setChat] = useState([]);
   const currentUser = useSelector((state) => state.user);
   const chatContainerRef = useRef(null);
@@ -26,11 +29,11 @@ const ChatSection = () => {
         description: chatDes,
         senderEmail: currentUser.userData.email,
         senderName: currentUser.userData.name,
-        groupId: groupId,
+        projectId: appProjId,
       };
 
       const chatMsgResponse = await axios.post(
-        `${BASEURL}/chat/add/groupId`,
+        `${BASEURL}/chat/add/projectId`,
         chatMessage
       );
 
@@ -44,10 +47,23 @@ const ChatSection = () => {
     }
   };
 
+  const fetchApprovedProj = async () => {
+    try {
+      const response = await axios.get(
+        `${BASEURL}/group/groupDetail/get/${groupId}`
+      );
+
+      console.log(response.data.data);
+      setAppProjId(response.data.data.approvedProjectId);
+    } catch (error) {
+      console.log('Error fetching groupDetails', error);
+    }
+  };
+
   const fetchChat = async () => {
     try {
       const response = await axios.get(
-        `${BASEURL}/chat/get/groupId/${groupId}`
+        `${BASEURL}/chat/get/projectId/${appProjId}`
       );
       console.log(response.data.data);
       setChat(response.data.data);
@@ -116,7 +132,8 @@ const ChatSection = () => {
 
   useEffect(() => {
     if (groupId) {
-      fetchChat();
+      fetchApprovedProj();
+      // fetchChat();
     }
   }, [groupId]);
 
@@ -125,7 +142,7 @@ const ChatSection = () => {
   }, [chat]);
 
   return (
-    <div className="h-full gap-2 rounded-xl bg-white p-5  shadow-md ">
+    <div className="h-full gap-2 rounded-xl bg-white p-5  shadow-md md:mx-10 mx-3">
       <div className="">
         <div className="flex  gap-5">
           <div className="">
@@ -145,6 +162,7 @@ const ChatSection = () => {
                 name="description"
                 value={chatDes}
                 placeholder="Add Comment"
+                disabled={appProjId === null} // Disable input when appProjId is null
               />
             </div>
             <div className="flex items-center gap-2">
@@ -152,6 +170,7 @@ const ChatSection = () => {
                 <button
                   className="rounded-md bg-[#0C356A] px-3 py-2  text-base text-white hover:bg-[#0C356A]/90  "
                   onClick={handleSubmitMsg}
+                  disabled={appProjId === null} // Disable button when appProjId is null
                 >
                   Comment
                 </button>
@@ -217,4 +236,4 @@ const ChatSection = () => {
   );
 };
 
-export default ChatSection;
+export default ChatSectionTaskPage;

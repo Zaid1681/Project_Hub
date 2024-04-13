@@ -17,6 +17,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { BASEURL } from '../../Api';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import ChatSectionTaskPage from '../../components/ChatSectionTaskPage';
 
 const { RangePicker } = DatePicker;
 
@@ -274,6 +275,15 @@ const IndividualGroupPage = () => {
           <p>No submission data found for this task.</p>
         )}
       </Modal>
+      <div className="my-10">
+        {' '}
+        <div>
+          <h2 className="mb-2 font-inter text-3xl font-semibold text-black md:pl-10">
+            Chats
+          </h2>
+        </div>
+        <ChatSectionTaskPage />
+      </div>
     </section>
   );
 };

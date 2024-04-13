@@ -5,6 +5,7 @@ import AssignGuide from './component/AssignGuide';
 import 'react-toastify/dist/ReactToastify.css';
 import Toastify from 'toastify-js';
 import { BASEURL } from '../../Api';
+import ChatSection from '../../components/ChatSection';
 
 const GroupDetailsPage = () => {
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
@@ -78,7 +79,7 @@ const GroupDetailsPage = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () { }, // Callback after click
+        onClick: function () {}, // Callback after click
       }).showToast();
       // console.log(response.data.data);
     } catch (error) {
@@ -104,7 +105,7 @@ const GroupDetailsPage = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () { }, // Callback after click
+        onClick: function () {}, // Callback after click
       }).showToast();
       // console.log(response.data.data);
       // }
@@ -120,7 +121,7 @@ const GroupDetailsPage = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () { }, // Callback after click
+        onClick: function () {}, // Callback after click
       }).showToast();
     }
   };
@@ -132,7 +133,9 @@ const GroupDetailsPage = () => {
     <main className="bg-gray-100 min-h-screen">
       <section className="mx-auto md:p-10">
         <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 text-3xl font-bold text-black font-inter">Group</h2>
+          <h2 className="mb-7 font-inter text-3xl font-bold text-black">
+            Group
+          </h2>
 
           <div className="space-y-6">
             <div className="flex items-center  text-black ">
@@ -140,11 +143,16 @@ const GroupDetailsPage = () => {
               <div className="flex flex-wrap gap-2">
                 <h1 className="text-xl font-medium">Members Name : </h1>
                 {membersName?.map((data, index) => (
-                  <h1 key={index} className="text-xl font-medium inline-block md:block">{data},</h1>
+                  <h1
+                    key={index}
+                    className="inline-block text-xl font-medium md:block"
+                  >
+                    {data},
+                  </h1>
                 ))}
               </div>
             </div>
-            <div className="flex flex-col md:flex-row gap-2 md:gap-10 text-black">
+            <div className="flex flex-col gap-2 text-black md:flex-row md:gap-10">
               {' '}
               <h2 className="text-xl font-medium">
                 <span>Year : </span>
@@ -255,7 +263,9 @@ const GroupDetailsPage = () => {
               <div className="mt-6">
                 <h1 className="text-xl font-medium">Attachment</h1>
                 {val?.pdfLinks?.map((data, index) => (
-                  <h2 className="mt-1 text-lg"><a href={data}>{data}</a></h2>
+                  <h2 className="mt-1 text-lg">
+                    <a href={data}>{data}</a>
+                  </h2>
                 ))}
               </div>
               <h1> {val.isApproved === true ? 'Approved' : 'Not Approved'}</h1>
@@ -274,7 +284,7 @@ const GroupDetailsPage = () => {
           </div>
         ))}
         <div className="container my-10 mx-auto  gap-10 rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 text-3xl font-bold text-black font-inter">
+          <h2 className="mb-7 font-inter text-3xl font-bold text-black">
             Guide Details
           </h2>
           <div className="flex gap-10">
@@ -330,8 +340,17 @@ const GroupDetailsPage = () => {
             </div>
           </div>
         </div>
-      </section >
-    </main >
+        <div className="my-10">
+          {' '}
+          <div>
+            <h2 className="mb-2 font-inter text-3xl font-semibold text-black md:pl-10">
+              Chats
+            </h2>
+          </div>
+          <ChatSection />
+        </div>
+      </section>
+    </main>
   );
 };
 
