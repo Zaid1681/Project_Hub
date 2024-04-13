@@ -23,7 +23,7 @@ const FacultyGroupspage = () => {
     <section className="container mx-auto my-12 flex flex-col items-center">
       <div className=" font-medium">
         <div className="mx-auto text-center">
-          {/* <div className="mx-auto flex flex-row items-center justify-center gap-3 px-20 md:gap-7">
+          <div className="mx-auto flex flex-row items-center justify-center gap-3 px-20 md:gap-7">
             <button
               onClick={handleShowTable}
               className={`w-30 rounded bg-[#0C356A] p-2 text-white  md:w-80`}
@@ -37,11 +37,11 @@ const FacultyGroupspage = () => {
             >
               Groups
             </button>
-          </div> */}
+          </div>
         </div>
-        <ApprovedGroupsPage />
-        {/* {showTable && <Projects2 />} */}
-        {/* {showGroups && } */}
+        {/* <ApprovedGroupsPage /> */}
+        {showTable && <Projects2 />}
+        {showGroups && <ApprovedGroupsPage />}
       </div>
     </section>
   );
