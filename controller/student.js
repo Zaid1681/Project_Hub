@@ -97,7 +97,7 @@ const getStudentById = async (req, res, next) => {
 };
 const getAllStudent = async (req, res, next) => {
   try {
-    const student = await Students.findById();
+    const student = await Students.find();
 
     if (!student) {
       return res
