@@ -64,7 +64,7 @@ const ApprovedGroupCard = ({
             <p className="text-lg ">{data?.title}</p>
           </div>
 
-          <div className="jusitfy-center my-3 flex flex-wrap items-center gap-2">
+          {/* <div className="jusitfy-center my-3 flex flex-wrap items-center gap-2">
             <p className="text-xl font-bold">Project Description:</p>
             <p className="text-lg">
               {showFullAbstract[data?._id]
@@ -81,7 +81,7 @@ const ApprovedGroupCard = ({
                 </button>
               )}
             </p>
-          </div>
+          </div> */}
           <div className="jusitfy-center my-3 flex flex-wrap items-center gap-2">
             <p className="text-xl font-bold">Assigned Guide :</p>
             <p className="text-lg">{guideName}</p>

@@ -45,7 +45,9 @@ const Creategroup = () => {
 
     // Update the student ID state
     setStudentId(newStudentId);
-
+    if (newStudentId === '' || newStudentId.length < 9) {
+      setStudentName('');
+    }
     try {
       // Make a GET request to the backend API endpoint with the student ID
       const response = await axios.get(
@@ -65,7 +67,9 @@ const Creategroup = () => {
 
     // Update the student ID state
     setStudentId2(newStudentId2);
-
+    if (newStudentId2 === '' || newStudentId2.length < 9) {
+      setStudentName2('');
+    }
     try {
       // Make a GET request to the backend API endpoint with the student ID
       const response = await axios.get(
@@ -85,6 +89,9 @@ const Creategroup = () => {
 
     // Update the student ID state
     setStudentId3(newStudentId3);
+    if (newStudentId3 === '' || newStudentId3.length < 9) {
+      setStudentName3('');
+    }
 
     try {
       // Make a GET request to the backend API endpoint with the student ID
@@ -346,11 +353,24 @@ const Creategroup = () => {
     // Check if at least one member is added
     const groupCreatorId = currentUser.userData.studentId;
     if (
+      (studentId && studentName.length == 0) ||
+      (studentId2 && studentName2.length == 0) ||
+      (studentId3 && studentName3.length == 0)
+    ) {
+      alert('Add proper studentId ');
+      return;
+    } else if (
+      (studentId && studentId.length < 9) ||
+      (studentId2 && studentId2.length < 9) ||
+      (studentId3 && studentId3.length < 9)
+    ) {
+      alert('Add proper studentId !');
+      return;
+    } else if (
       (studentId && groupCreatorId === studentId) ||
       (studentId2 && groupCreatorId === studentId2) ||
       (studentId3 && groupCreatorId === studentId3)
     ) {
-      
       alert(
         'Error: You cannot add your own student ID. Details: A group creator should not add their own student Id it is automatically get added'
       );

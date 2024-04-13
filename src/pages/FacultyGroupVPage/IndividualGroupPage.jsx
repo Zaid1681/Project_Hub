@@ -13,6 +13,8 @@ import {
 import '../../Table.css';
 import { PlusOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
+
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { BASEURL } from '../../Api';
@@ -64,10 +66,19 @@ const IndividualGroupPage = () => {
         const response = await axios.get(
           `${BASEURL}/task/getTaskByCriteria/${groupId}/${currentYear}/${academicYear}/${semester}/${subject}/${facultyId}`
         );
+        const response2 = await axios.get(
+          `${BASEURL}/task/getTaskByCriteriaAll/${academicYear}/${currentYear}/${semester}/${subject}/${facultyId}`
+        );
         // console.log('Tasks fetched:', response.data);
-        const fetchedTasks = response.data.data;
-        const taskId = fetchedTasks.map((task) => task._id); // Extract task IDs
-        setTasks(fetchedTasks);
+        const fetchedTasks1 = response.data.data;
+        console.log('fetchedTasks1', fetchedTasks1);
+        const fetchedTasks2 = response2.data.data;
+        console.log('fetchedTasks2', fetchedTasks2);
+
+        // Combine the data from both responses
+        const combinedTasks = [...fetchedTasks1, ...fetchedTasks2];
+        // const taskId = fetchedTasks.map((task) => task._id); // Extract task IDs
+        setTasks(combinedTasks);
         setTaskId(taskId); // Set task IDs in state
       } catch (error) {
         console.error('Error fetching tasks:', error);
@@ -163,11 +174,17 @@ const IndividualGroupPage = () => {
       title: 'Assigned',
       dataIndex: 'assignedDate',
       key: 'assignedDate',
+      render: (assignedDate) => (
+        <span>{moment(assignedDate).format('DD-MM-YYYY, HH:mm')}</span>
+      ),
     },
     {
       title: 'Deadline',
       dataIndex: 'deadline',
       key: 'deadline',
+      render: (deadline) => (
+        <span>{moment(deadline).format('DD-MM-YYYY, HH:mm')}</span>
+      ),
     },
     {
       title: 'Submission',

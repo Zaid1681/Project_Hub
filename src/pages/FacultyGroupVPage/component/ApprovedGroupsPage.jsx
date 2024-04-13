@@ -36,56 +36,56 @@ const ApprovedGroupsPage = () => {
     fetchData();
   }, []);
 
-  const groups = [
-    {
-      id: 1,
-      title: 'Hotel Management',
-      abstract:
-        'The hotel management project aims to streamline and automate various operational aspects of a hotel, including reservation management, guest check-in and check-out processes, room assignment, billing and invoicing, staff management, and inventory control. By implementing a comprehensive system, it seeks to enhance efficiency, improve guest experience, and optimize resource utilization within the hospitality industry. Through centralized data management and integration of modules such as front desk, housekeeping, and accounting, the project facilitates seamless communication and coordination among different departments, ultimately contributing to the overall success and profitability of the hotel.',
-      attachments: ['attachment1.pdf', 'attachment2.docx', 'attachment3.jpg'],
-      members: ['John Doe', 'Jane Smith'],
-    },
-    {
-      id: 2,
-      title: 'Hotel Management',
-      abstract:
-        'The hotel management project aims to streamline and automate various operational aspects of a hotel, including reservation management, guest check-in and check-out processes, room assignment, billing and invoicing, staff management, and inventory control. By implementing a comprehensive system, it seeks to enhance efficiency, improve guest experience, and optimize resource utilization within the hospitality industry. Through centralized data management and integration of modules such as front desk, housekeeping, and accounting, the project facilitates seamless communication and coordination among different departments, ultimately contributing to the overall success and profitability of the hotel.',
-      attachments: ['attachment4.pdf', 'attachment5.xlsx'],
-      members: ['Alice Johnson', 'Bob Williams'],
-    },
-    {
-      id: 3,
-      title: 'Hotel Management',
-      abstract:
-        'The hotel management project aims to streamline and automate various operational aspects of a hotel, including reservation management, guest check-in and check-out processes, room assignment, billing and invoicing, staff management, and inventory control. By implementing a comprehensive system, it seeks to enhance efficiency, improve guest experience, and optimize resource utilization within the hospitality industry. Through centralized data management and integration of modules such as front desk, housekeeping, and accounting, the project facilitates seamless communication and coordination among different departments, ultimately contributing to the overall success and profitability of the hotel.',
-      attachments: ['attachment6.jpg'],
-      members: ['Eve Brown', 'Charlie Davis'],
-    },
-    {
-      id: 4,
-      title: 'Hotel Management',
-      abstract:
-        'The hotel management project aims to streamline and automate various operational aspects of a hotel, including reservation management, guest check-in and check-out processes, room assignment, billing and invoicing, staff management, and inventory control. By implementing a comprehensive system, it seeks to enhance efficiency, improve guest experience, and optimize resource utilization within the hospitality industry. Through centralized data management and integration of modules such as front desk, housekeeping, and accounting, the project facilitates seamless communication and coordination among different departments, ultimately contributing to the overall success and profitability of the hotel.',
-      attachments: ['attachment1.pdf', 'attachment2.docx', 'attachment3.jpg'],
-      members: ['John Doe', 'Jane Smith'],
-    },
-    {
-      id: 5,
-      title: 'Hotel Management',
-      abstract:
-        'The hotel management project aims to streamline and automate various operational aspects of a hotel, including reservation management, guest check-in and check-out processes, room assignment, billing and invoicing, staff management, and inventory control. By implementing a comprehensive system, it seeks to enhance efficiency, improve guest experience, and optimize resource utilization within the hospitality industry. Through centralized data management and integration of modules such as front desk, housekeeping, and accounting, the project facilitates seamless communication and coordination among different departments, ultimately contributing to the overall success and profitability of the hotel.',
-      attachments: ['attachment4.pdf', 'attachment5.xlsx'],
-      members: ['Alice Johnson', 'Bob Williams'],
-    },
-    {
-      id: 6,
-      title: 'Hotel Management',
-      abstract:
-        'The hotel management project aims to streamline and automate various operational aspects of a hotel, including reservation management, guest check-in and check-out processes, room assignment, billing and invoicing, staff management, and inventory control. By implementing a comprehensive system, it seeks to enhance efficiency, improve guest experience, and optimize resource utilization within the hospitality industry. Through centralized data management and integration of modules such as front desk, housekeeping, and accounting, the project facilitates seamless communication and coordination among different departments, ultimately contributing to the overall success and profitability of the hotel.',
-      attachments: ['attachment6.jpg'],
-      members: ['Eve Brown', 'Charlie Davis'],
-    },
-  ];
+  // const groups = [
+  //   {
+  //     id: 1,
+  //     title: 'Hotel Management',
+  //     abstract:
+  //       'The hotel management project aims to streamline and automate various operational aspects of a hotel, including reservation management, guest check-in and check-out processes, room assignment, billing and invoicing, staff management, and inventory control. By implementing a comprehensive system, it seeks to enhance efficiency, improve guest experience, and optimize resource utilization within the hospitality industry. Through centralized data management and integration of modules such as front desk, housekeeping, and accounting, the project facilitates seamless communication and coordination among different departments, ultimately contributing to the overall success and profitability of the hotel.',
+  //     attachments: ['attachment1.pdf', 'attachment2.docx', 'attachment3.jpg'],
+  //     members: ['John Doe', 'Jane Smith'],
+  //   },
+  //   {
+  //     id: 2,
+  //     title: 'Hotel Management',
+  //     abstract:
+  //       'The hotel management project aims to streamline and automate various operational aspects of a hotel, including reservation management, guest check-in and check-out processes, room assignment, billing and invoicing, staff management, and inventory control. By implementing a comprehensive system, it seeks to enhance efficiency, improve guest experience, and optimize resource utilization within the hospitality industry. Through centralized data management and integration of modules such as front desk, housekeeping, and accounting, the project facilitates seamless communication and coordination among different departments, ultimately contributing to the overall success and profitability of the hotel.',
+  //     attachments: ['attachment4.pdf', 'attachment5.xlsx'],
+  //     members: ['Alice Johnson', 'Bob Williams'],
+  //   },
+  //   {
+  //     id: 3,
+  //     title: 'Hotel Management',
+  //     abstract:
+  //       'The hotel management project aims to streamline and automate various operational aspects of a hotel, including reservation management, guest check-in and check-out processes, room assignment, billing and invoicing, staff management, and inventory control. By implementing a comprehensive system, it seeks to enhance efficiency, improve guest experience, and optimize resource utilization within the hospitality industry. Through centralized data management and integration of modules such as front desk, housekeeping, and accounting, the project facilitates seamless communication and coordination among different departments, ultimately contributing to the overall success and profitability of the hotel.',
+  //     attachments: ['attachment6.jpg'],
+  //     members: ['Eve Brown', 'Charlie Davis'],
+  //   },
+  //   {
+  //     id: 4,
+  //     title: 'Hotel Management',
+  //     abstract:
+  //       'The hotel management project aims to streamline and automate various operational aspects of a hotel, including reservation management, guest check-in and check-out processes, room assignment, billing and invoicing, staff management, and inventory control. By implementing a comprehensive system, it seeks to enhance efficiency, improve guest experience, and optimize resource utilization within the hospitality industry. Through centralized data management and integration of modules such as front desk, housekeeping, and accounting, the project facilitates seamless communication and coordination among different departments, ultimately contributing to the overall success and profitability of the hotel.',
+  //     attachments: ['attachment1.pdf', 'attachment2.docx', 'attachment3.jpg'],
+  //     members: ['John Doe', 'Jane Smith'],
+  //   },
+  //   {
+  //     id: 5,
+  //     title: 'Hotel Management',
+  //     abstract:
+  //       'The hotel management project aims to streamline and automate various operational aspects of a hotel, including reservation management, guest check-in and check-out processes, room assignment, billing and invoicing, staff management, and inventory control. By implementing a comprehensive system, it seeks to enhance efficiency, improve guest experience, and optimize resource utilization within the hospitality industry. Through centralized data management and integration of modules such as front desk, housekeeping, and accounting, the project facilitates seamless communication and coordination among different departments, ultimately contributing to the overall success and profitability of the hotel.',
+  //     attachments: ['attachment4.pdf', 'attachment5.xlsx'],
+  //     members: ['Alice Johnson', 'Bob Williams'],
+  //   },
+  //   {
+  //     id: 6,
+  //     title: 'Hotel Management',
+  //     abstract:
+  //       'The hotel management project aims to streamline and automate various operational aspects of a hotel, including reservation management, guest check-in and check-out processes, room assignment, billing and invoicing, staff management, and inventory control. By implementing a comprehensive system, it seeks to enhance efficiency, improve guest experience, and optimize resource utilization within the hospitality industry. Through centralized data management and integration of modules such as front desk, housekeeping, and accounting, the project facilitates seamless communication and coordination among different departments, ultimately contributing to the overall success and profitability of the hotel.',
+  //     attachments: ['attachment6.jpg'],
+  //     members: ['Eve Brown', 'Charlie Davis'],
+  //   },
+  // ];
   console.log(personalGroup);
   // console.log('====>', currentUser.userData._id);
 

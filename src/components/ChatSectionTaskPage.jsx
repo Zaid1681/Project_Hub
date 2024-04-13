@@ -133,7 +133,7 @@ const ChatSectionTaskPage = () => {
   useEffect(() => {
     if (groupId) {
       fetchApprovedProj();
-      // fetchChat();
+      fetchChat();
     }
   }, [groupId]);
 
@@ -142,7 +142,7 @@ const ChatSectionTaskPage = () => {
   }, [chat]);
 
   return (
-    <div className="h-full gap-2 rounded-xl bg-white p-5  shadow-md md:mx-10 mx-3">
+    <div className="mx-3 h-full gap-2 rounded-xl bg-white  p-5 shadow-md md:mx-10">
       <div className="">
         <div className="flex  gap-5">
           <div className="">
