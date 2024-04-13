@@ -39,6 +39,24 @@ const createChatMessage = async (req, res, next) => {
     next(CustomError(500, error.message || "Internal Server Error"));
   }
 };
+const createChatByGroupId = async (req, res, next) => {
+  try {
+    const { senderEmail, senderName, description, groupId } = req.body;
+    const newChatMessage = new ChatMessage({
+      senderEmail,
+      senderName,
+      description,
+      groupId,
+    });
+    await newChatMessage.save();
+    res.status(201).json({
+      message: "Chat message Added Sucessfully",
+      data: newChatMessage,
+    });
+  } catch (error) {
+    next(CustomError(500, error.message || "Internal Server Error"));
+  }
+};
 
 // Get all chat messages
 const getAllChatMessages = async (req, res, next) => {
@@ -57,7 +75,9 @@ const getAllChatMessages = async (req, res, next) => {
 const getChatMessagesByFacultyEmail = async (req, res, next) => {
   try {
     const { facultyEmail } = req.params.email;
-    const chatMessages = await ChatMessage.find({ receiverEmail: facultyEmail });
+    const chatMessages = await ChatMessage.find({
+      receiverEmail: facultyEmail,
+    });
     res.status(200).json({
       message: "Chat messages fetched successfully",
       data: chatMessages,
@@ -84,7 +104,7 @@ const getChatMessagesByGroupId = async (req, res, next) => {
 // Get chat messages by project ID
 const getChatMessagesByProjectId = async (req, res, next) => {
   try {
-    const { projectId } = req.params.id;
+    const { projectId } = req.params; 
     const chatMessages = await ChatMessage.find({ projectId });
     res.status(200).json({
       message: "Chat messages fetched successfully",
@@ -117,7 +137,11 @@ const updateChatMessageById = async (req, res, next) => {
   try {
     const chatMessageId = req.params.id;
     const updatedData = req.body;
-    const updatedChatMessage = await ChatMessage.findByIdAndUpdate(chatMessageId, updatedData, { new: true });
+    const updatedChatMessage = await ChatMessage.findByIdAndUpdate(
+      chatMessageId,
+      updatedData,
+      { new: true }
+    );
     if (!updatedChatMessage) {
       return next(CustomError(404, "Chat message not found"));
     }
@@ -134,7 +158,9 @@ const updateChatMessageById = async (req, res, next) => {
 const deleteChatMessageById = async (req, res, next) => {
   try {
     const chatMessageId = req.params.id;
-    const deletedChatMessage = await ChatMessage.findByIdAndDelete(chatMessageId);
+    const deletedChatMessage = await ChatMessage.findByIdAndDelete(
+      chatMessageId
+    );
     if (!deletedChatMessage) {
       return next(CustomError(404, "Chat message not found"));
     }
@@ -155,5 +181,6 @@ module.exports = {
   getChatMessagesByProjectId,
   getChatMessageById,
   updateChatMessageById,
+  createChatByGroupId,
   deleteChatMessageById,
 };

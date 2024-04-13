@@ -5,47 +5,50 @@ const chatMessageSchema = new Schema(
   {
     senderEmail: {
       type: String,
-    //   required: true,
+      required: [true, "Sender Email  is required"],
+
+      //   required: true,
     },
     receiverEmail: {
       type: String,
-    //   required: true,
+      //   required: true,
     },
     senderName: {
       type: String,
-    //   required: true,
+      required: [true, "Sender Name  is required"],
+      //   required: true,
     },
     receiverName: {
       type: String,
-    //   required: true,
+      //   required: true,
     },
     currentYear: {
       type: String,
-    //   required: true,
+      //   required: true,
     },
     academicYear: {
       type: String,
-    //   required: true,
+      //   required: true,
     },
     semester: {
       type: Number,
-    //   required: true,
+      //   required: true,
     },
     subject: {
       type: String,
-    //   required: true,
+      //   required: true,
     },
     description: {
       type: String,
-    //   required: true,
+      //   required: true,
     },
     groupId: {
-        type: [mongoose.Schema.Types.ObjectId],
-        // required: true,
+      type: [mongoose.Schema.Types.ObjectId],
+      // required: true,
     },
     projectId: {
-        type: [mongoose.Schema.Types.ObjectId],
-    //   required: true,
+      type: [mongoose.Schema.Types.ObjectId],
+      //   required: true,
     },
   },
   { timestamps: true }

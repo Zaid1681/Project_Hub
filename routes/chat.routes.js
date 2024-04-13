@@ -1,21 +1,22 @@
 const express = require("express");
 const {
-    createChatMessage,
-    deleteChatMessageById,
-    getChatMessagesByFacultyEmail,
-    getChatMessagesByGroupId,
-    getAllChatMessages,
-    getChatMessagesByProjectId,
-    updateChatMessageById
-
+  createChatMessage,
+  deleteChatMessageById,
+  getChatMessagesByFacultyEmail,
+  getChatMessagesByGroupId,
+  createChatByGroupId,
+  getAllChatMessages,
+  getChatMessagesByProjectId,
+  updateChatMessageById,
 } = require("../controller/chatController");
 const router = express.Router();
 
 // CREATE A STUDENT
 router.post("/add", createChatMessage);
+router.post("/add/groupId", createChatByGroupId);
 router.get("/get/:email", getChatMessagesByFacultyEmail);
-router.get("/get/:id", getChatMessagesByGroupId);
-router.get("/get/:id", getChatMessagesByProjectId);
+router.get("/get/groupId/:groupId", getChatMessagesByGroupId);
+router.get("/get/projectId/:projectId", getChatMessagesByProjectId);
 router.get("/get", getAllChatMessages);
 // router.get("/getStudentById/:id", getStudentById);
 
