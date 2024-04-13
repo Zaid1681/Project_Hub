@@ -10,6 +10,7 @@ const task = require("./task.routes.js");
 const student = require("./student.js");
 const submission = require("./submission.js");
 const chat = require("./chat.routes.js");
+const admin = require("./admin.js");
 const router = Router();
 router.use("/auth", authRoutes);
 router.use("/admin/auth", facultyRoutes);
@@ -22,5 +23,6 @@ router.use("/task", task);
 router.use("/student", student);
 router.use("/submission", submission);
 router.use("/chat", chat);
+router.use("/admin", admin);
 
 module.exports = router;
