@@ -85,6 +85,28 @@ const getTaskCriteriaAll = async (req, res, next) => {
       semester,
       subject,
       facultyId,
+      taskType: "All",
+    });
+    res.status(200).json({
+      message: "Tasks fetched successfully",
+      data: tasks,
+    });
+  } catch (error) {
+    next(CustomError(500, error.message || "Internal Server Error"));
+  }
+};
+const getTaskCriteriaAllForFacultes = async (req, res, next) => {
+  try {
+    const { currentYear, academicYear, semester, subject, facultyId } =
+      req.params;
+    console.log(currentYear, academicYear, semester, subject, facultyId);
+    // const taskType = "All";
+    const tasks = await Task.find({
+      currentYear,
+      academicYear,
+      semester,
+      subject,
+      facultyId,
     });
     res.status(200).json({
       message: "Tasks fetched successfully",
@@ -228,4 +250,5 @@ module.exports = {
   updateApprovalStatus,
   getTaskByGroupId,
   getTaskCriteriaAll,
+  getTaskCriteriaAllForFacultes,
 };

@@ -57,6 +57,24 @@ const createChatByGroupId = async (req, res, next) => {
     next(CustomError(500, error.message || "Internal Server Error"));
   }
 };
+const createChatByProjId = async (req, res, next) => {
+  try {
+    const { senderEmail, senderName, description, projectId } = req.body;
+    const newChatMessage = new ChatMessage({
+      senderEmail,
+      senderName,
+      description,
+      projectId,
+    });
+    await newChatMessage.save();
+    res.status(201).json({
+      message: "Chat message Added Sucessfully",
+      data: newChatMessage,
+    });
+  } catch (error) {
+    next(CustomError(500, error.message || "Internal Server Error"));
+  }
+};
 
 // Get all chat messages
 const getAllChatMessages = async (req, res, next) => {
@@ -104,7 +122,7 @@ const getChatMessagesByGroupId = async (req, res, next) => {
 // Get chat messages by project ID
 const getChatMessagesByProjectId = async (req, res, next) => {
   try {
-    const { projectId } = req.params; 
+    const { projectId } = req.params;
     const chatMessages = await ChatMessage.find({ projectId });
     res.status(200).json({
       message: "Chat messages fetched successfully",
@@ -183,4 +201,5 @@ module.exports = {
   updateChatMessageById,
   createChatByGroupId,
   deleteChatMessageById,
+  createChatByProjId,
 };

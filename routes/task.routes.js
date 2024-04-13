@@ -10,12 +10,12 @@ const {
   createTask,
   updateTaskById,
   getAllTasks,
-  getTaskCriteria,
+  getTaskCriteria,getTaskCriteriaAllForFacultes,
   deleteTaskById,
   updateApprovalStatus,
   getTaskCriteriaAll,
   getTaskByGroupId,
-  getTaskById
+  getTaskById,
 } = require("../controller/task.controller.js");
 
 router.get("/getAll", getAllTasks);
@@ -39,6 +39,10 @@ router.get(
 router.get(
   "/getTaskByCriteriaAll/:academicYear/:currentYear/:semester/:subject/:facultyId",
   getTaskCriteriaAll
+);
+router.get(
+  "/getTaskByCriteriaAll/atfaculties/:academicYear/:currentYear/:semester/:subject/:facultyId",
+  getTaskCriteriaAllForFacultes
 );
 
 // for studentside

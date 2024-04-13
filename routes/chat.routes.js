@@ -8,12 +8,14 @@ const {
   getAllChatMessages,
   getChatMessagesByProjectId,
   updateChatMessageById,
+  createChatByProjId,
 } = require("../controller/chatController");
 const router = express.Router();
 
 // CREATE A STUDENT
 router.post("/add", createChatMessage);
 router.post("/add/groupId", createChatByGroupId);
+router.post("/add/projectId", createChatByProjId);
 router.get("/get/:email", getChatMessagesByFacultyEmail);
 router.get("/get/groupId/:groupId", getChatMessagesByGroupId);
 router.get("/get/projectId/:projectId", getChatMessagesByProjectId);
