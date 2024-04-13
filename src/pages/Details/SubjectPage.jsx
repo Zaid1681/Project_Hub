@@ -35,6 +35,7 @@ const SubjectPage = () => {
           `${BASEURL}/subject/get/sub?currentYear=${currentYear}&semester=7`
         );
         setCurrentSemester(7);
+        console.log(res1.data.data);
 
         setSubjectList1(res1.data.data);
 
@@ -78,7 +79,7 @@ const SubjectPage = () => {
   };
 
   useEffect(() => {
-    if (currentYear && projectDetails.semester) {
+    if (currentYear) {
       fetchSubjects();
     }
   }, [currentYear, projectDetails.semester]);
@@ -136,7 +137,7 @@ const SubjectPage = () => {
                 subject={subject}
                 academic={currentUser.academicYear}
                 currentYear={currentYear}
-                semester={projectDetails.semester}
+                semester={currentSemester}
               />
             ))}
           </div>{' '}
@@ -151,7 +152,7 @@ const SubjectPage = () => {
       ) : (
         <div className="my-10">
           {' '}
-          <div className="my-10 flex pl-2  text-2xl font-bold text-black ">
+          <div className="my-10 flex pl-2  text-xl font-bold text-black ">
             <h1 className="hover:bg-gray-500  cursor-pointer rounded-xl  border border-gray bg-white py-2 px-3 shadow-2xl">
               {' '}
               Semester {currentSemester2}
@@ -164,7 +165,7 @@ const SubjectPage = () => {
                 subject={subject}
                 academic={currentUser.academicYear}
                 currentYear={currentYear}
-                semester={projectDetails.semester}
+                semester={currentSemester2}
               />
             ))}
           </div>

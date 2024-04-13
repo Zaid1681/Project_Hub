@@ -534,7 +534,7 @@ const SignIn = () => {
 
                 <div className="mt-6 text-center">
                   <p>
-                    Don’t have any account?{' '}
+                    Already a user
                     <Link to="/auth/signin " className="text-primary">
                       Sign In
                     </Link>

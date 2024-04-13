@@ -348,8 +348,13 @@ const IndividualGroupDetailsPage = () => {
             </h2>
           </div>
           {/* <h1>{data.guideId}</h1> */}
+        </div>{' '}
+        <div>
+          <h2 className="mb-2 font-inter text-3xl font-semibold text-black ">
+            Chats
+          </h2>
         </div>
-        {/* <ChatSection /> */}
+        <ChatSection />
         <div className="mx-10 my-10 flex justify-end">
           {' '}
           <button

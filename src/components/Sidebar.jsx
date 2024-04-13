@@ -265,7 +265,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                       </React.Fragment>
                     );
                   }}
-                </SidebarLinkGroup>
+                </SidebarLinkGroup> 
                 <SidebarLinkGroup
                   activeCondition={
                     pathname === '/te ' || pathname.includes('te')
