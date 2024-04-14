@@ -13,11 +13,22 @@ import ThirdYearGrps from "./pages/dashboard/ThirdYearGrps";
 import { FinalYearGrps } from "./pages/dashboard/FinalYearGrps";
 import GroupsViewPageAdmin from "./pages/dashboard/GroupsViewPageAdmin";
 import GroupsProjIdeaViewPage from "./pages/dashboard/GroupsProjIdeaViewPage";
-
+import { Route, Routes, Navigate, useNavigate, Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
 const icon = {  
   className: "w-5 h-5 text-inherit",
+};  
+console.log("uuuu");
+const RequirePath = ({ children }) => {
+  const currentUser = useSelector((state) => state.user); // Move the useSelector hook inside the component
+  console.log("currentUser",currentUser);
+  console.log("you are not autho");
+  return currentUser.userToken == null ? (
+    <Navigate to="/auth/sign-in" />
+  ) : (
+    children
+  );
 };
-
 export const routes = [
   {
     layout: "dashboard",
@@ -26,7 +37,13 @@ export const routes = [
         icon: <HomeIcon {...icon} />,
         name: "dashboard",
         path: "/home",
-        element: <Home />,
+        // element: <RequirePath><Home /></RequirePath>,
+        // element: <Home />,
+        element: (
+          <RequirePath>
+            <Home />
+          </RequirePath>
+        ),
         showInSidebar: true, // Add this flag to indicate whether to show in sidenav or not
 
       },
@@ -40,7 +57,12 @@ export const routes = [
         icon: <UserCircleIcon {...icon} />,
         name: "Students",
         path: "/:currentYear/groupList/:subject/:semester",
-        element: <GroupsViewPageAdmin />, 
+        element: (
+          <RequirePath>
+            <GroupsViewPageAdmin />
+          </RequirePath>
+        ),
+        // element: <GroupsViewPageAdmin />, 
         showInSidebar: false, // Add this flag to indicate whether to show in sidenav or not
 
       },
@@ -48,7 +70,7 @@ export const routes = [
         icon: <UserCircleIcon {...icon} />,
         name: "groupDetails",
         path: "/group/get/:id",
-        element: <GroupsProjIdeaViewPage />, 
+        element: <RequirePath> <GroupsProjIdeaViewPage /></RequirePath>, 
         showInSidebar: false, // Add this flag to indicate whether to show in sidenav or not
 
       },
@@ -57,14 +79,14 @@ export const routes = [
         icon: <UserCircleIcon {...icon} />,
         name: "Students",
         path: "/student-list",
-        element: <StudentList />,
+        element:<RequirePath> <StudentList /></RequirePath>,
         showInSidebar: true, // Add this flag to indicate whether to show in sidenav or not
 
       }, {
         icon: <UserCircleIcon {...icon} />,
         name: "Faculties",
         path: "/faculties-list",
-        element: <FacultiesList />,
+        element:<RequirePath> <FacultiesList /></RequirePath>,
         showInSidebar: true, // Add this flag to indicate whether to show in sidenav or not
 
       },
@@ -72,7 +94,7 @@ export const routes = [
         icon: <TableCellsIcon {...icon} />,
         name: "SecondYear",
         path: "/SE/groupList",
-        element: <FinalYearGrps />,
+        element: <RequirePath> <FinalYearGrps /></RequirePath>,
         showInSidebar: true, // Add this flag to indicate whether to show in sidenav or not
 
       },
@@ -80,7 +102,7 @@ export const routes = [
         icon: <TableCellsIcon {...icon} />,
         name: "ThirdYear",
         path: "/TE/groupList",
-        element: <FinalYearGrps />,
+        element:<RequirePath> <FinalYearGrps /></RequirePath>,
         showInSidebar: true, // Add this flag to indicate whether to show in sidenav or not
 
       },
@@ -88,7 +110,7 @@ export const routes = [
         icon: <TableCellsIcon {...icon} />,
         name: "FinalYear",
         path: "/BE/groupList",
-        element: <FinalYearGrps />,
+        element: <RequirePath><FinalYearGrps /></RequirePath>,
         showInSidebar: true, // Add this flag to indicate whether to show in sidenav or not
 
       },

@@ -57,7 +57,7 @@ export function SignIn() {
           password: '',
           year: '',
         });
-        if(res.data.data.role==="Admin"){
+        if(res.data.data.role==="Admin" && res.data.data.isAdmin==true ){
                   console.log('login success' , res.data.data);
 
           Toastify({
@@ -124,9 +124,11 @@ export function SignIn() {
   return (
     <section className="overflow-hidden flex justify-center items-center m-auto">
       <div className="w-full my-auto items-center md:mt-10 ">
-        <div className="text-center">
+        <div className="text-center">          
+        <Typography variant="paragraph" color="blue-gray" className="text-lg font-normal">Welcome to Project Hub Admin Page.</Typography>
+
           <Typography variant="h2" className="font-bold mb-4">Sign In</Typography>
-          <Typography variant="paragraph" color="blue-gray" className="text-lg font-normal">Enter your email and password to Sign In.</Typography>
+          {/* <Typography variant="paragraph" color="blue-gray" className="text-lg font-normal">Enter your email and password to Sign In.</Typography> */}
         </div>
         <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2">
           <div className="mb-1 flex flex-col gap-6">
