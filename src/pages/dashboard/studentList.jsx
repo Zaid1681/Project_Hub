@@ -2,6 +2,7 @@ import React,{useEffect , useState} from 'react';
 import { Space, Table, Tag ,Modal  } from 'antd';
 import axios from "axios"
 import { BASEURL } from '@/Api';
+import UpdateStudentModal from "../../components/UpdateStudent.jsx"
 import { SearchOutlined } from '@ant-design/icons';
 import {
   Card,
@@ -21,6 +22,8 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons from rea
 
 export const StudentList = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState(null);
 
   const [studentData , setStudentData] = useState([])
   const showModal = () => {
@@ -121,6 +124,11 @@ const handleDelete = async (record) => {
     passingYear: '',
     address: '',
   });
+  const handleUpdate = (updatedData) => {
+    // Handle updating the student data
+    console.log('Updated student data:', updatedData);
+  };
+
     const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -174,7 +182,15 @@ const handleDelete = async (record) => {
         <span>{text}</span>
       ),
   });
+  const handleUpdateModalOpen = (record) => {
+    setSelectedStudent(record);
+    setIsUpdateModalVisible(true);
+  };
 
+  const handleUpdateModalClose = () => {
+    setSelectedStudent(null);
+    setIsUpdateModalVisible(false);
+  };
   // hanlde register function
   const handleRegisterSubmit = async (e) => {
     // Check if any of the required fields are empty
@@ -416,7 +432,7 @@ const columns = [
         <Button className="p-5 py-2 " onClick={() => handleDelete(record)}>
           Delete
         </Button>
-        <Button className="p-5 py-2 " >
+        <Button className="p-5 py-2 " onClick={() => handleUpdateModalOpen(record)} >
           Update
         </Button>
       </Space>
@@ -773,7 +789,12 @@ const columns = [
               </form></div>
 
 </Modal>
-
+<div><UpdateStudentModal
+        visible={isUpdateModalVisible}
+        onCancel={handleUpdateModalClose}
+        onUpdate={handleUpdate}
+        initialData={selectedStudent}
+      /></div>
         <div><Table columns={columns} dataSource={dataWithSrNo} scroll={{ x: true }} /> </div>
     </div>
   );

@@ -5,6 +5,7 @@ import AssignGuide from '../../components/AssignGuide';
 // import 'react-toastify/dist/ReactToastify.css';
 import Toastify from 'toastify-js';
 import { BASEURL } from '../../Api';
+import ChatSection from '@/components/ChatSection';
 
 const GroupsProjIdeaViewPage = () => {
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
@@ -330,6 +331,15 @@ const GroupsProjIdeaViewPage = () => {
             </div>
           </div>
         </div>
+        <div className="my-10">
+        {' '}
+        <div>
+          <h2 className="mb-2 font-inter text-3xl font-semibold text-black md:pl-10">
+            Chats
+          </h2>
+        </div>
+        <ChatSection />
+      </div>
       </section >
     </main >
   );

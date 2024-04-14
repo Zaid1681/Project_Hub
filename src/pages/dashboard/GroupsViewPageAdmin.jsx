@@ -8,6 +8,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { BASEURL } from '../../Api';
 
 import Toastify from 'toastify-js';
+import ChatSection from '@/components/ChatSection';
 
 const GroupViewPageAdmin = () => {
   const [searchText, setSearchText] = useState('');
@@ -241,6 +242,7 @@ const GroupViewPageAdmin = () => {
         // bordered
         scroll={{ x: true }}
       />
+     
     </div>
   );
 };
