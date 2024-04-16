@@ -3,17 +3,13 @@ const Admin = require("../Schema/admin");
 // Controller function to create a new admin
 const createAdmin = async (req, res, next) => {
   try {
-    const {
-      name,
-      email,
-      password
-    } = req.body;
+    const { name, email, password } = req.body;
 
     // Create a new student instance
     const newAdmin = new Admin({
       name,
       email,
-      password
+      password,
     });
 
     // Save the new student to the database
@@ -27,6 +23,43 @@ const createAdmin = async (req, res, next) => {
   }
 };
 
+const adminSignin = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    // Validation
+    if (!email || !password) {
+      throw new Error("Please provide both email and password");
+    }
+
+    // Check if admin with provided email exists
+    const admin = await Admin.findOne({ email });
+
+    if (!admin) {
+      throw new Error("Admin not found");
+    }
+
+    // Verify password
+    const isPasswordValid = await bcrypt.compare(password, admin.password);
+
+    if (!isPasswordValid) {
+      throw new Error("Invalid credentials");
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET);
+
+    // Send token in response
+    res
+      .cookie("access_token", token, { httpOnly: true })
+      .status(200)
+      .json({ success: true, token });
+  } catch (error) {
+    console.error("Error in signin controller:", error);
+    next(error); // Forward the error to the error handling middleware
+  }
+};
+
 // Controller function to update an existing student
 const updateAdmin = async (req, res, next) => {
   try {
@@ -35,7 +68,7 @@ const updateAdmin = async (req, res, next) => {
 
     // Find the student by ID and update its details
     await Admin.findByIdAndUpdate(id, {
-      name
+      name,
     });
 
     res
@@ -105,5 +138,6 @@ module.exports = {
   updateAdmin,
   getAdminById,
   deleteAdmin,
-  getAllAdmin
+  getAllAdmin,
+  adminSignin,
 };

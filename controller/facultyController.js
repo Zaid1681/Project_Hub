@@ -132,6 +132,32 @@ const getFacultyByEmail = async (req, res, next) => {
     next(CustomError(500, error.message || "Internal Server Error"));
   }
 };
+const getFacultyList = async (req, res, next) => {
+  try {
+    // Extract the student ID from the request parameters
+    // const facultyEmail = req.query.email;
+
+    // console.log("facultyEmail", facultyEmail);
+
+    // Find the student by their student ID
+    const facultyDetail = await Faculty.find();
+
+    console.log("Found student:", facultyDetail);
+
+    // If no student is found with the provided student ID, return a 404 error
+    if (!facultyDetail) {
+      return next(CustomError(404, "Student not found"));
+    }
+
+    // Extract and send the student's name in the response
+    // const { name, _id } = facultyDetail;
+    res.status(200).json({ facultyDetail });
+  } catch (error) {
+    // Handle any errors that occur during the process
+    console.error("Error:", error);
+    next(CustomError(500, error.message || "Internal Server Error"));
+  }
+};
 const getFacultyNameList = async (req, res, next) => {
   try {
     const facultyDetail = await Faculty.find();
@@ -194,6 +220,7 @@ module.exports = {
   delFaculty,
   getFacultyByEmail,
   getFacultyNameList,
+  getFacultyList,
   //   getAllStudents,
   //   getStudent,
 };
