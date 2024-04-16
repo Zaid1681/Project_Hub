@@ -104,7 +104,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       </div>
       {/* <!-- SIDEBAR HEADER --> */}
 
-      {userRole === 'Faculty' ? (
+      {userRole === 'Faculty' || userRole === 'Admin' ? (
         <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
           {/* <!-- Sidebar Menu --> */}
           <nav className="px-4 lg:px-6">
@@ -265,7 +265,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                       </React.Fragment>
                     );
                   }}
-                </SidebarLinkGroup> 
+                </SidebarLinkGroup>
                 <SidebarLinkGroup
                   activeCondition={
                     pathname === '/te ' || pathname.includes('te')
