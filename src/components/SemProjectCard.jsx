@@ -40,7 +40,7 @@ const SemProjectCard = ({ project }) => {
               {project?.keywords?.map((data, index) => (
                 <p
                   key={index}
-                  className="mx-1 w-30 truncate rounded-md border px-1 py-1 text-xs font-medium font-semibold  text-black hover:opacity-90 dark:text-white "
+                  className="mx-1 w-30 truncate rounded-md border px-1 py-1 text-xs font-semibold  text-black hover:opacity-90 dark:text-white "
                   title={data.toUpperCase()}
                 >
                   {data.toUpperCase()}

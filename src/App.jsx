@@ -12,6 +12,7 @@ import CommentPage from './pages/CommentPage';
 import GroupComment from './pages/GroupComment';
 import GroupSection from './pages/GroupSection';
 import Profile from './pages/Profile';
+import FacultyProfile from './pages/FacultyGroupVPage/FacultyProfile'
 import { BrowserRouter as Router } from 'react-router-dom';
 
 // import ProjectList from './pages/Details/ProjectList';
@@ -249,6 +250,16 @@ function App() {
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
                       <Profile />
+                    </RequirePath>
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/facultyprofile"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <RequirePath>
+                      <FacultyProfile />
                     </RequirePath>
                   </Suspense>
                 }

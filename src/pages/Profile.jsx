@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Toastify from 'toastify-js';
 import { FaLink } from 'react-icons/fa';
+// import { user_02 } from '../images/user/user_02.png';
 
 // Import other necessary components or modules
 import { BASEURL } from '../Api';
@@ -70,7 +71,7 @@ const Profile = () => {
             background: 'linear-gradient(to right, #3C50E0, #3C50E0',
             padding: '10px 50px',
           },
-          onClick: function () {}, // Callback after click
+          onClick: function () { }, // Callback after click
         }).showToast();
         setTimeout(() => {
           window.location.reload();
@@ -92,19 +93,27 @@ const Profile = () => {
 
   return (
     <>
-      <div className="my-5 flex items-center justify-between gap-4">
-        <div className="flex flex-col gap-4 px-4">
-          <h1 className="text-2xl font-medium md:text-4xl">{user?.name}</h1>
-          <h1 className="text-xl font-medium  italic md:text-xl">
-            {user?.aboutSlug}
-          </h1>
+      <div className="my-5 gap-4 text-black">
+        <div className="flex-col md:flex md:flex-row md:items-center  flex items-center  justify-center md:justify-between gap-5">
+          <div className='flex-col md:flex md:flex-row md:items-center md:justify-between flex items-center justify-center text-center md:text-left gap-5'>
+            <div>
+              <img src="/src/images/user/user-01.png" className='w-25 md:w-39 rounded-full h-25 md:h-39 '></img>
+            </div>
+            <div>
+              <h1 className="text-2xl m-0 mb-1 font-medium md:text-4xl">{user?.name}</h1>
+              <h1 className="text-xl m-0 font-medium  italic md:text-xl">
+                {user?.aboutSlug}
+              </h1>
+            </div>
+
+          </div>
+          <button
+            className="w-50 h-12 rounded-md bg-[#0c356a] py-2 px-8 font-semibold text-white"
+            onClick={showModal}
+          >
+            Update Profile
+          </button>
         </div>
-        <button
-          className="mt-6 rounded-md bg-[#0c356a] py-2 px-8 font-semibold text-white"
-          onClick={showModal}
-        >
-          Update Profile
-        </button>
       </div>
 
       <Modal
@@ -116,15 +125,15 @@ const Profile = () => {
         <form action="">
           {' '}
           <div className="border-gray-900/10  pb-12">
-            <h2 className="text-gray-900 text-base font-semibold leading-7">
+            <h2 className=" text-base font-semibold leading-7">
               Personal Information
             </h2>
 
-            <div className="mt-2 flex flex-col gap-5">
+            <div className="mt-2 flex flex-col gap-5 text-black">
               <div className="sm:col-span-3">
                 <label
                   for="about"
-                  class="text-gray-900 block text-sm font-medium leading-6"
+                  class="block text-sm font-medium leading-6"
                 >
                   About Me
                 </label>
@@ -140,14 +149,14 @@ const Profile = () => {
                       })
                     }
                     defaultValue={user.aboutMe}
-                    class=" text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600 block w-full rounded-md border-0 px-2 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                    class="  ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600 block w-full rounded-md border-0 px-2 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                   ></textarea>
                 </div>
               </div>
               <div className="sm:col-span-3">
                 <label
                   for="about"
-                  class="text-gray-900 block text-sm font-medium leading-6"
+                  class=" block text-sm font-medium leading-6"
                 >
                   Skills
                 </label>
@@ -162,14 +171,14 @@ const Profile = () => {
                       })
                     }
                     defaultValue={user.skills}
-                    class="text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600 block w-full rounded-md border-0 px-2 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                    class=" ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600 block w-full rounded-md border-0 px-2 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
               <div className="sm:col-span-3">
                 <label
                   for="linkedinLink"
-                  class="text-gray-900 block text-sm font-medium leading-6"
+                  class=" block text-sm font-medium leading-6"
                 >
                   Linkedin Link
                 </label>
@@ -184,14 +193,14 @@ const Profile = () => {
                       })
                     }
                     defaultValue={user?.linkedinLink}
-                    class="text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600 block w-full rounded-md border-0 px-2 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                    class="ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600 block w-full rounded-md border-0 px-2 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
               <div className="sm:col-span-3">
                 <label
                   for="about"
-                  class="text-gray-900 block text-sm font-medium leading-6"
+                  class="block text-sm font-medium leading-6"
                 >
                   Github Link
                 </label>
@@ -206,7 +215,7 @@ const Profile = () => {
                       })
                     }
                     defaultValue={user?.githubLink}
-                    class="text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600 block w-full rounded-md border-0 px-2 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                    class="ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600 block w-full rounded-md border-0 px-2 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -224,13 +233,13 @@ const Profile = () => {
         </form>
       </Modal>
       {/* Additional content */}
-      <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-2">
+      <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-2 ">
         {/* Content section 1 */}
-        <div className="bg-gray-100 rounded-md p-7 shadow-lg ">
-          <h2 className="text-xl font-semibold">About Me</h2>
+        <div className="bg-gray-100 rounded-xl p-7 shadow-lg bg-white">
+          <h2 className="text-2xl font-semibold">About Me</h2>
           <p className="mt-1 ml-3 justify-start text-base">{user?.aboutMe}</p>
           {/* More details */}
-          <h2 className="mt-5 text-xl font-semibold">VCET Email Id</h2>
+          <h2 className="mt-5 text-xl font-semibold">Email Id</h2>
           <div className="ml-3 mt-1 flex items-center gap-2">
             <IoIosMail size={20} />
             <p className="justify-start text-base">{user?.email}</p>
@@ -271,7 +280,7 @@ const Profile = () => {
         </div>
 
         {/* Content section 2 */}
-        <div className="bg-gray-100 rounded-md p-7 shadow-lg">
+        <div className="bg-gray-100 rounded-xl p-7 shadow-lg bg-white">
           <h2 className="mt-5 text-xl font-semibold">Skills</h2>
           <div className="flex gap-3">
             <p className="justify-start text-base ">{user?.skills}</p>
@@ -291,11 +300,7 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* More content */}
-      <div className="mt-20">
-        <h1 className="mb-5 text-3xl font-semibold">My Projects:</h1>
-        {/* Carousel or other project display */}
-      </div>
+
     </>
   );
 };

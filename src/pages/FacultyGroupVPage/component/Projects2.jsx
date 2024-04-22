@@ -99,7 +99,7 @@ const Project2 = () => {
       dataIndex: 'membersName',
       render: (text) => (
         <div>
-          {Array.isArray(text) ? text.map(name => <div key={name}>{name}</div>) : text}
+          {Array.isArray(text) ? text.map(name => <div key={name} className=' w-50' ><tr className=''>{name}</tr></div>) : text}
         </div>
       ),
       className: 'bg-gray-100/10 p-2.5 text-black text-sm font-medium uppercase'
@@ -107,49 +107,27 @@ const Project2 = () => {
 
     {
       title: 'Mobile No',
-      dataIndex: 'semester', // changed from 'semester'
+      dataIndex: 'semester',
+      render: (text) => (
+        <div>
+          {Array.isArray(text) ? text.map(mobileno => <div key={mobileno} className=' w-full'><tr className=''>{mobileno}</tr></div>) : text}
+        </div>
+      ),
       className: 'text-black hover:bg-unset text-center p-2.5',
     },
     {
       title: 'Project Topic',
       dataIndex: 'projectTopic',
-      render: (text, record, index) => {
-        const isFirstRowOfGroup = index % 4 === 0;
-        return {
-          children: text,
-          props: {
-            rowSpan: isFirstRowOfGroup ? 4 : 0,
-          },
-        };
-      },
       className: 'text-black hover:bg-unset text-center p-2.5',
     },
     {
       title: 'Title of Project',
       dataIndex: 'projectTitle',
-      render: (text, record, index) => {
-        const isFirstRowOfGroup = index % 4 === 0;
-        return {
-          children: text,
-          props: {
-            rowSpan: isFirstRowOfGroup ? 4 : 0,
-          },
-        };
-      },
       className: 'text-black hover:bg-unset text-center p-2.5',
     },
     {
       title: 'Name of the internal Guide',
       dataIndex: 'internalGuideName',
-      render: (text, record, index) => {
-        const isFirstRowOfGroup = index % 4 === 0;
-        return {
-          children: text,
-          props: {
-            rowSpan: isFirstRowOfGroup ? 4 : 0,
-          },
-        };
-      },
       className: 'text-black hover:bg-unset text-center p-2.5',
     },
   ];
