@@ -22,6 +22,32 @@ const createSubject = async (req, res, next) => {
   }
 };
 // getAllproject Video
+
+const getSubjectDetails = async (req, res, next) => {
+  try {
+    const { currentYear, semester, subjectName } = req.params;
+    console.log(currentYear, semester, subjectName);
+
+    // Fetch subjects based on currentYear and semester
+    const subjectData = await Subject.find({
+      currentYear: currentYear,
+      semester: semester,
+      subjectName: subjectName,
+    });
+
+    if (subjectData.length === 0) {
+      next(CustomError(404, "Subjects don't exist"));
+    } else {
+      res.status(200).json({
+        success: true,
+        message: "Subject data fetched successfully",
+        data: subjectData,
+      });
+    }
+  } catch (error) {
+    next(CustomError(500, error));
+  }
+};
 const getAll = async (req, res, next) => {
   try {
     const allsubject = await Subject.find();
@@ -38,39 +64,30 @@ const getAll = async (req, res, next) => {
 };
 const delSubject = async (req, res, next) => {
   try {
-    const { subjectName, currentYear, semester } = req.body; // received from middleware
-    const subjectData = await Subject.find({
-      subjectName,
-      currentYear,
-      semester,
-    });
+    // Extract the subject ID from the request parameters
+    const subjectId = req.params.id;
 
-    console.log("sub data ", subjectData);
-
-    if (subjectData.length === 0) {
-      next(CustomError(500, "Subjects don't exist"));
-    } else {
-      try {
-        // Assuming you want to delete all subjects in the array
-        const deletedSubjects = await Subject.deleteOne({
-          _id: { $in: subjectData.map((subject) => subject._id) },
-        });
-
-        if (deletedSubjects.deletedCount > 0) {
-          res
-            .status(201)
-            .json({ success: true, message: "Subjects Deleted Successfully" });
-        } else {
-          next(CustomError(404, "Subjects not found"));
-        }
-      } catch (error) {
-        next(CustomError(404, error));
-      }
+    // Check if the subject exists
+    const subject = await Subject.findById(subjectId);
+    if (!subject) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Subject not found" });
     }
+
+    // Delete the subject by its ID
+    await Subject.findByIdAndDelete(subjectId);
+
+    // Send a success response
+    res
+      .status(200)
+      .json({ success: true, message: "Subject deleted successfully" });
   } catch (error) {
-    next(CustomError(500, error));
+    // Handle errors
+    next(error); // Assuming CustomError middleware is used for error handling
   }
 };
+
 const getSemSubject = async (req, res, next) => {
   try {
     // const { currentYear, semester } = req.body; // received from middleware
@@ -256,4 +273,5 @@ module.exports = {
   getProject,
   delSubject,
   updStatus,
+  getSubjectDetails,
 };

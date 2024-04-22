@@ -7,11 +7,6 @@ const SubjectSchema = new Schema(
       type: String,
       required: true,
     },
-    // semester: {
-    //   // 1 ,2 ,3 , 4
-    //   type: Number,
-    //   required: true,
-    // },
     semester: {
       // Even /Odd
       type: Number,
