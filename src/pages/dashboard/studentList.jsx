@@ -1004,6 +1004,8 @@ const columns = [
   visible={isUpdateModalVisible}
   onCancel={handleUpdateModalClose}
   footer={null}
+  width={600} // Set the width to 800 pixels or adjust as needed
+
 >
 <Form form={form} >
 <div>
@@ -1011,10 +1013,7 @@ const columns = [
                       Name
                     </label>
   <Form.Item
-    // label="Name"
     name="name"
-    // initialValue={selectedStudent?.name || ''}
-    // rules={[{ required: true, message: 'Please enter your Name' }]}
   >
      <input
                         type="text"

@@ -5,21 +5,49 @@ import axios from 'axios';
 // import GroupSubjectCard from './GroupSubjectCard';
 import GroupSubjectCard from "../../components/GroupSubjectsCards"
 
+import {
+  Card,
+  // Input,
+  Checkbox,
+  Button,
+  Typography,
+} from "@material-tailwind/react";
 // import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { BASEURL } from '../../Api';
+import { Table, Space, Form, Input , Modal , Tag ,Select   } from "antd";
+import { useParams, NavLink } from 'react-router-dom';
 
 
 export const FinalYearGrps = () => {
   const currentYear = useLocation().pathname.split('/')[2];
-  console.log("====>",currentYear);
+  console.log("====>",currentYear); 
+   const [isModalVisible, setIsModalVisible] = useState(false);
+   const handleCancel = () => {
+    setIsModalVisible(false); 
+    setFormData({
+      subjectName: '',
+      semester: '',
+    });
+  };
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
   const [projectDetails, setProjectDetails] = useState({
     semester: localStorage.getItem('selectedSemester') || '', // Retrieve selected semester from localStorage
   });
   const [subjectList1, setSubjectList1] = useState([]);
   const [loadingSubjects, setLoadingSubjects] = useState(false);
+  const [formData, setFormData] = useState({
+    subjectName: '',
+    semester: '',
+  });
+  // const { currentYear } = useParams();
+  // console.log(currentYear);
 
+  console.log(formData);
   const [subjectList2, setSubjectList2] = useState([]);
+  console.log(subjectList2);
   const [currentSemester, setCurrentSemester] = useState();
   const [currentSemester2, setCurrentSemester2] = useState();
   // const currentUser = useSelector((state) => state.user);
@@ -31,6 +59,35 @@ export const FinalYearGrps = () => {
     setProjectDetails({ ...projectDetails, semester: selectedSemester });
     localStorage.setItem('selectedSemester', selectedSemester); // Store selected semester in localStorage
   };
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(`${BASEURL}/subject/add`, {
+        subjectName:formData.subjectName,
+        semester:formData.semester,
+        currentYear:currentYear
+      });
+      console.log('Data saved successfully:', res.data);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+      // Optionally, you can perform additional actions after data is saved
+      // For example, closing the modal or updating the UI
+      setIsModalVisible(false);
+      setFormData({
+        subjectName: '',
+        semester: '',
+      });
+    } catch (error) {
+      console.error('Error saving data:', error);
+      // Handle error gracefully (e.g., show error message to the user)
+    }
+  };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   // const fetchSubjects = async () => {
 
   //   try {
@@ -85,6 +142,7 @@ export const FinalYearGrps = () => {
         );
         setCurrentSemester(3);
         setSubjectList1(res3.data.data);
+        console.log('esiii',res3.data.data);
 
         const res4 = await axios.get(
           `${BASEURL}/subject/get/sub?currentYear=${currentYear}&semester=4`
@@ -156,10 +214,13 @@ export const FinalYearGrps = () => {
         <div>Wait Fetching Subjects</div>
       ) : (
         <div className="my-10">
-          <div className="my-10 flex pl-2  text-xl font-bold text-black ">
+          <div className="my-10 flex pl-2  text-xl font-bold text-black justify-between">
             <h1 className="hover:bg-gray-500  cursor-pointer rounded-xl  border border-gray bg-white py-2 px-3 shadow-2xl">
               Semester {currentSemester}
             </h1>
+            <Button className="p-6 py-3 mx-4"  onClick={showModal}>
+          Add Subject
+        </Button>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {subjectList1.map((subject, index) => (
@@ -203,6 +264,58 @@ export const FinalYearGrps = () => {
           </div>
         </div>
       )}
+      <Modal
+        title="Add Student Details"
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        footer={null}
+        width={600}
+      >
+        <form onSubmit={handleRegisterSubmit}>
+          <div className="flex flex-col">
+            <div className="mb-6">
+              <label className="mb-2.5 block text-lg font-medium text-black dark:text-white">
+                Subject Name
+              </label>
+              <div className="relative">
+                <Input
+                  type="text"
+                  name="subjectName"
+                  value={formData.subjectName}
+                  onChange={handleInputChange}
+                  placeholder="Enter subject name"                className="border-gray-800 w-full rounded-lg border bg-transparent py-4 pl-6 pr-16 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+
+                  // You can customize input styling with Tailwind CSS classes
+                />
+              </div>
+            </div>
+            <div className="mb-6">
+              <label className="mb-2.5 block text-lg font-medium text-black dark:text-white">
+                Semester
+              </label>
+              <select
+                name="semester"
+                value={formData.semester}
+                onChange={handleInputChange}
+                className="border-gray-800 w-full rounded-lg border bg-transparent py-4 pl-6 pr-16 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+              >
+                <option value="">Select Semester</option>
+                {/* Populate options dynamically if needed */}
+                <option value="3">Semester 3</option>
+                <option value="4">Semester 4</option>
+                <option value="5">Semester 5</option>
+                <option value="6">Semester 6</option>
+                <option value="7">Semester 7</option>
+                <option value="8">Semester 8</option>
+                {/* Add more options as needed */}
+              </select>
+            </div>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </div>
+        </form>
+      </Modal>
     </>
   );
 }
