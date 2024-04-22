@@ -22,9 +22,15 @@ const facultySchema = new Schema(
   {
     name: {
       type: String,
-      required: true,
-      unique: true,
+      trim: true,
+      required: [true, "Faculty Name is required"],
     },
+    gender: {
+      type: String,
+      default: "",
+      required: [true, "Gender is required"],
+    },
+
     email: {
       type: String,
       required: true,
@@ -34,12 +40,31 @@ const facultySchema = new Schema(
     password: {
       type: String,
       required: true,
-      validate: passwordValidator,
+      // validate: passwordValidator,
+    },
+    phone: {
+      type: String,
+      // validate: passwordValidator,
+    },
+    address: {
+      type: String,
+      // validate: passwordValidator,
     },
     role: {
       type: String,
       enum: Object.values(role),
       default: role.Faculty,
+    },
+    domain: {
+      type: [String],
+      // enum: Object.values(role),
+      default: [],
+    },
+    abbreviation: {
+      type: String,
+      required: true,
+      // enum: Object.values(role),
+      default: "",
     },
     isAdmin: {
       type: Boolean,

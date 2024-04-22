@@ -1,25 +1,40 @@
 const Faculty = require("../Schema/Faculty.js");
+const Student = require("../Schema/Student.js");
 // const Student = require("../Schema/Student.js");
 const bcrypt = require("bcrypt");
 const CustomError = require("../utils/error.js");
 var jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
-
 const signup = async (req, res, next) => {
   try {
-    const { name, email, password, isAdmin, role } = req.body;
-    console.log("faculty server reg ", name, email, password, isAdmin, role);
+    const { name, email, password, role, gender, abbreviation, phone } =
+      req.body;
+    const isAdmin = role === "Admin";
 
+    console.log(
+      "faculty server reg ",
+      name,
+      email,
+      password,
+      isAdmin,
+      phone,
+      role,
+      gender,
+      abbreviation
+    );
+
+    // Check if faculty with the same email already exists
     const existingFaculty = await Faculty.findOne({ email });
     if (existingFaculty) {
-      return next(CustomError(404, "faculty profile Already Exists"));
+      return next(CustomError(404, "profile with this email already exists"));
     }
 
-    // const existingID = await Student.findOne({ studentId });
-    // if (existingID) {
-    //   return next(CustomError(404, "Student ID Already Exists"));
-    // }
+    // Check if faculty with the same name already exists
+    const existingName = await Student.findOne({ email });
+    if (existingName) {
+      return next(CustomError(404, "profile with this email already exists"));
+    }
 
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(password, salt);
@@ -30,12 +45,15 @@ const signup = async (req, res, next) => {
       password: hash,
       isAdmin,
       role,
+      phone,
+      gender,
+      abbreviation,
     });
 
     await newFaculty.save();
     res.status(200).send({
       data: newFaculty,
-      messgae: "Faculty profile created successfully!!",
+      message: "Faculty profile created successfully!!",
     });
     console.log("Faculty profile created successfully");
   } catch (error) {
@@ -132,6 +150,49 @@ const getFacultyByEmail = async (req, res, next) => {
     next(CustomError(500, error.message || "Internal Server Error"));
   }
 };
+
+const updateFacultyById = async (req, res, next) => {
+  try {
+    const { id } = req.params; // Extract the faculty ID from the request parameters
+    const { name, password, role, gender, abbreviation, phone } = req.body; // Extract the updated data from the request body
+
+    // Check if the faculty exists
+    // const existingFaculty = await Faculty.findById(id);
+    // if (!existingFaculty) {
+    //   return next(CustomError(404, "Faculty not found"));
+    // }
+
+    // // // Update the faculty details
+    // // existingFaculty.name = name;
+    // // existingFaculty.email = email;
+    // // existingFaculty.password = password;
+    // // existingFaculty.role = role;
+    // // existingFaculty.gender = gender;
+    // // existingFaculty.abbreviation = abbreviation;
+
+    // // // Save the updated faculty
+    // // await existingFaculty.save();
+    const data = await Faculty.findByIdAndUpdate(id, {
+      name,
+      password,
+      role,
+      gender,
+      phone,
+      abbreviation,
+    });
+
+    // Return success response
+    res.status(200).json({
+      success: true,
+      message: "Faculty details updated successfully",
+      data: data,
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    next(CustomError(500, error.message || "Internal Server Error"));
+  }
+};
+
 const getFacultyList = async (req, res, next) => {
   try {
     // Extract the student ID from the request parameters
@@ -183,7 +244,27 @@ const getFacultyNameList = async (req, res, next) => {
     next(CustomError(500, error.message || "Internal Server Error"));
   }
 };
+const getFacultyById = async (req, res, next) => {
+  try {
+    const facultyId = req.params.id;
+    const facultyDetail = await Faculty.findById(facultyId);
 
+    console.log("Found faculty:", facultyDetail);
+
+    if (facultyDetail.length === 0) {
+      return next(CustomError(404, "Faculty not found"));
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Faculty Fetch Success",
+      data: facultyDetail,
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    next(CustomError(500, error.message || "Internal Server Error"));
+  }
+};
 // const getAllStudents = async (req, res, next) => {
 //   try {
 //     const Facultys = await Student.find();
@@ -217,10 +298,13 @@ const getFacultyNameList = async (req, res, next) => {
 module.exports = {
   signin,
   signup,
+  updateFacultyById,
   delFaculty,
   getFacultyByEmail,
   getFacultyNameList,
   getFacultyList,
+  getFacultyById,
+
   //   getAllStudents,
   //   getStudent,
 };

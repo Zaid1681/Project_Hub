@@ -152,6 +152,38 @@ const getStudentEmail = async (req, res, next) => {
     }
   }
 };
+// Controller function to update an existing student
+const updateStudent = async (req, res, next) => {
+  try {
+    const { id } = req.params; // Assuming you are passing the student ID in the URL
+    const {
+      name,
+      password,
+      startingYear,
+      passingYear,
+      gender,
+      phone,
+      address,
+    } = req.body;
+
+    // Find the student by ID and update its details
+    await Student.findByIdAndUpdate(id, {
+      name,
+      password,
+      startingYear,
+      passingYear,
+      gender,
+      phone,
+      address,
+    });
+
+    res
+      .status(200)
+      .json({ success: true, message: "Student updated successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
 
 const getStudent = async (req, res, next) => {
   try {
@@ -218,4 +250,5 @@ module.exports = {
   getStudentNameById,
   delStudent,
   getStudentEmail,
+  updateStudent,
 };

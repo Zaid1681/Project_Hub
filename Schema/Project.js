@@ -45,6 +45,18 @@ const projectSchema = new Schema(
       type: [String],
       default: [],
     },
+    membersName: {
+      type: [String],
+      default: [],
+    },
+    groupId: {
+      type: Schema.Types.ObjectId,
+      default: null,
+    },
+    isGroupProj: {
+      type: Boolean,
+      default: false,
+    },
     // socialMediaLinks: {
     //   type: [SocialMediaLinkSchema],
     //   default: [],
