@@ -12,7 +12,6 @@ import CommentPage from './pages/CommentPage';
 import GroupComment from './pages/GroupComment';
 import GroupSection from './pages/GroupSection';
 import Profile from './pages/Profile';
-import FacultyProfile from './pages/FacultyGroupVPage/FacultyProfile'
 import { BrowserRouter as Router } from 'react-router-dom';
 
 // import ProjectList from './pages/Details/ProjectList';
@@ -39,7 +38,6 @@ const Creategroup = lazy(() => import('./pages/Creategroup'));
 const Addproject = lazy(() => import('./pages/Addproject'));
 const Alerts = lazy(() => import('./pages/UiElements/Alerts'));
 const Buttons = lazy(() => import('./pages/UiElements/Buttons'));
-const HomePage = lazy(() => import('./pages/HomePage'));
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
 const StudentGroups = lazy(() => import('./pages/Details/StudentGroups'));
 const GroupViewPage = lazy(() =>
@@ -62,8 +60,10 @@ const TaskPage = lazy(() => import('./pages/TaskPage'));
 import { useSelector } from 'react-redux';
 import AdminSignIn from './pages/Authentication/AdminSignIn';
 import FacultyProjectDetail from './pages/Details/FacultyProjectDetail';
+import HomePage from './pages/HomePage';
 import ApprovedGroupsPage from './pages/FacultyGroupVPage/component/ApprovedGroupsPage';
 import ViewProject2 from './pages/ViewProject2';
+import GroupSubmission from './pages/groupSubmission';
 function App() {
   const [loading, setLoading] = useState(false);
 
@@ -99,7 +99,9 @@ function App() {
                 // path="/hh"
                 element={
                   <Suspense fallback={<Loader />}>
-                    <RequirePath>{/* <ECommerce />{' '} */}</RequirePath>
+                    <RequirePath>
+                      <ECommerce />{' '}
+                    </RequirePath>
                   </Suspense>
                 }
               />
@@ -118,7 +120,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <ViewProject />
+                    <ViewProject />
                     </RequirePath>
                     {/* <ViewProject2 /> */}
                   </Suspense>
@@ -130,7 +132,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <SubjectPage />
+                    <SubjectPage />
                     </RequirePath>
                   </Suspense>
                 }
@@ -140,7 +142,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <FacultyProjectDetail />
+                    <FacultyProjectDetail />
                     </RequirePath>
                   </Suspense>
                 }
@@ -150,7 +152,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <ProjectPage />
+                    <ProjectPage />
                     </RequirePath>
                   </Suspense>
                 }
@@ -161,7 +163,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <FacultyGroupspage />
+                    <FacultyGroupspage />
                     </RequirePath>
                   </Suspense>
                 }
@@ -171,7 +173,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <IndividualGroupPage />
+                    <IndividualGroupPage />
                     </RequirePath>
                   </Suspense>
                 }
@@ -189,7 +191,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <GroupDetailsPage />
+                    <GroupDetailsPage />
                     </RequirePath>
                   </Suspense>
                 }
@@ -199,7 +201,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <IndividualGroupDetailsPage />
+                    <IndividualGroupDetailsPage />
                     </RequirePath>
                   </Suspense>
                 }
@@ -209,7 +211,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <GroupViewPage />
+                    <GroupViewPage />
                     </RequirePath>
                   </Suspense>
                 }
@@ -239,7 +241,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <Semproject />
+                    <Semproject />
                     </RequirePath>
                   </Suspense>
                 }
@@ -249,17 +251,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <Profile />
-                    </RequirePath>
-                  </Suspense>
-                }
-              />
-              <Route
-                path="/facultyprofile"
-                element={
-                  <Suspense fallback={<Loader />}>
-                    <RequirePath>
-                      <FacultyProfile />
+                    <Profile />
                     </RequirePath>
                   </Suspense>
                 }
@@ -277,7 +269,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <SeStudent />
+                    <SeStudent />
                     </RequirePath>
                   </Suspense>
                 }
@@ -295,7 +287,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <TeStudent />
+                    <TeStudent />
                     </RequirePath>
                   </Suspense>
                 }
@@ -321,7 +313,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <BeStudent />
+                    <BeStudent />
                     </RequirePath>
                   </Suspense>
                 }
@@ -331,7 +323,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <Addproject />
+                    <Addproject />
                     </RequirePath>
                   </Suspense>
                 }
@@ -341,7 +333,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <Creategroup />
+                    <Creategroup />
                     </RequirePath>
                   </Suspense>
                 }
@@ -351,7 +343,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <Alerts />
+                    <Alerts />
                     </RequirePath>
                   </Suspense>
                 }
@@ -361,7 +353,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <Buttons />
+                    <Buttons />
                     </RequirePath>
                   </Suspense>
                 }
@@ -371,7 +363,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <College />
+                    <College />
                     </RequirePath>
                   </Suspense>
                 }
@@ -381,7 +373,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <GroupComment />
+                    <GroupComment />
                     </RequirePath>
                   </Suspense>
                 }
@@ -391,7 +383,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <GroupSection />
+                    <GroupSection />
                     </RequirePath>
                   </Suspense>
                 }
@@ -402,7 +394,17 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <TaskPage />
+                    <TaskPage />
+                    </RequirePath>
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/groupsection/group/:groupId/:currentYear/:academicYear/:semester/:subject/:facultyId/groupsubmission"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <RequirePath>
+                    <GroupSubmission />
                     </RequirePath>
                   </Suspense>
                 }
@@ -412,7 +414,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <AssignTaskFaculty />
+                    <AssignTaskFaculty />
                     </RequirePath>
                   </Suspense>
                 }
@@ -422,7 +424,7 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <RequirePath>
-                      <TaskSubmissions />
+                    <TaskSubmissions />
                     </RequirePath>
                   </Suspense>
                 }
