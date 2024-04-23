@@ -20,6 +20,7 @@ const {
   getGroupMembers,
   updateGrpStatus,
   getAllGroupsByCriteria,
+  getMembernameByGroupId
   //   getProject,
   //   delProject,
   //   updStatus,
@@ -47,6 +48,7 @@ router.get(
   getGroupMembers
 );
 router.get("/getWithMemberId/get/:memberId", getGroupWithId);
+router.get("/getMembernameByGroupId/get/:id", getMembernameByGroupId);
 router.post("/add", addGroup); // here i have to check user too
 
 router.get("/groupDetail/get/:id", getGroup); // here i have to check user too

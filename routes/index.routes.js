@@ -11,6 +11,7 @@ const student = require("./student.js");
 const submission = require("./submission.js");
 const chat = require("./chat.routes.js");
 const admin = require("./admin.js");
+const groupSubmission = require("./groupSubmission.js");
 const router = Router();
 router.use("/auth", authRoutes);
 router.use("/admin/auth", facultyRoutes);
@@ -24,5 +25,6 @@ router.use("/student", student);
 router.use("/submission", submission);
 router.use("/chat", chat);
 router.use("/admin", admin);
+router.use("/groupsubmission", groupSubmission);
 
 module.exports = router;
