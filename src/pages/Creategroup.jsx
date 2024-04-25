@@ -405,15 +405,19 @@ const Creategroup = () => {
           subject: groupDetails.subject,
           semester: groupDetails.semester,
           membersId: [
-            studentId,
-            studentId2,
-            studentId3,
+            ...(studentId ? [studentId] : []),
+            ...(studentId2 ? [studentId2] : []),
+            ...(studentId3 ? [studentId3] : []),
             currentUser.userData.studentId,
-          ],
+          ].filter((id) => id),
           membersName: [
-            studentName,
-            studentName2,
-            studentName3,
+            ...(studentName && studentName.trim() !== '' ? [studentName] : []),
+            ...(studentName2 && studentName2.trim() !== ''
+              ? [studentName2]
+              : []),
+            ...(studentName3 && studentName3.trim() !== ''
+              ? [studentName3]
+              : []),
             currentUser.userData.name,
           ],
           groupLeaderId: currentUser.userData.studentId,
@@ -435,11 +439,13 @@ const Creategroup = () => {
         const groupId = groupResponse.data.data._id;
 
         // Submit Project Ideas
-        await Promise.all([
-          submitProjectIdea(projectIdea1, groupId),
-          submitProjectIdea(projectIdea2, groupId),
-          submitProjectIdea(projectIdea3, groupId),
-        ]);
+        await Promise.all(
+          [
+            projectIdea1.title && submitProjectIdea(projectIdea1, groupId),
+            projectIdea2.title && submitProjectIdea(projectIdea2, groupId),
+            projectIdea3.title && submitProjectIdea(projectIdea3, groupId),
+          ].filter(Boolean)
+        );
 
         console.log('All project ideas submitted successfully!');
         Toastify({
