@@ -45,7 +45,7 @@ const signup = async (req, res, next) => {
     // Hash the password
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
-
+    const role = "Student";
     const newStudent = new Student({
       name,
       email,
@@ -57,6 +57,7 @@ const signup = async (req, res, next) => {
       gender,
       address,
       phone,
+      role,
     });
 
     await newStudent.save();

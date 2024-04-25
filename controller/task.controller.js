@@ -239,6 +239,32 @@ const updateApprovalStatus = async (req, res, next) => {
     next(error);
   }
 };
+const updateSubmissionStatus = async (req, res, next) => {
+  try {
+    const taskId = req.params.id;
+    const { submissionStatus } = req.body;
+    // Update the task
+    const updatedTask = await Task.findByIdAndUpdate(
+      taskId,
+      { submissionStatus },
+      { new: true }
+    );
+
+    if (!updatedTask) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Task not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Task approval status updated successfully",
+      data: updatedTask,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   createTask,
@@ -251,4 +277,5 @@ module.exports = {
   getTaskByGroupId,
   getTaskCriteriaAll,
   getTaskCriteriaAllForFacultes,
+  updateSubmissionStatus,
 };

@@ -45,9 +45,25 @@ const projectSchema = new Schema(
       type: [String],
       default: [],
     },
-    membersName: {
+    membersId: {
       type: [String],
       default: [],
+    },
+    guideName: {
+      type: String,
+      default: "",
+    },
+    membersName: {
+      type: [String],
+      default: "",
+    },
+    guideId: {
+      type: Schema.Types.ObjectId,
+      default: "",
+    },
+    reportLink: {
+      type: String,
+      default: "",
     },
     groupId: {
       type: Schema.Types.ObjectId,
@@ -105,11 +121,11 @@ const projectSchema = new Schema(
       ref: "Student", // Assuming you have a User model, replace 'User' with the actual model name
       default: null, // Set default to null or another ObjectId if needed
     },
-    facultyId: {
-      type: Schema.Types.ObjectId,
-      ref: "Faculty", // Assuming you have a User model, replace 'User' with the actual model name
-      default: null,
-    },
+    // facultyId: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "Faculty", // Assuming you have a User model, replace 'User' with the actual model name
+    //   default: null,
+    // },
     sName: {
       type: String,
       default: "",

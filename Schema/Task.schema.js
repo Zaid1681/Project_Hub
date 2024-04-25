@@ -48,6 +48,11 @@ const TaskSchema = new Schema(
       enum: Object.values(taskStatus),
       default: taskStatus.Pending,
     },
+    submissionStatus: {
+      type: String,
+      // enum: Object.values(taskStatus),
+      default: "Pending",
+    },
     taskType: {
       type: String,
       enum: Object.values(taskType),

@@ -77,7 +77,7 @@ const StudentSchema = new Schema({
   },
   role: {
     type: String,
-    default: Object.values(role.Student)[0], // Selecting the first role from the array
+    default: Object.values(role.Student), // Selecting the first role from the array
     immutable: true,
   },
   studentId: {

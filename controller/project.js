@@ -38,6 +38,40 @@ const addProject = async (req, res, next) => {
     next(CustomError(500, error));
   }
 };
+const addGrpProj = async (req, res, next) => {
+  try {
+    if (!req.files || !req.files.photos) {
+      return res.status(400).json({ message: " Fill all the fields" });
+    }
+    console.log(req.body);
+
+    const files = Array.isArray(req.files.photos)
+      ? req.files.photos
+      : [req.files.photos];
+    const userId = "dummyUser123";
+    const imageUrls = [];
+
+    for (const file of files) {
+      const result = await cloudinary.uploader.upload(file.tempFilePath);
+      imageUrls.push(result.secure_url);
+    }
+
+    const projectData = {
+      userId: userId,
+      isGroupProj: true,
+      ...req.body,
+      image: imageUrls,
+    };
+    const project = await Project.create(projectData);
+
+    res
+      .status(200)
+      .json({ message: "Project uploaded successfully", data: project });
+    console.log("Project uploaded successfully");
+  } catch (error) {
+    next(CustomError(500, error));
+  }
+};
 
 // updating user video
 const updStatus = async (req, res, next) => {
@@ -126,6 +160,19 @@ const getProject = async (req, res, next) => {
     next(CustomError(500, error));
   }
 };
+const getProjByGrpId = async (req, res, next) => {
+  try {
+    // const project = await Project.findById();
+
+    const project = await Project.find({ groupId: req.params.id });
+    if (!project) next(CustomError(404, "Project is not found"));
+    else {
+      res.status(200).json(project);
+    }
+  } catch (error) {
+    next(CustomError(500, error));
+  }
+};
 
 const getUnapproved = async (req, res, next) => {
   try {
@@ -163,6 +210,29 @@ const getSemesterProject = async (req, res, next) => {
       res.status(200).json(project);
     }
   } catch (error) {
+    next(CustomError(500, error));
+  }
+};
+const getSemesterGrpProject = async (req, res, next) => {
+  try {
+    const { studentId, semester } = req.query;
+    console.log(studentId, semester);
+
+    // Find projects where the studentId is present in the membersId array
+    const projects = await Project.find({
+      semester: semester,
+      membersId: { $in: [studentId] }, // Using $in operator to match elements in an array
+    });
+
+    if (!projects || projects.length === 0) {
+      // If no project is found for the studentId and semester
+      return next(CustomError(404, "Project is not found"));
+    } else {
+      // If projects are found, return them
+      res.status(200).json(projects);
+    }
+  } catch (error) {
+    // Handle any errors
     next(CustomError(500, error));
   }
 };
@@ -295,4 +365,7 @@ module.exports = {
   getUnapproved,
   getUserProject,
   getSemesterProject,
+  addGrpProj,
+  getSemesterGrpProject,
+  getProjByGrpId,
 };

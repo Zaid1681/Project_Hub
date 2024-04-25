@@ -10,12 +10,14 @@ const {
   createTask,
   updateTaskById,
   getAllTasks,
-  getTaskCriteria,getTaskCriteriaAllForFacultes,
+  getTaskCriteria,
+  getTaskCriteriaAllForFacultes,
   deleteTaskById,
   updateApprovalStatus,
   getTaskCriteriaAll,
   getTaskByGroupId,
   getTaskById,
+  updateSubmissionStatus,
 } = require("../controller/task.controller.js");
 
 router.get("/getAll", getAllTasks);
@@ -30,6 +32,7 @@ router.get("/getTaskById/:id", getTaskById);
 router.post("/add", createTask); // here i have to check user too
 router.put("/update/:id", updateTaskById);
 router.put("/updateStatus/:id", updateApprovalStatus);
+router.put("/update/submissionStatus/:id", updateSubmissionStatus);
 // checking the taskType
 router.get(
   "/getTaskByCriteria/:academicYear/:currentYear/:semester/:subject",
