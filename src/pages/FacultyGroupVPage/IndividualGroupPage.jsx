@@ -31,34 +31,18 @@ const IndividualGroupPage = () => {
   const [isModalVisible2, setIsModalVisible2] = useState(false);
   const [task, setTasks] = useState([]);
   const [taskId, setTaskId] = useState([]);
+  const [taskDes, setTaskDes] = useState('');
 
   const groupId = useLocation().pathname.split('/')[7];
   const currentYear = useLocation().pathname.split('/')[1];
   const academicYear = useLocation().pathname.split('/')[6];
   const semester = useLocation().pathname.split('/')[5];
   const subject = useLocation().pathname.split('/')[4];
-  // const facultyId = useLocation().pathname.split('/')[8];
-
-  // const [formData, setFormData] = useState({
-  //   description: '',
-  //   pdfLink: '',
-  //   githubLink: '',
-  // });
-
-  // const [editSubmission, setEditSubmission] = useState({
-  //   description: '',
-  //   pdfLink: '',
-  //   githubLink: '',
-  // });
+  const [taskAccuracy, setTaskAccuracy] = useState(0); // State to hold task accuracy
+  const [taskAccuracyCount, setTaskAccuracyCount] = useState(0); // State to hold task accuracy
 
   const [submissionData, setSubmissionData] = useState([]);
   const [submissionIds, setSubmissionIds] = useState([]);
-  // console.log(groupId)
-  // console.log(currentYear)
-  // console.log(academicYear)
-  // console.log(semester)
-  // console.log(subject)
-  // console.log(facultyId)
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -69,17 +53,22 @@ const IndividualGroupPage = () => {
         const response2 = await axios.get(
           `${BASEURL}/task/getTaskByCriteriaAll/${academicYear}/${currentYear}/${semester}/${subject}/${facultyId}`
         );
-        // console.log('Tasks fetched:', response.data);
-        const fetchedTasks1 = response.data.data;
-        console.log('fetchedTasks1', fetchedTasks1);
-        const fetchedTasks2 = response2.data.data;
-        console.log('fetchedTasks2', fetchedTasks2);
 
-        // Combine the data from both responses
+        const fetchedTasks1 = response.data.data;
+        const fetchedTasks2 = response2.data.data;
+
         const combinedTasks = [...fetchedTasks1, ...fetchedTasks2];
-        // const taskId = fetchedTasks.map((task) => task._id); // Extract task IDs
         setTasks(combinedTasks);
-        setTaskId(taskId); // Set task IDs in state
+        setTaskId(taskId);
+        const completedTasks = combinedTasks.filter(
+          (task) => task.submissionStatus === 'Completed'
+        );
+        setTaskAccuracyCount(completedTasks.length);
+        const totalTasks = combinedTasks.length;
+        const accuracy = (completedTasks.length / totalTasks) * 100;
+        const roundedAccuracy = accuracy.toFixed(2);
+
+        setTaskAccuracy(parseFloat(roundedAccuracy));
       } catch (error) {
         console.error('Error fetching tasks:', error);
       }
@@ -87,8 +76,6 @@ const IndividualGroupPage = () => {
 
     fetchTasks();
   }, [groupId, currentYear, academicYear, semester, subject, facultyId]);
-
-  // console.log("Fetch all taskID:",taskId)
 
   useEffect(() => {
     const fetchSubmission = async () => {
@@ -98,10 +85,8 @@ const IndividualGroupPage = () => {
             `${BASEURL}/submission/get/taskId/${taskId}`
           );
           const data = response.data.data;
-          console.log('Submissions fetched:', data);
-          setSubmissionData(response.data.data);
+          setSubmissionData(data);
           setSubmissionIds(data.map((submission) => submission._id));
-          // console.log('Submission IDs:', setSubmissionIds);
         }
       } catch (error) {
         console.error('Error fetching submission:', error);
@@ -111,18 +96,13 @@ const IndividualGroupPage = () => {
     fetchSubmission();
   }, [taskId]);
 
-  useEffect(() => {
-    console.log('Submission IDs:', submissionIds); // Log submission IDs whenever there is a change
-  }, [submissionIds]);
-
   const showModal2 = (taskId) => {
-    console.log(taskId);
     setTaskId(taskId);
     setIsModalVisible2(true);
   };
 
   const showModal = (taskId) => {
-    setTaskId(taskId);
+    setTaskDes(taskId);
     setIsModalVisible(true);
   };
 
@@ -144,14 +124,13 @@ const IndividualGroupPage = () => {
 
   const onFinish = (values) => {
     console.log('Received values:', values);
-    // You can handle form submission logic here
-    setIsModalVisible(false); // Close the modal after form submission
+    setIsModalVisible(false);
   };
 
   const dataWithSrNo = task?.map((item, index) => ({
     ...item,
-    key: (index + 1).toString(), // Assigning unique key for Ant Design Table
-    sr: index + 1, // Adding the serial number
+    key: (index + 1).toString(),
+    sr: index + 1,
   }));
 
   const columns = [
@@ -169,13 +148,34 @@ const IndividualGroupPage = () => {
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
+      render: (description) => (
+        <>
+          {description.length > 200 ? (
+            <>
+              {description.slice(0, 150)}...
+              <Button type="link" onClick={() => showModal(description)}>
+                View More
+              </Button>
+            </>
+          ) : (
+            description
+          )}
+        </>
+      ),
+    },
+    {
+      title: 'Status',
+      dataIndex: 'submissionStatus',
+      key: 'submissionStatus',
     },
     {
       title: 'Assigned',
       dataIndex: 'assignedDate',
       key: 'assignedDate',
       render: (assignedDate) => (
-        <span>{moment(assignedDate).format('DD-MM-YYYY, HH:mm')}</span>
+        <span className="block w-[10rem]">
+          {moment(assignedDate).format('DD-MM-YYYY, HH:mm')}
+        </span>
       ),
     },
     {
@@ -183,7 +183,9 @@ const IndividualGroupPage = () => {
       dataIndex: 'deadline',
       key: 'deadline',
       render: (deadline) => (
-        <span>{moment(deadline).format('DD-MM-YYYY, HH:mm')}</span>
+        <span className="block w-[10rem]">
+          {moment(deadline).format('DD-MM-YYYY, HH:mm')}
+        </span>
       ),
     },
     {
@@ -193,11 +195,10 @@ const IndividualGroupPage = () => {
         <Space size="middle">
           <Button
             type="button"
-            // onClick={() => showModal(record._id)} // Pass the taskId here for submission
             className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-1 text-white `}
-            onClick={() => showModal2(record._id)} // Pass the taskId here for submission
+            onClick={() => showModal2(record._id)}
           >
-            Check
+            View Submission
           </Button>
         </Space>
       ),
@@ -206,7 +207,82 @@ const IndividualGroupPage = () => {
 
   return (
     <section>
+      <div className="mx-auto flex w-full flex-col items-center gap-5">
+        {' '}
+        {/* <h1 className="font-bold">Details</h1> */}
+        <div className='flex w-full gap-10 my-5'>
+          {' '}
+          <div className=" w-full items-center items-center gap-2 rounded bg-white p-5 shadow-md  ">
+            {/* <h1 className="text-center font-bold ">Submission Progress</h1> */}
+            {/* <p className="my-2">Submission Progress</p> */}
+            <div className="my-auto  items-center ">
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2">
+                  <h1>Submission Count </h1>
+
+                  <span className="pl-auto text-lg font-bold ">
+                    {taskAccuracyCount}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className=" w-full items-center items-center gap-2 rounded bg-white p-5 shadow-md  ">
+            {/* <h1 className="text-center font-bold ">Submission Progress</h1> */}
+            {/* <p className="my-2">Submission Progress</p> */}
+            <div className="my-auto  items-center ">
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2">
+                  <h1>Submission Accuracy</h1>
+
+                  <span className="pl-auto text-lg font-bold ">
+                    {taskAccuracy} %
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <button
+            onClick={showModal3} // Pass the taskId here for submission
+            className=" w-full items-center items-center gap-2  rounded bg-white p-5  shadow-md hover:cursor-pointer md:max-w-[16rem]"
+          >
+            <h1 className="text-center font-bold ">Final Project Submission</h1>
+            <p className="my-2">
+              status{' '}
+              {sebmitProj ? (
+                <span className="  font-bold text-[#006400]"> Submitted</span>
+              ) : (
+                <span className=" font-bold text-[#AA0000]">Pending</span>
+              )}
+            </p>
+          </button> */}
+        {/* <div className=" w-full items-center items-center gap-2  rounded bg-white p-5  shadow-md md:max-w-[16rem] ">
+            <a href={reportLink} target="_blank">
+              {' '}
+              <h1 className="text-center font-bold  ">
+                {reportLink ? (
+                  <span className="mx-auto flex items-center justify-center gap-2 text-center">
+                    {' '}
+                    Report Link{' '}
+                    <FaExternalLinkAlt className="text text-sm font-bold" />
+                  </span>
+                ) : (
+                  'Report Not Submitted'
+                )}
+              </h1>
+            </a>{' '}
+          </div> */}
+      </div>
       <Table columns={columns} dataSource={dataWithSrNo} scroll={{ x: true }} />
+      <Modal
+        title="Task Description"
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <p>{taskDes}</p>
+      </Modal>
       <Modal
         title="Edit Profile"
         visible={isModalVisible2}
