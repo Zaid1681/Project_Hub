@@ -396,7 +396,30 @@ const getGroupWithId = async (req, res, next) => {
   }
 };
 
-// Export both functions as an object
+const getMembernameByGroupId = async (req, res, next) => {
+  try {
+    const { id } = req.params; // Change from groupId to id to match the parameter name in the route
+
+    // Find the group by ID
+    const group = await Group.findById(id);
+
+    if (!group) {
+      return next(CustomError(404, "Group not found"));
+    }
+
+    // Extract member names from the group
+    const memberNames = group.membersName;
+
+    res.status(200).json({
+      message: "Member names fetched successfully",
+      data: memberNames,
+    });
+  } catch (error) {
+    next(CustomError(500, error.message || "Internal Server Error"));
+  }
+};
+
+// Export the function
 module.exports = {
   addGroup,
   getAllGroup,
@@ -410,4 +433,5 @@ module.exports = {
   updateGuide,
   getGroupMembers,
   updateGrpStatus,
+  getMembernameByGroupId, // Add the new controller here
 };
