@@ -18,6 +18,8 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { BASEURL } from '../Api';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+// import { Pie } from 'react-chartjs-2';
+
 import './table.css';
 import { MdEdit } from 'react-icons/md';
 
@@ -41,7 +43,8 @@ const TaskPage = () => {
   const semester = useLocation().pathname.split('/')[6];
   const subject = useLocation().pathname.split('/')[7];
   const facultyId = useLocation().pathname.split('/')[8];
-
+  const [taskAccuracy, setTaskAccuracy] = useState(0); // State for task accuracy
+  console.log('taskAccuracy', taskAccuracy);
   const [formData, setFormData] = useState({
     description: '',
     pdfLink: '',
@@ -84,7 +87,14 @@ const TaskPage = () => {
 
       // Combine the data from both responses
       const combinedTasks = [...fetchedTasks1, ...fetchedTasks2];
+      const totalTasks = combinedTasks.length;
+      const completedTasks = combinedTasks.filter(
+        (task) => task.submissionStatus === 'Completed'
+      ).length;
 
+      // Calculate accuracy percentage
+      const accuracyPercentage = (completedTasks / totalTasks) * 100;
+      setTaskAccuracy(accuracyPercentage);
       setTasks(combinedTasks);
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -142,7 +152,18 @@ const TaskPage = () => {
           const res = await axios.delete(
             `${BASEURL}/submission/del/${submissionId}`
           );
-          if (res) {
+          const res2 = await axios.put(
+            `${BASEURL}/task/update/submissionStatus/${taskId}`,
+            {
+              submissionStatus: 'Pending',
+            },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          if (res && res2) {
             console.log('Submission deleted successfully');
             Toastify({
               text: 'Submission Deleted',
@@ -267,7 +288,18 @@ const TaskPage = () => {
           },
         }
       );
-      if (res) {
+      const res2 = await axios.put(
+        `${BASEURL}/task/update/submissionStatus/${taskId}`,
+        {
+          submissionStatus: 'Completed',
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (res && res2) {
         console.log('Submission uploaded Successfully ');
         Toastify({
           text: 'Submission Uploaded',
@@ -419,10 +451,150 @@ const TaskPage = () => {
       ),
     },
   ];
-
+  console.log('---dataWithSrNo>', task);
   return (
     <section>
-      <Table columns={columns} dataSource={dataWithSrNo} scroll={{ x: true }} />
+      {/* <Table
+            columns={columns}
+            dataSource={dataWithSrNo}
+            scroll={{ x: true }}
+          /> */}
+      <div className="my-10 flex flex-col gap-2 md:flex-row">
+        <div className="flex w-full flex-col gap-4">
+          {' '}
+          <h1 className="text-xl font-bold">Task List</h1>
+          {task.map((data, index) => (
+            <div className="w-full" key={index}>
+              <div className=" w-full items-center items-center gap-2  rounded bg-white p-5  shadow-md  ">
+                <div className="my-3 flex justify-between border-b border-[#D3D3D3] pb-2">
+                  {' '}
+                  <span className="border-gray-600 bg-gray-500 flex h-10 w-10 items-center justify-center rounded-full border bg-[#023047] text-center text-white">
+                    {index + 1}
+                  </span>
+                  <span className="border-gray-600 bg-gray-500 flex  items-center justify-center rounded border border-none bg-[#ffb703] px-2 text-center font-bold text-black  shadow-black">
+                    {data.submissionStatus}
+                  </span>
+                </div>
+                <div className="flex flex-col gap-5">
+                  <h1 className="my-1 text-lg font-semibold">
+                    TItle :
+                    <span className="text-md font-medium"> {data?.title}</span>
+                  </h1>
+                  <h1 className="my-1 text-lg font-semibold">
+                    Task Decription :
+                    <span className="text-md font-normal">
+                      {' '}
+                      {data?.description}
+                    </span>
+                  </h1>
+                </div>
+                <div className="my-5">
+                  <div className="my-1 flex items-center gap-3 text-sm  font-semibold">
+                    <span className="bg-red-500 rounded bg-[#8ecae6] p-1">
+                      {' '}
+                      Assigned Date
+                    </span>{' '}
+                    <span className="text-md items-center  font-bold">
+                      {' '}
+                      {moment(data?.assignedDate).format('DD-MM-YYYY, HH:mm')}
+                    </span>
+                  </div>
+                  <h1 className="my-1 flex flex items-center gap-3 text-sm font-semibold">
+                    <span className="bg-red-500 rounded bg-[#ff3737] p-1">
+                      Task Deadline
+                    </span>{' '}
+                    <span className="text-md items-center font-bold">
+                      {' '}
+                      {moment(data?.deadline).format('DD-MM-YYYY, HH:mm')}
+                    </span>
+                  </h1>
+                </div>
+                <div className="flex gap-5 text-xl">
+                  {' '}
+                  <Button
+                    type="button"
+                    onClick={() => showModal(data._id)} // Pass the taskId here for submission
+                    className={`mb-2 rounded bg-[#0C356A] px-[1rem] py-1 font-bold  text-white`}
+                    disabled={loading} // Disable button when loading
+                  >
+                    {loading ? 'Submitting...' : 'Submit'}
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => showModal2(data._id)} // Pass the taskId here for submission
+                    className={`mb-2 items-center rounded bg-[#0C356A] px-[1rem] py-1 font-bold  text-white`}
+                  >
+                    View Task
+                  </Button>
+                </div>
+                {/* <h1>Description</h1> */}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mx-auto flex w-full flex-col items-center gap-5 md:max-w-[20rem]">
+          {' '}
+          <h1 className="font-bold">Details</h1>
+          <div className=" w-full items-center items-center gap-2 rounded bg-white p-5 shadow-md md:max-w-[16rem] ">
+            <h1 className="text-center font-bold ">Submission Progress</h1>
+            {/* <p className="my-2">Submission Progress</p> */}
+            <div
+              style={{ height: '50px' }}
+              className="my-auto mt-4 items-center"
+            >
+              {/* <Pie
+                data={{
+                  labels: ['Completed', 'Pending'],
+                  datasets: [
+                    {
+                      label: 'Task Accuracy',
+                      data: [taskAccuracy, 100 - taskAccuracy],
+                      backgroundColor: ['#3e95cd', '#8e5ea2'],
+                    },
+                  ],
+                }}
+                options={{
+                  title: {
+                    display: true,
+                    text: 'Task Accuracy',
+                  },
+                  legend: {
+                    display: true,
+                    position: 'bottom',
+                  },
+                }}
+              /> */}
+              <div>
+                <div className="bg-gray-200 dark:bg-gray-700  w-full rounded-full border">
+                  <div
+                    className="h-4 rounded-full rounded bg-[#0C356A] hover:cursor-pointer  dark:bg-[#0C356A]"
+                    style={{ width: `${taskAccuracy}%` }} // Set the width dynamically based on taskAccuracy
+                  ></div>
+                </div>
+                <span className="absolute right-10 text-lg font-bold md:right-15">
+                  {taskAccuracy} %
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className=" w-full items-center items-center gap-2  rounded bg-white p-5  shadow-md md:max-w-[16rem] ">
+            <h1 className="text-center font-bold ">Project Submission</h1>
+            <p className="my-2">status</p>
+          </div>
+          <div className=" w-full items-center items-center gap-2  rounded bg-white p-5  shadow-md md:max-w-[16rem] ">
+            <h1 className="text-center font-bold  ">Report Submission</h1>
+          </div>
+        </div>
+      </div>
+      {/* <div>
+        <h1>title</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique
+          magni nihil distinctio accusantium qui, officia in quasi unde expedita
+          illum alias quo debitis placeat voluptates? Nemo repudiandae, quas
+          esse labore nisi repellendus.
+        </p>
+      </div> */}
 
       <Modal
         title="Submit Task"

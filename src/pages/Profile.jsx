@@ -71,7 +71,7 @@ const Profile = () => {
             background: 'linear-gradient(to right, #3C50E0, #3C50E0',
             padding: '10px 50px',
           },
-          onClick: function () { }, // Callback after click
+          onClick: function () {}, // Callback after click
         }).showToast();
         setTimeout(() => {
           window.location.reload();
@@ -94,21 +94,25 @@ const Profile = () => {
   return (
     <>
       <div className="my-5 gap-4 text-black">
-        <div className="flex-col md:flex md:flex-row md:items-center  flex items-center  justify-center md:justify-between gap-5">
-          <div className='flex-col md:flex md:flex-row md:items-center md:justify-between flex items-center justify-center text-center md:text-left gap-5'>
+        <div className="flex flex-col items-center justify-center  gap-5 md:flex  md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col items-center justify-center gap-5 text-center md:flex md:flex-row md:items-center md:justify-between md:text-left">
             <div>
-              <img src="/src/images/user/user-01.png" className='w-25 md:w-39 rounded-full h-25 md:h-39 '></img>
+              <img
+                src="/src/images/user/user-01.png"
+                className="h-25 w-25 rounded-full md:h-39 md:w-39 "
+              ></img>
             </div>
             <div>
-              <h1 className="text-2xl m-0 mb-1 font-medium md:text-4xl">{user?.name}</h1>
-              <h1 className="text-xl m-0 font-medium  italic md:text-xl">
+              <h1 className="m-0 mb-1 text-2xl font-medium md:text-4xl">
+                {user?.name}
+              </h1>
+              <h1 className="m-0 text-xl font-medium  italic md:text-xl">
                 {user?.aboutSlug}
               </h1>
             </div>
-
           </div>
           <button
-            className="w-50 h-12 rounded-md bg-[#0c356a] py-2 px-8 font-semibold text-white"
+            className="h-12 w-50 rounded-md bg-[#0c356a] py-2 px-8 font-semibold text-white"
             onClick={showModal}
           >
             Update Profile
@@ -131,10 +135,7 @@ const Profile = () => {
 
             <div className="mt-2 flex flex-col gap-5 text-black">
               <div className="sm:col-span-3">
-                <label
-                  for="about"
-                  class="block text-sm font-medium leading-6"
-                >
+                <label for="about" class="block text-sm font-medium leading-6">
                   About Me
                 </label>
                 <div class="mt-2">
@@ -154,10 +155,7 @@ const Profile = () => {
                 </div>
               </div>
               <div className="sm:col-span-3">
-                <label
-                  for="about"
-                  class=" block text-sm font-medium leading-6"
-                >
+                <label for="about" class=" block text-sm font-medium leading-6">
                   Skills
                 </label>
                 <div class="mt-2">
@@ -198,10 +196,7 @@ const Profile = () => {
                 </div>
               </div>
               <div className="sm:col-span-3">
-                <label
-                  for="about"
-                  class="block text-sm font-medium leading-6"
-                >
+                <label for="about" class="block text-sm font-medium leading-6">
                   Github Link
                 </label>
                 <div class="mt-2">
@@ -235,7 +230,7 @@ const Profile = () => {
       {/* Additional content */}
       <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-2 ">
         {/* Content section 1 */}
-        <div className="bg-gray-100 rounded-xl p-7 shadow-lg bg-white">
+        <div className="bg-gray-100 rounded-xl bg-white p-7 shadow-lg">
           <h2 className="text-2xl font-semibold">About Me</h2>
           <p className="mt-1 ml-3 justify-start text-base">{user?.aboutMe}</p>
           {/* More details */}
@@ -280,7 +275,7 @@ const Profile = () => {
         </div>
 
         {/* Content section 2 */}
-        <div className="bg-gray-100 rounded-xl p-7 shadow-lg bg-white">
+        <div className="bg-gray-100 rounded-xl bg-white p-7 shadow-lg">
           <h2 className="mt-5 text-xl font-semibold">Skills</h2>
           <div className="flex gap-3">
             <p className="justify-start text-base ">{user?.skills}</p>
@@ -299,8 +294,6 @@ const Profile = () => {
           <p className="mt-1 ml-3 justify-start text-base">{user?.branch}</p>
         </div>
       </div>
-
-
     </>
   );
 };

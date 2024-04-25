@@ -44,7 +44,7 @@ const Project2 = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () { },
+        onClick: function () {},
       }).showToast();
     }
   };
@@ -56,12 +56,19 @@ const Project2 = () => {
   }, []);
 
   const getColumnSearchProps = (dataIndex, columnTitle) => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => (
       <div className="">
         <Input
           placeholder={`Search ${columnTitle}`}
           value={selectedKeys[0]}
-          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
           onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
           className="mb-2"
         />
@@ -81,10 +88,17 @@ const Project2 = () => {
         </Space>
       </div>
     ),
-    filterIcon: (filtered) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+    filterIcon: (filtered) => (
+      <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
+    ),
     onFilter: (value, record) =>
       record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-    render: (text) => (searchedColumn === dataIndex ? <strong>{text}</strong> : <span>{text}</span>),
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <strong>{text}</strong>
+      ) : (
+        <span>{text}</span>
+      ),
   });
 
   const columns = [
@@ -92,17 +106,25 @@ const Project2 = () => {
       title: 'Sr no',
       dataIndex: 'sr',
       defaultSortOrder: 'descend',
-      className: 'bg-gray-100/10 p-2.5 text-black text-sm font-medium uppercase',
+      className:
+        'bg-gray-100/10 p-2.5 text-black text-sm font-medium uppercase',
     },
     {
       title: 'Student Names',
       dataIndex: 'membersName',
       render: (text) => (
         <div>
-          {Array.isArray(text) ? text.map(name => <div key={name} className=' w-50' ><tr className=''>{name}</tr></div>) : text}
+          {Array.isArray(text)
+            ? text.map((name) => (
+                <div key={name} className=" w-50">
+                  <tr className="">{name}</tr>
+                </div>
+              ))
+            : text}
         </div>
       ),
-      className: 'bg-gray-100/10 p-2.5 text-black text-sm font-medium uppercase'
+      className:
+        'bg-gray-100/10 p-2.5 text-black text-sm font-medium uppercase',
     },
 
     {
@@ -110,7 +132,13 @@ const Project2 = () => {
       dataIndex: 'semester',
       render: (text) => (
         <div>
-          {Array.isArray(text) ? text.map(mobileno => <div key={mobileno} className=' w-full'><tr className=''>{mobileno}</tr></div>) : text}
+          {Array.isArray(text)
+            ? text.map((mobileno) => (
+                <div key={mobileno} className=" w-full">
+                  <tr className="">{mobileno}</tr>
+                </div>
+              ))
+            : text}
         </div>
       ),
       className: 'text-black hover:bg-unset text-center p-2.5',

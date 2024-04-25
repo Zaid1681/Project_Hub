@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import Toastify from 'toastify-js';
 import axios from 'axios ';
@@ -16,7 +16,6 @@ const GroupSubmission = () => {
 
   const [memberNames, setMemberNames] = useState([]);
 
-
   const [subjectList, setSubjectList] = useState([]);
   const [loadingSubjects, setLoadingSubjects] = useState(false);
   const [loading, setLoading] = useState(false); // State for loading indicator
@@ -24,7 +23,9 @@ const GroupSubmission = () => {
   useEffect(() => {
     const fetchMemberNames = async () => {
       try {
-        const response = await axios.get(`${BASEURL}/group/getMembernameByGroupId/get/${groupId}`);
+        const response = await axios.get(
+          `${BASEURL}/group/getMembernameByGroupId/get/${groupId}`
+        );
         setMemberNames(response.data.data);
         console.log(response.data.data);
       } catch (error) {
@@ -96,7 +97,7 @@ const GroupSubmission = () => {
     formData.append('subject', projectDetails.subject);
     formData.append('academicYear', currentUser.academicYear);
     formData.append('currentYear', currentUser.currentYear);
-    formData.append('memberName',memberNames);
+    formData.append('memberName', memberNames);
     formData.append('studentId', currentUser.userData._id);
 
     // Append PDF links individually

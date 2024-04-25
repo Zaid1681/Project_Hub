@@ -22,7 +22,7 @@ const DropdownUser = () => {
   const userId = currentUser.userData._id;
   const userName = currentUser.userData.name;
   const userStudentId = currentUser.userData.studentId;
-  console.log(userId);
+  console.log(currentUser);
   console.log(userName);
   console.log(userStudentId);
 
@@ -92,8 +92,9 @@ const DropdownUser = () => {
         </span>
 
         <svg
-          className={`hidden fill-current sm:block ${dropdownOpen ? 'rotate-180' : ''
-            }`}
+          className={`hidden fill-current sm:block ${
+            dropdownOpen ? 'rotate-180' : ''
+          }`}
           width="12"
           height="8"
           viewBox="0 0 12 8"
@@ -114,13 +115,16 @@ const DropdownUser = () => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${dropdownOpen === true ? 'block' : 'hidden'
-          }`}
+        className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${
+          dropdownOpen === true ? 'block' : 'hidden'
+        }`}
       >
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
           <li>
             <Link
-              to="/facultyprofile"
+              to={`${
+                currentUser.role === 'Student' ? '/profile' : '/facultyProfile'
+              }`}
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
               <svg
