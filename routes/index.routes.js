@@ -25,6 +25,5 @@ router.use("/student", student);
 router.use("/submission", submission);
 router.use("/chat", chat);
 router.use("/admin", admin);
-router.use("/groupsubmission", groupSubmission);
 
 module.exports = router;
