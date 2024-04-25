@@ -23,11 +23,21 @@ const SemProjectCard = ({ project }) => {
 
           <div className="mt-auto flex flex-col justify-between gap-2 py-2 text-center">
             <div className="flex items-center justify-between">
-              <div className="flex gap-2">
-                <FaRegUserCircle className="my-auto text-xl" />
-                <p className="text-md flex items-center font-medium text-black dark:text-white">
-                  {project.sName}
-                </p>
+              <div className="flex gap-2 ">
+                <FaRegUserCircle className="my-auto text-xl " />
+                {project.isGroupProj ? (
+                  <p className="items-center text-white rounded border  bg-[#002244] px-2 py-1 text-sm font-medium text-black dark:text-white">
+                    {/* {project.membersName.map((memberName, index) => (
+                      <span key={index}>{memberName}</span>
+                    ))} */}
+                    Group Project
+                  </p>
+                ) : (
+                  <p className="text-md flex items-center gap-1 font-medium text-black dark:text-white ">
+                    {/* <FaRegUserCircle className="my-auto text-xl " /> */}
+                    {project.sName}
+                  </p>
+                )}
               </div>
               <div>
                 {' '}

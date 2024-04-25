@@ -12,6 +12,7 @@ import {
 } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { MdDelete } from 'react-icons/md';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -26,17 +27,22 @@ import { MdEdit } from 'react-icons/md';
 import moment from 'moment';
 import { FaLink } from 'react-icons/fa6';
 import ChatSectionTaskPage from '../components/ChatSectionTaskPage';
+import AddGrpproject from './AddGrpproject';
 
 const { RangePicker } = DatePicker;
 
 const TaskPage = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalVisible2, setIsModalVisible2] = useState(false);
+  const [isModalVisible3, setIsModalVisible3] = useState(false);
   const [inputDisable, setInputDisable] = useState(true);
+  const [sebmitProj, setSubmitProj] = useState(false);
+  const [reportLink, setReportLink] = useState('');
   const [task, setTasks] = useState([]);
   const [taskId, setTaskId] = useState(null);
   const [loading, setLoading] = useState(false); // State for loading indicator
 
+  console.log('sebmitProjsebmitProjsebmitProj', sebmitProj);
   const groupId = useLocation().pathname.split('/')[3];
   const currentYear = useLocation().pathname.split('/')[4];
   const academicYear = useLocation().pathname.split('/')[5];
@@ -44,7 +50,8 @@ const TaskPage = () => {
   const subject = useLocation().pathname.split('/')[7];
   const facultyId = useLocation().pathname.split('/')[8];
   const [taskAccuracy, setTaskAccuracy] = useState(0); // State for task accuracy
-  console.log('taskAccuracy', taskAccuracy);
+  const [taskAccuracyCount, setAccuracyCount] = useState(0); // State for task accuracy
+  // console.log('taskAccuracy', taskAccuracy);
   const [formData, setFormData] = useState({
     description: '',
     pdfLink: '',
@@ -70,7 +77,7 @@ const TaskPage = () => {
     setInputDisable(!inputDisable);
     console.log(inputDisable);
   };
-  console.log('===>', editFormData);
+  // console.log('===>', editFormData);
   const fetchTasks = async () => {
     try {
       const response = await axios.get(
@@ -81,9 +88,9 @@ const TaskPage = () => {
       );
 
       const fetchedTasks1 = response.data.data;
-      console.log('fetchedTasks1', fetchedTasks1);
+      // console.log('fetchedTasks1', fetchedTasks1);
       const fetchedTasks2 = response2.data.data;
-      console.log('fetchedTasks2', fetchedTasks2);
+      // console.log('fetchedTasks2', fetchedTasks2);
 
       // Combine the data from both responses
       const combinedTasks = [...fetchedTasks1, ...fetchedTasks2];
@@ -94,7 +101,10 @@ const TaskPage = () => {
 
       // Calculate accuracy percentage
       const accuracyPercentage = (completedTasks / totalTasks) * 100;
-      setTaskAccuracy(accuracyPercentage);
+      const roundedAccuracy = accuracyPercentage.toFixed(2);
+
+      setTaskAccuracy(parseFloat(roundedAccuracy));
+      setAccuracyCount(completedTasks);
       setTasks(combinedTasks);
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -126,6 +136,9 @@ const TaskPage = () => {
   useEffect(() => {
     fetchSubmission();
   }, [taskId]);
+  useEffect(() => {
+    fetchGrpProjData();
+  }, [groupId]);
 
   useEffect(() => {
     console.log('Submission IDs:', submissionIds); // Log submission IDs whenever there is a change
@@ -261,6 +274,29 @@ const TaskPage = () => {
     setTaskId(taskId);
     setIsModalVisible2(true);
   };
+  const fetchGrpProjData = async () => {
+    try {
+      const response = await axios.get(
+        `${BASEURL}/project/get/group/${groupId}`
+      );
+      // console.log('response.data.data', response.data.data);
+      // setGrpProj(response.data[0]);
+      // console.log('setGrpProj', response.data[0]);
+      if (response.data[0].length !== 0) {
+        // If there are projects, set submitProj to true
+        setSubmitProj(true);
+        setReportLink(response.data[0].reportLink);
+      }
+      //
+    } catch (error) {
+      console.log('Error fetching Project', error);
+    }
+  };
+  const showModal3 = () => {
+    // console.log(taskId);
+    // setTaskId(taskId);
+    setIsModalVisible3(true);
+  };
 
   const handleTaskSubmission = async (e) => {
     e.preventDefault();
@@ -348,6 +384,10 @@ const TaskPage = () => {
     setTaskId(taskId);
     setIsModalVisible(true);
   };
+  const showModa3 = () => {
+    // setTaskId(taskId);
+    setIsModalVisibl3(true);
+  };
 
   const handleOk = () => {
     setIsModalVisible(false);
@@ -356,6 +396,9 @@ const TaskPage = () => {
   const handleOk2 = () => {
     setIsModalVisible2(false);
   };
+  const handleOk3 = () => {
+    setIsModalVisible3(false);
+  };
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -363,6 +406,9 @@ const TaskPage = () => {
 
   const handleCancel2 = () => {
     setIsModalVisible2(false);
+  };
+  const handleCancel3 = () => {
+    setIsModalVisible3(false);
   };
 
   const onFinish = (values) => {
@@ -462,7 +508,16 @@ const TaskPage = () => {
       <div className="my-10 flex flex-col gap-2 md:flex-row">
         <div className="flex w-full flex-col gap-4">
           {' '}
-          <h1 className="text-xl font-bold">Task List</h1>
+          <div className="flex justify-between ">
+            {' '}
+            <h1 className="text-xl  font-bold">Task List : {task.length} </h1>
+            <div>
+              {' '}
+              <h1 className="text-md font-semibold">
+                Completed: {taskAccuracyCount} 
+              </h1>
+            </div>
+          </div>{' '}
           {task.map((data, index) => (
             <div className="w-full" key={index}>
               <div className=" w-full items-center items-center gap-2  rounded bg-white p-5  shadow-md  ">
@@ -577,12 +632,35 @@ const TaskPage = () => {
               </div>
             </div>
           </div>
+          <button
+            onClick={showModal3} // Pass the taskId here for submission
+            className=" w-full items-center items-center gap-2  rounded bg-white p-5  shadow-md hover:cursor-pointer md:max-w-[16rem]"
+          >
+            <h1 className="text-center font-bold ">Final Project Submission</h1>
+            <p className="my-2">
+              status{' '}
+              {sebmitProj ? (
+                <span className="  font-bold text-[#006400]"> Submitted</span>
+              ) : (
+                <span className=" font-bold text-[#AA0000]">Pending</span>
+              )}
+            </p>
+          </button>
           <div className=" w-full items-center items-center gap-2  rounded bg-white p-5  shadow-md md:max-w-[16rem] ">
-            <h1 className="text-center font-bold ">Project Submission</h1>
-            <p className="my-2">status</p>
-          </div>
-          <div className=" w-full items-center items-center gap-2  rounded bg-white p-5  shadow-md md:max-w-[16rem] ">
-            <h1 className="text-center font-bold  ">Report Submission</h1>
+            <a href={reportLink} target="_blank">
+              {' '}
+              <h1 className="text-center font-bold  ">
+                {reportLink ? (
+                  <span className="mx-auto flex items-center justify-center gap-2 text-center">
+                    {' '}
+                    Report Link{' '}
+                    <FaExternalLinkAlt className="text text-sm font-bold" />
+                  </span>
+                ) : (
+                  'Report Not Submitted'
+                )}
+              </h1>
+            </a>{' '}
           </div>
         </div>
       </div>
@@ -595,6 +673,18 @@ const TaskPage = () => {
           esse labore nisi repellendus.
         </p>
       </div> */}
+
+      <Modal
+        title="Final Project Submission"
+        visible={isModalVisible3}
+        onOk={handleOk3}
+        onCancel={handleCancel3}
+        footer={null}
+        width={600}
+      >
+        {/* <div>Hello world</div> */}
+        <AddGrpproject groupId={groupId} facultyId={facultyId} />
+      </Modal>
 
       <Modal
         title="Submit Task"

@@ -52,6 +52,7 @@ const SemProjectSlider = ({ sem }) => {
   });
   const [loading, setLoading] = useState(false); // Added loading state
   const currentUser = useSelector((state) => state.user);
+  console.log(currentUser);
   const userId = currentUser.userData._id;
   const settings = {
     dots: true,
@@ -94,24 +95,32 @@ const SemProjectSlider = ({ sem }) => {
     const selectedSemester = parseInt(e.target.value, 10);
     setProjectDetails({ ...projectDetails, semester: selectedSemester });
   };
+  const fetchData = async () => {
+    try {
+      setLoading(true); // Set loading to true when fetching starts
+      const projects1 = await axios.get(
+        `${BASEURL}/project/get/project/sem?semester=${projectDetails.semester}&studentId=${userId}`
+      );
+      const projects2 = await axios.get(
+        `${BASEURL}/project/get/group/project/sem?semester=${projectDetails.semester}&studentId=${currentUser.userData.studentId}`
+      );
+      console.log('all ', projects1.data);
+      console.log('all ', projects2.data);
 
+      // Combine the two arrays of projects
+      const combinedProjects = [...projects1.data, ...projects2.data];
+
+      setProject(combinedProjects);
+    } catch (error) {
+      console.log('All Project fetching Error ', error);
+    } finally {
+      setLoading(false); // Set loading to false regardless of success or failure
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true); // Set loading to true when fetching starts
-        const projects = await axios.get(
-          `${BASEURL}/project/get/project/sem?semester=${projectDetails.semester}&studentId=${userId}`
-        );
-        console.log('all ', projects.data);
-        setProject(projects.data);
-      } catch (error) {
-        console.log('All Project fetching Error ', error);
-      } finally {
-        setLoading(false); // Set loading to false regardless of success or failure
-      }
-    };
-
-    fetchData();
+    if (projectDetails.semester) {
+      fetchData();
+    }
   }, [projectDetails.semester]); // Trigger the effect when semester changes
 
   return (
@@ -122,7 +131,7 @@ const SemProjectSlider = ({ sem }) => {
             <Breadcrumb pageName="Project Record" />
           </label>
 
-          <label className="my-2 w-full font-medium text-black dark:text-white md:block hidden">
+          <label className="my-2 hidden w-full font-medium text-black dark:text-white md:block">
             <h1>Select Semester</h1>
           </label>
 
