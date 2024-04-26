@@ -50,7 +50,7 @@ const GroupSubjectsCards = ({ subject, academic, currentYear, semester }) => {
     >
       <div className=" border-1 hover:bg-gray-9 flex h-40 w-full items-center rounded-2xl bg-[#fffff7] text-center shadow-xl transition-transform hover:scale-105 dark:bg-boxdark flex  flex-col ">
           <p className="m-auto text-2xl font-bold text-black dark:text-white  ">{subject}</p>
-          <Button type="primary" htmlType="submit" className='flex ml-auto p-1 rounded text-xl' onClick={(event) => handleDelete(event)}>
+          <Button type="primary" htmlType="submit" className=' m-2 flex ml-auto p-1 rounded text-xl' onClick={(event) => handleDelete(event)}>
   <MdDelete />
 </Button>
       </div>

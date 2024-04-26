@@ -39,20 +39,21 @@ const GroupViewPageAdmin = () => {
       // alert(res.data.message);
       console.log('==>', res.data.data);
     } catch (error) {
-      Toastify({
-        text: `${error.response.data.message}`,
-        duration: 1800,
-        gravity: 'top', // `top` or `bottom`
-        position: 'right', // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-          background: 'linear-gradient(to right, #3C50E0, #3C50E0',
-          padding: '10px 50px',
-        },
-        onClick: function () {}, // Callback after click
-      }).showToast();
+      // Toastify({
+      //   text: `${error.response.data.message}`,
+      //   duration: 1800,
+      //   gravity: 'top', // `top` or `bottom`
+      //   position: 'right', // `left`, `center` or `right`
+      //   stopOnFocus: true, // Prevents dismissing of toast on hover
+      //   style: {
+      //     background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+      //     padding: '10px 50px',
+      //   },
+      //   onClick: function () {}, // Callback after click
+      // }).showToast();
 
       // alert(error.response.data.message);
+      console.log(error.response.data.message , error);
     }
   };
   useEffect(() => {
@@ -231,17 +232,19 @@ const GroupViewPageAdmin = () => {
       className="my-10 rounded-sm 
     border-stroke  text-black  shadow-default dark:text-black xl:pb-1 "
     >
+      {dataWithSrNo.length === 0 ? (
+      <p className="text-center text-red-500 my-4">
+        No groups found 
+      </p>
+    ) : (
       <Table
-        className=" text-black dark:text-black"
+        className="text-black dark:text-black"
         columns={columns}
-        // dataSource={data}
-        dataSource={dataWithSrNo} // Use modified data here
+        dataSource={dataWithSrNo}
         onChange={onChange}
-        // style={}
-        // rowClassName={() => ' hover:bg-bodydark2'}
-        // bordered
         scroll={{ x: true }}
       />
+    )}
      
     </div>
   );
