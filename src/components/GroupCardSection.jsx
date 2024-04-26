@@ -1,12 +1,17 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { BsListTask } from 'react-icons/bs';
+import { FaLayerGroup } from 'react-icons/fa';
 
 const GroupCardSection = ({ group }) => {
   console.log(group.isProjectApproved);
   return (
-    <NavLink to={`group/${group._id}`}>
-      <div className="mx-auto max-w-sm overflow-hidden rounded-2xl bg-white p-6 text-black text-lg h-full shadow-md dark:bg-boxdark dark:text-white">
-        <div className="mb-7 text-2xl font-semibold">{group.groupName}</div>
+    <div className="mx-auto h-full w-full max-w-sm overflow-hidden rounded-2xl bg-white p-6 text-lg text-black shadow-md dark:bg-boxdark dark:text-white ">
+      <NavLink to={`group/${group._id}`}>
+        <div className="mb-7 text-2xl font-semibold flex gap-2 ">
+          <FaLayerGroup className='text-xl dark:text-white text-black my-auto' />
+          {group.groupName}
+        </div>
         <div className="mb-2 font-medium">
           <strong>Members:</strong> {group.membersName.join(', ')}
         </div>
@@ -26,8 +31,19 @@ const GroupCardSection = ({ group }) => {
           <strong>Approval:</strong>{' '}
           {group.isProjectApproved === true ? 'True' : 'False'}
         </div>
-      </div>
-    </NavLink>
+      </NavLink>
+      <a
+        href={`/groupsection/group/${group._id}/${group.currentYear}/${group.academicYear}/${group.semester}/${group.subject}/${group.guideId}`}
+      >
+        <button
+          type="button"
+          className={`mb-2 flex transform gap-2 rounded  bg-[#0C356A] px-[1rem] py-2 text-sm font-semibold text-white shadow-xl hover:scale-105 hover:bg-[#0C356A]/90`}
+        >
+          <BsListTask className="my-auto items-center  text-center text-lg font-semibold  text-white" />
+          Task Page
+        </button>
+      </a>
+    </div>
   );
 };
 
