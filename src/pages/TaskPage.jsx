@@ -514,7 +514,7 @@ const TaskPage = () => {
             <div>
               {' '}
               <h1 className="text-md font-semibold">
-                Completed: {taskAccuracyCount} 
+                Completed: {taskAccuracyCount}
               </h1>
             </div>
           </div>{' '}
@@ -590,6 +590,8 @@ const TaskPage = () => {
         <div className="mx-auto flex w-full flex-col items-center gap-5 md:max-w-[20rem]">
           {' '}
           <h1 className="font-bold">Details</h1>
+          {/* <h1 className="font-bold">{}</h1> */}
+          
           <div className=" w-full items-center items-center gap-2 rounded bg-white p-5 shadow-md md:max-w-[16rem] ">
             <h1 className="text-center font-bold ">Submission Progress</h1>
             {/* <p className="my-2">Submission Progress</p> */}

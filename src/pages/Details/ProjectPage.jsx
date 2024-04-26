@@ -71,7 +71,7 @@ const ProjectProject = () => {
       confirm,
       clearFilters,
     }) => (
-      <div className="p-4">
+      <div className="p-4 w-[16rem]">
         <Input
           placeholder={`Search ${columnTitle}`}
           value={selectedKeys[0]}
@@ -127,25 +127,14 @@ const ProjectProject = () => {
         console.log('Data:', data);
         console.log('Record:', record);
 
-        // If it's a group project and membersName exists, render the first member's name
-        // if (record.isGroupProj && record.membersName.length > 0) {
-        //   console.log("Rendering member's name:", record.membersName[0]);
-        //   return record.membersName;
-        // }
-
-        if (record.isGroupProj && Array.isArray(text) && text.length > 0) {
-          console.log("Rendering member's names:", text);
+        // If it's a group project and membersName exists, render each member's name on a new line
+        if (record.isGroupProj && record.membersName.length > 0) {
+          console.log("Rendering member's name:", record.membersName);
           return (
             <div>
-              <table>
-                <tbody>
-                  {record?.membersName?.map((name) => (
-                    <tr key={name}>
-                      <td>{name}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              {record.membersName.map((memberName, index) => (
+                <div key={index}>{memberName}</div>
+              ))}
             </div>
           );
         }

@@ -20,6 +20,9 @@ import { BASEURL } from '../Api';
 import axios from 'axios';
 const ViewProject = () => {
   const [isLoading, setIsLoading] = useState(false); // State to track loading state
+  const parseHTML = (htmlString) => {
+    return { __html: htmlString };
+  };
 
   const currentUser = useSelector((state) => state.user);
   const facultyId = currentUser.userData._id;
@@ -40,14 +43,6 @@ const ViewProject = () => {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    const confirmDelete = window.confirm(
-      'Are you sure you want to delete this Project? This action cannot be undone.'
-    );
-
-    if (!confirmDelete) {
-      // If user cancels the confirmation, exit the function
-      return;
-    }
     const isAuthorized =
       data.membersId.includes(currentUser.userData.studentId) ||
       data.studentId === currentUser.userData._id;
@@ -56,6 +51,15 @@ const ViewProject = () => {
       alert('You are not authorized to delete this project.');
       return;
     }
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this Project? This action cannot be undone.'
+    );
+
+    if (!confirmDelete) {
+      // If user cancels the confirmation, exit the function
+      return;
+    }
+
     setIsLoading(true); // Set loading state to true
 
     try {
@@ -289,10 +293,10 @@ const ViewProject = () => {
               <h1 className=" text-lg font-bold md:text-xl">Title: </h1>
               <h1 className="text-xl  md:text-xl">{data.title}</h1>
             </div>
-            <div className="flex  flex-col gap-2">
+            <div className="">
               <h1 className=" text-lg font-bold md:text-xl">Description: </h1>
-
-              <h1 className="pl-2  text-xl md:text-xl"> {data.description}</h1>
+              {/* <h1 className="pl-2  text-xl md:text-xl"> {data.description}</h1> */}
+              <div className='pl-2 pt-1' dangerouslySetInnerHTML={parseHTML(data.description)} />
             </div>
           </div>
           <div className="mt-10 flex items-center gap-3.5 ">
@@ -328,14 +332,16 @@ const ViewProject = () => {
         </div> */}
         {/* Project Details */}
         {/* Useful Links */}
-        <button
-          className="mt-10 flex gap-2 rounded-md bg-[#0C356A] px-3 py-2 text-base text-white hover:bg-[#0C356A]/90  "
-          onClick={handleDelete}
-          disabled={isLoading} // Disable the button while loading
-        >
-          <MdDelete className="my-auto text-xl font-semibold text-white" />
-          {isLoading ? 'Deleting...' : 'Delete'}
-        </button>
+        {data.isApproved !== true && (
+          <button
+            className="mt-10 flex gap-2 rounded-md bg-[#0C356A] px-3 py-2 text-base text-white hover:bg-[#0C356A]/90"
+            onClick={handleDelete}
+            disabled={isLoading} // Disable the button while loading
+          >
+            <MdDelete className="my-auto text-xl font-semibold text-white" />
+            {isLoading ? 'Deleting...' : 'Delete'}
+          </button>
+        )}
       </div>
       <div className="mx-5">
         {' '}

@@ -4,7 +4,11 @@ import Toastify from 'toastify-js';
 import axios from 'axios ';
 import { BASEURL } from '../Api';
 import Breadcrumb from '../components/Breadcrumb';
-
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import { ClassicEditor } from '@ckeditor/ckeditor5-basic-styles';
+// import ClassicEditor from '@ckeditor5-custom-build/build/ckeditor';
+// import
 const Addproject = () => {
   const currentUser = useSelector((state) => state.user);
   const [emptyFieldError, setEmptyFieldError] = useState('');
@@ -12,7 +16,10 @@ const Addproject = () => {
   const [subjectList, setSubjectList] = useState([]);
   const [loadingSubjects, setLoadingSubjects] = useState(false);
   const [loading, setLoading] = useState(false); // State for loading indicator
-
+  const handleEditorChange = (event, editor) => {
+    const data = editor.getData();
+    setProjectDetails({ ...projectDetails, description: data });
+  };
   const [projectDetails, setProjectDetails] = useState({
     title: '',
     description: '',
@@ -257,12 +264,22 @@ const Addproject = () => {
             <label className="mb-2 block text-xl font-medium text-black dark:text-white">
               Description
             </label>
-            <textarea
-              name="description"
-              rows="4"
-              value={projectDetails.description}
-              onChange={(e) => handleInputChange(e, 'description')}
-              className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
+            {/* <CKEditor
+              editor={ClassicEditor}
+              data={projectDetails.description}
+              // onChange={(event, editor) => {
+              //   const data = editor.getData();
+              //   setProjectDetails({ ...projectDetails, description: data });
+              // }}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                handleInputChange(data, 'description');
+              }}
+            /> */}
+            <CKEditor
+              editor={ClassicEditor}
+              data={projectDetails.description}
+              onChange={handleEditorChange}
             />
           </div>
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">

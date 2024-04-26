@@ -185,14 +185,14 @@ const SemProjectSlider = ({ sem }) => {
           ))}
         </div>
       ) : (
-        <div className="mx-auto text-center ">
+        <div className="mx-auto flex flex-col items-center justify-center text-center">
           <p className="tex-xl font-bold text-black dark:text-white">
             No Project Record Found
           </p>
           <img
             src={'/nodataIcon.png'}
             alt=""
-            className="mx-auto w-[20rem] opacity-20"
+            className="mx-auto my-10 w-[12rem] opacity-20"
           />
         </div>
       )}
