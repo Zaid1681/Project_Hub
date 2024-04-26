@@ -59,7 +59,7 @@ const projectSchema = new Schema(
     },
     guideId: {
       type: Schema.Types.ObjectId,
-      default: "",
+      default: null,
     },
     reportLink: {
       type: String,

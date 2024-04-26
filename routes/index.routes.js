@@ -11,7 +11,6 @@ const student = require("./student.js");
 const submission = require("./submission.js");
 const chat = require("./chat.routes.js");
 const admin = require("./admin.js");
-const groupSubmission = require("./groupSubmission.js");
 const router = Router();
 router.use("/auth", authRoutes);
 router.use("/admin/auth", facultyRoutes);
