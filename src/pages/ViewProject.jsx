@@ -197,7 +197,22 @@ const ViewProject = () => {
                 </div>
               </div>
             </div>
+            {data?.isGroupProj && (
+              <div className="flex items-center gap-3.5">
+                <FaLink size={28} />
 
+                <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
+                  Report Link
+                </span>
+                <a
+                  href={data?.reportLink}
+                  target="_blank"
+                  className="text-lg font-medium text-black dark:text-white md:text-xl"
+                >
+                  {data?.reportLink}
+                </a>
+              </div>
+            )}
             <div className="my-5 flex w-40 items-center rounded-xl border bg-[#0C356A] p-2  text-center text-black md:w-60">
               <p className="mx-auto text-lg font-bold text-white md:text-xl ">
                 {data.isApproved == true ? 'Approved' : 'InProcess'}

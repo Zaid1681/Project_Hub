@@ -22,22 +22,22 @@ const ProjectProject = () => {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const [data, setData] = useState([]);
-
+  const fetchSubjects = async () => {
+    try {
+      setLoadingProjects(true);
+      const res = await axios.get(
+        `${BASEURL}/project/get/project/unapproved?currentYear=${currentYear}&semester=${semester}&academic=${academic}&sub=${subject}`
+      );
+      console.log('=====>', res.data);
+      setData(res.data);
+    } catch (error) {
+      console.error('Error fetching subjects:', error);
+    } finally {
+      setLoadingProjects(false);
+    }
+  };
+  // console.log('datadata', data[0].isGroupProj);
   useEffect(() => {
-    const fetchSubjects = async () => {
-      try {
-        setLoadingProjects(true);
-        const res = await axios.get(
-          `${BASEURL}/project/get/project/unapproved?currentYear=${currentYear}&semester=${semester}&academic=${academic}&sub=${subject}`
-        );
-        console.log(res.data);
-        setData(res.data);
-      } catch (error) {
-        console.error('Error fetching subjects:', error);
-      } finally {
-        setLoadingProjects(false);
-      }
-    };
     if (currentYear && semester && academic && subject) {
       fetchSubjects();
     }
@@ -118,10 +118,48 @@ const ProjectProject = () => {
     },
     {
       title: 'Student Name',
-      dataIndex: 'sName',
+      dataIndex: (data) =>
+        data?.isGroupProj && data.membersName.length > 0
+          ? 'membersName'
+          : 'sName',
       ...getColumnSearchProps('sName', 'sName'),
-      // className: 'bg-boxdark bg-black p-2.5 text-white text-sm font-medium ',
+      render: (text, record) => {
+        console.log('Data:', data);
+        console.log('Record:', record);
+
+        // If it's a group project and membersName exists, render the first member's name
+        // if (record.isGroupProj && record.membersName.length > 0) {
+        //   console.log("Rendering member's name:", record.membersName[0]);
+        //   return record.membersName;
+        // }
+
+        if (record.isGroupProj && Array.isArray(text) && text.length > 0) {
+          console.log("Rendering member's names:", text);
+          return (
+            <div>
+              <table>
+                <tbody>
+                  {record?.membersName?.map((name) => (
+                    <tr key={name}>
+                      <td>{name}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          );
+        }
+        // Otherwise, render the student name if it exists
+        if (text) {
+          console.log('Rendering student name:', text);
+          return record.sname;
+        }
+        // If neither condition is met, return a default value or an empty string
+        console.log('No student name found, returning default value');
+        return record.sName;
+      },
     },
+
     {
       title: 'Project Title',
       dataIndex: 'title',
