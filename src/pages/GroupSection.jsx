@@ -30,7 +30,8 @@ const GroupSection = () => {
 
   return (
     <>
-      <Breadcrumb pageName="Groups" />
+      {/* <Breadcrumb pageName="Groups" /> */}
+      <h1 className='md:text-3xl text-2xl  font-bold items-center mx-auto text-center my-5 '>Groups Section</h1>
       {loading ? ( // Render loader if loading is true
         <Loader />
       ) : (

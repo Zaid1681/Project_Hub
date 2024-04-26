@@ -12,15 +12,18 @@ import { TbAntennaBars5 } from 'react-icons/tb';
 import Toastify from 'toastify-js';
 import ImageSlider from '../components/ImageSlider';
 import { useSelector } from 'react-redux';
+import { MdDelete } from 'react-icons/md';
 
 import { useLocation } from 'react-router-dom';
 import { BASEURL } from '../Api';
 
 import axios from 'axios';
 const ViewProject = () => {
+  const [isLoading, setIsLoading] = useState(false); // State to track loading state
+
   const currentUser = useSelector((state) => state.user);
   const facultyId = currentUser.userData._id;
-  console.log('facultyId', facultyId);
+  console.log('currentUser', currentUser);
 
   const path = useLocation().pathname.split('/')[3];
   console.log(path);
@@ -34,17 +37,72 @@ const ViewProject = () => {
   const [projectDetails, setProjectDetails] = useState({
     isApproved: '',
   });
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this Project? This action cannot be undone.'
+    );
+
+    if (!confirmDelete) {
+      // If user cancels the confirmation, exit the function
+      return;
+    }
+    const isAuthorized =
+      data.membersId.includes(currentUser.userData.studentId) ||
+      data.studentId === currentUser.userData._id;
+
+    if (!isAuthorized) {
+      alert('You are not authorized to delete this project.');
+      return;
+    }
+    setIsLoading(true); // Set loading state to true
+
+    try {
+      // Retrieve all project ideas associated with the group
+      const response = await axios.delete(`${BASEURL}/project/del/${data._id}`);
+
+      // Optionally, you can perform additional actions after deleting the group
+
+      console.log('Project Deleted Sucessfully ');
+      setIsLoading(false);
+
+      Toastify({
+        text: 'Project Delete  Sucessfully',
+        duration: 1800,
+        gravity: 'top', // `top` or `bottom`
+        position: 'right', // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: 'linear-gradient(to right, #3C50E0, #3C50E0',
+          padding: '10px 50px',
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
+      setTimeout(() => {
+        navigate('/groupSection');
+      }, 500);
+    } catch (error) {
+      console.error(
+        'Error deleting group and associated project ideas: ',
+        error
+      );
+      // Handle errors if necessary
+    }
+  };
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${BASEURL}/project/get/${path}`);
+      setData(response.data);
+    } catch (error) {
+      console.log('Error fetching Project', error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${BASEURL}/project/get/${path}`);
-        setData(response.data);
-      } catch (error) {
-        console.log('Error fetching Project', error);
-      }
-    };
     // console.log('Yatra Packages', packages);
-    fetchData();
+    if (path) {
+      fetchData();
+    }
   }, [path]); // Include path as a dependency to update only when path changes
 
   const handleSemesterChange = (e) => {
@@ -186,7 +244,6 @@ const ViewProject = () => {
                     target="_blank"
                     href={data?.githubLink}
                   >
-                    {' '}
                     <FaGithub className="mr-1" />
                   </a>
                   {/* {.map((data, index) => (
@@ -226,21 +283,29 @@ const ViewProject = () => {
           PROJECT DETAILS
         </h1>{' '}
         {/* Title &  Description */}
-        <div className="flex-col py-3">
-          <h1 className="mt-10 text-lg font-bold md:text-xl">{data.title}</h1>
-          <h1 className="mt-5 text-lg font-medium md:text-xl">
-            {data.description}
-          </h1>
-          <div className="mt-5 flex items-center gap-3.5">
+        <div className="flex-col gap-5 py-3">
+          <div className="flex flex-col gap-5">
+            <div className="flex items-center gap-2 ">
+              <h1 className=" text-lg font-bold md:text-xl">Title: </h1>
+              <h1 className="text-xl  md:text-xl">{data.title}</h1>
+            </div>
+            <div className="flex  flex-col gap-2">
+              <h1 className=" text-lg font-bold md:text-xl">Description: </h1>
+
+              <h1 className="pl-2  text-xl md:text-xl"> {data.description}</h1>
+            </div>
+          </div>
+          <div className="mt-10 flex items-center gap-3.5 ">
             <span className="text-lg font-medium md:text-xl">Keyword:</span>
 
             <div className="flex flex-wrap  gap-6 md:gap-3.5">
               {data?.keywords?.map((data, index) => (
-                <a href="#" className="icon-link" key={index}>
-                  <span className=" m-2 rounded-xl bg-[#0C356A] py-2 px-3 font-bold text-white dark:text-white">
-                    {data}
-                  </span>
-                </a>
+                <span
+                  key={index}
+                  className=" m-2 items-center rounded bg-[#0C356A]/80 py-1 px-3 text-center font-semibold text-white dark:text-white"
+                >
+                  {data}
+                </span>
               ))}
 
               {/* <a href="#" className="icon-link">
@@ -263,10 +328,18 @@ const ViewProject = () => {
         </div> */}
         {/* Project Details */}
         {/* Useful Links */}
+        <button
+          className="mt-10 flex gap-2 rounded-md bg-[#0C356A] px-3 py-2 text-base text-white hover:bg-[#0C356A]/90  "
+          onClick={handleDelete}
+          disabled={isLoading} // Disable the button while loading
+        >
+          <MdDelete className="my-auto text-xl font-semibold text-white" />
+          {isLoading ? 'Deleting...' : 'Delete'}
+        </button>
       </div>
       <div className="mx-5">
         {' '}
-        {currentUser.role == 'Faculty' ? (
+        {currentUser.role === 'Faculty' || currentUser.role === 'Admin' ? (
           <div>
             <div className="text-bold mb-4 text-black  ">
               <label className="mb-2 block text-xl font-medium text-black dark:text-white">

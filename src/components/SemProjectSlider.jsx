@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import SemProjectCard from './SemProjectCard';
 import { BASEURL } from '../Api';
+import { CgSelectO } from 'react-icons/cg';
 
 const urlImage =
   'https://www.sitelink.com/images/internet-of-everything-smart-connected-1.jpg';
@@ -96,6 +97,7 @@ const SemProjectSlider = ({ sem }) => {
     setProjectDetails({ ...projectDetails, semester: selectedSemester });
   };
   const fetchData = async () => {
+    setProject([]);
     try {
       setLoading(true); // Set loading to true when fetching starts
       const projects1 = await axios.get(
@@ -124,15 +126,21 @@ const SemProjectSlider = ({ sem }) => {
   }, [projectDetails.semester]); // Trigger the effect when semester changes
 
   return (
-    <div className="">
-      <div className="w-1/4">
+    <div className="mx-4">
+      <div className="w-full">
         <div className="text-bold text-black">
-          <label className="block font-medium text-black dark:text-white">
-            <Breadcrumb pageName="Project Record" />
-          </label>
+          {/* <label className="block font-medium text-black dark:text-white"> */}
+          {/* <Breadcrumb pageName="Project Record" /> */}
+          <h1 className="mx-auto my-5 items-center  text-center text-2xl font-bold dark:text-white md:text-3xl ">
+            Project Submission Record
+          </h1>
+          {/* </label> */}
 
           <label className="my-2 hidden w-full font-medium text-black dark:text-white md:block">
-            <h1>Select Semester</h1>
+            <h1 className="flex gap-2 text-xl font-bold">
+              <CgSelectO className="my-auto text-xl font-bold" /> Select
+              Semester
+            </h1>
           </label>
 
           <select
@@ -140,7 +148,7 @@ const SemProjectSlider = ({ sem }) => {
             defaultValue=""
             value={projectDetails.semester}
             onChange={handleSemesterChange}
-            className="focus:border-blue-500 w-50 rounded-md border px-5 py-2 font-bold focus:outline-none"
+            className="focus:border-blue-500 w-50 w-full items-center rounded-md border px-5 py-2 text-center font-bold focus:outline-none md:w-1/4 md:text-left"
           >
             <option value="" disabled>
               Select Semester
@@ -166,19 +174,28 @@ const SemProjectSlider = ({ sem }) => {
           </select>
         </div>
       </div>
-      <div className="mt-12 grid gap-7 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {' '}
-        {/* Use grid to create a 2-column grid */}
-        {loading ? (
-          <p>
-            <Loader />
-          </p>
-        ) : (
-          project.map((data) => (
+      {loading ? (
+        <p>
+          <Loader />
+        </p>
+      ) : project.length !== 0 ? (
+        <div className="mt-12 grid gap-7 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {project.map((data) => (
             <SemProjectCard key={data._id} project={data} />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="mx-auto text-center ">
+          <p className="tex-xl font-bold text-black dark:text-white">
+            No Project Record Found
+          </p>
+          <img
+            src={'/nodataIcon.png'}
+            alt=""
+            className="mx-auto w-[20rem] opacity-20"
+          />
+        </div>
+      )}
     </div>
   );
 };

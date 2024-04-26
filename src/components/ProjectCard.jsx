@@ -1,11 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaRegUserCircle } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 const urlImage =
   'https://community.nasscom.in/wp-content/uploads/2020/11/2-Copy-1024x539.png';
 
 const ProjectCard = ({ project }) => {
+  const currentUser = useSelector((state) => state.user); // Move the useSelector hook inside the component
+
   return (
     <NavLink to={`project/${project._id}`}>
       <div className="flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-xl bg-white shadow-md hover:-mt-2 dark:bg-boxdark">
