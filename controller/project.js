@@ -40,27 +40,26 @@ const addProject = async (req, res, next) => {
 };
 const addGrpProj = async (req, res, next) => {
   try {
-    if (!req.files || !req.files.photos) {
-      return res.status(400).json({ message: " Fill all the fields" });
-    }
-    console.log(req.body);
+    // if (!req.files || !req.files.photos) {
+    //   return res.status(400).json({ message: " Fill all the fields" });
+    // }
+    // console.log(req.body);
 
-    const files = Array.isArray(req.files.photos)
-      ? req.files.photos
-      : [req.files.photos];
-    const userId = "dummyUser123";
-    const imageUrls = [];
+    // const files = Array.isArray(req.files.photos)
+    //   ? req.files.photos
+    //   : [req.files.photos];
+    // const userId = "dummyUser123";
+    // const imageUrls = [];
 
-    for (const file of files) {
-      const result = await cloudinary.uploader.upload(file.tempFilePath);
-      imageUrls.push(result.secure_url);
-    }
+    // for (const file of files) {
+    //   const result = await cloudinary.uploader.upload(file.tempFilePath);
+    //   imageUrls.push(result.secure_url);
+    // }
 
     const projectData = {
-      userId: userId,
       isGroupProj: true,
       ...req.body,
-      image: imageUrls,
+      // image: imageUrls,
     };
     const project = await Project.create(projectData);
 
