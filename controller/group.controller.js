@@ -205,14 +205,15 @@ const updateStatus = async (req, res, next) => {
   try {
     const groupId = req.params.id;
     const projId = req.params.projId;
-    const isProjectApproved = req.query.status;
+    const isApproved = req.query.status;
 
+    console.log(isApproved, projId, groupId);
     // Use Group model instead of Project model for findByIdAndUpdate
     const updatedGroup = await Group.findByIdAndUpdate(
       groupId,
       {
         approvedProjectId: projId === "null" ? null : projId, // Handle null case
-        isProjectApproved,
+        isApproved,
       },
       { new: true, runValidators: true } // Add runValidators option to validate schema
     );
@@ -296,6 +297,24 @@ const delGroup = async (req, res, next) => {
         .json({ success: true, message: "Group Deleted Successfully" });
     } catch (error) {
       next(CustomError(404, error));
+    }
+  } catch (error) {
+    next(CustomError(500, error));
+  }
+};
+const getGrpData = async (req, res, next) => {
+  try {
+    const groupDetails = await Group.findById(req.params.id);
+    if (groupDetails) {
+      // res.status(400).json({ success: true, data: groupDetails });
+      res.status(200).json({
+        message: "Groups fetched successfully",
+        data: groupDetails,
+      });
+    } else {
+      res
+        .status(201)
+        .json({ success: false, message: "Group Details Not Found" });
     }
   } catch (error) {
     next(CustomError(500, error));
@@ -430,6 +449,7 @@ module.exports = {
   getGroupWithId,
   getApprovedGroup,
   getAllGroupsByCriteria,
+  getGrpData,
   updateGuide,
   getGroupMembers,
   updateGrpStatus,

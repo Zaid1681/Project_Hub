@@ -57,7 +57,7 @@ const groupSchema = new Schema(
       ref: "ProjectIdea", // Reference to the User model
       default: null,
     },
-    isProjectApproved: {
+    isApproved: {
       // this will be set true once a
       type: Boolean,
       default: false,

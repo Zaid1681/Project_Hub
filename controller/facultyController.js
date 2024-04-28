@@ -230,7 +230,9 @@ const getFacultyNameList = async (req, res, next) => {
     }
 
     const data = facultyDetail.map((faculty) => ({
-      name: faculty.name,
+      name: `${faculty.abbreviation}. ${faculty.name} `, // Combine name and abbreviation
+
+      // name: faculty.name,
       _id: faculty._id,
     }));
 

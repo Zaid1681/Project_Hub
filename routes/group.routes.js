@@ -20,7 +20,8 @@ const {
   getGroupMembers,
   updateGrpStatus,
   getAllGroupsByCriteria,
-  getMembernameByGroupId
+  getMembernameByGroupId,
+  getGrpData,
   //   getProject,
   //   delProject,
   //   updStatus,
@@ -31,6 +32,7 @@ const {
 } = require("../controller/group.controller.js");
 
 router.get("/getAll", getAllGroup);
+router.get("/get/grpData/:id", getGrpData);
 router.get(
   "/groupsList/get/:academic/:currentYear/:subject/:semester",
   getGroupsByCriteria

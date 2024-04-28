@@ -3,31 +3,31 @@ const CustomError = require("../utils/error");
 const Project = require("../Schema/Project");
 const cloudinary = require("cloudinary").v2;
 
-cloudinary.config({
-  cloud_name: "dugze0fjd",
-  api_key: "213166633228694",
-  api_secret: "10MYFnSBAUwlWXthZrRIkhgCHDU",
-});
+// cloudinary.config({
+//   cloud_name: "dugze0fjd",
+//   api_key: "213166633228694",
+//   api_secret: "10MYFnSBAUwlWXthZrRIkhgCHDU",
+// });
 
 // creating user video
 const addProject = async (req, res, next) => {
   try {
-    if (!req.files || !req.files.photos) {
-      return res.status(400).json({ message: " Fill all the fields" });
-    }
+    // if (!req.files || !req.files.photos) {
+    //   return res.status(400).json({ message: " Fill all the fields" });
+    // }
 
-    const files = Array.isArray(req.files.photos)
-      ? req.files.photos
-      : [req.files.photos];
-    const userId = "dummyUser123";
-    const imageUrls = [];
+    // const files = Array.isArray(req.files.photos)
+    //   ? req.files.photos
+    //   : [req.files.photos];
+    // const userId = "dummyUser123";
+    // const imageUrls = [];
 
-    for (const file of files) {
-      const result = await cloudinary.uploader.upload(file.tempFilePath);
-      imageUrls.push(result.secure_url);
-    }
-
-    const projectData = { userId: userId, ...req.body, image: imageUrls };
+    // for (const file of files) {
+    //   const result = await cloudinary.uploader.upload(file.tempFilePath);
+    //   imageUrls.push(result.secure_url);
+    // }
+    const projectData = req.body;
+    // const projectData = { userId: userId, ...req.body, image: imageUrls };
     const project = await Project.create(projectData);
 
     res
