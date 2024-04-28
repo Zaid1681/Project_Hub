@@ -6,6 +6,7 @@ import { BASEURL } from '../Api';
 import Breadcrumb from '../components/Breadcrumb';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import './CkeditorCSS.css';
 // import { ClassicEditor } from '@ckeditor/ckeditor5-basic-styles';
 // import ClassicEditor from '@ckeditor5-custom-build/build/ckeditor';
 // import
@@ -277,6 +278,8 @@ const Addproject = () => {
               }}
             /> */}
             <CKEditor
+              // className="px-10 my-10"
+              // style={{ padding: '100px', margin: '10px 0' }}
               editor={ClassicEditor}
               data={projectDetails.description}
               onChange={handleEditorChange}
