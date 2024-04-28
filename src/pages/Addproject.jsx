@@ -95,7 +95,7 @@ const Addproject = () => {
       //     padding: '10px 10px',
       //   }}
       // />;
-      alert('Error');
+      alert('Please fill all the fields');
       // console.log("Error");
       setLoading(false); // Reset loading state
       return;
@@ -398,7 +398,7 @@ const Addproject = () => {
             </div>
             <div className="mb-4">
               <label className="mb-2 block text-xl font-medium  text-black dark:text-white">
-                Linkedin Link
+                Linkedin Link (optional)
               </label>
               <input
                 type="text"

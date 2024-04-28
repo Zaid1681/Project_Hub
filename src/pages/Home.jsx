@@ -2,35 +2,94 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Breadcrumb from '../components/Breadcrumb';
 import ProjectCard from '../components/ProjectCard';
-import Loader from '../components/Loader'; // Import your loader component
+import Loader from '../components/Loader';
 import { BASEURL } from '../Api';
 
 const Home = () => {
   const [project, setProject] = useState([]);
-  const [loading, setLoading] = useState(true); // Initialize loading state
-
+  const [loading, setLoading] = useState(true);
+  const [searchValue, setSearchValue] = useState('');
+  console.log(searchValue);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const allProject = await axios.get(`${BASEURL}/project/getApproved`);
-        // console.log('all ', allProject.data);
-        setProject(allProject.data); // Set the fetched data to the state
+        setProject(allProject.data);
       } catch (error) {
         console.log('All Project fetching Error ', error);
       } finally {
-        setLoading(false); // Set loading to false after fetching data
+        setLoading(false);
       }
     };
 
-    fetchData(); // Call the fetchData function to fetch data when the component mounts
+    fetchData();
   }, []);
+
+  const handleChange = (event) => {
+    setSearchValue(event.target.value); // Update search input value
+  };
+
+  const handleSearch = async () => {
+    try {
+      setLoading(true); // Set loading to true before fetching search results
+      const searchResults = await axios.get(
+        `${BASEURL}/project/getApproved/keyword?keyword=${searchValue}`
+      );
+      setProject(searchResults.data); // Update project state with search results
+      // console.log('search');
+    } catch (error) {
+      console.log('Search Error: ', error);
+    } finally {
+      setLoading(false); // Set loading to false after fetching search results
+    }
+  };
 
   return (
     <>
-      <Breadcrumb pageName="Project List" />
-
+      <div>
+        <div className="mx-auto my-10 flex flex-col gap-4 md:max-w-2xl md:flex-row">
+          <div className="relative flex h-12 w-full items-center overflow-hidden rounded-lg border border-black/10 bg-white shadow-xl focus-within:shadow-lg">
+            <div className="text-gray-300 grid h-full w-12 place-items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
+            <input
+              className="text-gray-700 peer h-full w-full border-none pr-2 text-sm outline-none"
+              type="text"
+              id="search"
+              placeholder="Search domain.."
+              value={searchValue}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="my-auto items-center ">
+            <button
+              className="w-full rounded-md bg-[#0C356A]/90 px-10 py-2 text-base text-white shadow-xl hover:bg-[#0C356A]/90"
+              onClick={handleSearch}
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="mx-auto">
+        {' '}
+        <Breadcrumb pageName="Project List" />
+      </div>
       {loading ? (
-        <Loader /> // Render loader while data is being fetched
+        <Loader />
       ) : (
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
           {project?.map((projectItem, index) => (
