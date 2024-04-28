@@ -19,7 +19,7 @@ async function sendEmail(toEmail) {
   try {
     // Send mail with defined transport object
     let info = await transporter.sendMail({
-      from: "zaidkhan1681@gmail.com", // sender address
+      from: "projecthub63@gmail.com", // sender address
       to: toEmail, // list of receivers
       subject: "Login Notification", // Subject line
       text: "Congratulations!! You have successfully registered to the Project Hub : Collaborative platform , Now you can login !.", // plain text body
