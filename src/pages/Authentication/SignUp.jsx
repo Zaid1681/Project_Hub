@@ -233,7 +233,7 @@ const SignIn = () => {
                         name="fname"
                         onChange={handleRegisterInputChange}
                         value={registerData.fname}
-                        placeholder="Enter your full name"
+                        placeholder="Enter your first name"
                         className="border-grey w-full rounded-lg border  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
                     </div>
@@ -248,7 +248,7 @@ const SignIn = () => {
                         name="mname"
                         onChange={handleRegisterInputChange}
                         value={registerData.mname}
-                        placeholder="Enter your Name"
+                        placeholder="Enter your middle Name"
                         className="border-grey w-full rounded-lg border  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
                     </div>
@@ -263,7 +263,7 @@ const SignIn = () => {
                         name="lname"
                         onChange={handleRegisterInputChange}
                         value={registerData.lname}
-                        placeholder="Enter your Name"
+                        placeholder="Enter your last Name"
                         className="border-grey w-full rounded-lg border  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
                     </div>

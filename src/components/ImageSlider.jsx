@@ -42,7 +42,7 @@ const ImageSlider = ({ dataId }) => {
           <Loader />
         </div>
       ) : (
-        <div className="image-slider rounded-xl bg-black/10 p-4">
+        <div className="image-slider rounded-xl dark:bg-white/10 bg-black/10 p-4">
           <button
             className="slider-button prev-button absolute top-1/2 left-0 -translate-y-1/2 transform rounded-full bg-[#0C356A] py-1 px-3 text-white"
             onClick={goToPrevious}

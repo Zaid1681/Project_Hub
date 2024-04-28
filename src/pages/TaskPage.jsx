@@ -44,7 +44,7 @@ const TaskPage = () => {
   const [loading, setLoading] = useState(false); // State for loading indicator
 
   // console.log('sebmitProjsebmitProjsebmitProj', sebmitProj);
-  console.log('grpProjDetail', grpProjDetail);
+  // console.log('grpProjDetail', grpProjDetail);
   const groupId = useLocation().pathname.split('/')[3];
   const currentYear = useLocation().pathname.split('/')[4];
   const academicYear = useLocation().pathname.split('/')[5];
@@ -78,7 +78,7 @@ const TaskPage = () => {
   // console.log(facultyId)
   const handleInputDisable = () => {
     setInputDisable(!inputDisable);
-    console.log(inputDisable);
+    // console.log(inputDisable);
   };
   // console.log('===>', editFormData);
   const fetchTasks = async () => {
@@ -142,9 +142,9 @@ const TaskPage = () => {
           `${BASEURL}/submission/get/taskId/${taskId}`
         );
         const data = response.data.data;
-        console.log('Submissions fetched:', data);
+        //console.log('Submissions fetched:', data);
         setSubmissionData(response.data.data[0]);
-        console.log('===>', response.data.data[0]);
+        // console.log('===>', response.data.data[0]);
         setSubmissionIds(data.map((submission) => submission._id));
         // console.log('Submission IDs:', setSubmissionIds);
       }
@@ -159,9 +159,9 @@ const TaskPage = () => {
     fetchGrpProjData();
   }, [groupId]);
 
-  useEffect(() => {
-    console.log('Submission IDs:', submissionIds); // Log submission IDs whenever there is a change
-  }, [submissionIds]);
+  // useEffect(() => {
+  //   console.log('Submission IDs:', submissionIds); // Log submission IDs whenever there is a change
+  // }, [submissionIds]);
   const handleDelete = async () => {
     // Ask for confirmation before proceeding with deletion
     const confirmed = window.confirm(
@@ -287,7 +287,7 @@ const TaskPage = () => {
       console.log('Update canceled by user');
     }
   };
-  console.log('--==--', myGroup);
+  // console.log('--==--', myGroup);
   const showModal2 = (taskId) => {
     console.log(taskId);
     setTaskId(taskId);
@@ -328,7 +328,7 @@ const TaskPage = () => {
         style: {
           background: 'linear-gradient(to right, #FF474D, #FF474D',
           padding: '10px 50px',
-          textAlign:"center"
+          textAlign: 'center',
         },
         onClick: function () {}, // Callback after click
       }).showToast();
@@ -339,7 +339,7 @@ const TaskPage = () => {
     e.preventDefault();
     setLoading(true); // Set loading to true during form submission
 
-    console.log('taskIds:', taskId);
+    // console.log('taskIds:', taskId);
     try {
       const res = await axios.post(
         `${BASEURL}/submission/add`,
@@ -449,7 +449,7 @@ const TaskPage = () => {
   };
 
   const onFinish = (values) => {
-    console.log('Received values:', values);
+    //console.log('Received values:', values);
     // You can handle form submission logic here
     setIsModalVisible(false); // Close the modal after form submission
   };
@@ -534,7 +534,7 @@ const TaskPage = () => {
       ),
     },
   ];
-  console.log('---dataWithSrNo>', task);
+  //console.log('---dataWithSrNo>', task);
   return (
     <section>
       {/* <Table

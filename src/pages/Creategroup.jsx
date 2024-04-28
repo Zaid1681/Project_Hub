@@ -167,7 +167,7 @@ const Creategroup = () => {
         const res = await axios.get(
           `${BASEURL}/subject/get/sub?currentYear=${currentUser.currentYear}&semester=${groupDetails.semester}`
         );
-        console.log('----->', res.data.data);
+        // console.log('----->', res.data.data);
 
         setSubjectList(res.data.data);
       } catch (error) {
@@ -190,7 +190,7 @@ const Creategroup = () => {
         const res = await axios.get(
           `localhost:8080/api/auth/getStudentByID?studentId=201994101`
         );
-        console.log('----->', res.data.data);
+        // console.log('----->', res.data.data);
 
         setSubjectList(res.data.data);
       } catch (error) {
@@ -321,7 +321,7 @@ const Creategroup = () => {
 
   // Inside your CreateGroup component
   const submitProjectIdea = async (projectIdea, groupId) => {
-    console.log(projectIdea, groupId);
+    // console.log(projectIdea, groupId);
     try {
       // Project idea data
       const projectData = {
@@ -341,7 +341,7 @@ const Creategroup = () => {
         projectData
       );
 
-      console.log('Project idea submitted successfully:', projectResponse.data);
+      // console.log('Project idea submitted successfully:', projectResponse.data);
     } catch (error) {
       console.error('Error submitting project idea:', error);
       throw error; // Re-throw the error to handle it in the main handleSubmit function
@@ -434,8 +434,8 @@ const Creategroup = () => {
           groupData
         );
 
-        console.log('Group creation successful:', groupResponse.data);
-        console.log('Group id:', groupResponse.data.data._id);
+        // console.log('Group creation successful:', groupResponse.data);
+        // console.log('Group id:', groupResponse.data.data._id);
         const groupId = groupResponse.data.data._id;
 
         // Submit Project Ideas

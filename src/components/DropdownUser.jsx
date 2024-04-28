@@ -22,9 +22,9 @@ const DropdownUser = () => {
   const userId = currentUser.userData._id;
   const userName = currentUser.userData.name;
   const userStudentId = currentUser.userData.studentId;
-  console.log(currentUser);
-  console.log(userName);
-  console.log(userStudentId);
+  // console.log(currentUser);
+  // console.log(userName);
+  // console.log(userStudentId);
 
   useEffect(() => {
     const fetchData = async () => {

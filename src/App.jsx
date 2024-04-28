@@ -74,7 +74,7 @@ function App() {
     setTimeout(() => setLoading(false), 1000);
   }, []);
   const currentUser = useSelector((state) => state.user);
-  console.log('current User==>', currentUser);
+  // console.log('current User==>', currentUser);
   const RequirePath = ({ children }) => {
     return currentUser.userToken == null ? (
       <Navigate to="/homepage" />

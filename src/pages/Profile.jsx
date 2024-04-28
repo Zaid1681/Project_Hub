@@ -9,6 +9,7 @@ import axios from 'axios';
 import Toastify from 'toastify-js';
 import { FaLink } from 'react-icons/fa';
 // import { user_02 } from '../images/user/user_02.png';
+import UserOne from '../images/user/user-01.png';
 
 // Import other necessary components or modules
 import { BASEURL } from '../Api';
@@ -98,7 +99,7 @@ const Profile = () => {
           <div className="flex flex-col items-center justify-center gap-5 text-center md:flex md:flex-row md:items-center md:justify-between md:text-left">
             <div>
               <img
-                src="/src/images/user/user-01.png"
+                src={UserOne}
                 className="h-25 w-25 rounded-full md:h-39 md:w-39 "
               ></img>
             </div>

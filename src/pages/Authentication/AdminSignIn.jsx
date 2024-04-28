@@ -161,7 +161,7 @@ const AdminSignIn = () => {
             </div>
             <div className="px-10 pt-4 pb-10 text-center font-inter">
               <h1 className="mb-4 text-6xl font-extrabold text-primary">
-                Welcome to!
+                Welcome to
               </h1>
               <h2 className="mb-2 text-3xl font-bold text-primary">
                 Project Hub: Collaborative Platform for Students and Faculty

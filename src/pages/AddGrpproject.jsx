@@ -122,22 +122,22 @@ const AddGrpproject = ({ groupId, facultyId }) => {
 
   const handleSubmitProject = async (e) => {
     e.preventDefault();
-    // Check if selected file format is JPG or PNG
-    const invalidFiles = projectDetails.photos.some((file) => {
-      const fileType = file.name.split('.').pop().toLowerCase();
-      return fileType !== 'jpg' && fileType !== 'png';
-    });
+    // // Check if selected file format is JPG or PNG
+    // const invalidFiles = projectDetails.photos.some((file) => {
+    //   const fileType = file.name.split('.').pop().toLowerCase();
+    //   return fileType !== 'jpg' && fileType !== 'png';
+    // });
 
-    if (invalidFiles) {
-      // Show alert if any selected file is not JPG or PNG
-      alert('Please select JPG or PNG files only.');
-      return;
-    }
-    if (!projectDetails.photos || projectDetails.photos.length === 0) {
-      // Show alert if no image is selected
-      alert('Please select at least one image.');
-      return;
-    }
+    // if (invalidFiles) {
+    //   // Show alert if any selected file is not JPG or PNG
+    //   alert('Please select JPG or PNG files only.');
+    //   return;
+    // }
+    // if (!projectDetails.photos || projectDetails.photos.length === 0) {
+    //   // Show alert if no image is selected
+    //   alert('Please select at least one image.');
+    //   return;
+    // }
 
     setLoading(true); // Set loading to true during form submission
 
@@ -392,7 +392,7 @@ const AddGrpproject = ({ groupId, facultyId }) => {
           </div>
           <div className="mb-4">
             <label className="mb-2 block text-xl font-medium  text-black dark:text-white">
-              Linkedin Link
+              Linkedin Link (optional)
             </label>
             <input
               type="text"

@@ -95,7 +95,7 @@ const Addproject = () => {
       //     padding: '10px 10px',
       //   }}
       // />;
-      alert("Error")
+      alert('Error');
       // console.log("Error");
       setLoading(false); // Reset loading state
       return;

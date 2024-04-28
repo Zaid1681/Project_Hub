@@ -91,7 +91,7 @@ const SemProjectSlider = ({ sem }) => {
     ],
   };
   const [project, setProject] = useState([]);
-
+  console.log('project', project);
   const handleSemesterChange = (e) => {
     const selectedSemester = parseInt(e.target.value, 10);
     setProjectDetails({ ...projectDetails, semester: selectedSemester });
@@ -100,25 +100,32 @@ const SemProjectSlider = ({ sem }) => {
     setProject([]);
     try {
       setLoading(true); // Set loading to true when fetching starts
+
       const projects1 = await axios.get(
         `${BASEURL}/project/get/project/sem?semester=${projectDetails.semester}&studentId=${userId}`
       );
+      setProject(projects1.data);
+
+      console.log('Projects 1: ', projects1.data);
+
       const projects2 = await axios.get(
         `${BASEURL}/project/get/group/project/sem?semester=${projectDetails.semester}&studentId=${currentUser.userData.studentId}`
       );
-      console.log('all ', projects1.data);
-      console.log('all ', projects2.data);
+      console.log('Projects 2: ', projects2.data);
 
-      // Combine the two arrays of projects
-      const combinedProjects = [...projects1.data, ...projects2.data];
-
-      setProject(combinedProjects);
+      // Check if projects2.data is not empty
+      if (projects2.data.length !== 0) {
+        // Combine projects1.data and projects2.data
+        const combinedProjects = [...projects1.data, ...projects2.data];
+        setProject(combinedProjects);
+      }
     } catch (error) {
       console.log('All Project fetching Error ', error);
     } finally {
       setLoading(false); // Set loading to false regardless of success or failure
     }
   };
+
   useEffect(() => {
     if (projectDetails.semester) {
       fetchData();

@@ -13,6 +13,7 @@ import Toastify from 'toastify-js';
 import ImageSlider from '../components/ImageSlider';
 import { useSelector } from 'react-redux';
 import { MdDelete } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 import { useLocation } from 'react-router-dom';
 import { BASEURL } from '../Api';
@@ -20,16 +21,17 @@ import { BASEURL } from '../Api';
 import axios from 'axios';
 const ViewProject = () => {
   const [isLoading, setIsLoading] = useState(false); // State to track loading state
+  const navigate = useNavigate();
   const parseHTML = (htmlString) => {
     return { __html: htmlString };
   };
 
   const currentUser = useSelector((state) => state.user);
   const facultyId = currentUser.userData._id;
-  console.log('currentUser', currentUser);
+  // console.log('currentUser', currentUser);
 
   const path = useLocation().pathname.split('/')[3];
-  console.log(path);
+  // console.log(path);
   const [data, setData] = useState([]);
   const [selectedOption, setSelectedOption] = useState('Select an option');
   const options = ['Approved', 'Save'];
@@ -108,14 +110,14 @@ const ViewProject = () => {
       fetchData();
     }
   }, [path]); // Include path as a dependency to update only when path changes
-  console.log('Data', data);
+  // console.log('Data', data);
 
   const handleSemesterChange = (e) => {
     const selectedStatus = e.target.value;
     setProjectDetails({ ...projectDetails, isApproved: selectedStatus });
   };
   const pdfLinks = data.pdfLinks;
-  console.log('-->', projectDetails.isApproved);
+  // console.log('-->', projectDetails.isApproved);
 
   const updateStatus = async (e) => {
     e.preventDefault();
@@ -123,7 +125,7 @@ const ViewProject = () => {
     projectDetails.isApproved === 'Approved'
       ? (status = true)
       : (status = false);
-    console.log('status', status);
+    // console.log('status', status);
     try {
       const response = await axios.put(
         `${BASEURL}/project/upd/status/${path}/status?status=${status}&fId=${facultyId}`

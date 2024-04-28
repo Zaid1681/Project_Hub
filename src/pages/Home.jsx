@@ -13,7 +13,7 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const allProject = await axios.get(`${BASEURL}/project/getApproved`);
-        console.log('all ', allProject.data);
+        // console.log('all ', allProject.data);
         setProject(allProject.data); // Set the fetched data to the state
       } catch (error) {
         console.log('All Project fetching Error ', error);

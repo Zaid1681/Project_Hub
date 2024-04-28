@@ -15,6 +15,8 @@ import axios from 'axios';
 const SignIn = () => {
   const dispatch = useDispatch();
   const [academicYears, setAcademicYears] = useState([]);
+  const [loadingSubjects, setLoadingSubjects] = useState(false);
+
   const [academicYearOptions, setAcademicYearOptions] = useState([]);
   const [academicYearData, setAcademicYearData] = useState({
     joiningYear: '',
@@ -31,7 +33,7 @@ const SignIn = () => {
     year: '',
   });
 
-  console.log('signin', loginData);
+  // console.log('signin', loginData);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLoginSubmit = async (e) => {
@@ -133,7 +135,7 @@ const SignIn = () => {
       const res = await axios.get(`${BASEURL}/auth/getEmail/${emailData}`);
       if (res.data) {
         const { joiningYear, passingYear } = res.data.data;
-        console.log('Email Found:', res.data.data);
+        // console.log('Email Found:', res.data.data);
         setAcademicYearData({
           joiningYear: joiningYear,
           passingYear: passingYear,
@@ -174,20 +176,23 @@ const SignIn = () => {
     const joiningYear = academicYearData?.joiningYear;
     const passingYear = academicYearData?.passingYear;
     const options = [];
+    setLoadingSubjects(true);
+
     for (let i = joiningYear; i < passingYear; i++) {
       const startYear = i;
       const endYear = i + 1;
       options.push(`${startYear}-${endYear}`);
     }
     setAcademicYearOptions(options);
+    setLoadingSubjects(false);
   };
 
   // Call generateAcademicYears function when component mounts
-  console.log(
-    academicYearData?.joiningYear,
-    'ssdsd',
-    academicYearData?.passingYear
-  );
+  // console.log(
+  //   academicYearData?.joiningYear,
+  //   'ssdsd',
+  //   academicYearData?.passingYear
+  // );
   useEffect(() => {
     generateAcademicYears();
   }, [academicYearData]);
@@ -206,7 +211,7 @@ const SignIn = () => {
             </div>
             <div className="px-10 pt-4 pb-10 text-center font-inter">
               <h1 className="mb-4 text-6xl  font-extrabold text-primary">
-                Welcome to!
+                Welcome to
               </h1>
               <h2 className="mb-2 text-3xl font-bold text-primary">
                 Project Hub: Collaborative Platform for Students and Faculty
@@ -221,7 +226,7 @@ const SignIn = () => {
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-10.5">
               {/* <span className="mb-1.5 block font-medium">Start for free</span> */}
-              <h2 className="mb-9 font-inter text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
+              <h2 className="mb-9 text-center font-inter text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
                 Sign In to Project Hub
               </h2>
 
@@ -296,8 +301,8 @@ const SignIn = () => {
                     </span>
                   </div>
                 </div>
-                <div className="mb-4 flex gap-2 ">
-                  <div className="relative">
+                <div className="mb-4 flex flex-col gap-2 gap-14 md:flex-row ">
+                  <div className="relative ">
                     <label className="mb-2.5 block font-medium text-black dark:text-white">
                       Choose Current Year
                     </label>
@@ -344,11 +349,15 @@ const SignIn = () => {
                         <option value="" disabled selected>
                           Select Academic Year
                         </option>
-                        {academicYearOptions.map((year, index) => (
-                          <option key={index} value={year}>
-                            {year}
-                          </option>
-                        ))}
+                        {loadingSubjects ? (
+                          <option disabled>Loading...</option>
+                        ) : (
+                          academicYearOptions.map((year, index) => (
+                            <option key={index} value={year}>
+                              {year}
+                            </option>
+                          ))
+                        )}
                       </select>
                       <span className="absolute right-4 top-4">
                         <svg

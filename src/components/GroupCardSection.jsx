@@ -8,8 +8,8 @@ const GroupCardSection = ({ group }) => {
   return (
     <div className="mx-auto h-full w-full max-w-sm overflow-hidden rounded-2xl bg-white p-6 text-lg text-black shadow-md dark:bg-boxdark dark:text-white ">
       <NavLink to={`group/${group._id}`}>
-        <div className="mb-7 text-2xl font-semibold flex gap-2 ">
-          <FaLayerGroup className='text-xl dark:text-white text-black my-auto' />
+        <div className="mb-7 flex gap-2 text-2xl font-semibold ">
+          <FaLayerGroup className="my-auto text-xl text-black dark:text-white" />
           {group.groupName}
         </div>
         <div className="mb-2 font-medium">
