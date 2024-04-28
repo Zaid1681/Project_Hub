@@ -66,6 +66,7 @@ import HomePage from './pages/HomePage';
 import ApprovedGroupsPage from './pages/FacultyGroupVPage/component/ApprovedGroupsPage';
 import ViewProject2 from './pages/ViewProject2';
 import GroupSubmission from './pages/groupSubmission';
+import AboutPage from './pages/AboutPage';
 function App() {
   const [loading, setLoading] = useState(false);
 
@@ -90,6 +91,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/homepage" element={<HomePage />} />
+            <Route path="/aboutpage" element={<AboutPage />} />
             <Route path="/auth/signin" element={<SignIn />} />
             <Route path="/auth/signup" element={<SignUp />} />
             {/* signin used by faculty */}

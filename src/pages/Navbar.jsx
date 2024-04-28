@@ -6,7 +6,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="flex flex-wrap items-center justify-between bg-black/10 py-6 px-6">
+    <nav className="flex flex-wrap items-center justify-between  py-6 px-10">
       {' '}
       <div className="mr-6 flex flex-shrink-0 items-center text-white lg:mr-72">
         <img src={phlogo2} className="mr-2 h-full w-20" alt="Logo" />
@@ -33,46 +33,33 @@ function Navbar() {
         </button>
       </div>
       <div
-        className={`block w-full flex-grow lg:flex lg:w-auto lg:items-center ${
-          isOpen ? 'block' : 'hidden'
-        }`}
+        className={`block w-full gap-5 justify-end flex-grow lg:flex lg:w-auto lg:items-center ${isOpen ? 'block' : 'hidden'
+          }`}
       >
-        <div className="mb-6 text-center text-2xl font-semibold md:mb-0 lg:flex-grow">
+        <div className="mb-6 flex gap-5 text-center text-xl flex-col md:flex-row md:mb-0 ">
           <a
-            href="#"
-            className="mt-4 mr-4 block font-semibold text-black lg:mt-0 lg:inline-block "
+            href="/homepage"
+            className="block font-semibold text-black lg:mt-0 lg:inline-block "
           >
             Home
           </a>
           <a
-            href="/homepage"
-            className="mt-4 mr-4 block font-semibold text-black lg:mt-0 lg:inline-block"
+            href="/aboutpage"
+            className="block font-semibold text-black lg:mt-0 lg:inline-block"
           >
             About
           </a>
-          {/* <a
-            href="#"
-            className="text-black font-semibold mt-4 mr-4 block lg:mt-0 lg:inline-block"
-          >
-            Third Link
-          </a>
-          <a
-            href="#"
-            className="text-black font-semibold mt-4 mr-4 block lg:mt-0 lg:inline-block"
-          >
-            Fourth Link
-          </a> */}
         </div>
-        <div className="flex flex-col items-center justify-center gap-3 md:flex-row">
+        <div className="flex flex-col items-center justify-center gap-5 md:flex-row">
           <a
             href="/auth/signin"
-            className="inline-flex items-center rounded-xl border-2 border-[#0C356A] bg-[#0C356A] py-2 px-4 text-lg font-bold text-white shadow-lg"
+            className="inline-flex items-center rounded-xl border-2 border-[#0C356A] bg-[#0C356A] py-2 px-4 text-xl  text-white shadow-lg"
           >
             Student Login
           </a>
           <a
             href="/admin/auth/signin"
-            className="inline-flex items-center rounded-xl border-2 border-[#0C356A] bg-[#0C356A] py-2 px-4 text-lg font-bold text-white shadow-lg"
+            className="inline-flex items-center rounded-xl border-2 border-[#0C356A] bg-[#0C356A] py-2 px-4 text-xl  text-white shadow-lg"
           >
             Faculty Login
           </a>
