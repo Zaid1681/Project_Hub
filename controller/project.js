@@ -268,7 +268,7 @@ const getApproved = async (req, res, next) => {
 };
 const getAppTitleProj = async (req, res, next) => {
   try {
-    const title = req.params.title;
+    const title = req.query.title;
     // Use regular expression to search for projects with the most matching title
     const regex = new RegExp(title, "i"); // 'i' flag for case-insensitive search
     const projects = await Project.find({ isApproved: true, title: regex });
@@ -278,6 +278,31 @@ const getAppTitleProj = async (req, res, next) => {
       return next(CustomError(404, "Project is not found"));
     } else {
       // Return the projects with matching titles
+      res.status(200).json(projects);
+    }
+  } catch (error) {
+    // Handle internal server error
+    next(CustomError(500, error));
+  }
+};
+const getAppkeyProj = async (req, res, next) => {
+  try {
+    const keyword = req.query.keyword;
+
+    // Construct a regular expression with 'i' flag for case-insensitive search
+    const regex = new RegExp(keyword, "i");
+
+    // Find projects that have at least one keyword matching the regular expression
+    const projects = await Project.find({
+      isApproved: true,
+      keywords: { $regex: regex },
+    });
+
+    if (!projects || projects.length === 0) {
+      // If no project found, return 404
+      return next(CustomError(404, "Project is not found"));
+    } else {
+      // Return the projects with matching keywords
       res.status(200).json(projects);
     }
   } catch (error) {
@@ -387,4 +412,5 @@ module.exports = {
   getSemesterGrpProject,
   getAppTitleProj,
   getProjByGrpId,
+  getAppkeyProj,
 };

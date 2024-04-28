@@ -17,11 +17,13 @@ const {
   getProjByGrpId,
   getSemesterGrpProject,
   getAppTitleProj,
+  getAppkeyProj,
 } = require("../controller/project");
 
 router.get("/getAll", getAllProject);
 router.get("/getApproved", getApproved);
-router.get("/getApproved/:title", getAppTitleProj);
+router.get("/getApproved/title", getAppTitleProj);
+router.get("/getApproved/keyword", getAppkeyProj);
 router.get("/get/:id", getProject);
 router.get("/get/group/:id", getProjByGrpId);
 router.get("/get/user/:id", getUserProject);
