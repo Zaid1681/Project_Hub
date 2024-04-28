@@ -8,7 +8,8 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false, // true for 465, false for other ports
   auth: {
-    user: "zaidkhan1681@gmail.com",
+    // user: "zaidkhan1681@gmail.com",
+    user: "projecthub63@gmail.com",
     pass: "ugbr wmrc wkwv krtq",
   },
 });
@@ -21,7 +22,7 @@ async function sendEmail(toEmail) {
       from: "zaidkhan1681@gmail.com", // sender address
       to: toEmail, // list of receivers
       subject: "Login Notification", // Subject line
-      text: "Congratulations!! You have successfully logged in to the Project Hub : Collaborative platform , Now you can login !.", // plain text body
+      text: "Congratulations!! You have successfully registered to the Project Hub : Collaborative platform , Now you can login !.", // plain text body
     });
 
     console.log("Email sent: " + info.response);

@@ -16,10 +16,12 @@ const {
   addGrpProj,
   getProjByGrpId,
   getSemesterGrpProject,
+  getAppTitleProj,
 } = require("../controller/project");
 
 router.get("/getAll", getAllProject);
 router.get("/getApproved", getApproved);
+router.get("/getApproved/:title", getAppTitleProj);
 router.get("/get/:id", getProject);
 router.get("/get/group/:id", getProjByGrpId);
 router.get("/get/user/:id", getUserProject);
