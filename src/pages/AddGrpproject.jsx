@@ -4,6 +4,9 @@ import Toastify from 'toastify-js';
 import axios from 'axios ';
 import { BASEURL } from '../Api';
 import Breadcrumb from '../components/Breadcrumb';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 const AddGrpproject = ({ groupId, facultyId }) => {
   // console.log(groupId);
@@ -33,7 +36,7 @@ const AddGrpproject = ({ groupId, facultyId }) => {
     keywords: [''],
     sName: '',
     studentId: null,
-    photos: [],
+    photos: [''],
   });
   // console.log('---->', projectDetails);
   console.log('projectDetails', projectDetails);
@@ -65,6 +68,10 @@ const AddGrpproject = ({ groupId, facultyId }) => {
       console.log('Error fetching Project', error);
     }
   };
+  const handleEditorChange = (event, editor) => {
+    const data = editor.getData();
+    setProjectDetails({ ...projectDetails, description: data });
+  };
   // console.log('ooososos', appProjId);
   const fetchProject = async () => {
     try {
@@ -93,7 +100,7 @@ const AddGrpproject = ({ groupId, facultyId }) => {
   const handleInputChange = (e, key, index) => {
     const { value } = e.target;
 
-    if (key === 'pdfLinks' || key === 'keywords') {
+    if (key === 'pdfLinks' || key === 'keywords' || key === 'photos') {
       const updatedArray = [...projectDetails[key]];
 
       updatedArray[index] = value;
@@ -167,7 +174,7 @@ const AddGrpproject = ({ groupId, facultyId }) => {
     });
 
     for (let i = 0; i < projectDetails.photos.length; i++) {
-      formData.append('photos', projectDetails.photos[i]);
+      formData.append('image', projectDetails.photos[i]);
     }
 
     try {
@@ -208,7 +215,7 @@ const AddGrpproject = ({ groupId, facultyId }) => {
           keywords: [''],
           sName: '',
           studentId: null,
-          photos: [],
+          photos: [''],
         });
 
         // setEmptyFieldError('');
@@ -343,7 +350,7 @@ const AddGrpproject = ({ groupId, facultyId }) => {
           <label className="mb-2 block text-xl font-medium text-black dark:text-white">
             Description
           </label>
-          <textarea
+          {/* <textarea
             name="description"
             rows="4"
             // value={projectDetails.description}
@@ -351,14 +358,21 @@ const AddGrpproject = ({ groupId, facultyId }) => {
             onChange={(e) => handleInputChange(e, 'description')}
             disabled={grpProj?.description}
             className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
+          /> */}
+          <CKEditor
+            // className="px-10 my-10"
+            // style={{ padding: '100px', margin: '10px 0' }}
+            editor={ClassicEditor}
+            data={projectDetails.description}
+            onChange={handleEditorChange}
           />
         </div>
-        <div className="mb-4 grid grid-cols-1 md:grid-cols-2">
+        <div className=" my-6 grid grid-cols-1 md:grid-cols-2">
           <label className="mb-2 block text-xl font-medium text-black dark:text-white">
             Semester : {approvedProjDetail.semester}
           </label>
           <label className="mb-2 block text-xl font-medium text-black dark:text-white">
-            Semester : {approvedProjDetail.subject}
+            Subject: {approvedProjDetail.subject}
           </label>
         </div>
         <div className="mt-4 grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
@@ -415,10 +429,11 @@ const AddGrpproject = ({ groupId, facultyId }) => {
                   <a
                     href={data}
                     target="_blank"
-                    className="text-sm font-semibold"
+                    className="flex gap-2 text-lg font-semibold text-black dark:text-white"
                     key={index}
                   >
-                    {data}
+                    Link {index + 1}{' '}
+                    <FaExternalLinkAlt className="my-auto text-sm font-semibold dark:text-white" />
                   </a>
                 ))}
               </div>
@@ -534,14 +549,14 @@ const AddGrpproject = ({ groupId, facultyId }) => {
             </div>
           ))}
         </div> */}{' '}
-        {grpProj?.image ? (
-          <div></div>
-        ) : (
-          <div className="mb-4">
-            <label className="mb-2 block text-xl font-medium text-black dark:text-white">
-              Images
-            </label>
-            <input
+        <div className="mb-4">
+          <label className=" block text-xl font-medium text-black dark:text-white">
+            Images
+          </label>
+          <label className="mb-2 block text-sm font-medium text-black dark:text-white">
+            *Add your project image links
+          </label>
+          {/* <input
               onChange={handleImageChange}
               className="text-gray-900 border-gray-300 bg-gray-50 dark:text-gray-400 dark:bg-gray-700 
               dark:border-gray-600 dark:placeholder-gray-400 mt-3 block w-full cursor-pointer
@@ -549,14 +564,76 @@ const AddGrpproject = ({ groupId, facultyId }) => {
               id="images"
               type="file"
               multiple
-            />
-          </div>
-        )}
+            /> */}
+          {grpProj?.isGroupProj ? (
+            <div className="flex  flex-col gap-1 pl-2">
+              {grpProj?.image?.map((data, index) => (
+                <a
+                  href={data}
+                  target="_blank"
+                  className="flex gap-2 text-lg font-semibold text-black dark:text-white"
+                  key={index}
+                >
+                  Link {index + 1}{' '}
+                  <FaExternalLinkAlt className="my-auto text-sm font-semibold dark:text-white" />
+                </a>
+              ))}
+            </div>
+          ) : (
+            projectDetails?.photos.map((photos, index) => (
+              <div key={index} className="mb-2 flex">
+                <input
+                  type="text"
+                  value={photos}
+                  placeholder="http://"
+                  onChange={(e) => handleInputChange(e, 'photos', index)}
+                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                />
+                <div className="flex items-center justify-center gap-5 px-4">
+                  <button
+                    type="button"
+                    onClick={() => handleAdditionButtonClick('photos')}
+                    className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white dark:text-white"
+                  >
+                    +
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleRemovalButtonClick('photos', index)}
+                    disabled={projectDetails.photos.length <= 1} // Disable remove button if there's only one PDF link
+                    className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white"
+                  >
+                    -
+                  </button>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
         {/* ... (existing form elements) ... */}
         {grpProj?.isGroupProj ? (
-          <span className="mx-auto text-center text-xl font-bold text-[#006400]">
-            Project Submitted
-          </span>
+          <div>
+            <span className="mx-auto text-center text-xl font-bold text-[#006400]">
+              Project Submitted
+            </span>
+            <div className="flex gap-2">
+              {' '}
+              <label className=" block text-xl font-medium text-black dark:text-white">
+                Status
+              </label>
+              <div className="mb-2 block items-center text-center text-sm font-medium text-black dark:text-white">
+                {grpProj.isApproved ? (
+                  <span className="mx-auto text-center text-xl font-bold text-[#006400]">
+                    Approved
+                  </span>
+                ) : (
+                  <span className="mx-auto my-auto items-center text-center text-center text-lg font-bold text-[#FF0000]">
+                    Not Approved
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
         ) : (
           <div className="m-auto flex justify-center">
             <button

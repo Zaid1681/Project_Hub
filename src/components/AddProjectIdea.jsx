@@ -46,7 +46,7 @@ const AddProjectIdea = () => {
     <main className="bg-blue-900 min-h-screen">
       <section className="mx-auto p-4 md:p-10">
         <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mx-auto mb-7 pt-10 text-center text-3xl font-semibold font-inter text-black">
+          <h2 className="mx-auto mb-7 pt-10 text-center font-inter text-3xl font-semibold text-black">
             Enter Project Details
           </h2>
 

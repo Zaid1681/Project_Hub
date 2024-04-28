@@ -81,10 +81,23 @@ const DropdownUser = () => {
         to="#"
       >
         <span className="hidden text-right lg:block">
-          <span className="block text-sm font-medium text-black dark:text-white">
-            {userName}
-          </span>
-          <span className="block text-xs">{userStudentId}</span>
+          {currentUser.role === 'Student' ? (
+            <div>
+              <span className="block text-sm font-medium text-black dark:text-white">
+                {userName}
+              </span>
+              <span className="block text-xs">{userStudentId}</span>
+            </div>
+          ) : (
+            <div>
+              <span className="block text-sm font-medium text-black dark:text-white">
+                {currentUser.userData.abbreviation +
+                  '. ' +
+                  currentUser.userData.name}
+              </span>{' '}
+              <span className="block text-xs">{currentUser.role}</span>
+            </div>
+          )}
         </span>
 
         <span className="h-12 w-12 rounded-full">

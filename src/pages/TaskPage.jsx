@@ -37,12 +37,14 @@ const TaskPage = () => {
   const [isModalVisible3, setIsModalVisible3] = useState(false);
   const [inputDisable, setInputDisable] = useState(true);
   const [sebmitProj, setSubmitProj] = useState(false);
+  const [grpProjDetail, setGrpProjDetails] = useState([]);
   const [reportLink, setReportLink] = useState('');
   const [task, setTasks] = useState([]);
   const [taskId, setTaskId] = useState(null);
   const [loading, setLoading] = useState(false); // State for loading indicator
 
-  console.log('sebmitProjsebmitProjsebmitProj', sebmitProj);
+  // console.log('sebmitProjsebmitProjsebmitProj', sebmitProj);
+  console.log('grpProjDetail', grpProjDetail);
   const groupId = useLocation().pathname.split('/')[3];
   const currentYear = useLocation().pathname.split('/')[4];
   const academicYear = useLocation().pathname.split('/')[5];
@@ -67,6 +69,7 @@ const TaskPage = () => {
   const [submissionData, setSubmissionData] = useState([]);
   const [editFormData, setEditFormData] = useState([]);
   const [submissionIds, setSubmissionIds] = useState([]);
+  const [myGroup, setMyGroup] = useState([]);
   // console.log(groupId)
   // console.log(currentYear)
   // console.log(academicYear)
@@ -110,6 +113,22 @@ const TaskPage = () => {
       console.error('Error fetching tasks:', error);
     }
   };
+  const fetchGroups = async () => {
+    try {
+      const response = await axios.get(
+        `${BASEURL}/group/get/grpData/${groupId}`
+      );
+      // console.log('response===>', response.data);
+      setMyGroup(response.data.data);
+      // setLoading(false); // Set loading to false after data is fetched
+    } catch (error) {
+      console.log('Error fetching groups: ', error);
+      // setLoading(false); // Set loading to false if there's an error
+    }
+  };
+  useEffect(() => {
+    fetchGroups();
+  }, [groupId]);
   useEffect(() => {
     fetchTasks();
   }, [groupId, currentYear, academicYear, semester, subject, facultyId]);
@@ -268,7 +287,7 @@ const TaskPage = () => {
       console.log('Update canceled by user');
     }
   };
-
+  console.log('--==--', myGroup);
   const showModal2 = (taskId) => {
     console.log(taskId);
     setTaskId(taskId);
@@ -285,6 +304,7 @@ const TaskPage = () => {
       if (response.data[0].length !== 0) {
         // If there are projects, set submitProj to true
         setSubmitProj(true);
+        setGrpProjDetails(response.data[0]);
         setReportLink(response.data[0].reportLink);
       }
       //
@@ -295,7 +315,24 @@ const TaskPage = () => {
   const showModal3 = () => {
     // console.log(taskId);
     // setTaskId(taskId);
-    setIsModalVisible3(true);
+    if (myGroup.isApproved && myGroup.guideId != null) {
+      setIsModalVisible3(true);
+    } else {
+      // Reload the page after a successful update
+      Toastify({
+        text: 'Your Project Idea is not approved yet or guide has not assigned',
+        duration: 1800,
+        gravity: 'top', // `top` or `bottom`
+        position: 'right', // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: 'linear-gradient(to right, #FF474D, #FF474D',
+          padding: '10px 50px',
+          textAlign:"center"
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
+    }
   };
 
   const handleTaskSubmission = async (e) => {
@@ -591,7 +628,6 @@ const TaskPage = () => {
           {' '}
           <h1 className="font-bold">Details</h1>
           {/* <h1 className="font-bold">{}</h1> */}
-          
           <div className=" w-full items-center items-center gap-2 rounded bg-white p-5 shadow-md md:max-w-[16rem] ">
             <h1 className="text-center font-bold ">Submission Progress</h1>
             {/* <p className="my-2">Submission Progress</p> */}

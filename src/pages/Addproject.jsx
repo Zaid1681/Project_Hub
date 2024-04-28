@@ -34,13 +34,13 @@ const Addproject = () => {
     keywords: [''],
     sName: '',
     studentId: null,
-    photos: [],
+    photos: [''],
   });
   console.log('---->', projectDetails);
   const handleInputChange = (e, key, index) => {
     const { value } = e.target;
 
-    if (key === 'pdfLinks' || key === 'keywords') {
+    if (key === 'pdfLinks' || key === 'keywords' || key === 'photos') {
       const updatedArray = [...projectDetails[key]];
 
       updatedArray[index] = value;
@@ -55,15 +55,51 @@ const Addproject = () => {
     setProjectDetails({ ...projectDetails, semester: selectedSemester });
   };
 
-  const handleImageChange = (e) => {
-    const files = e.target.files;
-    setProjectDetails({ ...projectDetails, photos: files });
-  };
+  // const handleImageChange = (e) => {
+  //   const files = e.target.files;
+  //   setProjectDetails({ ...projectDetails, photos: files });
+  // };
 
   const handleSubmitProject = async (e) => {
     e.preventDefault();
     setLoading(true); // Set loading to true during form submission
+    const fieldsToValidate = [
+      'title',
+      'description',
+      'github',
+      'semester',
+      'subject',
+      'pdfLinks',
+      'keywords',
+    ];
+    const hasEmptyField = fieldsToValidate.some((key) => {
+      if (Array.isArray(projectDetails[key])) {
+        return projectDetails[key].some(
+          (value) => value === '' || value === null
+        );
+      } else {
+        return projectDetails[key] === '' || projectDetails[key] === null;
+      }
+    });
 
+    if (hasEmptyField) {
+      // setEmptyFieldError('Please fill out all fields');
+      // <Toastify
+      //   text="Please fill all details"
+      //   duration={2000}
+      //   gravity="top"
+      //   position="right"
+      //   style={{
+      //     fontSize: '14px',
+      //     background: 'linear-gradient(to right, #FF6B6B, #FF6B6B)',
+      //     padding: '10px 10px',
+      //   }}
+      // />;
+      alert("Error")
+      // console.log("Error");
+      setLoading(false); // Reset loading state
+      return;
+    }
     // Check for empty fields
     // const hasEmptyField = Object.values(projectDetails).some(
     //   (value) => value === '' || value === null
@@ -76,7 +112,7 @@ const Addproject = () => {
     const formData = new FormData();
     formData.append('title', projectDetails.title);
     formData.append('description', projectDetails.description);
-    formData.append('github', projectDetails.github);
+    formData.append('githubLink', projectDetails.github);
     formData.append('linkedinLink', projectDetails.linkedinLink);
     formData.append('semester', projectDetails.semester);
     formData.append('subject', projectDetails.subject);
@@ -96,7 +132,7 @@ const Addproject = () => {
     });
 
     for (let i = 0; i < projectDetails.photos.length; i++) {
-      formData.append('photos', projectDetails.photos[i]);
+      formData.append('image', projectDetails.photos[i]);
     }
 
     try {
@@ -469,10 +505,13 @@ const Addproject = () => {
           ))}
         </div> */}{' '}
           <div className="mb-4">
-            <label className="mb-2 block text-xl font-medium text-black dark:text-white">
+            <label className=" block text-xl font-medium text-black dark:text-white">
               Images
             </label>
-            <input
+            <label className="mb-2 block text-sm font-medium text-black dark:text-white">
+              *Add your project image links
+            </label>
+            {/* <input
               onChange={handleImageChange}
               className="text-gray-900 border-gray-300 bg-gray-50 dark:text-gray-400 dark:bg-gray-700 
               dark:border-gray-600 dark:placeholder-gray-400 mt-3 block w-full cursor-pointer
@@ -480,7 +519,35 @@ const Addproject = () => {
               id="images"
               type="file"
               multiple
-            />
+            /> */}
+            {projectDetails?.photos.map((photos, index) => (
+              <div key={index} className="mb-2 flex">
+                <input
+                  type="text"
+                  value={photos}
+                  placeholder="http://"
+                  onChange={(e) => handleInputChange(e, 'photos', index)}
+                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                />
+                <div className="flex items-center justify-center gap-5 px-4">
+                  <button
+                    type="button"
+                    onClick={() => handleAdditionButtonClick('photos')}
+                    className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white dark:text-white"
+                  >
+                    +
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleRemovalButtonClick('photos', index)}
+                    disabled={projectDetails.photos.length <= 1} // Disable remove button if there's only one PDF link
+                    className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white"
+                  >
+                    -
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
           {/* ... (existing form elements) ... */}
           <div className="m-auto flex justify-center">

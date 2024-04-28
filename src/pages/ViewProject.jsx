@@ -108,6 +108,7 @@ const ViewProject = () => {
       fetchData();
     }
   }, [path]); // Include path as a dependency to update only when path changes
+  console.log('Data', data);
 
   const handleSemesterChange = (e) => {
     const selectedStatus = e.target.value;
@@ -144,159 +145,172 @@ const ViewProject = () => {
       console.log('Error fetching Project', error);
     }
   };
-
-  console.log('Project data', data);
+  // console.log('data img', data.image);
+  // console.log('Project data', data);
   return (
     <div className="space-y-6 rounded-2xl bg-white py-12 px-5 dark:bg-boxdark dark:text-white">
-      <div className="container mx-auto grid grid-cols-1 gap-10 md:grid-cols-2 ">
-        <div className="my-5 h-60 md:h-80">
+      <div>
+        <h4 className="mb-10 text-center font-inter text-2xl font-bold text-black dark:text-white dark:text-black md:text-3xl ">
+          Project Information
+        </h4>
+      </div>
+      <div className="md container mx-auto flex flex-col-reverse gap-10 md:grid md:grid-cols-1 md:grid-cols-2 ">
+        <div className="my-5 mx-auto mb-24 h-60 w-100 md:mb-0 md:h-80">
           {/* here Image Slider will come (work in progress) */}
-          <ImageSlider />
+          {/* <h4 className="mb-10 text-center font-inter text-2xl font-bold text-black dark:text-white dark:text-black md:text-3xl ">
+            Project Images
+          </h4> */}
+          <ImageSlider dataId={data?._id} />
         </div>
-        <div className="my-">
-          <h4 className="mb-10 text-center font-inter text-2xl font-bold text-black dark:text-white dark:text-black md:text-3xl ">
-            About
-          </h4>
-          <div className="flex flex-col gap-2 px-4 text-black dark:text-white ">
-            <div className="flex  gap-3.5">
-              <CgProfile size={28} />
-              {data?.isGroupProj ? (
-                <>
-                  <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
-                    Members name:
-                  </span>
-                  <div className="grid overflow-hidden ">
-                    {data.membersName.map((memberName, index) => (
-                      <span
-                        key={index}
-                        className="text-lg font-medium text-black dark:text-white md:text-xl"
-                      >
-                        {memberName}
-                      </span>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <>
-                  <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
-                    Student name:
-                  </span>
-                  <span className="text-lg font-medium text-black dark:text-white md:text-xl">
-                    {data.sName}
-                  </span>
-                </>
-              )}
-            </div>
-            {data?.isGroupProj && (
-              <div className="flex items-center gap-3.5">
-                <CgProfile size={28} />
-
+        {/* <div className="md:my-5 "> */}
+        <div className="my-auto flex flex-col gap-2 px-4 text-black dark:text-white ">
+          <div className="flex  gap-3.5">
+            <CgProfile size={28} />
+            {data?.isGroupProj ? (
+              <>
                 <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
-                  Guide Name:
+                  Members name:
                 </span>
-                <span className="text-lg font-medium text-black dark:text-white md:text-xl">
-                  {data.guideName}
-                </span>
-              </div>
-            )}
-            <div className="flex items-center gap-3.5">
-              <IoBookOutline size={28} />
-
-              <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
-                Subject:
-              </span>
-              <span className="text-lg font-medium text-black dark:text-white md:text-xl">
-                {data.subject}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-3.5">
-              <GiGraduateCap size={28} />
-              <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
-                Year:
-              </span>
-              <span className="text-lg font-medium text-black dark:text-white md:text-xl">
-                {data.currentYear}
-              </span>
-            </div>
-            <div className="flex items-center gap-3.5">
-              <TbAntennaBars5 size={28} />
-              <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
-                Semester:
-              </span>
-              <span className="text-lg font-medium text-black dark:text-white md:text-xl">
-                {data.semester}
-              </span>
-            </div>
-            <div className="flex items-center gap-3.5">
-              <FaLink size={25} />
-              <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
-                Useful Links:
-              </span>
-              <div className="flex gap-3.5">
-                <div className="icon-link flex items-center gap-4 text-lg md:text-xl">
-                  {/* GitHub icon */}
-                  {data?.pdfLinks?.map((data, index) => (
-                    <a className="font-bold " target="_blank" href={data}>
-                      <FaRegFilePdf />
-                    </a>
+                <div className="grid overflow-hidden ">
+                  {data.membersName.map((memberName, index) => (
+                    <span
+                      key={index}
+                      className="text-lg font-medium text-black dark:text-white md:text-xl"
+                    >
+                      {memberName}
+                    </span>
                   ))}
                 </div>
-                <div className="icon-link flex items-center text-lg md:text-xl">
+              </>
+            ) : (
+              <>
+                <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
+                  Student name:
+                </span>
+                <span className="text-lg font-medium text-black dark:text-white md:text-xl">
+                  {data.sName}
+                </span>
+              </>
+            )}
+          </div>
+          {data?.isGroupProj && (
+            <div className="flex items-center gap-3.5">
+              <CgProfile size={28} />
+
+              <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
+                Guide Name:
+              </span>
+              <span className="text-lg font-medium text-black dark:text-white md:text-xl">
+                {data.guideName}
+              </span>
+            </div>
+          )}
+          <div className="flex items-center gap-3.5">
+            <IoBookOutline size={28} />
+
+            <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
+              Subject:
+            </span>
+            <span className="text-lg font-medium text-black dark:text-white md:text-xl">
+              {data.subject}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-3.5">
+            <GiGraduateCap size={28} />
+            <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
+              Year:
+            </span>
+            <span className="text-lg font-medium text-black dark:text-white md:text-xl">
+              {data.currentYear}
+            </span>
+          </div>
+          <div className="flex items-center gap-3.5">
+            <TbAntennaBars5 size={28} />
+            <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
+              Semester:
+            </span>
+            <span className="text-lg font-medium text-black dark:text-white md:text-xl">
+              {data.semester}
+            </span>
+          </div>
+          <div className="flex items-center gap-3.5">
+            <FaLink size={25} />
+            <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
+              Useful Links:
+            </span>
+            <div className="flex gap-3.5">
+              <div className="icon-link flex items-center gap-4 text-lg md:text-xl">
+                {/* GitHub icon */}
+                {data?.pdfLinks?.map((data, index) => (
                   <a
-                    className="mr-2 font-bold text-black dark:text-white"
+                    key={index}
+                    className="mr-2  font-bold text-black hover:cursor-pointer hover:bg-black/10 dark:text-white"
                     target="_blank"
-                    href={data?.githubLink}
+                    href={data}
                   >
-                    <FaGithub className="mr-1" />
+                    <FaRegFilePdf />
                   </a>
-                  {/* {.map((data, index) => (
+                ))}
+              </div>
+              <div className="icon-link flex items-center text-lg md:text-xl">
+                <a
+                  className="mr-2 font-bold text-black hover:cursor-pointer hover:bg-black/10 dark:text-white"
+                  target="_blank"
+                  href={data?.githubLink}
+                >
+                  <FaGithub className="mr-1" />
+                </a>
+                {/* {.map((data, index) => (
                   <p className="mr-2 text-lg font-bold text-body">
                     {data.pdfLinks}
                   </p>
                 ))} */}
-                </div>
               </div>
-            </div>
-            {data?.isGroupProj && (
-              <div className="flex items-center gap-3.5">
-                <FaLink size={28} />
-
-                <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
-                  Report Link
-                </span>
-                <a
-                  href={data?.reportLink}
-                  target="_blank"
-                  className="text-lg font-medium text-black dark:text-white md:text-xl"
-                >
-                  {data?.reportLink}
-                </a>
-              </div>
-            )}
-            <div className="my-5 flex w-40 items-center rounded-xl border bg-[#0C356A] p-2  text-center text-black md:w-60">
-              <p className="mx-auto text-lg font-bold text-white md:text-xl ">
-                {data.isApproved == true ? 'Approved' : 'InProcess'}
-              </p>
             </div>
           </div>
+          {data?.isGroupProj && (
+            <div className="flex items-center gap-3.5">
+              <FaLink size={28} />
+
+              <span className="text-gray-600 dark:text-gray-400 text-lg font-bold md:text-xl">
+                Report Link
+              </span>
+              <a
+                href={data?.reportLink}
+                target="_blank"
+                className="text-lg font-medium text-black dark:text-white md:text-xl"
+              >
+                {data?.reportLink}
+              </a>
+            </div>
+          )}
+          <div className="my-5 flex w-40 items-center rounded-xl border bg-[#0C356A] p-2  text-center text-black md:w-60">
+            <p className="mx-auto text-lg font-bold text-white md:text-xl ">
+              {data.isApproved == true ? 'Approved' : 'InProcess'}
+            </p>
+          </div>
         </div>
+        {/* </div> */}
       </div>
-      <div className="mt-10 px-5 pt-5 text-black dark:text-white">
+      <div className=" px-5  pt-10 text-black dark:text-white">
         <h1 className="text-center text-2xl font-bold md:text-3xl">
           PROJECT DETAILS
         </h1>{' '}
         {/* Title &  Description */}
         <div className="flex-col gap-5 py-3">
           <div className="flex flex-col gap-5">
-            <div className="flex items-center gap-2 ">
+            <div className="flex  flex-col gap-2 md:flex-row ">
               <h1 className=" text-lg font-bold md:text-xl">Title: </h1>
-              <h1 className="text-xl  md:text-xl">{data.title}</h1>
+              <h1 className="text-md   md:text-xl">{data.title}</h1>
             </div>
             <div className="">
               <h1 className=" text-lg font-bold md:text-xl">Description: </h1>
               {/* <h1 className="pl-2  text-xl md:text-xl"> {data.description}</h1> */}
-              <div className='pl-2 pt-1' dangerouslySetInnerHTML={parseHTML(data.description)} />
+              <div
+                className="text-md pl-2 pt-1 md:text-lg"
+                dangerouslySetInnerHTML={parseHTML(data.description)}
+              />
             </div>
           </div>
           <div className="mt-10 flex items-center gap-3.5 ">
