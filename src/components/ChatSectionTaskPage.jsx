@@ -142,7 +142,7 @@ const ChatSectionTaskPage = () => {
   }, [chat]);
 
   return (
-    <div className="mx-3 h-full gap-2 rounded-xl bg-white  p-5 shadow-md md:mx-10">
+    <div className="mx-3 h-full gap-2 rounded-xl dark:bg-boxdark bg-white  p-5 shadow-md md:mx-10">
       <div className="">
         <div className="flex  gap-5">
           <div className="">
@@ -190,9 +190,8 @@ const ChatSectionTaskPage = () => {
       </div>
       <div
         ref={chatContainerRef}
-        className={`mt-8 flex h-100 flex-col gap-1 overflow-scroll overflow-x-hidden rounded-md ${
-          chat.length > 0 && 'mx-15` pb-[13rem]' // Applying paddingBottom if chat array is not empty
-        }`}
+        className={`mt-8 flex h-100 flex-col gap-1 overflow-scroll overflow-x-hidden rounded-md ${chat.length > 0 && 'mx-15` pb-[13rem]' // Applying paddingBottom if chat array is not empty
+          }`}
       >
         {chat.map((data, index) => (
           <div key={index} className="m-3 flex gap-5 bg-black/10 p-4">

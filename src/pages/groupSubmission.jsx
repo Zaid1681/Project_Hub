@@ -132,7 +132,7 @@ const GroupSubmission = () => {
             background: 'linear-gradient(to right, #3C50E0, #3C50E0',
             padding: '10px 50px',
           },
-          onClick: function () {},
+          onClick: function () { },
         }).showToast();
         setProjectDetails({
           title: '',

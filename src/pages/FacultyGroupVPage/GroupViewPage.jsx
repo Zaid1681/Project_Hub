@@ -151,8 +151,8 @@ const GroupViewPage = () => {
         <div>Wait Fetching Subjects</div>
       ) : (
         <div className="my-10">
-          <div className="my-10 flex pl-2  text-xl font-bold text-black ">
-            <h1 className="hover:bg-gray-500  cursor-pointer rounded-xl  border border-gray bg-white py-2 px-3 shadow-2xl">
+          <div className="my-10 flex pl-2  text-xl font-bold text-black dark:text-white ">
+            <h1 className="hover:bg-gray-500  cursor-pointer rounded-xl  border border-gray bg-white dark:bg-boxdark py-2 px-3 shadow-2xl">
               Semester {currentSemester}
             </h1>
           </div>
@@ -178,8 +178,8 @@ const GroupViewPage = () => {
         <div>Wait Fetching Subjects</div>
       ) : (
         <div className="my-10">
-          <div className="my-10 flex pl-2  text-xl font-bold text-black ">
-            <h1 className="hover:bg-gray-500  cursor-pointer rounded-xl  border border-gray bg-white py-2 px-3 shadow-2xl">
+          <div className="my-10 flex pl-2  text-xl font-bold text-black dark:text-white">
+            <h1 className="hover:bg-gray-500  cursor-pointer rounded-xl  border border-gray bg-white dark:bg-boxdark py-2 px-3 shadow-2xl">
               {' '}
               Semester {currentSemester2}
             </h1>

@@ -56,7 +56,7 @@ const ApprovedGroupCard = ({
     <a
       href={`/${currentYear}/groups/groupsList/${subject}/${semester}/${academic}/${groupId}`}
     >
-      <div className="mx-6 transform cursor-pointer overflow-hidden rounded-2xl bg-white text-left text-black shadow-lg transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl md:mx-0">
+      <div className="mx-6 transform cursor-pointer overflow-hidden rounded-2xl bg-white dark:bg-boxdark text-left text-black dark:text-white shadow-lg transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl md:mx-0">
         <div className="px-5 py-7">
           <h3 className="mb-8 text-center text-3xl font-bold">{index}</h3>
           <div className="mb-2 flex flex-wrap gap-2 ">

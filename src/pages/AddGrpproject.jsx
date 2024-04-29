@@ -200,7 +200,7 @@ const AddGrpproject = ({ groupId, facultyId }) => {
             background: 'linear-gradient(to right, #3C50E0, #3C50E0',
             padding: '10px 50px',
           },
-          onClick: function () {},
+          onClick: function () { },
         }).showToast();
         setProjectDetails({
           title: '',
@@ -333,52 +333,52 @@ const AddGrpproject = ({ groupId, facultyId }) => {
       {/* <div className="rounded-2xl bg-white p-10 text-black shadow-xl dark:bg-boxdark dark:text-white"> */}
       <form onSubmit={handleSubmitProject} className="">
         <div className="mb-4">
-          <label className="mb-2 block text-xl font-medium text-black dark:text-white">
-            Project Title
-          </label>
-          <input
-            type="text"
-            name="title"
-            value={approvedProjDetail.title}
-            // defaultValue={approvedProjDetail?.title}
-            disabled
-            onChange={(e) => handleInputChange(e, 'title')}
-            className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
-          />
+          <label className="mb-2 block text-xl font-medium text-black ">
+            <label className="mb-2 block text-xl font-medium text-black ">
+              Project Title
+            </label>
+            <input
+              type="text"
+              name="title"
+              value={approvedProjDetail.title}
+              // defaultValue={approvedProjDetail?.title}
+              disabled
+              onChange={(e) => handleInputChange(e, 'title')}
+              className="focus:border-blue-500 w-full rounded border border-black text-black px-3 py-2 focus:outline-none"
+              className="focus:border-blue-500 w-full rounded border border-black text-black px-3 py-2 focus:outline-none"
+            />
         </div>
         <div className="mb-4">
-          <label className="mb-2 block text-xl font-medium text-black dark:text-white">
-            Description
-          </label>
-          {/* <textarea
+          <label className="mb-2 block text-xl font-medium text-black ">
+            <label className="mb-2 block text-xl font-medium text-black ">
+              Description
+            </label>
+            {/* <textarea
             name="description"
             rows="4"
             // value={projectDetails.description}
             defaultValue={approvedProjDetail?.description}
             onChange={(e) => handleInputChange(e, 'description')}
             disabled={grpProj?.description}
-            className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
-          /> */}
-          <CKEditor
-            // className="px-10 my-10"
-            // style={{ padding: '100px', margin: '10px 0' }}
-            editor={ClassicEditor}
-            data={projectDetails.description}
-            onChange={handleEditorChange}
+            className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none text-black"
+            className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none text-black"
           />
         </div>
-        <div className=" my-6 grid grid-cols-1 md:grid-cols-2">
-          <label className="mb-2 block text-xl font-medium text-black dark:text-white">
+        <div className="mb-4 grid grid-cols-1 md:grid-cols-2">
+          <label className="mb-2 block text-xl font-medium text-black">
+          <label className="mb-2 block text-xl font-medium text-black">
             Semester : {approvedProjDetail.semester}
           </label>
-          <label className="mb-2 block text-xl font-medium text-black dark:text-white">
-            Subject: {approvedProjDetail.subject}
+          <label className="mb-2 block text-xl font-medium text-black ">
+          <label className="mb-2 block text-xl font-medium text-black ">
+            Semester : {approvedProjDetail.subject}
           </label>
         </div>
         <div className="mt-4 grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
           {' '}
           <div className="mb-4">
-            <label className="mb-2 block text-xl font-medium  text-black dark:text-white">
+            <label className="mb-2 block text-xl font-medium  text-black">
+            <label className="mb-2 block text-xl font-medium  text-black">
               Github Link
             </label>
             <input
@@ -387,12 +387,14 @@ const AddGrpproject = ({ groupId, facultyId }) => {
               value={projectDetails.github}
               disabled={grpProj?.githubLink || grpProj?.githubLink}
               onChange={(e) => handleInputChange(e, 'github')}
-              className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+              className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none text-black"
+              className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none text-black"
             />
           </div>
           <div className="mb-4">
-            <label className="mb-2 block text-xl font-medium  text-black dark:text-white">
-              Linkedin Link (optional)
+            <label className="mb-2 block text-xl font-medium  text-black ">
+            <label className="mb-2 block text-xl font-medium  text-black ">
+              Linkedin Link
             </label>
             <input
               type="text"
@@ -400,12 +402,14 @@ const AddGrpproject = ({ groupId, facultyId }) => {
               value={grpProj?.linkedinLink || projectDetails.linkedinLink}
               disabled={grpProj?.linkedinLink}
               onChange={(e) => handleInputChange(e, 'linkedinLink')}
-              className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+              className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none text-black"
+              className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none text-black"
             />
           </div>
         </div>
         <div className="mb-4">
-          <label className="mb-2 block text-xl font-medium  text-black dark:text-white">
+          <label className="mb-2 block text-xl font-medium  text-black ">
+          <label className="mb-2 block text-xl font-medium  text-black ">
             Report Link
           </label>
           <input
@@ -415,13 +419,15 @@ const AddGrpproject = ({ groupId, facultyId }) => {
             // defaultValue={grpProj?.reportLink}
             value={grpProj?.reportLink || projectDetails.reportLink}
             onChange={(e) => handleInputChange(e, 'reportLink')}
-            className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+            className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none text-black"
+            className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none text-black"
           />
         </div>
         <div className="my-5 mt-4 grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
           {grpProj?.pdfLinks ? (
             <div>
-              <label className="mb-2 block text-xl font-medium text-black dark:text-white">
+              <label className="mb-2 block text-xl font-medium text-black ">
+              <label className="mb-2 block text-xl font-medium text-black ">
                 PDF Links
               </label>
               <div className="flex  flex-col gap-1 pl-2">
@@ -440,7 +446,8 @@ const AddGrpproject = ({ groupId, facultyId }) => {
             </div>
           ) : (
             <div className="mb-4">
-              <label className="mb-2 block text-xl font-medium text-black dark:text-white">
+              <label className="mb-2 block text-xl font-medium text-black ">
+              <label className="mb-2 block text-xl font-medium text-black ">
                 PDF Links
               </label>
               {projectDetails?.pdfLinks.map((pdfLink, index) => (
@@ -476,7 +483,8 @@ const AddGrpproject = ({ groupId, facultyId }) => {
           )}
           {grpProj?.keywords ? (
             <div>
-              <label className="mb-2 block text-xl font-medium text-black dark:text-white">
+              <label className="mb-2 block text-xl font-medium text-black ">
+              <label className="mb-2 block text-xl font-medium text-black ">
                 Keywords
               </label>
               <div className="gap-1  pl-2">
@@ -489,7 +497,8 @@ const AddGrpproject = ({ groupId, facultyId }) => {
             </div>
           ) : (
             <div className="mb-4">
-              <label className="mb-2 block text-xl font-medium text-black dark:text-white">
+              <label className="mb-2 block text-xl font-medium text-black ">
+              <label className="mb-2 block text-xl font-medium text-black ">
                 Keywords
               </label>
               {projectDetails?.keywords?.map((keyword, index) => (
@@ -498,7 +507,8 @@ const AddGrpproject = ({ groupId, facultyId }) => {
                     type="text"
                     value={keyword}
                     onChange={(e) => handleInputChange(e, 'keywords', index)}
-                    className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                    className="focus:border-blue-500 w-full rounded border border-black text-black px-3 py-2 focus:outline-none"
+                    className="focus:border-blue-500 w-full rounded border border-black text-black px-3 py-2 focus:outline-none"
                   />
                   <div className="flex items-center justify-center gap-5 px-4">
                     <button
@@ -549,107 +559,45 @@ const AddGrpproject = ({ groupId, facultyId }) => {
             </div>
           ))}
         </div> */}{' '}
-        <div className="mb-4">
-          <label className=" block text-xl font-medium text-black dark:text-white">
-            Images
-          </label>
-          <label className="mb-2 block text-sm font-medium text-black dark:text-white">
-            *Add your project image links
-          </label>
-          {/* <input
-              onChange={handleImageChange}
-              className="text-gray-900 border-gray-300 bg-gray-50 dark:text-gray-400 dark:bg-gray-700 
+            {grpProj?.image ? (
+              <div></div>
+            ) : (
+              <div className="mb-4">
+                <label className="mb-2 block text-xl font-medium text-black dark:text-white">
+                  Images
+                </label>
+                <input
+                  onChange={handleImageChange}
+                  className="text-gray-900 border-gray-300 bg-gray-50 dark:text-gray-400 dark:bg-gray-700 
               dark:border-gray-600 dark:placeholder-gray-400 mt-3 block w-full cursor-pointer
               rounded-lg border border-black p-2 text-sm focus:outline-none"
-              id="images"
-              type="file"
-              multiple
-            /> */}
-          {grpProj?.isGroupProj ? (
-            <div className="flex  flex-col gap-1 pl-2">
-              {grpProj?.image?.map((data, index) => (
-                <a
-                  href={data}
-                  target="_blank"
-                  className="flex gap-2 text-lg font-semibold text-black dark:text-white"
-                  key={index}
-                >
-                  Link {index + 1}{' '}
-                  <FaExternalLinkAlt className="my-auto text-sm font-semibold dark:text-white" />
-                </a>
-              ))}
-            </div>
-          ) : (
-            projectDetails?.photos.map((photos, index) => (
-              <div key={index} className="mb-2 flex">
-                <input
-                  type="text"
-                  value={photos}
-                  placeholder="http://"
-                  onChange={(e) => handleInputChange(e, 'photos', index)}
-                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                  id="images"
+                  type="file"
+                  multiple
                 />
-                <div className="flex items-center justify-center gap-5 px-4">
-                  <button
-                    type="button"
-                    onClick={() => handleAdditionButtonClick('photos')}
-                    className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white dark:text-white"
-                  >
-                    +
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleRemovalButtonClick('photos', index)}
-                    disabled={projectDetails.photos.length <= 1} // Disable remove button if there's only one PDF link
-                    className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white"
-                  >
-                    -
-                  </button>
-                </div>
               </div>
-            ))
-          )}
-        </div>
-        {/* ... (existing form elements) ... */}
-        {grpProj?.isGroupProj ? (
-          <div>
-            <span className="mx-auto text-center text-xl font-bold text-[#006400]">
-              Project Submitted
-            </span>
-            <div className="flex gap-2">
-              {' '}
-              <label className=" block text-xl font-medium text-black dark:text-white">
-                Status
-              </label>
-              <div className="mb-2 block items-center text-center text-sm font-medium text-black dark:text-white">
-                {grpProj.isApproved ? (
-                  <span className="mx-auto text-center text-xl font-bold text-[#006400]">
-                    Approved
-                  </span>
-                ) : (
-                  <span className="mx-auto my-auto items-center text-center text-center text-lg font-bold text-[#FF0000]">
-                    Not Approved
-                  </span>
-                )}
+            )}
+            {/* ... (existing form elements) ... */}
+            {grpProj?.isGroupProj ? (
+              <span className="mx-auto text-center text-xl font-bold text-[#006400]">
+                Project Submitted
+              </span>
+            ) : (
+              <div className="m-auto flex justify-center">
+                <button
+                  type="submit"
+                  onClick={handleSubmitProject}
+                  disabled={loading} // Disable button when loading
+                  className="mt-6 inline-flex items-center justify-center rounded  bg-[#0c356a] py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-15"
+                >
+                  {loading ? 'Submitting...' : 'Submit'}
+                </button>
               </div>
-            </div>
-          </div>
-        ) : (
-          <div className="m-auto flex justify-center">
-            <button
-              type="submit"
-              onClick={handleSubmitProject}
-              disabled={loading} // Disable button when loading
-              className="mt-6 inline-flex items-center justify-center rounded  bg-[#0c356a] py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-15"
-            >
-              {loading ? 'Submitting...' : 'Submit'}
-            </button>
-          </div>
-        )}
-      </form>
-      {/* </div> */}
-    </>
-  );
+            )}
+          </form>
+          {/* </div> */}
+        </>
+        );
 };
 
-export default AddGrpproject;
+        export default AddGrpproject;

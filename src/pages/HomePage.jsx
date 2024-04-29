@@ -55,7 +55,7 @@ export default function HomePage() {
 
   return (
     <section
-      className="text-black"
+      className="text-black bg-white"
       style={{ backgroundColor: 'white', minHeight: '100vh' }}
     >
       <Navbar />

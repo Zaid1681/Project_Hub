@@ -97,7 +97,7 @@ const IndividualGroupDetailsPage = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () {}, // Callback after click
+        onClick: function () { }, // Callback after click
       }).showToast();
       setTimeout(() => {
         navigate('/groupSection');
@@ -153,7 +153,7 @@ const IndividualGroupDetailsPage = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () {}, // Callback after click
+        onClick: function () { }, // Callback after click
       }).showToast();
       // console.log(response.data.data);
     } catch (error) {
@@ -212,13 +212,13 @@ const IndividualGroupDetailsPage = () => {
         </a>
       </div>
       <section className="mx-auto mt-10  md:p-10">
-        <div className="container mx-auto rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 font-inter text-3xl font-semibold text-black">
+        <div className="container mx-auto rounded-lg dark:bg-boxdark bg-white  p-8 shadow-md">
+          <h2 className="mb-7 font-inter text-3xl font-semibold text-black dark:text-white">
             Group Details
           </h2>
 
           <div className="space-y-6">
-            <div className="flex items-center  text-black ">
+            <div className="flex items-center  text-black dark:text-white">
               {/* <h1 className="text-xl font-medium">Group No - 1</h1> */}
               <div className="flex flex-wrap gap-2">
                 <h2 className="text-xl font-medium">Members Name : </h2>
@@ -232,7 +232,7 @@ const IndividualGroupDetailsPage = () => {
                 ))}
               </div>
             </div>
-            <div className="flex flex-col gap-2 text-black md:flex-row md:gap-10">
+            <div className="flex flex-col gap-2 text-black dark:text-white md:flex-row md:gap-10">
               {' '}
               <h2 className="text-xl font-medium">
                 <span>Year : </span>
@@ -328,29 +328,29 @@ const IndividualGroupDetailsPage = () => {
         {projectDetails?.map((val, index) => (
           <div
             key={index}
-            className="container mx-auto my-10 rounded-lg bg-white p-8 shadow-md"
+            className="container dark:bg-boxdark bg-white mx-auto my-10 rounded-lg  p-8 shadow-md"
           >
             {' '}
             <ProjectIdeaCard val={val} />
           </div>
         ))}
-        <div className="container my-10 mx-auto  gap-10 rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-7 font-inter text-3xl font-semibold text-black">
+        <div className="container my-10 mx-auto  gap-10 rounded-lg dark:bg-boxdark bg-white p-8 shadow-md">
+          <h2 className="mb-7 font-inter text-3xl font-semibold dark:text-white text-black">
             Guide Details
           </h2>
           <div className="flex gap-2">
             {' '}
-            <p className="text-xl font-medium text-black/90">
+            <p className="text-xl font-medium text-black dark:text-white">
               Assigned Guide :{' '}
             </p>
-            <h2 className="text-xl font-medium text-black">
+            <h2 className="text-xl font-medium text-black dark:text-white">
               {data?.guideName}
             </h2>
           </div>
           {/* <h1>{data.guideId}</h1> */}
         </div>{' '}
         <div>
-          <h2 className="mb-2 font-inter text-3xl font-semibold text-black ">
+          <h2 className="mb-2 font-inter text-3xl font-semibold dark:text-white text-black ">
             Chats
           </h2>
         </div>

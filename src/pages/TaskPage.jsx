@@ -207,7 +207,7 @@ const TaskPage = () => {
                 background: 'linear-gradient(to right, #3C50E0, #3C50E0',
                 padding: '10px 50px',
               },
-              onClick: function () {}, // Callback after click
+              onClick: function () { }, // Callback after click
             }).showToast();
             setTimeout(() => {
               window.location.reload();
@@ -271,7 +271,7 @@ const TaskPage = () => {
               background: 'linear-gradient(to right, #3C50E0, #3C50E0',
               padding: '10px 50px',
             },
-            onClick: function () {}, // Callback after click
+            onClick: function () { }, // Callback after click
           }).showToast();
           setLoading(false);
           setTimeout(() => {
@@ -315,24 +315,7 @@ const TaskPage = () => {
   const showModal3 = () => {
     // console.log(taskId);
     // setTaskId(taskId);
-    if (myGroup.isApproved && myGroup.guideId != null) {
-      setIsModalVisible3(true);
-    } else {
-      // Reload the page after a successful update
-      Toastify({
-        text: 'Your Project Idea is not approved yet or guide has not assigned',
-        duration: 1800,
-        gravity: 'top', // `top` or `bottom`
-        position: 'right', // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-          background: 'linear-gradient(to right, #FF474D, #FF474D',
-          padding: '10px 50px',
-          textAlign: 'center',
-        },
-        onClick: function () {}, // Callback after click
-      }).showToast();
-    }
+    setIsModalVisible3(true);
   };
 
   const handleTaskSubmission = async (e) => {
@@ -384,7 +367,7 @@ const TaskPage = () => {
             background: 'linear-gradient(to right, #3C50E0, #3C50E0',
             padding: '10px 50px',
           },
-          onClick: function () {}, // Callback after click
+          onClick: function () { }, // Callback after click
         }).showToast();
 
         // console.log(res);
@@ -547,20 +530,20 @@ const TaskPage = () => {
           {' '}
           <div className="flex justify-between ">
             {' '}
-            <h1 className="text-xl  font-bold">Task List : {task.length} </h1>
+            <h1 className="text-xl  font-bold text-black dark:text-white">Task List : {task.length} </h1>
             <div>
               {' '}
-              <h1 className="text-md font-semibold">
+              <h1 className="text-md font-semibold text-black dark:text-white">
                 Completed: {taskAccuracyCount}
               </h1>
             </div>
           </div>{' '}
           {task.map((data, index) => (
             <div className="w-full" key={index}>
-              <div className=" w-full items-center items-center gap-2  rounded bg-white p-5  shadow-md  ">
-                <div className="my-3 flex justify-between border-b border-[#D3D3D3] pb-2">
+              <div className=" w-full items-center gap-2  rounded dark:bg-boxdark bg-white p-5  shadow-md  ">
+                <div className="my-3 flex justify-between border-b border-[#D3D3D3] pb-2  ">
                   {' '}
-                  <span className="border-gray-600 bg-gray-500 flex h-10 w-10 items-center justify-center rounded-full border bg-[#023047] text-center text-white">
+                  <span className="border-gray-600 bg-gray-500 flex h-10 w-10 items-center justify-center rounded-full border bg-[#023047] text-center text-white dark:text-white">
                     {index + 1}
                   </span>
                   <span className="border-gray-600 bg-gray-500 flex  items-center justify-center rounded border border-none bg-[#ffb703] px-2 text-center font-bold text-black  shadow-black">
@@ -568,13 +551,13 @@ const TaskPage = () => {
                   </span>
                 </div>
                 <div className="flex flex-col gap-5">
-                  <h1 className="my-1 text-lg font-semibold">
+                  <h1 className="my-1 text-lg font-semibold text-black dark:text-white">
                     TItle :
                     <span className="text-md font-medium"> {data?.title}</span>
                   </h1>
-                  <h1 className="my-1 text-lg font-semibold">
+                  <h1 className="my-1 text-lg font-semibold text-black dark:text-white">
                     Task Decription :
-                    <span className="text-md font-normal">
+                    <span className="text-md font-normal text-black dark:text-white">
                       {' '}
                       {data?.description}
                     </span>
@@ -582,20 +565,20 @@ const TaskPage = () => {
                 </div>
                 <div className="my-5">
                   <div className="my-1 flex items-center gap-3 text-sm  font-semibold">
-                    <span className="bg-red-500 rounded bg-[#8ecae6] p-1">
+                    <span className="bg-red-500 rounded text-black dark:text-white bg-[#8ecae6] p-1">
                       {' '}
                       Assigned Date
                     </span>{' '}
-                    <span className="text-md items-center  font-bold">
+                    <span className="text-black dark:text-white text-md items-center  font-bold">
                       {' '}
                       {moment(data?.assignedDate).format('DD-MM-YYYY, HH:mm')}
                     </span>
                   </div>
-                  <h1 className="my-1 flex flex items-center gap-3 text-sm font-semibold">
-                    <span className="bg-red-500 rounded bg-[#ff3737] p-1">
+                  <h1 className="my-1 flex  items-center gap-3 text-sm font-semibold">
+                    <span className="bg-red-500 text-black dark:text-white rounded bg-[#ff3737] p-1">
                       Task Deadline
                     </span>{' '}
-                    <span className="text-md items-center font-bold">
+                    <span className="text-md text-black dark:text-white items-center font-bold">
                       {' '}
                       {moment(data?.deadline).format('DD-MM-YYYY, HH:mm')}
                     </span>
@@ -628,12 +611,13 @@ const TaskPage = () => {
           {' '}
           <h1 className="font-bold">Details</h1>
           {/* <h1 className="font-bold">{}</h1> */}
-          <div className=" w-full items-center items-center gap-2 rounded bg-white p-5 shadow-md md:max-w-[16rem] ">
-            <h1 className="text-center font-bold ">Submission Progress</h1>
+
+          <div className=" w-full items-center  gap-2 rounded dark:bg-boxdark bg-white p-5 shadow-md md:max-w-[16rem] ">
+            <h1 className="text-center font-bold text-black dark:text-white ">Submission Progress</h1>
             {/* <p className="my-2">Submission Progress</p> */}
             <div
               style={{ height: '50px' }}
-              className="my-auto mt-4 items-center"
+              className="my-auto mt-4 items-center text-black dark:text-white"
             >
               {/* <Pie
                 data={{
@@ -660,7 +644,7 @@ const TaskPage = () => {
               <div>
                 <div className="bg-gray-200 dark:bg-gray-700  w-full rounded-full border">
                   <div
-                    className="h-4 rounded-full rounded bg-[#0C356A] hover:cursor-pointer  dark:bg-[#0C356A]"
+                    className="h-4 rounded-full bg-[#0C356A] hover:cursor-pointer text-black dark:text-white  dark:bg-[#0C356A]"
                     style={{ width: `${taskAccuracy}%` }} // Set the width dynamically based on taskAccuracy
                   ></div>
                 </div>
@@ -672,11 +656,11 @@ const TaskPage = () => {
           </div>
           <button
             onClick={showModal3} // Pass the taskId here for submission
-            className=" w-full items-center items-center gap-2  rounded bg-white p-5  shadow-md hover:cursor-pointer md:max-w-[16rem]"
+            className=" w-full items-center gap-2  rounded dark:bg-boxdark bg-white  p-5  shadow-md hover:cursor-pointer md:max-w-[16rem]"
           >
-            <h1 className="text-center font-bold ">Final Project Submission</h1>
-            <p className="my-2">
-              status{' '}
+            <h1 className="text-center font-bold text-black dark:text-white">Final Project Submission</h1>
+            <p className="my-2 text-black dark:text-white">
+              status: {' '}
               {sebmitProj ? (
                 <span className="  font-bold text-[#006400]"> Submitted</span>
               ) : (
@@ -684,7 +668,7 @@ const TaskPage = () => {
               )}
             </p>
           </button>
-          <div className=" w-full items-center items-center gap-2  rounded bg-white p-5  shadow-md md:max-w-[16rem] ">
+          <div className=" w-full  items-center gap-2  rounded dark:bg-boxdark bg-white p-5 text-black dark:text-white  shadow-md md:max-w-[16rem] ">
             <a href={reportLink} target="_blank">
               {' '}
               <h1 className="text-center font-bold  ">
@@ -692,7 +676,7 @@ const TaskPage = () => {
                   <span className="mx-auto flex items-center justify-center gap-2 text-center">
                     {' '}
                     Report Link{' '}
-                    <FaExternalLinkAlt className="text text-sm font-bold" />
+                    <FaExternalLinkAlt className="text text-sm font-bold text-black dark:text-white" />
                   </span>
                 ) : (
                   'Report Not Submitted'
@@ -905,7 +889,7 @@ const TaskPage = () => {
       <div className="my-10">
         {' '}
         <div>
-          <h2 className="mb-2 font-inter text-3xl font-semibold text-black md:pl-10">
+          <h2 className="mb-2 font-inter text-3xl font-semibold dark:text-white text-black md:pl-10">
             Chats
           </h2>
         </div>

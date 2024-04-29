@@ -690,7 +690,7 @@ dark:focus:border-primary"
               // value={editFormData.title}
               defaultValue={data2.title}
               onChange={(value) => handleChange2('title', value)}
-              className="text-gray-900 border-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-600 peer block w-full appearance-none border-0 border-b-2 bg-transparent py-2.5 px-0 text-sm focus:outline-none focus:ring-0 dark:text-white"
+              className="text-gray-900 border-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-600 peer block w-full appearance-none border-0 border-b-2 bg-transparent py-2.5 px-0 text-sm focus:outline-none focus:ring-0 text-black"
               placeholder=" "
               required
             />
@@ -711,7 +711,7 @@ dark:focus:border-primary"
               name="description"
               // value={editFormData.description}
               defaultValue={data2.description}
-              className="text-gray-900 border-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-600 peer block w-full appearance-none border-0 border-b-2 bg-transparent py-2.5 px-0 text-sm focus:outline-none focus:ring-0 dark:text-white"
+              className="text-gray-900 border-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-600 peer block w-full appearance-none border-0 border-b-2 bg-transparent py-2.5 px-0 text-sm focus:outline-none focus:ring-0 text-black"
               placeholder=" "
               required
               onChange={(value) => handleChange2('description', value)}
@@ -732,15 +732,13 @@ dark:focus:border-primary"
               <input
                 type="datetime-local"
                 defaultValue={formattedAssignedDate}
-                className="custom-input-date custom-input-date-1 w-full rounded border-[1.5px]
-      border-stroke bg-transparent py-3 px-5 font-medium outline-none transition
-      focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input
-      dark:focus:border-primary"
+                className="custom-input-date custom-input-date-1 w-full rounded border-[1.5px] 
+      border-stroke bg-transparent py-3 px-5 font-medium outline-none transition"
                 placeholder="mm/dd/yyyy hh:mm"
                 onChange={(date) => handleChange2('assignedDate', date)}
 
-                // defaultValue={date}
-                // onChange={handleDateChange}
+              // defaultValue={date}
+              // onChange={handleDateChange}
               />
             </div>{' '}
             <span className="text-gray-500 mx-4">to</span>
@@ -752,8 +750,7 @@ dark:focus:border-primary"
                 defaultValue={formattedDeadlineDate}
                 className="custom-input-date custom-input-date-1 w-full rounded border-[1.5px]
 border-stroke bg-transparent py-3 px-5 font-medium outline-none transition
-focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input
-dark:focus:border-primary"
+"
                 placeholder="mm/dd/yyyy hh:mm"
                 onChange={(date) => handleChange2('deadline', date)}
               />

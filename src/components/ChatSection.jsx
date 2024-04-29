@@ -125,7 +125,7 @@ const ChatSection = () => {
   }, [chat]);
 
   return (
-    <div className="h-full gap-2 rounded-xl bg-white p-5  shadow-md ">
+    <div className="h-full gap-2 rounded-xl dark:bg-boxdark bg-white p-5  shadow-md ">
       <div className="">
         <div className="flex  gap-5">
           <div className="">
@@ -139,7 +139,7 @@ const ChatSection = () => {
           <div className="flex w-full flex-col gap-3 md:flex-row">
             <div className="w-full ">
               <input
-                className="h-10 w-full  rounded-xl border border-black px-5 text-black "
+                className="h-10 w-full  rounded-xl border border-black px-5 text-black  "
                 type="text"
                 onChange={handleChange}
                 name="description"
@@ -171,9 +171,8 @@ const ChatSection = () => {
       </div>
       <div
         ref={chatContainerRef}
-        className={`mt-8 flex h-100 flex-col gap-1 overflow-scroll overflow-x-hidden rounded-md ${
-          chat.length > 0 && 'mx-15` pb-[13rem]' // Applying paddingBottom if chat array is not empty
-        }`}
+        className={`mt-8 flex h-100 flex-col gap-1 overflow-scroll overflow-x-hidden rounded-md ${chat.length > 0 && 'mx-15` pb-[13rem]' // Applying paddingBottom if chat array is not empty
+          }`}
       >
         {chat.map((data, index) => (
           <div key={index} className="m-3 flex gap-5 bg-black/10 p-4">
@@ -187,7 +186,7 @@ const ChatSection = () => {
             </div>
             <div className="w-full flex-col gap-2">
               <div className="flex items-center justify-between">
-                <h2 className="text-base font-semibold text-black hover:cursor-pointer">
+                <h2 className="text-base font-semibold dark:text-white text-black hover:cursor-pointer">
                   @{data.senderName}
                 </h2>
                 <span className="text-gray-500 text-sm">
@@ -199,7 +198,7 @@ const ChatSection = () => {
                 </span>
               </div>
               <div>
-                <h2 className="text-base text-black ">{data.description}</h2>
+                <h2 className="text-base text-black dark:text-white ">{data.description}</h2>
                 <div className="flex items-center justify-end">
                   <button
                     className="rounded bg-[#0C356A] p-1 text-base text-white hover:bg-[#0C356A]/80"
