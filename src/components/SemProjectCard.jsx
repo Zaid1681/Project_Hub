@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaRegUserCircle } from 'react-icons/fa';
 
+
 const urlImage =
   'https://community.nasscom.in/wp-content/uploads/2020/11/2-Copy-1024x539.png';
 
@@ -11,7 +12,8 @@ const SemProjectCard = ({ project }) => {
       <div className="flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-xl bg-white shadow-md hover:-mt-2 dark:bg-boxdark">
         <div className="">
           <img
-            src={urlImage}
+            // src={urlImage}
+            src={project.image[0]}
             alt="Card"
             className="mx-auto h-50 w-full rounded-xl object-cover p-2"
           />

@@ -7,6 +7,7 @@ import { BASEURL } from '../Api';
 
 const Home = () => {
   const [project, setProject] = useState([]);
+  const [projectCount, setProjectCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [searchValue, setSearchValue] = useState('');
   console.log(searchValue);
@@ -15,6 +16,7 @@ const Home = () => {
       try {
         const allProject = await axios.get(`${BASEURL}/project/getApproved`);
         setProject(allProject.data);
+        setProjectCount(allProject.data.length);
       } catch (error) {
         console.log('All Project fetching Error ', error);
       } finally {
@@ -32,12 +34,15 @@ const Home = () => {
   const handleSearch = async () => {
     try {
       setLoading(true); // Set loading to true before fetching search results
+      setProject([]);
       const searchResults = await axios.get(
         `${BASEURL}/project/getApproved/keyword?keyword=${searchValue}`
       );
       setProject(searchResults.data); // Update project state with search results
+      setProjectCount(searchResults.data.length);
       // console.log('search');
     } catch (error) {
+      setProjectCount(0);
       console.log('Search Error: ', error);
     } finally {
       setLoading(false); // Set loading to false after fetching search results
@@ -66,7 +71,7 @@ const Home = () => {
               </svg>
             </div>
             <input
-              className="text-gray-700 peer h-full w-full border-none pr-2 text-sm outline-none"
+              className="text-gray-700 text-md peer h-full w-full border-none pr-2 font-semibold outline-none"
               type="text"
               id="search"
               placeholder="Search domain.."
@@ -84,17 +89,26 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="mx-auto">
+      <div className="mx-auto flex">
         {' '}
-        <Breadcrumb pageName="Project List" />
+        <div className="my-10 text-center">
+          <h1 className="text-3xl font-bold  ">
+            {' '}
+            Project List ({projectCount})
+          </h1>
+        </div>
       </div>
       {loading ? (
         <Loader />
       ) : (
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-          {project?.map((projectItem, index) => (
-            <ProjectCard key={index} project={projectItem} />
-          ))}
+          {project.length === 0 ? (
+            <p>No projects found</p>
+          ) : (
+            project.map((projectItem, index) => (
+              <ProjectCard key={index} project={projectItem} />
+            ))
+          )}
         </div>
       )}
     </>

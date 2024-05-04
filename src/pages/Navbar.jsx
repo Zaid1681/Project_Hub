@@ -43,12 +43,12 @@ function Navbar() {
           >
             Home
           </a>
-          <a
+          {/* <a
             href="/aboutpage"
             className="block font-semibold text-black lg:mt-0 lg:inline-block"
           >
             About
-          </a>
+          </a> */}
         </div>
         <div className="flex flex-col items-center justify-center gap-5 md:flex-row">
           <a

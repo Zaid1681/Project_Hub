@@ -83,7 +83,7 @@ export default function HomePage() {
       </div>
       <div id="services" className="container mx-auto py-[60px] px-10">
         <h1 className="mb-10 text-center text-3xl font-semibold md:text-5xl">
-          What will our platform provide?
+          What our platform provides?
         </h1>
 
         <div className="mt-20 grid grid-cols-1 gap-14 sm:grid-cols-2 sm:gap-4 md:mt-30 md:grid-cols-3 lg:grid-cols-4">
@@ -94,9 +94,11 @@ export default function HomePage() {
             <div class="px-6 pt-16 pb-6 ">
               <h2 class="text-xl font-semibold">Store Project</h2>
               <p class=" mt-3 text-sm">
-                We are providing role specific tailored dashboards for each
-                specific type of user. This will include a unique dashboard with
-                different features for Students, Faculties and Admin.{' '}
+                In the undergraduate student project management system, the
+                ability to store projects serves as a cornerstone feature,
+                enabling students and faculty members to securely preserve
+                project details, documentation, progress updates, and associated
+                resources.
               </p>
             </div>
           </div>
@@ -107,9 +109,11 @@ export default function HomePage() {
             <div class="px-6 pt-16 pb-6 ">
               <h2 class="text-xl font-semibold ">Groups Formation</h2>
               <p class=" mt-3 text-sm">
-                We are providing role specific tailored dashboards for each
-                specific type of user. This will include a unique dashboard with
-                different features for Students, Faculties and Admin.{' '}
+                This feature for group formation streamlines the process of
+                assembling project teams. Facilitating efficient collaboration,
+                group formation encourages teamwork, diversity of perspectives,
+                and the pooling of complementary skills, fostering an
+                environment conducive to innovation and project success
               </p>
             </div>
           </div>
@@ -120,9 +124,12 @@ export default function HomePage() {
             <div class="px-6 pt-16 pb-6 ">
               <h2 class="text-xl font-semibold">Explore Projects</h2>
               <p class="mt-3 text-sm">
-                We are providing role specific tailored dashboards for each
-                specific type of user. This will include a unique dashboard with
-                different features for Students, Faculties and Admin.{' '}
+                The "Explore Projects" feature empowers students and faculty to
+                discover a diverse range of available projects within the
+                system. By providing comprehensive project listings,
+                categorization, and search capabilities, users can easily browse
+                through various project proposals, descriptions, and
+                requirements.
               </p>
             </div>
           </div>
@@ -135,9 +142,11 @@ export default function HomePage() {
                 Faculty Collaboration
               </h2>
               <p class=" mt-3 text-sm text-white">
-                We are providing role specific tailored dashboards for each
-                specific type of user. This will include a unique dashboard with
-                different features for Students, Faculties and Admin.{' '}
+                In the context of undergraduate project management, the faculty
+                collaboration feature facilitates seamless communication and
+                interaction between students and academic staff members. This
+                functionality enables faculty to provide guidance, mentorship,
+                and feedback throughout the project lifecycle.
               </p>
             </div>
           </div>

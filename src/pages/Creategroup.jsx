@@ -496,7 +496,7 @@ const Creategroup = () => {
   };
 
   return (
-    <main className="bg-blue-900 min-h-screen text-black">
+    <main className=" min-h-screen text-black">
       <Breadcrumb pageName="Group Formation" />
       <section className="mx-auto">
         <div className="container mx-auto rounded-2xl bg-white p-8 shadow-md">

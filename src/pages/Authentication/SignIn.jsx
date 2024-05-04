@@ -9,14 +9,15 @@ import { BASEURL } from '../../Api';
 // import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setUserData } from '../../Redux/slices/user-slice'; // Update the path
-
+// import Loader from '../../components/Loader';
 import axios from 'axios';
+import Loader from '../../components/Loader';
 
 const SignIn = () => {
   const dispatch = useDispatch();
   const [academicYears, setAcademicYears] = useState([]);
-  const [loadingSubjects, setLoadingSubjects] = useState(false);
-
+  const [loadingSubjects, setLoadingSubjects] = useState(true);
+  console.log('oososo', loadingSubjects);
   const [academicYearOptions, setAcademicYearOptions] = useState([]);
   const [academicYearData, setAcademicYearData] = useState({
     joiningYear: '',
@@ -131,6 +132,7 @@ const SignIn = () => {
   // console.log('login', loginData);
   const findDataUsingEmail = async () => {
     const emailData = loginData?.email;
+    setLoadingSubjects(true);
     try {
       const res = await axios.get(`${BASEURL}/auth/getEmail/${emailData}`);
       if (res.data) {
@@ -140,6 +142,7 @@ const SignIn = () => {
           joiningYear: joiningYear,
           passingYear: passingYear,
         });
+        setLoadingSubjects(true);
       } else {
         setAcademicYearData({
           joiningYear: '',
@@ -173,18 +176,20 @@ const SignIn = () => {
   //   setAcademicYears(options);
   // };
   const generateAcademicYears = () => {
+    setLoadingSubjects(true);
     const joiningYear = academicYearData?.joiningYear;
     const passingYear = academicYearData?.passingYear;
     const options = [];
-    setLoadingSubjects(true);
 
     for (let i = joiningYear; i < passingYear; i++) {
       const startYear = i;
       const endYear = i + 1;
       options.push(`${startYear}-${endYear}`);
     }
-    setAcademicYearOptions(options);
-    setLoadingSubjects(false);
+    if (options.length !== 0) {
+      setLoadingSubjects(false);
+      setAcademicYearOptions(options);
+    }
   };
 
   // Call generateAcademicYears function when component mounts
@@ -227,7 +232,7 @@ const SignIn = () => {
             <div className="w-full p-4 sm:p-12.5 xl:p-10.5">
               {/* <span className="mb-1.5 block font-medium">Start for free</span> */}
               <h2 className="mb-9 text-center font-inter text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                Sign In to Project Hub
+                Sign In
               </h2>
 
               <form onSubmit={handleLoginSubmit}>
@@ -301,8 +306,8 @@ const SignIn = () => {
                     </span>
                   </div>
                 </div>
-                <div className="mb-4 flex flex-col gap-2 gap-14 md:flex-row ">
-                  <div className="relative ">
+                <div className="mb-4 flex flex-col gap-2 md:justify-between md:flex-row w-full ">
+                  <div className="relative w-full ">
                     <label className="mb-2.5 block font-medium text-black dark:text-white">
                       Choose Current Year
                     </label>
@@ -336,7 +341,7 @@ const SignIn = () => {
                       </svg>
                     </span>
                   </div>
-                  <div className="relative">
+                  <div className="relative w-full">
                     <label className="mb-2.5 block font-medium text-black dark:text-white">
                       Choose Academic Year
                     </label>
@@ -348,9 +353,11 @@ const SignIn = () => {
                       >
                         <option value="" disabled selected>
                           Select Academic Year
-                        </option>
+                        </option>{' '}
                         {loadingSubjects ? (
-                          <option disabled>Loading...</option>
+                          <option>
+                            <Loader />
+                          </option>
                         ) : (
                           academicYearOptions.map((year, index) => (
                             <option key={index} value={year}>
