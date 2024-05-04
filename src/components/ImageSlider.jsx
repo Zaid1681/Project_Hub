@@ -51,7 +51,7 @@ const ImageSlider = ({ dataId }) => {
           </button>
           <div className="image-container">
             <img
-              className="slider-image h-80 w-full object-cover md:h-80"
+              className="slider-image h-full w-full object-cover md:h-80"
               src={imgData[currentIndex]}
               alt={`Slide ${currentIndex}`}
             />

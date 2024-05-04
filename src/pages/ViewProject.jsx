@@ -156,8 +156,8 @@ const ViewProject = () => {
           Project Information
         </h4>
       </div>
-      <div className="md container mx-auto flex flex-col-reverse gap-10 md:grid md:grid-cols-1 md:grid-cols-2 ">
-        <div className="my-5 mx-auto mb-24 h-60 w-100 md:mb-0 md:h-80">
+      <div className="md container mx-auto flex flex-col-reverse gap-10 md:grid  md:grid-cols-2 ">
+        <div className="my-5 mx-auto h-60 w-full lg:w-100 md:mb-0 md:h-full">
           {/* here Image Slider will come (work in progress) */}
           {/* <h4 className="mb-10 text-center font-inter text-2xl font-bold text-black dark:text-white dark:text-black md:text-3xl ">
             Project Images
@@ -295,12 +295,12 @@ const ViewProject = () => {
         </div>
         {/* </div> */}
       </div>
-      <div className=" px-5  pt-10 text-black dark:text-white">
+      <div className=" px-5  pt-5 md:pt-10 text-black dark:text-white">
         <h1 className="text-center text-2xl font-bold md:text-3xl">
           PROJECT DETAILS
         </h1>{' '}
         {/* Title &  Description */}
-        <div className="flex-col gap-5 py-3">
+        <div className="flex-col gap-5 py-3 mt-8">
           <div className="flex flex-col gap-5">
             <div className="flex  flex-col gap-2 md:flex-row ">
               <h1 className=" text-lg font-bold md:text-xl">Title: </h1>
@@ -315,10 +315,10 @@ const ViewProject = () => {
               />
             </div>
           </div>
-          <div className="mt-10 flex items-center gap-3.5 ">
-            <span className="text-lg font-medium md:text-xl">Keyword:</span>
+          <div className="mt-10 flex-col flex md:flex-row  gap-3.5 ">
+            <span className="text-lg font-medium md:text-xl  flex md:items-center md:justify-center">Keyword:</span>
 
-            <div className="flex flex-wrap  gap-6 md:gap-3.5">
+            <div className="flex flex-wrap  gap-3 md:gap-3.5">
               {data?.keywords?.map((data, index) => (
                 <span
                   key={index}
