@@ -83,7 +83,7 @@ const ViewProject = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () {}, // Callback after click
+        onClick: function () { }, // Callback after click
       }).showToast();
       setTimeout(() => {
         navigate('/groupSection');
@@ -141,7 +141,7 @@ const ViewProject = () => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () {}, // Callback after click
+        onClick: function () { }, // Callback after click
       }).showToast();
     } catch (error) {
       console.log('Error fetching Project', error);
@@ -372,7 +372,7 @@ const ViewProject = () => {
                 defaultValue=""
                 value={projectDetails.isApproved}
                 onChange={handleSemesterChange}
-                className="focus:border-blue-500 w-1/2 rounded border px-3 py-2 focus:outline-none"
+                className="focus:border-blue-500 w-1/2 rounded border px-3 py-2 focus:outline-none dark:bg-boxdark dark:text-white"
               >
                 <option value="">Select Status</option>
                 <option value="Approved">Approved</option>

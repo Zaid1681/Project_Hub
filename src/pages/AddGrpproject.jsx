@@ -330,10 +330,10 @@ const AddGrpproject = ({ groupId, facultyId }) => {
   return (
     <>
       {/* <Breadcrumb pageName="Project Details" /> */}
-      {/* <div className="rounded-2xl bg-white p-10 text-black shadow-xl dark:bg-boxdark dark:text-white"> */}
+      {/* <div className="rounded-2xl bg-white p-10 text-black shadow-xl dark:bg-boxdark "> */}
       <form onSubmit={handleSubmitProject} className="">
         <div className="mb-4">
-          <label className="mb-2 block text-xl font-medium text-black dark:text-white">
+          <label className="mb-2 block text-xl font-medium text-black  ">
             Project Title
           </label>
           <input
@@ -347,7 +347,7 @@ const AddGrpproject = ({ groupId, facultyId }) => {
           />
         </div>
         <div className="mb-4">
-          <label className="mb-2 block text-xl font-medium text-black dark:text-white">
+          <label className="mb-2 block text-xl font-medium text-black ">
             Description
           </label>
           {/* <textarea
@@ -368,22 +368,23 @@ const AddGrpproject = ({ groupId, facultyId }) => {
           />
         </div>
         <div className=" my-6 grid grid-cols-1 md:grid-cols-2">
-          <label className="mb-2 block text-xl font-medium text-black dark:text-white">
+          <label className="mb-2 block text-xl font-medium text-black ">
             Semester : {approvedProjDetail.semester}
           </label>
-          <label className="mb-2 block text-xl font-medium text-black dark:text-white">
+          <label className="mb-2 block text-xl font-medium text-black ">
             Subject: {approvedProjDetail.subject}
           </label>
         </div>
         <div className="mt-4 grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
           {' '}
           <div className="mb-4">
-            <label className="mb-2 block text-xl font-medium  text-black dark:text-white">
+            <label className="mb-2 block text-xl font-medium  text-black ">
               Github Link
             </label>
             <input
               type="text"
               name="github"
+              placeholder="http://"
               value={projectDetails.github}
               disabled={grpProj?.githubLink || grpProj?.githubLink}
               onChange={(e) => handleInputChange(e, 'github')}
@@ -391,12 +392,13 @@ const AddGrpproject = ({ groupId, facultyId }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="mb-2 block text-xl font-medium  text-black dark:text-white">
+            <label className="mb-2 block text-xl font-medium  text-black ">
               Linkedin Link (optional)
             </label>
             <input
               type="text"
               name="linkedin"
+              placeholder="http://"
               value={grpProj?.linkedinLink || projectDetails.linkedinLink}
               disabled={grpProj?.linkedinLink}
               onChange={(e) => handleInputChange(e, 'linkedinLink')}
@@ -405,13 +407,14 @@ const AddGrpproject = ({ groupId, facultyId }) => {
           </div>
         </div>
         <div className="mb-4">
-          <label className="mb-2 block text-xl font-medium  text-black dark:text-white">
+          <label className="mb-2 block text-xl font-medium  text-black ">
             Report Link
           </label>
           <input
             type="text"
             name="reportLink"
             disabled={grpProj?.reportLink}
+            placeholder="http://"
             // defaultValue={grpProj?.reportLink}
             value={grpProj?.reportLink || projectDetails.reportLink}
             onChange={(e) => handleInputChange(e, 'reportLink')}
@@ -421,7 +424,7 @@ const AddGrpproject = ({ groupId, facultyId }) => {
         <div className="my-5 mt-4 grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
           {grpProj?.pdfLinks ? (
             <div>
-              <label className="mb-2 block text-xl font-medium text-black dark:text-white">
+              <label className="mb-2 block text-xl font-medium text-black ">
                 PDF Links
               </label>
               <div className="flex  flex-col gap-1 pl-2">
@@ -429,18 +432,18 @@ const AddGrpproject = ({ groupId, facultyId }) => {
                   <a
                     href={data}
                     target="_blank"
-                    className="flex gap-2 text-lg font-semibold text-black dark:text-white"
+                    className="flex gap-2 text-lg font-semibold text-black "
                     key={index}
                   >
                     Link {index + 1}{' '}
-                    <FaExternalLinkAlt className="my-auto text-sm font-semibold dark:text-white" />
+                    <FaExternalLinkAlt className="my-auto text-sm font-semibold " />
                   </a>
                 ))}
               </div>
             </div>
           ) : (
             <div className="mb-4">
-              <label className="mb-2 block text-xl font-medium text-black dark:text-white">
+              <label className="mb-2 block text-xl font-medium text-black ">
                 PDF Links
               </label>
               {projectDetails?.pdfLinks.map((pdfLink, index) => (
@@ -448,6 +451,7 @@ const AddGrpproject = ({ groupId, facultyId }) => {
                   <input
                     type="text"
                     value={pdfLink}
+                    placeholder="http://"
                     onChange={(e) => handleInputChange(e, 'pdfLinks', index)}
                     className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
                   />
@@ -455,7 +459,7 @@ const AddGrpproject = ({ groupId, facultyId }) => {
                     <button
                       type="button"
                       onClick={() => handleAdditionButtonClick('pdfLinks')}
-                      className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white dark:text-white"
+                      className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white "
                     >
                       +
                     </button>
@@ -476,7 +480,7 @@ const AddGrpproject = ({ groupId, facultyId }) => {
           )}
           {grpProj?.keywords ? (
             <div>
-              <label className="mb-2 block text-xl font-medium text-black dark:text-white">
+              <label className="mb-2 block text-xl font-medium text-black ">
                 Keywords
               </label>
               <div className="gap-1  pl-2">
@@ -489,7 +493,7 @@ const AddGrpproject = ({ groupId, facultyId }) => {
             </div>
           ) : (
             <div className="mb-4">
-              <label className="mb-2 block text-xl font-medium text-black dark:text-white">
+              <label className="mb-2 block text-xl font-medium text-black ">
                 Keywords
               </label>
               {projectDetails?.keywords?.map((keyword, index) => (
@@ -526,7 +530,7 @@ const AddGrpproject = ({ groupId, facultyId }) => {
           )}
         </div>
         {/* <div className="mb-4">
-          <label className="block font-medium text-black dark:text-white">
+          <label className="block font-medium text-black ">
             Social Media Links
           </label>
           {projectDetails.socialMediaLinks.map((socialMediaLink, index) => (
@@ -542,7 +546,7 @@ const AddGrpproject = ({ groupId, facultyId }) => {
               <button
                 type="button"
                 onClick={() => handleAdditionButtonClick('socialMediaLinks')}
-                className="bg-blue-500 rounded px-2 text-black dark:text-white"
+                className="bg-blue-500 rounded px-2 text-black "
               >
                 +
               </button>
@@ -550,10 +554,10 @@ const AddGrpproject = ({ groupId, facultyId }) => {
           ))}
         </div> */}{' '}
         <div className="mb-4">
-          <label className=" block text-xl font-medium text-black dark:text-white">
+          <label className=" block text-xl font-medium text-black ">
             Images
           </label>
-          <label className="mb-2 block text-sm font-medium text-black dark:text-white">
+          <label className="mb-2 block text-sm font-medium text-black ">
             *Add your project image links
           </label>
           {/* <input
@@ -571,11 +575,11 @@ const AddGrpproject = ({ groupId, facultyId }) => {
                 <a
                   href={data}
                   target="_blank"
-                  className="flex gap-2 text-lg font-semibold text-black dark:text-white"
+                  className="flex gap-2 text-lg font-semibold text-black "
                   key={index}
                 >
                   Link {index + 1}{' '}
-                  <FaExternalLinkAlt className="my-auto text-sm font-semibold dark:text-white" />
+                  <FaExternalLinkAlt className="my-auto text-sm font-semibold " />
                 </a>
               ))}
             </div>
@@ -593,7 +597,7 @@ const AddGrpproject = ({ groupId, facultyId }) => {
                   <button
                     type="button"
                     onClick={() => handleAdditionButtonClick('photos')}
-                    className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white dark:text-white"
+                    className="h-10 rounded-xl bg-[#0c356a] px-4 text-xl text-white "
                   >
                     +
                   </button>
@@ -618,10 +622,10 @@ const AddGrpproject = ({ groupId, facultyId }) => {
             </span>
             <div className="flex gap-2">
               {' '}
-              <label className=" block text-xl font-medium text-black dark:text-white">
+              <label className=" block text-xl font-medium text-black ">
                 Status
               </label>
-              <div className="mb-2 block items-center text-center text-sm font-medium text-black dark:text-white">
+              <div className="mb-2 block items-center text-center text-sm font-medium text-black ">
                 {grpProj.isApproved ? (
                   <span className="mx-auto text-center text-xl font-bold text-[#006400]">
                     Approved

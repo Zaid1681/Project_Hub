@@ -294,7 +294,7 @@ const Addproject = () => {
               name="title"
               value={projectDetails.title}
               onChange={(e) => handleInputChange(e, 'title')}
-              className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+              className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none dark:border-white dark:bg-boxdark"
             />
           </div>
           <div className="mb-4">
@@ -319,6 +319,7 @@ const Addproject = () => {
               editor={ClassicEditor}
               data={projectDetails.description}
               onChange={handleEditorChange}
+              className="dark:border-white dark:bg-boxdark"
             />
           </div>
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
@@ -331,7 +332,7 @@ const Addproject = () => {
                 defaultValue=""
                 value={projectDetails.semester}
                 onChange={handleSemesterChange}
-                className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
+                className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none dark:border-white dark:bg-boxdark"
               >
                 <option value="" disabled>
                   Select Semester
@@ -365,7 +366,7 @@ const Addproject = () => {
                 value={projectDetails.subject}
                 defaultValue={''}
                 onChange={(e) => handleInputChange(e, 'subject')}
-                className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
+                className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none dark:border-white dark:bg-boxdark"
               >
                 <option value="" disabled>
                   Select Subject
@@ -393,7 +394,7 @@ const Addproject = () => {
                 name="github"
                 value={projectDetails.github}
                 onChange={(e) => handleInputChange(e, 'github')}
-                className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none dark:border-white dark:bg-boxdark"
               />
             </div>
             <div className="mb-4">
@@ -405,7 +406,7 @@ const Addproject = () => {
                 name="github"
                 value={projectDetails.linkedinLink}
                 onChange={(e) => handleInputChange(e, 'linkedinLink')}
-                className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none dark:border-white dark:bg-boxdark"
               />
             </div>
           </div>
@@ -420,7 +421,7 @@ const Addproject = () => {
                     type="text"
                     value={pdfLink}
                     onChange={(e) => handleInputChange(e, 'pdfLinks', index)}
-                    className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                    className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none dark:border-white dark:bg-boxdark"
                   />
                   <div className="flex items-center justify-center gap-5 px-4">
                     <button
@@ -454,7 +455,7 @@ const Addproject = () => {
                     type="text"
                     value={keyword}
                     onChange={(e) => handleInputChange(e, 'keywords', index)}
-                    className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                    className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none dark:border-white dark:bg-boxdark"
                   />
                   <div className="flex items-center justify-center gap-5 px-4">
                     <button
@@ -515,7 +516,7 @@ const Addproject = () => {
               onChange={handleImageChange}
               className="text-gray-900 border-gray-300 bg-gray-50 dark:text-gray-400 dark:bg-gray-700 
               dark:border-gray-600 dark:placeholder-gray-400 mt-3 block w-full cursor-pointer
-              rounded-lg border border-black p-2 text-sm focus:outline-none"
+              rounded-lg border border-black dark:border-white dark:bg-boxdark p-2 text-sm focus:outline-none"
               id="images"
               type="file"
               multiple
@@ -527,7 +528,7 @@ const Addproject = () => {
                   value={photos}
                   placeholder="http://"
                   onChange={(e) => handleInputChange(e, 'photos', index)}
-                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none dark:border-white dark:bg-boxdark"
                 />
                 <div className="flex items-center justify-center gap-5 px-4">
                   <button

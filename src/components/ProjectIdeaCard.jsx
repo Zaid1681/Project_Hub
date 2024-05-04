@@ -58,7 +58,7 @@ const ProjectIdeaCard = ({ val }) => {
           background: 'linear-gradient(to right, #3C50E0, #3C50E0',
           padding: '10px 50px',
         },
-        onClick: function () {}, // Callback after click
+        onClick: function () { }, // Callback after click
       }).showToast();
       setTimeout(() => {
         window.location.reload();
@@ -72,8 +72,8 @@ const ProjectIdeaCard = ({ val }) => {
   };
 
   return (
-    <div>
-      <div className="space-y-4 text-black">
+    <div className=''>
+      <div className="space-y-4 text-black dark:text-white">
         <div className="mt-6">
           <h1 className="text-xl font-medium">Title</h1>
           <h2 className="mt-2 text-lg">{formData.title}</h2>
@@ -111,7 +111,7 @@ const ProjectIdeaCard = ({ val }) => {
           <button
             disabled={val.isApproved} // Disable the button if val.isApproved is true
             onClick={() => showModal()}
-            className={`shadow-gray-400 mb-2 items-center rounded border border-[#0C356A] p-[10px] px-[2rem] text-xl text-[#0C356A] shadow-lg    hover:bg-[#0C356A]/10  `}
+            className={`shadow-gray-400 mb-2 items-center rounded border border-[#0C356A] p-[10px] px-[2rem] text-xl  text-[#0C356A] dark:text-white  dark:border-white shadow-lg    hover:bg-[#0C356A]/10  `}
           >
             <MdEdit />
           </button>

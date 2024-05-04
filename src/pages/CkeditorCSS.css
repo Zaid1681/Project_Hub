@@ -1,3 +1,17 @@
+/* Set padding for the editable area */
 .ck-editor__editable {
   padding: 20px !important;
+}
+
+/* Custom styles for CKEditor dark mode */
+.dark .ck.ck-content {
+  background-color: #24303F !important; 
+  /* background-color: bg-boxdark !important; Black background */
+  color: #fff; /* White text */
+  font-size: 17px;
+}
+
+/* Custom scrollbar for CKEditor dark mode */
+.dark .ck.ck-content.ck-editor__editable.ck-rounded-corners {
+  scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.1); /* Scrollbar color */
 }

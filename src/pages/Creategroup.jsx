@@ -458,7 +458,7 @@ const Creategroup = () => {
             background: 'linear-gradient(to right, #3C50E0, #3C50E0',
             padding: '10px 50px',
           },
-          onClick: function () {}, // Callback after click
+          onClick: function () { }, // Callback after click
         }).showToast();
         setLoading(false);
 
@@ -496,16 +496,16 @@ const Creategroup = () => {
   };
 
   return (
-    <main className=" min-h-screen text-black">
+    <main className=" min-h-screen text-black dark:text-white">
       <Breadcrumb pageName="Group Formation" />
       <section className="mx-auto">
-        <div className="container mx-auto rounded-2xl bg-white p-8 shadow-md">
+        <div className="container mx-auto rounded-2xl dark:bg-boxdark  bg-white p-8 shadow-md">
           <form className="space-y-6">
             {/* Team details */}
             <div>
               <label
                 htmlFor="teamName"
-                className="block text-xl font-medium text-black"
+                className="block text-xl font-medium text-black dark:text-white "
               >
                 Team Name
               </label>
@@ -515,10 +515,10 @@ const Creategroup = () => {
                 name="teamName"
                 value={groupDetails.title}
                 onChange={(e) => handleInputChange(e, 'title')}
-                className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                className="focus:border-blue-500 w-full rounded border border-black dark:border-white px-3 py-2 focus:outline-none text-black dark:text-white dark:bg-boxdark "
               />
             </div>
-            <div className="grid grid-cols-1 gap-5 text-black lg:grid-cols-2">
+            <div className="grid grid-cols-1 gap-5 text-black dark:text-white lg:grid-cols-2">
               <div className=" text-black">
                 <label className="mb-3 block text-xl font-medium text-black dark:text-white">
                   Semester
@@ -528,7 +528,7 @@ const Creategroup = () => {
                   defaultValue=""
                   value={groupDetails.semester}
                   onChange={handleSemesterChange}
-                  className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
+                  className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none dark:bg-boxdark dark:text-white text-black"
                 >
                   <option value="" disabled>
                     Select Semester
@@ -562,7 +562,7 @@ const Creategroup = () => {
                   value={groupDetails.subject}
                   defaultValue={''}
                   onChange={(e) => handleInputChange(e, 'subject')}
-                  className="focus:border-blue-500 w-full rounded border px-3 py-2 focus:outline-none"
+                  className="focus:border-blue-500 w-full  text-black rounded border px-3 py-2 focus:outline-none dark:bg-boxdark dark:text-white "
                 >
                   <option value="" disabled>
                     Select Subject
@@ -583,18 +583,18 @@ const Creategroup = () => {
             <div>
               <label
                 htmlFor="memberNames"
-                className="mt-10 block text-2xl font-medium text-black"
+                className="mt-10 block text-2xl font-medium text-black dark:text-white"
               >
                 Member Names
               </label>
               <div className="mt-8">
-                <h2 className="my-2 w-full text-xl font-medium text-black">
+                <h2 className="my-2 w-full text-xl font-medium text-black dark:text-white">
                   Member 1
                 </h2>
                 <div className="flex flex-col gap-0 md:gap-5 lg:flex-row">
                   <input
                     type="text"
-                    className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                    className="focus:border-blue-500 w-full rounded border border-black  text-black px-3 py-2 focus:outline-none dark:border-white dark:bg-boxdark dark:text-white "
                     placeholder="Enter student id (201994101)"
                     required
                     value={studentId}
@@ -602,7 +602,7 @@ const Creategroup = () => {
                   />
                   <input
                     type="dropdown"
-                    className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                    className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 dark:border-white dark:bg-boxdark dark:text-white text-black focus:outline-none"
                     placeholder="Student name"
                     required
                     value={studentName}
@@ -619,13 +619,13 @@ const Creategroup = () => {
                 Member Names
               </label> */}
             <div>
-              <h2 className="my-2 w-full text-xl font-medium text-black">
+              <h2 className="my-2 w-full text-xl font-medium text-black dark:text-white">
                 Member 2
               </h2>
               <div className="flex flex-col gap-0 md:gap-5 lg:flex-row">
                 <input
                   type="text"
-                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 text-black focus:outline-none dark:border-white dark:bg-boxdark dark:text-white"
                   placeholder="Enter student id (201994101)"
                   required
                   value={studentId2}
@@ -633,7 +633,7 @@ const Creategroup = () => {
                 />
                 <input
                   type="dropdown"
-                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 dark:border-white dark:bg-boxdark dark:text-white text-black focus:outline-none"
                   placeholder="Student name"
                   required
                   value={studentName2}
@@ -649,13 +649,13 @@ const Creategroup = () => {
                   Member Names
                 </label> */}
               <div className="">
-                <h2 className="my-2 w-full text-xl font-medium text-black">
+                <h2 className="my-2 w-full text-xl font-medium text-black dark:text-white">
                   Member 3
                 </h2>
                 <div className="flex flex-col gap-0 md:gap-5 lg:flex-row">
                   <input
                     type="text"
-                    className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                    className="focus:border-blue-500 dark:border-white dark:bg-boxdark dark:text-white text-black w-full rounded border border-black px-3 py-2 focus:outline-none"
                     placeholder="Enter student id (201994101)"
                     required
                     value={studentId3}
@@ -663,7 +663,7 @@ const Creategroup = () => {
                   />
                   <input
                     type="dropdown"
-                    className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                    className="focus:border-blue-500 dark:border-white dark:bg-boxdark dark:text-white w-full rounded border border-black px-3 py-2 text-black focus:outline-none"
                     placeholder="Student name"
                     required
                     value={studentName3}
@@ -678,7 +678,7 @@ const Creategroup = () => {
           {' '}
           {/* Project details */}
           <div>
-            <h2 className="mx-auto my-11 text-start font-inter text-4xl font-bold text-black">
+            <h2 className="mx-auto my-11 text-start font-inter text-4xl font-bold text-black dark:text-white">
               Project Ideas
             </h2>
             {/* {[1, 2, 3].map((index) => (
@@ -737,11 +737,11 @@ const Creategroup = () => {
               </div>
             ))} */}
             {/* project -1  */}
-            <div className="mb-6 rounded-2xl bg-white p-6 shadow-md">
+            <div className="mb-6 rounded-2xl bg-white p-6 shadow-md dark:bg-boxdark text-black dark:text-white">
               <div className="my-3">
                 <label
                   htmlFor="projectTitle1"
-                  className="my-2 block text-xl font-medium text-black"
+                  className="my-2 block text-xl font-medium text-black dark:text-white"
                 >
                   Project Title
                 </label>
@@ -751,13 +751,13 @@ const Creategroup = () => {
                   value={projectIdea1.title}
                   onChange={handleChange1}
                   name="title"
-                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                  className="focus:border-blue-500 text-black w-full rounded border border-black px-3 py-2 focus:outline-none dark:border-white dark:bg-boxdark dark:text-white"
                 />
               </div>
               <div className="my-3">
                 <label
                   htmlFor="projectDescription1"
-                  className="my-2 block text-xl font-medium text-black"
+                  className="my-2 block text-xl font-medium text-black dark:text-white"
                 >
                   Project Description
                 </label>
@@ -767,13 +767,13 @@ const Creategroup = () => {
                   value={projectIdea1.description}
                   onChange={handleChange1}
                   name="description"
-                  className="form-textarea my-2.5 w-full rounded border px-3 py-2 focus:outline-none"
+                  className="form-textarea my-2.5 w-full text-black  rounded border px-3 py-2 focus:outline-none dark:border-white dark:bg-boxdark dark:text-white"
                 ></textarea>
               </div>
               <div className="my-3">
                 <label
                   htmlFor="pdfLink1"
-                  className="block text-xl  font-medium text-black"
+                  className="block text-xl  font-medium text-black dark:text-white"
                 >
                   PDF Link
                 </label>
@@ -783,16 +783,16 @@ const Creategroup = () => {
                   value={projectIdea1.pdfLinks}
                   onChange={handleChange1}
                   name="pdfLinks"
-                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                  className="focus:border-blue-500 dark:border-white dark:bg-boxdark dark:text-white text-black  w-full rounded border border-black px-3 py-2 focus:outline-none"
                 />
               </div>
             </div>
             {/* project -2  */}
-            <div className="mb-6 rounded-2xl bg-white p-6 shadow-md">
+            <div className="mb-6 rounded-2xl bg-white dark:bg-boxdark p-6 shadow-md">
               <div className="my-3">
                 <label
                   htmlFor="projectTitle1"
-                  className="block text-xl font-medium text-black"
+                  className="block text-xl font-medium text-black dark:text-white"
                 >
                   Project Title
                 </label>
@@ -802,13 +802,13 @@ const Creategroup = () => {
                   value={projectIdea2.title}
                   onChange={handleChange2}
                   name="title"
-                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                  className="focus:border-blue-500 text-black  w-full rounded border border-black px-3 dark:border-white dark:bg-boxdark dark:text-white py-2 focus:outline-none"
                 />
               </div>
               <div className="my-3">
                 <label
                   htmlFor="projectDescription1"
-                  className="block text-xl font-medium text-black"
+                  className="block text-xl font-medium text-black dark:text-white"
                 >
                   Project Description
                 </label>
@@ -818,13 +818,13 @@ const Creategroup = () => {
                   value={projectIdea2.description}
                   onChange={handleChange2}
                   name="description"
-                  className="form-textarea my-2.5 w-full rounded border px-3 py-2 focus:outline-none"
+                  className="form-textarea text-black dark:border-white dark:bg-boxdark dark:text-white my-2.5 w-full rounded border px-3 py-2 focus:outline-none"
                 ></textarea>
               </div>
               <div className="my-3">
                 <label
                   htmlFor="pdfLink1"
-                  className="block text-xl font-medium text-black"
+                  className="block text-xl font-medium text-black dark:text-white"
                 >
                   PDF Link
                 </label>
@@ -834,16 +834,16 @@ const Creategroup = () => {
                   value={projectIdea2.pdfLinks}
                   onChange={handleChange2}
                   name="pdfLinks"
-                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                  className="focus:border-blue-500 dark:border-white dark:bg-boxdark dark:text-white  text-black w-full rounded border border-black px-3 py-2 focus:outline-none"
                 />
               </div>
             </div>
             {/* project -3  */}
-            <div className="mb-6 rounded-2xl bg-white p-6 shadow-md">
+            <div className="mb-6 rounded-2xl bg-white dark:bg-boxdark p-6 shadow-md">
               <div className="my-3">
                 <label
                   htmlFor="projectTitle1"
-                  className="block text-xl font-medium text-black"
+                  className="block text-xl font-medium text-black dark:text-white"
                 >
                   Project Title
                 </label>
@@ -853,13 +853,13 @@ const Creategroup = () => {
                   value={projectIdea3.title}
                   onChange={handleChange3}
                   name="title"
-                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                  className="focus:border-blue-500  dark:border-white dark:bg-boxdark dark:text-white text-black w-full rounded border border-black px-3 py-2 focus:outline-none"
                 />
               </div>
               <div className="my-3">
                 <label
                   htmlFor="projectDescription1"
-                  className="block text-xl font-medium text-black"
+                  className="block text-xl font-medium text-black dark:text-white"
                 >
                   Project Description
                 </label>
@@ -869,13 +869,13 @@ const Creategroup = () => {
                   value={projectIdea3.description}
                   onChange={handleChange3}
                   name="description"
-                  className="form-textarea my-2.5 w-full rounded border px-3 py-2 focus:outline-none"
+                  className="form-textarea dark:border-white dark:bg-boxdark dark:text-white    text-black  my-2.5 w-full rounded border px-3 py-2 focus:outline-none"
                 ></textarea>
               </div>
               <div className="my-3">
                 <label
                   htmlFor="pdfLink1"
-                  className="block text-xl font-medium text-black"
+                  className="block text-xl font-medium text-black dark:text-white"
                 >
                   PDF Link
                 </label>
@@ -885,7 +885,7 @@ const Creategroup = () => {
                   value={projectIdea3.pdfLinks}
                   onChange={handleChange3}
                   name="pdfLinks"
-                  className="focus:border-blue-500 w-full rounded border border-black px-3 py-2 focus:outline-none"
+                  className="focus:border-blue-500 dark:border-white dark:bg-boxdark dark:text-white text-black  w-full rounded border border-black px-3 py-2 focus:outline-none"
                 />
               </div>
             </div>

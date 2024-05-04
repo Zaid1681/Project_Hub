@@ -2,21 +2,21 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { IoMdRefreshCircle } from 'react-icons/io';
+import { MdDelete } from 'react-icons/md';
+import axios from 'axios';
+import Toastify from 'toastify-js';
 
 import { BASEURL } from '../Api';
-import axios from 'axios';
-import { MdDelete } from 'react-icons/md';
+import Loader from './Loader';
 
 const ChatSectionTaskPage = () => {
   const { groupId } = useParams();
-  // const groupId = id;
   const [chatDes, setChatDes] = useState('');
   const [appProjId, setAppProjId] = useState(null);
-  console.log('--->:', groupId);
-  console.log('--->appProjId', appProjId);
   const [chat, setChat] = useState([]);
   const currentUser = useSelector((state) => state.user);
   const chatContainerRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setChatDes(e.target.value);
@@ -49,26 +49,32 @@ const ChatSectionTaskPage = () => {
 
   const fetchApprovedProj = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(
         `${BASEURL}/group/groupDetail/get/${groupId}`
       );
 
       console.log(response.data.data);
       setAppProjId(response.data.data.approvedProjectId);
+      setLoading(false);
     } catch (error) {
       console.log('Error fetching groupDetails', error);
+      setLoading(false);
     }
   };
 
   const fetchChat = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(
         `${BASEURL}/chat/get/projectId/${appProjId}`
       );
       console.log(response.data.data);
       setChat(response.data.data);
+      setLoading(false);
     } catch (error) {
       console.log('Error fetching Project', error);
+      setLoading(false);
     }
   };
 
@@ -142,7 +148,7 @@ const ChatSectionTaskPage = () => {
   }, [chat]);
 
   return (
-    <div className="mx-3 h-full gap-2 rounded-xl bg-white  p-5 shadow-md md:mx-10">
+    <div className="mx-3 h-full gap-2 rounded-xl bg-white p-5  shadow-md dark:bg-boxdark md:mx-10">
       <div className="">
         <div className="flex  gap-5">
           <div className="">
@@ -188,50 +194,59 @@ const ChatSectionTaskPage = () => {
           </div>
         </div>
       </div>
-      <div
-        ref={chatContainerRef}
-        className={`mt-8 flex h-100 flex-col gap-1 overflow-scroll overflow-x-hidden rounded-md ${
-          chat.length > 0 && 'mx-15` pb-[13rem]' // Applying paddingBottom if chat array is not empty
-        }`}
-      >
-        {chat.map((data, index) => (
-          <div key={index} className="m-3 flex gap-5 bg-black/10 p-4">
-            <div className="">
-              <img
-                src="/src/images/user/user-01.png"
-                alt=""
-                width={50}
-                height={50}
-              />
-            </div>
-            <div className="w-full flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <h2 className="text-base font-semibold text-black hover:cursor-pointer">
-                  @{data.senderName}
-                </h2>
-                <span className="text-gray-500 text-sm">
-                  {`${new Date(data.createdAt).toLocaleDateString(
-                    'en-GB'
-                  )} ${new Date(data.createdAt).getHours()}:${new Date(
-                    data.createdAt
-                  ).getMinutes()}`}
-                </span>
+      {loading ? (
+        <div className="flex h-64 items-center justify-center">
+          {/* <div className="loader border-gray-200 h-24 w-24 rounded-full border-8 border-t-8 ease-linear"></div> */}
+          <Loader />
+        </div>
+      ) : (
+        <div
+          ref={chatContainerRef}
+          className={`mt-8 flex h-100 flex-col gap-1 overflow-scroll overflow-x-hidden rounded-md ${
+            chat.length > 0 && 'mx-15 pb-[13rem]' // Applying paddingBottom if chat array is not empty
+          }`}
+        >
+          {chat.map((data, index) => (
+            <div
+              key={index}
+              className="m-3 flex gap-5 bg-black/10 p-4 dark:border dark:border-white/20 dark:shadow-lg dark:shadow-white/20"
+            >
+              <div className="">
+                <img src="/user-01.png" alt="" width={50} height={50} />
               </div>
-              <div>
-                <h2 className="text-base text-black ">{data.description}</h2>
-                <div className="flex items-center justify-end">
-                  <button
-                    className="rounded bg-[#0C356A] p-1 text-base text-white hover:bg-[#0C356A]/80"
-                    onClick={() => handleChatDelete(data._id, data.senderEmail)}
-                  >
-                    <MdDelete className="text-lg" />
-                  </button>
+              <div className="w-full flex-col gap-2">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-base font-semibold text-black hover:cursor-pointer dark:text-white">
+                    @{data.senderName}
+                  </h2>
+                  <span className="text-gray-500 text-sm">
+                    {`${new Date(data.createdAt).toLocaleDateString(
+                      'en-GB'
+                    )} ${new Date(data.createdAt).getHours()}:${new Date(
+                      data.createdAt
+                    ).getMinutes()}`}
+                  </span>
+                </div>
+                <div>
+                  <h2 className="text-base text-black dark:text-white ">
+                    {data.description}
+                  </h2>
+                  <div className="flex items-center justify-end">
+                    <button
+                      className="rounded bg-[#0C356A] p-1 text-base text-white hover:bg-[#0C356A]/80"
+                      onClick={() =>
+                        handleChatDelete(data._id, data.senderEmail)
+                      }
+                    >
+                      <MdDelete className="text-lg" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

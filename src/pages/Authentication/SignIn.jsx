@@ -108,7 +108,7 @@ const SignIn = () => {
           background: 'linear-gradient(to right, #FF6B6B, #FF6B6B)',
           padding: '10px 50px',
         },
-        onClick: function () {}, // Callback after click
+        onClick: function () { }, // Callback after click
       }).showToast();
       setIsLoading(false); // Set loading state to true during API request
 
@@ -247,12 +247,12 @@ const SignIn = () => {
                       name="email"
                       onChange={handleLoginInputChange}
                       placeholder="Enter your email"
-                      className="border-grey w-full rounded-lg border  bg-transparent py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      className="border-grey w-full rounded-lg border  bg-transparent py-3 pl-6 pr-10 outline-none dark:bg-boxdark bg-white"
                     />
 
                     <span className="absolute right-4 top-4">
                       <svg
-                        className="fill-current"
+                        className="fill-current dark:text-white"
                         width="22"
                         height="22"
                         viewBox="0 0 22 22"
@@ -280,12 +280,12 @@ const SignIn = () => {
                       name="password"
                       onChange={handleLoginInputChange}
                       placeholder="6+ Characters, 1 Capital letter"
-                      className="border-grey w-full rounded-lg border  bg-transparent py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      className="border-grey w-full rounded-lg border  bg-transparent py-3 pl-6 pr-10 outline-none dark:bg-boxdark dark:text-white"
                     />
 
                     <span className="absolute right-4 top-4">
                       <svg
-                        className="fill-current"
+                        className="fill-current dark:text-white"
                         width="22"
                         height="22"
                         viewBox="0 0 22 22"
@@ -315,7 +315,7 @@ const SignIn = () => {
                       name="currentYear"
                       value={loginData.currentYear}
                       onChange={handleLoginInputChange}
-                      className="border-grey bg -transparent w-full  rounded-lg border py-3 pl-4 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      className="border-grey bg -transparent w-full  rounded-lg border py-3 pl-4 pr-10 outline-none dark:bg-boxdark dark:text-white text-black"
                     >
                       <option selected>Select Current Year</option>
                       <option name="currentYear" value="SE">
@@ -330,7 +330,7 @@ const SignIn = () => {
                     </select>
                     <span className="absolute right-4 top-4">
                       <svg
-                        className="fill-current"
+                        className="fill-current dark:text-white"
                         width="22"
                         height="22"
                         viewBox="0 0 22 22"
@@ -349,7 +349,7 @@ const SignIn = () => {
                       <select
                         name="year"
                         onChange={handleLoginInputChange}
-                        className="border-grey w-full rounded-lg border bg-transparent py-3 pl-4 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        className="border-grey w-full rounded-lg border bg-transparent py-3 pl-4 pr-10 outline-none dark:bg-boxdark dark:text-white"
                       >
                         <option value="" disabled selected>
                           Select Academic Year
@@ -391,7 +391,7 @@ const SignIn = () => {
                     {isLoading ? 'Loading...' : 'Sign in'}
                   </button>
                 </div>
-                <div className="mt-6 text-center">
+                <div className="mt-6 text-center text-black dark:text-white">
                   <p>
                     Don’t have any account?{' '}
                     <Link to="/auth/signup" className="text-primary">

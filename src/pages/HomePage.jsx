@@ -4,6 +4,7 @@ import { MdGroups2 } from 'react-icons/md';
 import { MdOutlineTravelExplore } from 'react-icons/md';
 import { MdGroupAdd } from 'react-icons/md';
 import heroBg from '../images/heroBg.jpg';
+import Footer from '../components/Footer';
 // import { NavbarWithMegaMenu } from '../components/Navbar';
 import Navbar from './Navbar';
 import Card from '../components/Cards';
@@ -55,7 +56,7 @@ export default function HomePage() {
 
   return (
     <section
-      className="text-black"
+      className="bg-white text-black"
       style={{ backgroundColor: 'white', minHeight: '100vh' }}
     >
       <Navbar />
@@ -63,12 +64,12 @@ export default function HomePage() {
         id="home"
         className="items-cetner max-container mt-8 flex flex-col justify-center gap-10 py-15 px-10 md:mt-20 md:mb-15 md:flex-row"
       >
-        <div className="flex flex-col xl:w-2/4">
+        <div className="flex flex-col xl:w-2/4 ">
           <h1 className="font-inter text-5xl font-semibold md:text-8xl">
             Welcome to <br />
             Project Hub
           </h1>
-          <p className="mt-6 font-opensans text-lg leading-normal">
+          <p className="mt-6 text-justify font-opensans text-lg leading-normal">
             At Project Hub, we believe in the power of knowledge sharing. Our
             platform allows students to showcase their projects, share detailed
             insights, and collaborate with peers. By sharing your projects,
@@ -93,7 +94,7 @@ export default function HomePage() {
             </div>
             <div class="px-6 pt-16 pb-6 ">
               <h2 class="text-xl font-semibold">Store Project</h2>
-              <p class=" mt-3 text-sm">
+              <p class=" mt-3 text-justify text-sm">
                 In the undergraduate student project management system, the
                 ability to store projects serves as a cornerstone feature,
                 enabling students and faculty members to securely preserve
@@ -108,7 +109,7 @@ export default function HomePage() {
             </div>
             <div class="px-6 pt-16 pb-6 ">
               <h2 class="text-xl font-semibold ">Groups Formation</h2>
-              <p class=" mt-3 text-sm">
+              <p class=" mt-3 text-justify text-sm">
                 This feature for group formation streamlines the process of
                 assembling project teams. Facilitating efficient collaboration,
                 group formation encourages teamwork, diversity of perspectives,
@@ -123,7 +124,7 @@ export default function HomePage() {
             </div>
             <div class="px-6 pt-16 pb-6 ">
               <h2 class="text-xl font-semibold">Explore Projects</h2>
-              <p class="mt-3 text-sm">
+              <p class=" mt-3 text-justify text-sm">
                 The "Explore Projects" feature empowers students and faculty to
                 discover a diverse range of available projects within the
                 system. By providing comprehensive project listings,
@@ -141,7 +142,7 @@ export default function HomePage() {
               <h2 class="text-xl font-semibold text-white">
                 Faculty Collaboration
               </h2>
-              <p class=" mt-3 text-sm text-white">
+              <p class=" mt-3 text-justify text-sm">
                 In the context of undergraduate project management, the faculty
                 collaboration feature facilitates seamless communication and
                 interaction between students and academic staff members. This
@@ -152,6 +153,7 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+      <Footer />
     </section>
   );
 }

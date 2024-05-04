@@ -6,10 +6,13 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="flex flex-wrap items-center justify-between  py-6 px-10">
+    <nav className="flex flex-wrap items-center justify-between  py-6 md:px-24 px-10">
       {' '}
       <div className="mr-6 flex flex-shrink-0 items-center text-white lg:mr-72">
-        <img src={phlogo2} className="mr-2 h-full w-20" alt="Logo" />
+        <a href="/">
+          {' '}
+          <img src={phlogo2} className="mr-2 h-full w-20" alt="Logo" />
+        </a>
       </div>
       <div className="block text-xl lg:hidden">
         <button
@@ -33,33 +36,34 @@ function Navbar() {
         </button>
       </div>
       <div
-        className={`block w-full gap-5 justify-end flex-grow lg:flex lg:w-auto lg:items-center ${isOpen ? 'block' : 'hidden'
-          }`}
+        className={`block w-full flex-grow justify-end gap-5 lg:flex lg:w-auto lg:items-center ${
+          isOpen ? 'block' : 'hidden'
+        }`}
       >
-        <div className="mb-6 flex gap-5 text-center text-xl flex-col md:flex-row md:mb-0 ">
+        <div className="mb-6 flex flex-col gap-5 text-center text-xl md:mb-0 md:flex-row ">
           <a
             href="/homepage"
             className="block font-semibold text-black lg:mt-0 lg:inline-block "
           >
             Home
           </a>
-          {/* <a
+          <a
             href="/aboutpage"
             className="block font-semibold text-black lg:mt-0 lg:inline-block"
           >
             About
-          </a> */}
+          </a>
         </div>
         <div className="flex flex-col items-center justify-center gap-5 md:flex-row">
           <a
             href="/auth/signin"
-            className="inline-flex items-center rounded-xl border-2 border-[#0C356A] bg-[#0C356A] py-2 px-4 text-xl  text-white shadow-lg"
+            className="inline-flex items-center rounded border-2 border-[#0C356A] bg-[#0C356A] py-1 px-4 text-lg  text-white shadow-lg"
           >
             Student Login
           </a>
           <a
             href="/admin/auth/signin"
-            className="inline-flex items-center rounded-xl border-2 border-[#0C356A] bg-[#0C356A] py-2 px-4 text-xl  text-white shadow-lg"
+            className="inline-flex items-center rounded border-2 border-[#0C356A] bg-[#0C356A] py-1 px-4 text-lg  text-white shadow-lg"
           >
             Faculty Login
           </a>
