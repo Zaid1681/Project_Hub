@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
-// import locofy from './locofy.png';
+import { Link } from 'react-router-dom';
 import phlogo2 from '../../public/phlogo2.png';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="flex flex-wrap items-center justify-between  py-6 md:px-24 px-10">
-      {' '}
+    <nav className="flex flex-wrap items-center justify-between  py-6 px-10 md:px-24">
       <div className="mr-6 flex flex-shrink-0 items-center text-white lg:mr-72">
-        <a href="/">
-          {' '}
+        <Link to="/">
           <img src={phlogo2} className="mr-2 h-full w-20" alt="Logo" />
-        </a>
+        </Link>
       </div>
       <div className="block text-xl lg:hidden">
         <button
@@ -41,35 +39,36 @@ function Navbar() {
         }`}
       >
         <div className="mb-6 flex flex-col gap-5 text-center text-xl md:mb-0 md:flex-row ">
-          <a
-            href="/homepage"
+          <Link
+            to="/homepage"
             className="block font-semibold text-black lg:mt-0 lg:inline-block "
           >
             Home
-          </a>
-          <a
-            href="/aboutpage"
+          </Link>
+          <Link
+            to="/aboutpage"
             className="block font-semibold text-black lg:mt-0 lg:inline-block"
           >
             About
-          </a>
+          </Link>
         </div>
         <div className="flex flex-col items-center justify-center gap-5 md:flex-row">
-          <a
-            href="/auth/signin"
+          <Link
+            to="/auth/signin"
             className="inline-flex items-center rounded border-2 border-[#0C356A] bg-[#0C356A] py-1 px-4 text-lg  text-white shadow-lg"
           >
             Student Login
-          </a>
-          <a
-            href="/admin/auth/signin"
+          </Link>
+          <Link
+            to="/admin/auth/signin"
             className="inline-flex items-center rounded border-2 border-[#0C356A] bg-[#0C356A] py-1 px-4 text-lg  text-white shadow-lg"
           >
             Faculty Login
-          </a>
+          </Link>
         </div>
       </div>
     </nav>
   );
 }
+
 export default Navbar;

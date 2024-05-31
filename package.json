@@ -17,7 +17,7 @@
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^41.3.1",
     "@ckeditor/ckeditor5-react": "^6.3.0",
-    "@heroicons/react": "^2.1.1",
+      "@heroicons/react": "^2.1.1",
     "@material-tailwind/react": "^2.1.8",
     "@reduxjs/toolkit": "^2.0.1",
     "antd": "^5.12.1",
