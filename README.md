@@ -164,4 +164,8 @@ If you like this project, **give it a star ⭐** and help us spread the vision o
 
 <img width="824" height="413" alt="Screenshot 2026-01-17 at 3 38 59 AM" src="https://github.com/user-attachments/assets/394ee6d4-8129-4a8f-ba1d-a54a68415871" />
 <img width="834" height="464" alt="Screenshot 2026-01-17 at 3 39 13 AM" src="https://github.com/user-attachments/assets/8aec85ff-6848-4b16-b277-dd25326cd0e4" />
+<img width="830" height="410" alt="Screenshot 2026-01-17 at 3 39 45 AM" src="https://github.com/user-attachments/assets/f7e5c6f2-e8f5-4d00-a35c-d25548c75da2" />
+<img width="838" height="443" alt="Screenshot 2026-01-17 at 3 39 58 AM" src="https://github.com/user-attachments/assets/d8207805-ac25-403c-8dd5-08c4aec1afba" />
+<img width="992" height="498" alt="Screenshot 2026-01-17 at 3 40 35 AM" src="https://github.com/user-attachments/assets/5fcb2a24-183a-43b4-97aa-00355b480186" />
+
 
