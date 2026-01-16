@@ -161,3 +161,5 @@ If you like this project, **give it a star ⭐** and help us spread the vision o
 ---
 
 ### 🎓 Project Hub — *Empowering Collaboration. Inspiring Innovation.* ✨
+
+<img width="824" height="413" alt="Screenshot 2026-01-17 at 3 38 59 AM" src="https://github.com/user-attachments/assets/394ee6d4-8129-4a8f-ba1d-a54a68415871" />
